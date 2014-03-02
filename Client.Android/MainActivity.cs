@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using droid=Android;
 
 namespace Client.Android
 {
@@ -9,16 +10,16 @@ namespace Client.Android
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
-        , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
+        , LaunchMode = droid.Content.PM.LaunchMode.SingleInstance
         , ScreenOrientation = ScreenOrientation.SensorLandscape
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
-    public class Activity1 : Microsoft.Xna.Framework.AndroidGameActivity
+    public class MainActivity : Microsoft.Xna.Framework.AndroidGameActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Game1.Activity = this;
-            var g = new Game1();
+            BingoGameClient.Activity = this;
+            var g = new BingoGameClient();
             SetContentView(g.Window);
             g.Run();
         }

@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Web", "Client.Web\Client.Web.csproj", "{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Interfaces", "Engine.Interfaces\Engine.Interfaces.csproj", "{F1134712-9412-4E28-A9C0-6E13669D010D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Interfaces", "Client.Interfaces\Client.Interfaces.csproj", "{6E38A943-1210-4C66-B537-3209284AA38C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BingoBlockParty", "BingoBlockParty", "{240AF6A7-EF18-4448-B961-DEE8F58F5772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Client", "BingoBlockParty\BingoBlockParty.Client\BingoBlockParty.Client.csproj", "{BFB21318-ED16-4F16-B464-27E3A4AA0734}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +21,23 @@ Global
 		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1134712-9412-4E28-A9C0-6E13669D010D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1134712-9412-4E28-A9C0-6E13669D010D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1134712-9412-4E28-A9C0-6E13669D010D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1134712-9412-4E28-A9C0-6E13669D010D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E38A943-1210-4C66-B537-3209284AA38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E38A943-1210-4C66-B537-3209284AA38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E38A943-1210-4C66-B537-3209284AA38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E38A943-1210-4C66-B537-3209284AA38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFB21318-ED16-4F16-B464-27E3A4AA0734} = {240AF6A7-EF18-4448-B961-DEE8F58F5772}
 	EndGlobalSection
 EndGlobal

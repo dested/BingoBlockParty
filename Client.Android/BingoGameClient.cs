@@ -1,22 +1,32 @@
+using System.Runtime.Remoting.Channels;
+using Android.OS;
+using Client.Interfaces;
+using Engine.Interfaces;
+using Engine.Xna;
+using Java.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Client.Android
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class BingoGameClient : Microsoft.Xna.Framework.Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
+        private IClient client;
+        private IRenderer renderer;
 
-        public Game1()
+        public BingoGameClient()
         {
             graphics = new GraphicsDeviceManager(this);
-
+                    
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
@@ -35,6 +45,9 @@ namespace Client.Android
         {
             // TODO: Add your initialization logic here
 
+
+            
+
             base.Initialize();
         }
 
@@ -46,9 +59,12 @@ namespace Client.Android
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("spriteFont1");
+            client = new XnaClient();
+            client.Init();
+            renderer = new XnaRenderer();
+
         }
 
         /// <summary>
@@ -58,12 +74,19 @@ namespace Client.Android
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            TouchCollection touchCollection = TouchPanel.GetState();
+
+            for (int index = 0; index < touchCollection.Count; index++)
+            {
+                var touch = touchCollection[index];
+            }
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 Exit();
             }
-
-            // TODO: Add your update logic here
+            client.Tick();
 
             base.Update(gameTime);
         }
@@ -79,6 +102,8 @@ namespace Client.Android
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
             spriteBatch.End();
+
+            client.Draw(renderer);
 
             base.Draw(gameTime);
         }
