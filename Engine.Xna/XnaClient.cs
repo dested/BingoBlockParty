@@ -13,14 +13,14 @@ namespace Engine.Xna
 
         public IGame Game { get; set; }
 
-        public void Init()
+        public void Init(IRenderer renderer)
         {
-            Game.Init();
+            Game.Init(renderer);
         }
 
-        public void Draw(IRenderer renderer)
+        public void Draw()
         {
-            Game.Draw(renderer);
+            Game.Draw();
         }
 
         public void Tick()

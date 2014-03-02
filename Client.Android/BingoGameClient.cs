@@ -18,8 +18,6 @@ namespace Client.Android
     {
 
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont font;
         private IClient client;
         private IRenderer renderer;
 
@@ -57,13 +55,9 @@ namespace Client.Android
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            // TODO: use this.Content to load your game content here
-            font = Content.Load<SpriteFont>("spriteFont1");
             client = new XnaClient();
-            client.Init();
-            renderer = new XnaRenderer();
+            renderer = new XnaRenderer(GraphicsDevice,Content);
+            client.Init(renderer);
 
         }
 
@@ -99,11 +93,11 @@ namespace Client.Android
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+   /*         spriteBatch.Begin();
             spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
             spriteBatch.End();
-
-            client.Draw(renderer);
+*/
+            client.Draw( );
 
             base.Draw(gameTime);
         }

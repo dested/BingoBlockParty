@@ -10,6 +10,7 @@ namespace Engine.Interfaces
     {
         ILayer CreateLayer(int width, int height);
         IImage GetImage(string imageName);
+        void CreateImage(string imageName, string imagePath, Point center = null);
     }
     public interface ILayer
     {

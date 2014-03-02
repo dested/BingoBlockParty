@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\spriteFont1.xnb" />
+    <AndroidAsset Include="Assets\Content\images\people\Thumbs.db" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -81,6 +82,67 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Content\images\cannonBalls\ball_inner.png" />
+    <AndroidAsset Include="Assets\Content\images\cannonBalls\ball_noshine.png" />
+    <AndroidAsset Include="Assets\Content\images\cannonBalls\ball_outer.png" />
+    <AndroidAsset Include="Assets\Content\images\cannons\shooter.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\blue_bucket.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\blue_bucket_lit.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\buckets.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\bumpers.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\green_bucket.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\green_bucket_lit.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\purple_bucket.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\purple_bucket_lit.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\red_bucket.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\red_bucket_lit.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\yellow_bucket.png" />
+    <AndroidAsset Include="Assets\Content\images\chutes\yellow_bucket_lit.png" />
+    <AndroidAsset Include="Assets\Content\images\gameBoards\board1.png" />
+    <AndroidAsset Include="Assets\Content\images\overlays\coin_box.png" />
+    <AndroidAsset Include="Assets\Content\images\overlays\jackpot_shooter_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\overlays\pulls_button.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\blue_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\blue_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\green_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\green_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\purple_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\purple_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\red_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\red_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\white_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\white_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\yellow_peg.png" />
+    <AndroidAsset Include="Assets\Content\images\pegs\yellow_peg_lit_overlay.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female1_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female1_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female1Cat_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female1Cat_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female2_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female2_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female2Rabbit_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female2Rabbit_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female3_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female3_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female3Bear_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\Female3Bear_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\FemaleBouncer_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\FemaleBouncer_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male1_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male1_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male1Frog_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male1Frog_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male2_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male2_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male2Dragon_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male2Dragon_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male3_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male3_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male3Monkey_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\male3Monkey_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\MaleBouncer_BackDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\people\MaleBouncer_FrontDesign.png" />
+    <AndroidAsset Include="Assets\Content\images\walkway\walkway-red.png" />
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
