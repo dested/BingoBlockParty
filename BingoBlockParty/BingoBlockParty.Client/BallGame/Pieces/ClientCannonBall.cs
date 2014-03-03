@@ -14,14 +14,14 @@ namespace BingoBlockParty.Client.BallGame.Pieces
         public override void Tick()
         {
             base.Tick();
-            var position = Body.GetPosition();
+            var position = Body.Position;
             GameBoard.Client().ViewManager.Center((int)GameBoard.PegPhysicsManager.MeterToPixel(position.X), (int)GameBoard.PegPhysicsManager.MeterToPixel(position.Y));
         }
 
         public void Render(ILayer context)
         {
               if (this.BallDead)return;
-                    var position = this.Body.GetPosition();
+                    var position = this.Body.Position;
 
                     var x = this.GameBoard.PegPhysicsManager.MeterToPixel(position.X);
                     var y = this.GameBoard.PegPhysicsManager.MeterToPixel(position.Y);

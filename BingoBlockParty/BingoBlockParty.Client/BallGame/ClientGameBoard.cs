@@ -59,31 +59,32 @@ namespace BingoBlockParty.Client.BallGame
 
         public override void Init()
         {
+            CreateObjects();
             base.Init();
 
             this.BackgroundPlane.Init();
             this.OverlaysPlane.Init();
             this.GameModel.Client().ClickManager.Init();
 
+            Renderer.AddLayer(BackgroundPlane.Plane);
+            Renderer.AddLayer(ChutesPlane.Client().BackPlane);
+            Renderer.AddLayer(CannonBallPlane.Client().Plane);
+            Renderer.AddLayer(CannonPlane.Client().Plane);
+            Renderer.AddLayer(ChutesPlane.Client().FrontPlane);
+            Renderer.AddLayer(PegsPlane.Client().Plane);
+            Renderer.AddLayer(OverlaysPlane.Plane);
 
-            /*
-                                            ballGameBoard.appendChild(this.backgroundPlane.plane.canvas);
-                                            ballGameBoard.appendChild(this.chutesPlane.backPlane.canvas);
-                                            ballGameBoard.appendChild(this.cannonBallPlane.plane.canvas);
-                                            ballGameBoard.appendChild(this.cannonPlane.plane.canvas);
-                                            ballGameBoard.appendChild(this.chutesPlane.frontPlane.canvas);
-                                            ballGameBoard.appendChild(this.pegsPlane.plane.canvas);
-                                            ballGameBoard.appendChild(this.overlaysPlane.plane.canvas);
-                                            if (this.pegPhysicsManager.plane) {
-                                                ballGameBoard.appendChild(this.pegPhysicsManager.plane.canvas);
-                                            }
-                                            ballGameBoard.appendChild(this.gameModel.clickManager.element);*/
+            if (PegPhysicsManager.Client().ShouldDraw)
+            {
+                //            Renderer.AddLayer(PegPhysicsManager.Plane);
+            }
+            //ballGameBoard.appendChild(this.gameModel.clickManager.element);
         }
 
         public override void RoundOver()
         {
-
-            /*
+            base.RoundOver();
+/*
                         this.PegPhysicsManager.RoundOver(RoundOverState.Pre);
                         this.CannonPlane.RoundOver(RoundOverState.Pre);
                         this.ChutesPlane.RoundOver(RoundOverState.Pre);

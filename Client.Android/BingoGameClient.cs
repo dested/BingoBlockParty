@@ -19,18 +19,17 @@ namespace Client.Android
 
         GraphicsDeviceManager graphics;
         private IClient client;
-        private IRenderer renderer;
+        private IRenderer renderer; 
 
         public BingoGameClient()
         {
             graphics = new GraphicsDeviceManager(this);
-                    
+            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
+             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitUpsideDown;
 
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 480;
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+             Resolution.SetVirtualResolution(1024, 768);
+             Resolution.SetResolution(1280, 800, false);
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Client.Android
             // TODO: Add your initialization logic here
 
 
-            
+
 
             base.Initialize();
         }
@@ -55,8 +54,13 @@ namespace Client.Android
         /// </summary>
         protected override void LoadContent()
         {
+            /*
+                        logoTexture = Content.Load<Texture2D>("images/cannonBalls/ball_inner.png");
+                        spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            */
+
             client = new XnaClient();
-            renderer = new XnaRenderer(GraphicsDevice,Content);
+            renderer = new XnaRenderer(GraphicsDevice, Content);
             client.Init(renderer);
 
         }
@@ -91,13 +95,23 @@ namespace Client.Android
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            Resolution.BeginDraw();
+
+
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-   /*         spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
-            spriteBatch.End();
-*/
-            client.Draw( );
+            /*
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(logoTexture, new Vector2(16, 16), Color.White);
+                        spriteBatch.End();
+            */
+
+
+            /*         spriteBatch.Begin();
+                     spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
+                     spriteBatch.End();
+         */
+            client.Draw();
 
             base.Draw(gameTime);
         }

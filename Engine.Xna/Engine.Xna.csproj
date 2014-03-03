@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resolution.cs" />
     <Compile Include="XnaClient.cs" />
     <Compile Include="XnaRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,14 +56,6 @@
     <ProjectReference Include="..\BingoBlockParty\BingoBlockParty.Client\BingoBlockParty.Client.csproj">
       <Project>{E53A0131-9C6C-4335-A05A-2AE0B0F4E37B}</Project>
       <Name>BingoBlockParty.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
-      <Name>Client.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

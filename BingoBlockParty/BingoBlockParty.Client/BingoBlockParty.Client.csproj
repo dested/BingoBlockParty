@@ -59,21 +59,13 @@
     <Compile Include="Utils\ClientSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
-      <Name>Client.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
-      <Name>Engine.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
       <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Box2DX\Box2DX.csproj">
-      <Project>{3402E507-7F04-447D-9F20-2EB6C8AD077C}</Project>
-      <Name>Box2DX</Name>
+    <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
+      <Project>{581295BB-62B9-4877-B6CD-7EC30561A62D}</Project>
+      <Name>FarseerPhysics</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -9,8 +9,13 @@ namespace Engine.Interfaces
     public interface IRenderer
     {
         ILayer CreateLayer(int width, int height);
+        void AddLayer(ILayer layer);
         IImage GetImage(string imageName);
         void CreateImage(string imageName, string imagePath, Point center = null);
+
+        void BeginRender();
+        void EndRender();
+
     }
     public interface ILayer
     {

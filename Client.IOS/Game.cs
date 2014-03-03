@@ -1,14 +1,8 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// ${Namespace}Game.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
 
-#region Using Statements
-using System; 
+using System;
+using Client.Interfaces;
+using Engine.Interfaces;
+using Engine.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,31 +12,29 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 
-#endregion
-
 namespace OpenGL1
 {
 	/// <summary>
 	/// Default Project Template
 	/// </summary>
-	public class Game1 : Game
+	public class BingoGameClient : Game
 	{
 
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont font;
-        Texture2D logoTexture;
+        private IClient client;
+        private IRenderer renderer; 
+         
 
-	    #region Initialization
-
-        public Game1()
+        public BingoGameClient()
         { 
 
 			graphics = new GraphicsDeviceManager(this);
+            Resolution.Init(ref graphics);
 			
 			Content.RootDirectory = "Content";
 
-			graphics.IsFullScreen = true;
+            Resolution.SetVirtualResolution(1024, 768);
+            Resolution.SetResolution(1280, 800, false);
 		}
 
 		/// <summary>
@@ -60,17 +52,12 @@ namespace OpenGL1
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be use to draw textures.
-			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
-            font = Content.Load<SpriteFont>("spriteFont1");
-			// TODO: use this.Content to load your game content here eg.
-			logoTexture = Content.Load<Texture2D>("logo");
+            client = new XnaClient();
+            renderer = new XnaRenderer(GraphicsDevice, Content);
+            client.Init(renderer);
 		}
-
-	#endregion
-
-	#region Update and Draw
+         
 
 		/// <summary>
         	/// Allows the game to run logic such as updating the world,
@@ -79,6 +66,8 @@ namespace OpenGL1
         	/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+
+            client.Tick();
 			// TODO: Add your update logic here			
 			base.Update(gameTime);
 		}
@@ -89,16 +78,24 @@ namespace OpenGL1
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			// Clear the backbuffer
-			graphics.GraphicsDevice.Clear(Color.Purple);
+            Resolution.BeginDraw();
 
-            int width = this.Window.ClientBounds.Width;
-            int height = this.Window.ClientBounds.Height;
 
-			//TODO: Add your drawing code here
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            /*
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(logoTexture, new Vector2(16, 16), Color.White);
+                        spriteBatch.End();
+            */
+
+
+            /*         spriteBatch.Begin();
+                     spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
+                     spriteBatch.End();
+         */
+            client.Draw();
 			base.Draw(gameTime);
 		}
-
-	#endregion
 	}
 }

@@ -39,14 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
-      <Name>Engine.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
       <Project>{1f5a2302-7e31-4fa2-8ca7-2a2d66e083c4}</Project>
       <Name>BingoBlockParty.Common</Name>

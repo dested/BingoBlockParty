@@ -1,5 +1,5 @@
 ﻿using BingoBlockParty.Common.BallGame.Models;
-using Box2DX.Dynamics;
+using FarseerPhysics.Dynamics;
 
 namespace BingoBlockParty.Common.BallGame.Pieces
 {
@@ -47,7 +47,7 @@ namespace BingoBlockParty.Common.BallGame.Pieces
 
         public virtual void Tick()
         {
-            if (Body.IsSleeping())
+            if (!Body.Awake)
             {
                 BallDead = true;
                 GameBoard.PegPhysicsManager.DestroyBody(Body);

@@ -2,6 +2,7 @@
 using BingoBlockParty.Client.BallGame.Pieces;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
+using BingoBlockParty.Common.BallGame.Pieces;
 using BingoBlockParty.Common.BallGame.Planes;
 using Engine.Interfaces;
 
@@ -16,6 +17,11 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public ClientChutesPlane(GameBoard gameBoard):base(gameBoard)
         { 
+        }
+
+        public override Chute CreateChute(ChutesPlane chutesPlane, int chuteNumber, Point chuteLocation)
+        {
+            return new ClientChute(GameBoard, chutesPlane, chuteNumber, chuteLocation);
         }
 
         public override void Init()

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using BingoBlockParty.Common.BallGame.Models;
-using Box2DX.Collision;
-using Box2DX.Common;
-using Box2DX.Dynamics;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
 using Math = System.Math;
 
 namespace BingoBlockParty.Common.BallGame
@@ -21,11 +23,7 @@ namespace BingoBlockParty.Common.BallGame
 
         public void Init()
         {
-            AABB worldAABB = new AABB();
-            worldAABB.LowerBound.Set(-100.0f);
-            worldAABB.UpperBound.Set(100.0f);
-
-            this.World = new World(worldAABB, new Vec2(0, 35), true);
+            this.World = new World(new Vector2(0, 35));
 
 
             this.CreateRectangleWall(0, -this.GameBoard.GameModel.BoardHeight, 1, this.GameBoard.GameModel.BoardHeight * 2, "Wall");
@@ -34,101 +32,105 @@ namespace BingoBlockParty.Common.BallGame
 
 
             this.Collisions = new List<CollisionObject>();
-            var myListener = new PegContactListener();
 
 
+            /*
+                        this.World.ContactManager.BeginContact += (cc,c) =>
+                                                                  {   public void BeginContact(Contact contact)
+                                {
+                                                                              if (contact.GetFixtureA().GetBody().GetUserData()) {
+                                        if (contact.GetFixtureA().GetBody().GetUserData().collide) {
+                                            this.collisions.push({objA: contact.GetFixtureA().GetBody().GetUserData(), objB: contact.GetFixtureB().GetBody().GetUserData()});
+                                        }
+                                    }
 
-            this.World.SetContactListener(myListener);
+                                    if (contact.GetFixtureB().GetBody().GetUserData()) {
+                                        if (contact.GetFixtureB().GetBody().GetUserData().collide) {
+                                            this.collisions.push({objA: contact.GetFixtureB().GetBody().GetUserData(), objB: contact.GetFixtureA().GetBody().GetUserData()});
+                                        }
+                                    }
+                                }
+                                                                  };
+            */
+            //            this.World.SetContactListener(myListener);
         }
 
 
         public Body CreateRectangleWall(int x, int y, int width, int height, object userData)
         {
-            var fixDef = new PolygonDef();
-            fixDef.Density = 1;
-            fixDef.Friction = 1;
-            fixDef.Restitution = .6f;
-            var bodyDef = new BodyDef();
-            bodyDef.Position.X = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
-            bodyDef.Position.Y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
-            var body = this.World.CreateBody(bodyDef);
-            var fixture = body.CreateFixture(fixDef);
-            ((PolygonShape)fixture.Shape).SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
-            body.SetStatic();
-            body.SetUserData(userData);
+
+            var body = BodyFactory.CreateBody(World);
+            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
+            PolygonShape shape = new PolygonShape(1);
+
+            shape.Vertices = PolygonTools.CreateRectangle(PixelToMeter(width) / 2f, PixelToMeter(height) / 2f);
+            var fixture = body.CreateFixture(shape, userData);
             return body;
+            /*
+
+                        var fixDef = new PolygonDef();
+                        fixDef.Density = 1;
+                        fixDef.Friction = 1;
+                        fixDef.Restitution = .6f;
+
+                        fixDef.SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
+
+                        var bodyDef = new BodyDef();
+                        bodyDef.Position.X = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
+                        bodyDef.Position.Y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
+                        var body = this.World.CreateBody(bodyDef);
+                        var fixture = body.CreateFixture(fixDef);
+            //            ((PolygonShape)fixture.Shape).SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
+                        body.SetStatic();
+                        body.SetUserData(userData);
+                        return body;
+            */
         }
 
         public Body CreateRectangleSensor(int x, int y, int width, int height, object userData)
         {
-            var fixDef = new PolygonDef();
-            fixDef.IsSensor = true;
-            fixDef.Density = 1;
-            fixDef.Friction = 1;
-            fixDef.Restitution = .6f;
-            var bodyDef = new BodyDef();
-            bodyDef.Position.X = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
-            bodyDef.Position.Y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
-            var body = this.World.CreateBody(bodyDef);
-            var fixture = body.CreateFixture(fixDef);
-            ((PolygonShape)fixture.Shape).SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
-            body.SetStatic();
-            body.SetUserData(userData);
+            var body = BodyFactory.CreateBody(World);
+            body.IsSensor = true;
+            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
+
+            PolygonShape shape = new PolygonShape(1);
+            shape.Vertices = PolygonTools.CreateRectangle(PixelToMeter(width) / 2f, PixelToMeter(height) / 2f);
+            var fixture = body.CreateFixture(shape, userData);
+            
             return body;
+
         }
 
 
         public Body CreateCircleWall(int x, int y, int rad, object userData)
         {
 
-            var fixDef = new CircleDef();
+            var body = BodyFactory.CreateBody(World);
+            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
 
-            fixDef.Density = 1;
-            fixDef.Friction = 1;
-            fixDef.Restitution = .6f;
-            fixDef.Radius = PixelToMeter(rad);
-
-            var bodyDef = new BodyDef();
-
-            bodyDef.Position.X = this.PixelToMeter(x);
-            bodyDef.Position.Y = this.PixelToMeter(y);
-
-            var body = this.World.CreateBody(bodyDef);
-            body.SetStatic();
-            body.CreateFixture(fixDef);
-            body.SetUserData(userData);
+            CircleShape shape = new CircleShape(PixelToMeter(rad),1);
+            var fixture = body.CreateFixture(shape, userData);
             return body;
+             
         }
 
         public void DestroyBody(Body body)
         {
-            this.World.DestroyBody(body);
+            this.World.RemoveBody(body);
         }
 
         public Body CreatePeg(int x, int y, object peg)
         {
+            var body = BodyFactory.CreateBody(World);
+            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
 
-            var fixDef = new CircleDef();
-
-            fixDef.Density = 1;
-            fixDef.Friction = 1;
-            fixDef.Restitution = .6f;
-            fixDef.Radius = 1 / 2;
-
-            var bodyDef = new BodyDef();
-
-            bodyDef.Position.X = this.PixelToMeter(x);
-            bodyDef.Position.Y = this.PixelToMeter(y);
-
-            var body = this.World.CreateBody(bodyDef);
-            body.SetStatic();
-            body.CreateFixture(fixDef);
-            body.SetUserData(peg);
+            CircleShape shape = new CircleShape(1f / 2f, 1);
+            var fixture = body.CreateFixture(shape, peg);
+           
             return body;
         }
         public Body CreateCannonBall(int x, int y, float angle, float velocity, object cannonBall)
         {
-
             var vx = (float)(Math.Cos((angle) * Math.PI / 180) * velocity);
             var vy = (float)(Math.Sin((angle) * Math.PI / 180) * velocity);
 
@@ -136,27 +138,21 @@ namespace BingoBlockParty.Common.BallGame
             var offvx = (float)(Math.Cos((angle) * Math.PI / 180) * 9 * 16);
             var offvy = (float)(Math.Sin((angle) * Math.PI / 180) * 3 * 16);
 
-            var fixDef = new CircleDef();
+            var body = BodyFactory.CreateBody(World);
+            body.BodyType = BodyType.Dynamic;
 
-            fixDef.Density = 1;
-            fixDef.Friction = 1;
-            fixDef.Restitution = .6f;
-            fixDef.Radius = 1.25f / 2;
+            body.Position = new Vector2(PixelToMeter(x + offvx), PixelToMeter(y + offvy));
 
-            var bodyDef = new BodyDef();
+            CircleShape shape = new CircleShape(1.25f/2f, 1);
+            
+            var fixture = body.CreateFixture(shape, cannonBall);
+            fixture.Restitution = .6f;
 
-            bodyDef.Position.X = this.PixelToMeter(x + offvx);
-            bodyDef.Position.Y = this.PixelToMeter(y + offvy);
-
-            var body = this.World.CreateBody(bodyDef);
-            body.SetStatic();
-            body.CreateFixture(fixDef);
-            body.SetUserData(cannonBall);
-
-            body.ApplyImpulse(new Vec2(vx, vy), body.GetWorldCenter());
+            body.ApplyForce(new Vector2(vx, vy), body.WorldCenter);
             return body;
+ 
         }
-         
+
         public float MeterPixelSize { get { return 16; } }
 
         public float MeterToPixel(float meter)
@@ -177,7 +173,7 @@ namespace BingoBlockParty.Common.BallGame
         {
             this.Collisions.Clear();
 
-            this.World.Step(1 / 60, 10, 10);
+            this.World.Step(1f / 60f);
 
             for (var i = 0; i < this.Collisions.Count; i++)
             {
@@ -188,41 +184,6 @@ namespace BingoBlockParty.Common.BallGame
         }
     }
 
-    public class PegContactListener : ContactListener
-    {
-        /*
-                    public void BeginContact(Contact contact)
-                    {
-                                                                  if (contact.GetFixtureA().GetBody().GetUserData()) {
-                            if (contact.GetFixtureA().GetBody().GetUserData().collide) {
-                                this.collisions.push({objA: contact.GetFixtureA().GetBody().GetUserData(), objB: contact.GetFixtureB().GetBody().GetUserData()});
-                            }
-                        }
-
-                        if (contact.GetFixtureB().GetBody().GetUserData()) {
-                            if (contact.GetFixtureB().GetBody().GetUserData().collide) {
-                                this.collisions.push({objA: contact.GetFixtureB().GetBody().GetUserData(), objB: contact.GetFixtureA().GetBody().GetUserData()});
-                            }
-                        }
-                    }
-        */
-
-        public void BeginContact(Contact contact)
-        {
-        }
-
-        public void EndContact(Contact contact)
-        {
-        }
-
-        public void PreSolve(Contact contact, Manifold oldManifold)
-        {
-        }
-
-        public void PostSolve(Contact contact, ContactImpulse impulse)
-        {
-        }
-    }
 
     public class CollisionObject
     {

@@ -92,7 +92,7 @@ namespace BingoBlockParty.Common.BallGame.Planes
             for (var i = 0; i < chuteLocations.Count; i++)
             {
                 var chuteLocation = chuteLocations[i];
-                var chute = createChute(this.GameBoard, this, i, chuteLocation);
+                var chute = CreateChute(this, i, chuteLocation);
                 chute.Init();
                 this.GameBoard.PegPhysicsManager.CreateRectangleSensor(chuteLocation.X, chuteLocation.Y, bucketWidth, bucketHeight, chute);
                 this.Chutes.Add(chute);
@@ -110,9 +110,9 @@ namespace BingoBlockParty.Common.BallGame.Planes
 
         }
 
-        private Chute createChute(GameBoard gameBoard, ChutesPlane chutesPlane, int chuteNumber, Point chuteLocation)
+        public virtual Chute CreateChute( ChutesPlane chutesPlane, int chuteNumber, Point chuteLocation)
         {
-            return new Chute(gameBoard, chutesPlane, chuteNumber, chuteLocation);
+            return new Chute(GameBoard, chutesPlane, chuteNumber, chuteLocation);
         }
 
         public virtual void RoundOver(RoundOverState state)

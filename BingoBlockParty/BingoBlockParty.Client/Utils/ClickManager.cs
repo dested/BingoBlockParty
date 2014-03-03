@@ -7,9 +7,12 @@ namespace BingoBlockParty.Client.Utils
     public delegate bool ClickTrigger(ClickType eventType, ClickRect clickBox, int x, int y, bool collide);
     public class ClickManager
     {
+        private readonly ClientGameBoard clientGameBoard;
         public List<ClickRect> clickRects { get; set; }
         public ClickManager(ClientGameBoard clientGameBoard)
         {
+            this.clientGameBoard = clientGameBoard;
+            clickRects = new List<ClickRect>();
         }
 
         public void Init()

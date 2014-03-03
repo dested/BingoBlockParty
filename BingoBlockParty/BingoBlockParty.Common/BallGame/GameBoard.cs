@@ -23,6 +23,7 @@ namespace BingoBlockParty.Common.BallGame
         {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
+            
         }
 
         public virtual void CreateObjects()
@@ -62,6 +63,9 @@ namespace BingoBlockParty.Common.BallGame
                 type = (type + 1) % 5;
             }
             this.PegsPlane.LoadPegs(pegLocs);
+            
+            FireCannon();
+
         }
 
         public virtual void FireCannon()
@@ -84,7 +88,10 @@ namespace BingoBlockParty.Common.BallGame
             this.PegsPlane.RoundOver(RoundOverState.Post);
             this.CannonBallPlane.RoundOver(RoundOverState.Post);
 
-            this.OnRoundOver();
+            if (this.OnRoundOver!=null)
+            {
+                this.OnRoundOver();
+            }
         }
 
         public virtual void Tick()

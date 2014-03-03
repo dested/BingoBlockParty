@@ -61,6 +61,10 @@ namespace BingoBlockParty.Client.BallGame.Pieces
                     this.ChuteAssetsLit.Add(GameBoard.Client().Renderer.GetImage("chutePurpleBucketLit"));
         }
 
+
+  
+
+
         public void Render(ILayer context)
         {
             this.Ticking++;

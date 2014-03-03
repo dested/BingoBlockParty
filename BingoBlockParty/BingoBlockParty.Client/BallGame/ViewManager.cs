@@ -41,7 +41,7 @@ namespace BingoBlockParty.Client.BallGame
        public void Center(int x, int y)
        {
            var proposedX = median(new[] { x - ViewWidth / 2, x - PaddingBox.Width, x + PaddingBox.Width - ViewWidth });
-           var proposedY = median(new[] { y - ViewHeight / 2, x - PaddingBox.Height, x + PaddingBox.Height - ViewHeight });
+           var proposedY = median(new[] { y - ViewHeight / 2,y - PaddingBox.Height, y + PaddingBox.Height - ViewHeight });
 
            X = median(new[] { proposedX, 0, GameBoard.GameModel.BoardWidth - ViewWidth });
            Y = median(new[] { proposedY, 0, GameBoard.GameModel.BoardHeight - ViewHeight });
