@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BingoBlockParty.Common.BallGame;
-using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame
 {

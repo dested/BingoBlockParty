@@ -1,4 +1,7 @@
-﻿#if !XNA && !WINDOWS_PHONE && !XBOX && !ANDROID
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
+#if !XNA && !WINDOWS_PHONE && !XBOX && !ANDROID
 
 #region License
 
@@ -32,11 +35,7 @@ SOFTWARE.
 
 #endregion License
 
-using System;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace Microsoft.Xna.Framework
+namespace FarseerPhysics.Common
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector3 : IEquatable<Vector3>

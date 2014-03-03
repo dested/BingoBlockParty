@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using FarseerPhysics.Common.TextureTools;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {

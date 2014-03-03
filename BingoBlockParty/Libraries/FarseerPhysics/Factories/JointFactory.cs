@@ -1,6 +1,6 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Factories
 {

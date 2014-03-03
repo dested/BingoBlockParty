@@ -34,7 +34,7 @@ SOFTWARE.
 
 using System;
 
-namespace Microsoft.Xna.Framework
+namespace FarseerPhysics.Common
 {
     public enum CurveLoopType
     {

@@ -68,7 +68,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
                  if ((this.Tocking % 20 < 10)) {
                      pegAssetName = "peg.hit";
                  } else {
-                     pegAssetName = "peg";
+                     pegAssetName = "peg";  
                  }
              } else {
                  if (this.Hit) {

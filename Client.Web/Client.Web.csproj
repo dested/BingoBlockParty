@@ -48,6 +48,20 @@
       <HintPath>..\packages\Saltarelle.Web.3.0.1\lib\Saltarelle.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BingoBlockParty\BingoBlockParty.Client\BingoBlockParty.Client.Saltarelle.csproj">
+      <Project>{bfb21318-ed16-4f16-b464-27e3a4aa0734}</Project>
+      <Name>BingoBlockParty.Client.Saltarelle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.Saltarelle.csproj">
+      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
+      <Name>Client.Interfaces.Saltarelle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.Saltarelle.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine.Interfaces.Saltarelle</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />
   <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

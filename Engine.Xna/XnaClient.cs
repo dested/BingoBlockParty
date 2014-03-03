@@ -61,7 +61,7 @@ namespace Engine.Xna
 
             for (int i = timeouts.Count - 1; i >= 0; i--)
             {
-                if (timeouts[i].Item2 > elapsedGameTime)
+                if (timeouts[i].Item2 <elapsedGameTime)
                 {
                     timeouts[i].Item1();
                     timeouts.RemoveAt(i);

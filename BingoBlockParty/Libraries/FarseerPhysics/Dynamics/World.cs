@@ -33,7 +33,6 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Controllers;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Dynamics.Joints;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Dynamics
 {

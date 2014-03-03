@@ -25,7 +25,7 @@ namespace BingoBlockParty.Client
 
             var boardWidth = 430;
             var boardHeight = 557;
-            GameBoard = new ClientGameBoard(this,boardWidth, boardHeight * 2, renderer, boardWidth, boardHeight);
+            GameBoard = new ClientGameBoard(this, boardWidth, (int)(boardHeight * 1.2), renderer, boardWidth, boardHeight);
 
             loadImages(renderer);
 

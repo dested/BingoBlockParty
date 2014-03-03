@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PhysicsLogic
 {

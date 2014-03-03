@@ -10,6 +10,7 @@ namespace Client.Web
     {
         static void Main()
         {
+            new BingoBlockParty.Client.Game(null);
             Console.WriteLine("hi");
         }
     }

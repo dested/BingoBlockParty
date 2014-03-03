@@ -3,7 +3,6 @@ using System.Diagnostics;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PolygonManipulation
 {

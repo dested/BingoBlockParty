@@ -1,6 +1,5 @@
 ﻿using System;
 using FarseerPhysics.Collision;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {

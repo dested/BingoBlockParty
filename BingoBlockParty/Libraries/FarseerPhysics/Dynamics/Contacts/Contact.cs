@@ -26,7 +26,6 @@ using System.Diagnostics;
 using FarseerPhysics.Collision;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Dynamics.Contacts
 {
