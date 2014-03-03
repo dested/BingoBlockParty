@@ -5,6 +5,7 @@ using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
 using BingoBlockParty.Common.BallGame.Pieces;
 using BingoBlockParty.Common.BallGame.Planes;
+using Client.Interfaces;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Pieces
@@ -24,24 +25,22 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
             var cannonButton = this.GameBoard.GameModel.CannonLocation;
 
-            this.GameBoard.GameModel.Client().ClickManager.PushClickRect(
-                new ClickRect(
+            this.GameBoard.GameModel.Client().TouchManager.PushClickRect(
+                new TouchRect(
                         cannonButton.X - this.CannonAsset.Width * 2,
                     cannonButton.Y,
                         this.CannonAsset.Width * 4,
                     this.CannonAsset.Height,
-                    this,
                     ShootBall
                 )
             );
 
-            this.GameBoard.GameModel.Client().ClickManager.PushClickRect(
-                new ClickRect(
+            this.GameBoard.GameModel.Client().TouchManager.PushClickRect(
+                new TouchRect(
                     0,
                     0,
                     this.GameBoard.GameModel.BoardWidth,
                     this.GameBoard.GameModel.BoardHeight,
-                    this,
                     RotateClick
                 )
             );
@@ -50,20 +49,19 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
         public IImage CannonAsset { get; set; }
 
-        public bool RotateClick(ClickType eventType, ClickRect clickBox, int x, int y, bool collide)
+        public bool RotateClick(TouchType eventType, TouchRect touchBox, int x, int y, bool collide)
         {
             switch (eventType)
             {
-                case ClickType.MouseUp:
+                case TouchType.TouchUp:
                     MovingCannon = false;
                     break;
-                case ClickType.MouseDown:
+                case TouchType.TouchDown:
                     MovingCannon = true;
                     break;
-                case ClickType.MouseMove:
+                case TouchType.TouchMove:
                     if (MovingCannon)
-                    {
-
+                    { 
                         var angle = (int)((Math.Atan2(y - this.GameBoard.GameModel.CannonLocation.Y, x - this.GameBoard.GameModel.CannonLocation.X) * 180 / Math.PI) - 90);
                         this.RotateCannon(angle);
                     }
@@ -71,18 +69,18 @@ namespace BingoBlockParty.Client.BallGame.Pieces
             }
             return false;
         }
-        public bool ShootBall(ClickType eventType, ClickRect clickBox, int x, int y, bool collide)
+        public bool ShootBall(TouchType eventType, TouchRect touchBox, int x, int y, bool collide)
         {
             switch (eventType)
             {
-                case ClickType.MouseUp:
+                case TouchType.TouchUp:
                     if (collide)
                     {
                         CannonPlane.ShootBall();
                     }
                     break;
-                case ClickType.MouseDown:
-                case ClickType.MouseMove:
+                case TouchType.TouchDown:
+                case TouchType.TouchMove:
                     if (collide)
                     {
                         return true;
@@ -103,10 +101,10 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
                     context.Save();
                     context.Translate(cannonLocation.X - cannonImage.Width / 2, cannonLocation.Y);
-                    context.Translate(cannonImage.Width / 2, -cannonImage.Height);
 
-//todo                    context.Rotate(this.GameBoard.GameModel.CannonAngle * Math.PI / 180);
-                    context.DrawImage(cannonImage, -cannonImage.Width / 2, cannonImage.Height);
+
+                    context.DrawImage(cannonImage, 0, 0, (float)(this.GameBoard.GameModel.CannonAngle * Math.PI / 180), cannonImage.Width / 2, 0);
+              
                     context.Restore();
 
 

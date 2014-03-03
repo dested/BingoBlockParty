@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BingoBlockParty.Common.BallGame.Models;
 using BingoBlockParty.Common.BallGame.Planes;
 
@@ -17,7 +18,7 @@ namespace BingoBlockParty.Common.BallGame
         public CannonPlane CannonPlane { get; set; }
         public ChutesPlane ChutesPlane { get; set; }
         public PegPhysicsManager PegPhysicsManager { get; set; }
-        public event RoundOverDelegate OnRoundOver;
+        public   RoundOverDelegate OnRoundOver;
 
         public GameBoard(int boardWidth, int boardHeight)
         {
@@ -64,8 +65,6 @@ namespace BingoBlockParty.Common.BallGame
             }
             this.PegsPlane.LoadPegs(pegLocs);
             
-            FireCannon();
-
         }
 
         public virtual void FireCannon()
@@ -94,7 +93,7 @@ namespace BingoBlockParty.Common.BallGame
             }
         }
 
-        public virtual void Tick()
+        public virtual void Tick(TimeSpan elapsedGameTime)
         {
             this.PegPhysicsManager.Tick();
             this.CannonPlane.Tick();

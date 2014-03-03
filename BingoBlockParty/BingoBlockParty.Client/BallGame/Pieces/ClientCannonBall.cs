@@ -5,10 +5,11 @@ using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Pieces
 {
-    public class ClientCannonBall :CannonBall
-    { 
-        public ClientCannonBall(GameBoard gameBoard, int x, int y, int angle):base(gameBoard,x,y,angle)
-        { 
+    public class ClientCannonBall : CannonBall
+    {
+        public ClientCannonBall(GameBoard gameBoard, int x, int y, int angle)
+            : base(gameBoard, x, y, angle)
+        {
         }
 
         public override void Tick()
@@ -20,32 +21,22 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
         public void Render(ILayer context)
         {
-              if (this.BallDead)return;
-                    var position = this.Body.Position;
+            if (this.BallDead) return;
+            var position = this.Body.Position;
 
-                    var x = this.GameBoard.PegPhysicsManager.MeterToPixel(position.X);
-                    var y = this.GameBoard.PegPhysicsManager.MeterToPixel(position.Y);
-                    var cannonBall = GameBoard.Client().Renderer.GetImage("cannonBall");
-                    var cannonBallShine = GameBoard.Client().Renderer.GetImage("cannonBallShine");
+            var x = this.GameBoard.PegPhysicsManager.MeterToPixel(position.X);
+            var y = this.GameBoard.PegPhysicsManager.MeterToPixel(position.Y);
+            var cannonBall = GameBoard.Client().Renderer.GetImage("cannonBall");
+            var cannonBallShine = GameBoard.Client().Renderer.GetImage("cannonBallShine");
 
 
-                    context.Save();
-                    context.Translate((int)x, (int)y);
-
-                    context.Translate(-cannonBall.Width / 2, -cannonBall.Height / 2);
-
-                    context.Save();
-
-                    context.Translate(cannonBall.Width / 2, cannonBall.Height / 2);
-//todo                    context.Rotate(this.Body.GetAngle());
-
-                    context.DrawImage(cannonBall, -cannonBall.Width / 2, -cannonBall.Height / 2);
-                    context.Restore();
-
-                    context.DrawImage(cannonBallShine, 0, 0);
-                    context.Restore();
+            context.Save();
+            context.Translate((int)x, (int)y);
+            context.DrawImage(cannonBall, 0, 0, this.Body.Rotation, cannonBall.Width / 2, cannonBall.Height / 2);
+            context.DrawImage(cannonBallShine, -cannonBall.Width / 2, -cannonBall.Height / 2);
+            context.Restore();
 
         }
 
-     }
+    }
 }

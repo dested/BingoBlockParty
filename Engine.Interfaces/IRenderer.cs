@@ -13,6 +13,7 @@ namespace Engine.Interfaces
         IImage GetImage(string imageName);
         void CreateImage(string imageName, string imagePath, Point center = null);
 
+
         void BeginRender();
         void EndRender();
 
@@ -24,7 +25,7 @@ namespace Engine.Interfaces
         void Translate(int x, int y);
         void DrawImage(IImage image, int x, int y);
         void DrawImage(IImage image, int x, int y, int width, int height);
-        void DrawImage(IImage image, int x, int y,int angle, int centerX, int centerY  );
+        void DrawImage(IImage image, int x, int y, float angle, int centerX, int centerY);
         void DrawString(string text, int x, int y);
         void Clear();
         int MeasureString(string text);

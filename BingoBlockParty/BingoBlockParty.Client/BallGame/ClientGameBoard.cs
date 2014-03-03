@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BingoBlockParty.Client.BallGame.Planes;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
+using BingoBlockParty.Common.BallGame.Models;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame
@@ -9,15 +11,17 @@ namespace BingoBlockParty.Client.BallGame
     public class ClientGameBoard : GameBoard
     {
         public IRenderer Renderer { get; set; }
+        private readonly Game game;
         private readonly int canvasWidth;
         private readonly int canvasHeight;
 
         public ClientBackgroundPlane BackgroundPlane { get; set; }
 
-        public ClientGameBoard(int boardWidth, int boardHeight, IRenderer renderer, int canvasWidth, int canvasHeight)
+        public ClientGameBoard(Game game, int boardWidth, int boardHeight, IRenderer renderer, int canvasWidth, int canvasHeight)
             : base(boardWidth, boardHeight)
         {
             Renderer = renderer;
+            this.game = game;
             this.canvasWidth = canvasWidth;
             this.canvasHeight = canvasHeight;
         }
@@ -38,25 +42,13 @@ namespace BingoBlockParty.Client.BallGame
 
             this.ViewManager = new ViewManager(this);
 
-            this.GameModel.Client().ClickManager = new ClickManager(this);
+            this.GameModel.Client().TouchManager = new TouchManager(this);
         }
 
         public ViewManager ViewManager { get; set; }
 
         public ClientOverlaysPlane OverlaysPlane { get; set; }
-        /*
-         
-
-                ClientGameBoard.prototype.render = function () {
-                    this.pegPhysicsManager.render();
-                    this.backgroundPlane.render();
-                    this.cannonPlane.render();
-                    this.chutesPlane.render();
-                    this.pegsPlane.render();
-                    this.overlaysPlane.render();
-                    this.cannonBallPlane.render();
-                };*/
-
+ 
         public override void Init()
         {
             CreateObjects();
@@ -64,7 +56,7 @@ namespace BingoBlockParty.Client.BallGame
 
             this.BackgroundPlane.Init();
             this.OverlaysPlane.Init();
-            this.GameModel.Client().ClickManager.Init();
+            this.GameModel.Client().TouchManager.Init();
 
             Renderer.AddLayer(BackgroundPlane.Plane);
             Renderer.AddLayer(ChutesPlane.Client().BackPlane);
@@ -84,52 +76,39 @@ namespace BingoBlockParty.Client.BallGame
         public override void RoundOver()
         {
             base.RoundOver();
-/*
-                        this.PegPhysicsManager.RoundOver(RoundOverState.Pre);
-                        this.CannonPlane.RoundOver(RoundOverState.Pre);
-                        this.ChutesPlane.RoundOver(RoundOverState.Pre);
-                        this.PegsPlane.RoundOver(RoundOverState.Pre);
-                        this.CannonBallPlane.RoundOver(RoundOverState.Pre);
+                        
+                         this.PegPhysicsManager.RoundOver(RoundOverState.Pre);
+                         this.BackgroundPlane.RoundOver(RoundOverState.Pre);
+                         this.CannonPlane.RoundOver(RoundOverState.Pre);
+                         this.ChutesPlane.RoundOver(RoundOverState.Pre);
+                         this.PegsPlane.RoundOver(RoundOverState.Pre);
+                         this.OverlaysPlane.RoundOver(RoundOverState.Pre);
+                         this.CannonBallPlane.RoundOver(RoundOverState.Pre);
+            game.Client.Timeout(() =>
+                         {
+                             this.PegPhysicsManager.RoundOver(RoundOverState.Post);
+                             this.BackgroundPlane.RoundOver(RoundOverState.Post);
+                             this.CannonPlane.RoundOver(RoundOverState.Post);
+                             this.ChutesPlane.RoundOver(RoundOverState.Post);
+                             this.PegsPlane.RoundOver(RoundOverState.Post);
+                             this.OverlaysPlane.RoundOver(RoundOverState.Post);
+                             this.CannonBallPlane.RoundOver(RoundOverState.Post);
 
-                        this.PegPhysicsManager.RoundOver(RoundOverState.Post);
-                        this.CannonPlane.RoundOver(RoundOverState.Post);
-                        this.ChutesPlane.RoundOver(RoundOverState.Post);
-                        this.PegsPlane.RoundOver(RoundOverState.Post);
-                        this.CannonBallPlane.RoundOver(RoundOverState.Post);
-                        this.OnRoundOver();
+                             this.ViewManager.Set(0, 0);
+                             if (this.OnRoundOver!=null)
+                                this.OnRoundOver();
 
-             this.pegPhysicsManager.roundOver(false);
-                                this.backgroundPlane.roundOver(false);
-                                this.cannonPlane.roundOver(false);
-                                this.chutesPlane.roundOver(false);
-                                this.pegsPlane.roundOver(false);
-                                this.overlaysPlane.roundOver(false);
-                                this.cannonBallPlane.roundOver(false);
-
-                                setTimeout((function () {
-                                    this.pegPhysicsManager.roundOver(true);
-                                    this.backgroundPlane.roundOver(true);
-                                    this.cannonPlane.roundOver(true);
-                                    this.chutesPlane.roundOver(true);
-                                    this.pegsPlane.roundOver(true);
-                                    this.overlaysPlane.roundOver(true);
-                                    this.cannonBallPlane.roundOver(true);
-
-                                    this.viewManager.set(0, 0);
-
-                                }).bind(this), 2500);
-             * 
-            */
+                         }, 2500);
         }
 
-        public override void Tick()
+        public override void Tick(TimeSpan elapsedGameTime)
         {
 
-            base.Tick();
+            base.Tick(elapsedGameTime);
             BackgroundPlane.Tick();
             OverlaysPlane.Tick();
         }
-        public void Render()
+        public void Render(TimeSpan elapsedGameTime)
         {
             PegPhysicsManager.Client().Render();
             BackgroundPlane.Render();

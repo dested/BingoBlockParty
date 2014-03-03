@@ -11,14 +11,24 @@ namespace Client.Interfaces
     {
         IGame Game { get; set; }
         void Init(IRenderer renderer);
-        void Draw();
-        void Tick(/*gametime*/);
+        void Draw(TimeSpan elapsedGameTime);
+        void TouchEvent(TouchType touchType,int x, int y);
+        void Tick(TimeSpan elapsedGameTime);
+        void Timeout(Action callback, int ms);
+
+    }
+    public enum TouchType
+    {
+        TouchUp, TouchDown, TouchMove
     }
 
     public interface IGame
     {
         void Init(IRenderer renderer);
-        void Draw();
-        void Tick(/*gametime*/);
+        IClient Client { get; }
+        void Draw(TimeSpan elapsedGameTime);
+
+        void TouchEvent(TouchType touchType, int x, int y);
+        void Tick(TimeSpan elapsedGameTime);
     }
 }

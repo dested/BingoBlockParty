@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BingoBlockParty.Client.BallGame;
+using BingoBlockParty.Client.Utils;
 using Client.Interfaces;
 using Engine.Interfaces;
 
@@ -11,12 +12,20 @@ namespace BingoBlockParty.Client
 {
     public class Game : IGame
     {
+
+        public Game(IClient client)
+        {
+            Client = client;
+        }
+
+        public IClient Client { get; private set; }
+
         public void Init(IRenderer renderer)
         {
 
             var boardWidth = 430;
             var boardHeight = 557;
-            GameBoard = new ClientGameBoard(boardWidth, boardHeight * 2, renderer, boardWidth, boardHeight);
+            GameBoard = new ClientGameBoard(this,boardWidth, boardHeight * 2, renderer, boardWidth, boardHeight);
 
             loadImages(renderer);
 
@@ -80,14 +89,19 @@ namespace BingoBlockParty.Client
 
         public ClientGameBoard GameBoard { get; set; }
 
-        public void Tick()
+        public void TouchEvent(TouchType touchType, int x, int y)
         {
-            GameBoard.Tick();
+            GameBoard.GameModel.Client().TouchManager.ProcessTouchEvent(touchType, x, y);
         }
 
-        public void Draw()
+        public void Tick(TimeSpan elapsedGameTime)
         {
-            GameBoard.Render();
+            GameBoard.Tick(elapsedGameTime);
+        }
+
+        public void Draw(TimeSpan elapsedGameTime)
+        {
+            GameBoard.Render(elapsedGameTime);
         }
     }
 }

@@ -57,6 +57,14 @@
       <Project>{E53A0131-9C6C-4335-A05A-2AE0B0F4E37B}</Project>
       <Name>BingoBlockParty.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
+      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
+      <Name>Client.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

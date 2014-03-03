@@ -3,7 +3,7 @@ using FarseerPhysics.Dynamics;
 
 namespace BingoBlockParty.Common.BallGame.Pieces
 {
-    public class CannonBall 
+    public class CannonBall :ICollider
     {
         public GameBoard GameBoard { get; set; }
         public int X { get; set; }
@@ -43,6 +43,10 @@ namespace BingoBlockParty.Common.BallGame.Pieces
                 this.GameBoard.RoundOver();
             }
              
+        }
+
+        public void Trigger()
+        {
         }
 
         public virtual void Tick()

@@ -8,7 +8,7 @@ namespace BingoBlockParty.Common.BallGame.Planes
     public class ChutesPlane : IPlane
     {
         public GameBoard GameBoard { get; set; }
-        public Engine.Interfaces.Size BucketsSize { get; set; }
+        public  Size BucketsSize { get; set; }
         public Size BumpersSize { get; set; }
         public List<Chute> Chutes { get; set; }
 
@@ -102,8 +102,8 @@ namespace BingoBlockParty.Common.BallGame.Planes
 
             foreach (var wallLocation in wallLocations)
             {
-                this.GameBoard.PegPhysicsManager.CreateRectangleWall(wallLocation.X, wallLocation.Y, wallLocation.Width, wallLocation.Height, "wall");
-                this.GameBoard.PegPhysicsManager.CreateCircleWall(wallLocation.CircleX, wallLocation.Y, roundBumperOffset, "wall");
+                this.GameBoard.PegPhysicsManager.CreateRectangleWall(wallLocation.X, wallLocation.Y, wallLocation.Width, wallLocation.Height, null);
+                this.GameBoard.PegPhysicsManager.CreateCircleWall(wallLocation.CircleX, wallLocation.Y, roundBumperOffset, null);
             }
 
 

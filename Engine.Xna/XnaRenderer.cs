@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Engine.Interfaces;
@@ -15,6 +16,35 @@ namespace Engine.Xna
         protected readonly ContentManager content;
         private readonly XnaImageCache imageCache;
         private List<XnaLayer> layers;
+
+        private Matrix? scaleMatrix;
+        public void ClearScaleMatrix()
+        {
+            scaleMatrix = null;
+        }
+
+        public Matrix GetScaleMatrix()
+        {
+            if (scaleMatrix.HasValue == false)
+            {
+                var gameWorldSize = new Vector2(430, 557);
+                var vp = graphicsDevice.Viewport;
+
+                float scaleX = vp.Width / gameWorldSize.X;
+                float scaleY = vp.Height / gameWorldSize.Y;
+
+                float translateX = (vp.Width - (gameWorldSize.X * scaleX)) / 2f;
+                float translateY = (vp.Height - (gameWorldSize.Y * scaleY)) / 2f;
+
+                Matrix camera = Matrix.CreateScale(scaleX, scaleY, 1)
+                        * Matrix.CreateTranslation(translateX, translateY, 0);
+
+                scaleMatrix = camera;
+
+            }
+
+            return scaleMatrix.Value;
+        }
 
         public XnaRenderer(GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -135,10 +165,7 @@ namespace Engine.Xna
 
             settingsStack = new List<XnaContextSettings>();
 
-            settingsStack.Add(new XnaContextSettings()
-                              {
-                                  Left = -7
-                              });
+            settingsStack.Add(new XnaContextSettings());
 
 
         }
@@ -146,8 +173,11 @@ namespace Engine.Xna
 
         public void Begin()
         {
+            var scaleMatrix = renderer.GetScaleMatrix();
 
-            currentSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
+            //            Resolution.getTransformationMatrix()
+
+            currentSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, scaleMatrix);
         }
         public void End()
         {
@@ -182,7 +212,7 @@ namespace Engine.Xna
 
             XnaContextSettings xnaContextSettings = CurrentSettings();
             var xnaImage = (XnaImage)image;
-            currentSpriteBatch.Draw(xnaImage.Texture, new Vector2((float)(xnaContextSettings.Left + x), (float)(xnaContextSettings.Top + y)), Color.White);
+            currentSpriteBatch.Draw(xnaImage.Texture, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), Color.White);
         }
 
         public void DrawImage(IImage image, int x, int y, int width, int height)
@@ -192,8 +222,18 @@ namespace Engine.Xna
             currentSpriteBatch.Draw(xnaImage.Texture, new Rectangle(xnaContextSettings.Left + x, xnaContextSettings.Top + y, width, height), Color.White);
         }
 
-        public void DrawImage(IImage image, int x, int y, int angle, int centerX, int centerY)
+        public void DrawImage(IImage image, int x, int y, float angle, int centerX, int centerY)
         {
+            XnaContextSettings xnaContextSettings = CurrentSettings();
+            var xnaImage = (XnaImage)image;
+
+
+            Vector2 location = new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y);
+            Rectangle sourceRectangle = new Rectangle(0, 0, image.Width, image.Height);
+            Vector2 origin = new Vector2(centerX, centerY);
+
+            currentSpriteBatch.Draw(xnaImage.Texture, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+
         }
 
         public void DrawString(string text, int x, int y)

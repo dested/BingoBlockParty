@@ -55,10 +55,18 @@
     <Compile Include="BallGame\ViewManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\ClickManager.cs" />
+    <Compile Include="Utils\TouchManager.cs" />
     <Compile Include="Utils\ClientSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Client.Interfaces\Client.Interfaces.csproj">
+      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
+      <Name>Client.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
       <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common</Name>

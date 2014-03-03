@@ -16,6 +16,6 @@ namespace BingoBlockParty.Client.BallGame
             CanvasHeight = canvasHeight;
         }
 
-        public ClickManager ClickManager { get; set; }
+        public TouchManager TouchManager { get; set; }
     }
 }

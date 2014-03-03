@@ -45,7 +45,7 @@ namespace BingoBlockParty.Common.BallGame.Planes
                 peg.RoundOver(state);
                 if (state==RoundOverState.Post && peg.Hit)
                 {
-                    this.GameBoard.GameModel.Pegs.RemoveAt(i);
+                    Pegs.RemoveAt(i);
                 }
             }
         }

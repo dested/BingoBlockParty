@@ -57,6 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
       <Project>{581295bb-62b9-4877-b6cd-7ec30561a62d}</Project>
       <Name>FarseerPhysics</Name>

@@ -12,7 +12,8 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 
-namespace OpenGL1
+
+namespace Client.IOS
 {
 	/// <summary>
 	/// Default Project Template
@@ -29,12 +30,8 @@ namespace OpenGL1
         { 
 
 			graphics = new GraphicsDeviceManager(this);
-            Resolution.Init(ref graphics);
 			
-			Content.RootDirectory = "Content";
-
-            Resolution.SetVirtualResolution(1024, 768);
-            Resolution.SetResolution(1280, 800, false);
+			Content.RootDirectory = "Content"; 
 		}
 
 		/// <summary>
@@ -66,8 +63,29 @@ namespace OpenGL1
         	/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+            
+            TouchCollection touchCollection = TouchPanel.GetState();
 
-            client.Tick();
+            
+            for (int index = 0; index < touchCollection.Count; index++)
+            {
+                var touch = touchCollection[index];
+
+                switch (touch.State)
+                {
+                    case TouchLocationState.Moved:
+                        client.TouchEvent(TouchType.TouchMove,(int) touch.Position.X,(int)touch.Position.Y);
+                        break;
+                    case TouchLocationState.Pressed:
+                        client.TouchEvent(TouchType.TouchDown,(int) touch.Position.X,(int)touch.Position.Y);
+                        break;
+                    case TouchLocationState.Released:
+                        client.TouchEvent(TouchType.TouchUp,(int) touch.Position.X,(int)touch.Position.Y);
+                        break;
+                }
+            }
+
+		    client.Tick(gameTime.TotalGameTime);
 			// TODO: Add your update logic here			
 			base.Update(gameTime);
 		}
@@ -77,24 +95,8 @@ namespace OpenGL1
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
-		{
-            Resolution.BeginDraw();
-
-
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            /*
-                        spriteBatch.Begin();
-                        spriteBatch.Draw(logoTexture, new Vector2(16, 16), Color.White);
-                        spriteBatch.End();
-            */
-
-
-            /*         spriteBatch.Begin();
-                     spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
-                     spriteBatch.End();
-         */
-            client.Draw();
+        {
+            client.Draw(gameTime.TotalGameTime);
 			base.Draw(gameTime);
 		}
 	}
