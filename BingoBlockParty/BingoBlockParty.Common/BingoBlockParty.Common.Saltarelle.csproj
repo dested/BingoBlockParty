@@ -52,9 +52,9 @@
       <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
       <Name>Engine.Interfaces.Saltarelle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
+    <ProjectReference Include="..\Libraries\FarseerPhysics.Saltarelle\FarseerPhysics.Saltarelle.csproj">
       <Project>{581295bb-62b9-4877-b6cd-7ec30561a62d}</Project>
-      <Name>FarseerPhysics</Name>
+      <Name>FarseerPhysics.Saltarelle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

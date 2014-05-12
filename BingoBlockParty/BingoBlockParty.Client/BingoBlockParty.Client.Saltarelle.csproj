@@ -63,9 +63,9 @@
       <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common.Saltarelle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
-      <Project>{581295BB-62B9-4877-B6CD-7EC30561A62D}</Project>
-      <Name>FarseerPhysics</Name>
+    <ProjectReference Include="..\Libraries\FarseerPhysics.Saltarelle\FarseerPhysics.Saltarelle.csproj">
+      <Project>{581295bb-62b9-4877-b6cd-7ec30561a62d}</Project>
+      <Name>FarseerPhysics.Saltarelle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
