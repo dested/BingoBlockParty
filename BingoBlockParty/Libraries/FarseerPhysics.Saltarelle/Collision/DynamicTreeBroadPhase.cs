@@ -113,9 +113,9 @@ namespace FarseerPhysics.Collision
         /// </summary>
         /// <param name="proxy">The user data.</param>
         /// <returns></returns>
-        public int AddProxy(ref FixtureProxy proxy)
+        public int AddProxy(FixtureProxy proxy)
         {
-            int proxyId = _tree.AddProxy(ref proxy.AABB, proxy);
+            int proxyId = _tree.AddProxy(proxy.AABB, proxy);
             ++_proxyCount;
             BufferMove(proxyId);
             return proxyId;
@@ -132,9 +132,9 @@ namespace FarseerPhysics.Collision
             _tree.RemoveProxy(proxyId);
         }
 
-        public void MoveProxy(int proxyId, ref AABB aabb, Vector2 displacement)
+        public void MoveProxy(int proxyId,  AABB aabb, Vector2 displacement)
         {
-            bool buffer = _tree.MoveProxy(proxyId, ref aabb, displacement);
+            bool buffer = _tree.MoveProxy(proxyId,  aabb, displacement);
             if (buffer)
             {
                 BufferMove(proxyId);
@@ -231,7 +231,7 @@ namespace FarseerPhysics.Collision
             AABB aabbA, aabbB;
             _tree.GetFatAABB(proxyIdA, out aabbA);
             _tree.GetFatAABB(proxyIdB, out aabbB);
-            return AABB.TestOverlap(ref aabbA, ref aabbB);
+            return AABB.TestOverlap( aabbA,  aabbB);
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace FarseerPhysics.Collision
                 _tree.GetFatAABB(_queryProxyId, out fatAABB);
 
                 // Query tree, create pairs and add them pair buffer.
-                _tree.Query(_queryCallback, ref fatAABB);
+                _tree.Query(_queryCallback, fatAABB);
             }
 
             // Reset move buffer
@@ -300,9 +300,9 @@ namespace FarseerPhysics.Collision
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <param name="aabb">The aabb.</param>
-        public void Query(Func<int, bool> callback, ref AABB aabb)
+        public void Query(Func<int, bool> callback,  AABB aabb)
         {
-            _tree.Query(callback, ref aabb);
+            _tree.Query(callback,  aabb);
         }
 
  

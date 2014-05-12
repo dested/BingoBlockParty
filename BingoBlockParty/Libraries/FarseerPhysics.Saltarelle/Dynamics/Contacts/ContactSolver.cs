@@ -232,7 +232,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
                 Vector2 normal;
                 FixedArray2<Vector2> points;
-                WorldManifold.Initialize(ref manifold, ref xfA, radiusA, ref xfB, radiusB, out normal, out points);
+                WorldManifold.Initialize( manifold,  xfA, radiusA,  xfB, radiusB, out normal, out points);
 
                 vc.normal = normal;
 
@@ -476,7 +476,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                     b.Y = vn2 - cp2.velocityBias;
 
                     // Compute b'
-                    b -= MathUtils.Mul(ref vc.K, a);
+                    b -= MathUtils.Mul( vc.K, a);
 
 
                     const float k_errorTol = 1e-3f;
@@ -493,7 +493,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                         //
                         // x = - inv(A) * b'
                         //
-                        Vector2 x = -MathUtils.Mul(ref vc.normalMass, b);
+                        Vector2 x = -MathUtils.Mul( vc.normalMass, b);
 
                         if (x.X >= 0.0f && x.Y >= 0.0f)
                         {
@@ -857,7 +857,7 @@ namespace FarseerPhysics.Dynamics.Contacts
             /// <param name="radiusB">The radius for B.</param>
             /// <param name="normal">World vector pointing from A to B</param>
             /// <param name="points">Torld contact point (point of intersection).</param>
-            public static void Initialize(ref Manifold manifold, ref Transform xfA, float radiusA, ref Transform xfB, float radiusB, out Vector2 normal, out FixedArray2<Vector2> points)
+            public static void Initialize( Manifold manifold,  Transform xfA, float radiusA,  Transform xfB, float radiusB, out Vector2 normal, out FixedArray2<Vector2> points)
             {
                 normal = Vector2.Zero;
                 points = new FixedArray2<Vector2>();
@@ -872,8 +872,8 @@ namespace FarseerPhysics.Dynamics.Contacts
                     case ManifoldType.Circles:
                         {
                             normal = new Vector2(1.0f, 0.0f);
-                            Vector2 pointA = MathUtils.Mul(ref xfA, manifold.LocalPoint);
-                            Vector2 pointB = MathUtils.Mul(ref xfB, manifold.Points[0].LocalPoint);
+                            Vector2 pointA = MathUtils.Mul(xfA, manifold.LocalPoint);
+                            Vector2 pointB = MathUtils.Mul(xfB, manifold.Points[0].LocalPoint);
                             if (Vector2.DistanceSquared(pointA, pointB) > Settings.Epsilon * Settings.Epsilon)
                             {
                                 normal = pointB - pointA;
@@ -889,11 +889,11 @@ namespace FarseerPhysics.Dynamics.Contacts
                     case ManifoldType.FaceA:
                         {
                             normal = MathUtils.Mul(xfA.q, manifold.LocalNormal);
-                            Vector2 planePoint = MathUtils.Mul(ref xfA, manifold.LocalPoint);
+                            Vector2 planePoint = MathUtils.Mul( xfA, manifold.LocalPoint);
 
                             for (int i = 0; i < manifold.PointCount; ++i)
                             {
-                                Vector2 clipPoint = MathUtils.Mul(ref xfB, manifold.Points[i].LocalPoint);
+                                Vector2 clipPoint = MathUtils.Mul(xfB, manifold.Points[i].LocalPoint);
                                 Vector2 cA = clipPoint + (radiusA - Vector2.Dot(clipPoint - planePoint, normal)) * normal;
                                 Vector2 cB = clipPoint - radiusB * normal;
                                 points[i] = 0.5f * (cA + cB);
@@ -904,11 +904,11 @@ namespace FarseerPhysics.Dynamics.Contacts
                     case ManifoldType.FaceB:
                         {
                             normal = MathUtils.Mul(xfB.q, manifold.LocalNormal);
-                            Vector2 planePoint = MathUtils.Mul(ref xfB, manifold.LocalPoint);
+                            Vector2 planePoint = MathUtils.Mul( xfB, manifold.LocalPoint);
 
                             for (int i = 0; i < manifold.PointCount; ++i)
                             {
-                                Vector2 clipPoint = MathUtils.Mul(ref xfA, manifold.Points[i].LocalPoint);
+                                Vector2 clipPoint = MathUtils.Mul( xfA, manifold.Points[i].LocalPoint);
                                 Vector2 cB = clipPoint + (radiusB - Vector2.Dot(clipPoint - planePoint, normal)) * normal;
                                 Vector2 cA = clipPoint - radiusA * normal;
                                 points[i] = 0.5f * (cA + cB);
@@ -932,8 +932,8 @@ namespace FarseerPhysics.Dynamics.Contacts
                 {
                     case ManifoldType.Circles:
                         {
-                            Vector2 pointA = MathUtils.Mul(ref xfA, pc.localPoint);
-                            Vector2 pointB = MathUtils.Mul(ref xfB, pc.localPoints[0]);
+                            Vector2 pointA = MathUtils.Mul( xfA, pc.localPoint);
+                            Vector2 pointB = MathUtils.Mul( xfB, pc.localPoints[0]);
                             normal = pointB - pointA;
                             normal.Normalize();
                             point = 0.5f * (pointA + pointB);
@@ -944,9 +944,9 @@ namespace FarseerPhysics.Dynamics.Contacts
                     case ManifoldType.FaceA:
                         {
                             normal = MathUtils.Mul(xfA.q, pc.localNormal);
-                            Vector2 planePoint = MathUtils.Mul(ref xfA, pc.localPoint);
+                            Vector2 planePoint = MathUtils.Mul( xfA, pc.localPoint);
 
-                            Vector2 clipPoint = MathUtils.Mul(ref xfB, pc.localPoints[index]);
+                            Vector2 clipPoint = MathUtils.Mul( xfB, pc.localPoints[index]);
                             separation = Vector2.Dot(clipPoint - planePoint, normal) - pc.radiusA - pc.radiusB;
                             point = clipPoint;
                         }
@@ -955,9 +955,9 @@ namespace FarseerPhysics.Dynamics.Contacts
                     case ManifoldType.FaceB:
                         {
                             normal = MathUtils.Mul(xfB.q, pc.localNormal);
-                            Vector2 planePoint = MathUtils.Mul(ref xfB, pc.localPoint);
+                            Vector2 planePoint = MathUtils.Mul( xfB, pc.localPoint);
 
-                            Vector2 clipPoint = MathUtils.Mul(ref xfA, pc.localPoints[index]);
+                            Vector2 clipPoint = MathUtils.Mul( xfA, pc.localPoints[index]);
                             separation = Vector2.Dot(clipPoint - planePoint, normal) - pc.radiusA - pc.radiusB;
                             point = clipPoint;
 

@@ -367,7 +367,7 @@ namespace FarseerPhysics.Dynamics
                     IBroadPhase broadPhase = _world.ContactManager.BroadPhase;
                     for (int i = 0; i < FixtureList.Count; i++)
                     {
-                        FixtureList[i].CreateProxies(broadPhase, ref _xf);
+                        FixtureList[i].CreateProxies(broadPhase, _xf);
                     }
 
                     // Contacts are created the next time step.
@@ -449,7 +449,7 @@ namespace FarseerPhysics.Dynamics
             {
                 Debug.Assert(!float.IsNaN(value.X) && !float.IsNaN(value.Y));
 
-                SetTransform(ref value, Rotation);
+                SetTransform( value, Rotation);
             }
         }
 
@@ -464,7 +464,7 @@ namespace FarseerPhysics.Dynamics
             {
                 Debug.Assert(!float.IsNaN(value));
 
-                SetTransform(ref _xf.p, value);
+                SetTransform( _xf.p, value);
             }
         }
 
@@ -518,7 +518,7 @@ namespace FarseerPhysics.Dynamics
                 // Move center of mass.
                 Vector2 oldCenter = _sweep.C;
                 _sweep.LocalCenter = value;
-                _sweep.C0 = _sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter);
+                _sweep.C0 = _sweep.C = MathUtils.Mul( _xf,  _sweep.LocalCenter);
 
                 // Update center of mass velocity.
                 Vector2 a = _sweep.C - oldCenter;
@@ -771,36 +771,24 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="position">The world position of the body's local origin.</param>
         /// <param name="rotation">The world rotation in radians.</param>
-        public void SetTransform(ref Vector2 position, float rotation)
+        public void SetTransform(  Vector2 position, float rotation)
         {
-            SetTransformIgnoreContacts(ref position, rotation);
+            SetTransformIgnoreContacts(  position, rotation);
 
             _world.ContactManager.FindNewContacts();
         }
-
-        /// <summary>
-        /// Set the position of the body's origin and rotation.
-        /// This breaks any contacts and wakes the other bodies.
-        /// Manipulating a body's transform may cause non-physical behavior.
-        /// </summary>
-        /// <param name="position">The world position of the body's local origin.</param>
-        /// <param name="rotation">The world rotation in radians.</param>
-        public void SetTransform(Vector2 position, float rotation)
-        {
-            SetTransform(ref position, rotation);
-        }
-
+         
         /// <summary>
         /// For teleporting a body without considering new contacts immediately.
         /// </summary>
         /// <param name="position">The position.</param>
         /// <param name="angle">The angle.</param>
-        public void SetTransformIgnoreContacts(ref Vector2 position, float angle)
+        public void SetTransformIgnoreContacts(  Vector2 position, float angle)
         {
             _xf.q.Set(angle);
             _xf.p = position;
 
-            _sweep.C = MathUtils.Mul(ref _xf, _sweep.LocalCenter);
+            _sweep.C = MathUtils.Mul( _xf, _sweep.LocalCenter);
             _sweep.A = angle;
 
             _sweep.C0 = _sweep.C;
@@ -809,7 +797,7 @@ namespace FarseerPhysics.Dynamics
             IBroadPhase broadPhase = _world.ContactManager.BroadPhase;
             for (int i = 0; i < FixtureList.Count; i++)
             {
-                FixtureList[i].Synchronize(broadPhase, ref _xf, ref _xf);
+                FixtureList[i].Synchronize(broadPhase,  _xf,   _xf);
             }
         }
 
@@ -821,6 +809,7 @@ namespace FarseerPhysics.Dynamics
         {
             transform = _xf;
         }
+         
 
         /// <summary>
         /// Apply a force at a world point. If the force is not
@@ -829,37 +818,7 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="force">The world force vector, usually in Newtons (N).</param>
         /// <param name="point">The world position of the point of application.</param>
-        public void ApplyForce(Vector2 force, Vector2 point)
-        {
-            ApplyForce(ref force, ref point);
-        }
-
-        /// <summary>
-        /// Applies a force at the center of mass.
-        /// </summary>
-        /// <param name="force">The force.</param>
-        public void ApplyForce(ref Vector2 force)
-        {
-            ApplyForce(ref force, ref _xf.p);
-        }
-
-        /// <summary>
-        /// Applies a force at the center of mass.
-        /// </summary>
-        /// <param name="force">The force.</param>
-        public void ApplyForce(Vector2 force)
-        {
-            ApplyForce(ref force, ref _xf.p);
-        }
-
-        /// <summary>
-        /// Apply a force at a world point. If the force is not
-        /// applied at the center of mass, it will generate a torque and
-        /// affect the angular velocity. This wakes up the body.
-        /// </summary>
-        /// <param name="force">The world force vector, usually in Newtons (N).</param>
-        /// <param name="point">The world position of the point of application.</param>
-        public void ApplyForce(ref Vector2 force, ref Vector2 point)
+        public void ApplyForce( Vector2 force,  Vector2 point)
         {
             Debug.Assert(!float.IsNaN(force.X));
             Debug.Assert(!float.IsNaN(force.Y));
@@ -896,34 +855,19 @@ namespace FarseerPhysics.Dynamics
         }
 
         /// <summary>
-        /// Apply an impulse at a point. This immediately modifies the velocity.
-        /// This wakes up the body.
+        /// Applies a force at the center of mass.
         /// </summary>
-        /// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
-        public void ApplyLinearImpulse(Vector2 impulse)
+        /// <param name="force">The force.</param>
+        public void ApplyForce( Vector2 force)
         {
-            ApplyLinearImpulse(ref impulse);
+            ApplyForce( force,  _xf.p);
         }
-
-        /// <summary>
-        /// Apply an impulse at a point. This immediately modifies the velocity.
-        /// It also modifies the angular velocity if the point of application
-        /// is not at the center of mass.
-        /// This wakes up the body.
-        /// </summary>
-        /// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
-        /// <param name="point">The world position of the point of application.</param>
-        public void ApplyLinearImpulse(Vector2 impulse, Vector2 point)
-        {
-            ApplyLinearImpulse(ref impulse, ref point);
-        }
-
         /// <summary>
         /// Apply an impulse at a point. This immediately modifies the velocity.
         /// This wakes up the body.
         /// </summary>
         /// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
-        public void ApplyLinearImpulse(ref Vector2 impulse)
+        public void ApplyLinearImpulse( Vector2 impulse)
         {
             if (_bodyType != BodyType.Dynamic)
             {
@@ -944,7 +888,7 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
         /// <param name="point">The world position of the point of application.</param>
-        public void ApplyLinearImpulse(ref Vector2 impulse, ref Vector2 point)
+        public void ApplyLinearImpulse( Vector2 impulse,  Vector2 point)
         {
             if (_bodyType != BodyType.Dynamic)
                 return;
@@ -1052,7 +996,7 @@ namespace FarseerPhysics.Dynamics
             // Move center of mass.
             Vector2 oldCenter = _sweep.C;
             _sweep.LocalCenter = localCenter;
-            _sweep.C0 = _sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter);
+            _sweep.C0 = _sweep.C = MathUtils.Mul( _xf,  _sweep.LocalCenter);
 
             // Update center of mass velocity.
             Vector2 a = _sweep.C - oldCenter;
@@ -1064,20 +1008,10 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="localPoint">A point on the body measured relative the the body's origin.</param>
         /// <returns>The same point expressed in world coordinates.</returns>
-        public Vector2 GetWorldPoint(ref Vector2 localPoint)
+        public Vector2 GetWorldPoint( Vector2 localPoint)
         {
-            return MathUtils.Mul(ref _xf, ref localPoint);
-        }
-
-        /// <summary>
-        /// Get the world coordinates of a point given the local coordinates.
-        /// </summary>
-        /// <param name="localPoint">A point on the body measured relative the the body's origin.</param>
-        /// <returns>The same point expressed in world coordinates.</returns>
-        public Vector2 GetWorldPoint(Vector2 localPoint)
-        {
-            return GetWorldPoint(ref localPoint);
-        }
+            return MathUtils.Mul( _xf,  localPoint);
+        } 
 
         /// <summary>
         /// Get the world coordinates of a vector given the local coordinates.
@@ -1085,20 +1019,11 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="localVector">A vector fixed in the body.</param>
         /// <returns>The same vector expressed in world coordinates.</returns>
-        public Vector2 GetWorldVector(ref Vector2 localVector)
+        public Vector2 GetWorldVector( Vector2 localVector)
         {
             return MathUtils.Mul(_xf.q, localVector);
         }
-
-        /// <summary>
-        /// Get the world coordinates of a vector given the local coordinates.
-        /// </summary>
-        /// <param name="localVector">A vector fixed in the body.</param>
-        /// <returns>The same vector expressed in world coordinates.</returns>
-        public Vector2 GetWorldVector(Vector2 localVector)
-        {
-            return GetWorldVector(ref localVector);
-        }
+         
 
         /// <summary>
         /// Gets a local point relative to the body's origin given a world point.
@@ -1106,19 +1031,9 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="worldPoint">A point in world coordinates.</param>
         /// <returns>The corresponding local point relative to the body's origin.</returns>
-        public Vector2 GetLocalPoint(ref Vector2 worldPoint)
+        public Vector2 GetLocalPoint( Vector2 worldPoint)
         {
-            return MathUtils.MulT(ref _xf, worldPoint);
-        }
-
-        /// <summary>
-        /// Gets a local point relative to the body's origin given a world point.
-        /// </summary>
-        /// <param name="worldPoint">A point in world coordinates.</param>
-        /// <returns>The corresponding local point relative to the body's origin.</returns>
-        public Vector2 GetLocalPoint(Vector2 worldPoint)
-        {
-            return GetLocalPoint(ref worldPoint);
+            return MathUtils.MulT( _xf, worldPoint);
         }
 
         /// <summary>
@@ -1127,62 +1042,31 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="worldVector">A vector in world coordinates.</param>
         /// <returns>The corresponding local vector.</returns>
-        public Vector2 GetLocalVector(ref Vector2 worldVector)
+        public Vector2 GetLocalVector( Vector2 worldVector)
         {
             return MathUtils.MulT(_xf.q, worldVector);
         }
-
-        /// <summary>
-        /// Gets a local vector given a world vector.
-        /// Note that the vector only takes the rotation into account, not the position.
-        /// </summary>
-        /// <param name="worldVector">A vector in world coordinates.</param>
-        /// <returns>The corresponding local vector.</returns>
-        public Vector2 GetLocalVector(Vector2 worldVector)
-        {
-            return GetLocalVector(ref worldVector);
-        }
-
+          
         /// <summary>
         /// Get the world linear velocity of a world point attached to this body.
         /// </summary>
         /// <param name="worldPoint">A point in world coordinates.</param>
         /// <returns>The world velocity of a point.</returns>
-        public Vector2 GetLinearVelocityFromWorldPoint(Vector2 worldPoint)
-        {
-            return GetLinearVelocityFromWorldPoint(ref worldPoint);
-        }
-
-        /// <summary>
-        /// Get the world linear velocity of a world point attached to this body.
-        /// </summary>
-        /// <param name="worldPoint">A point in world coordinates.</param>
-        /// <returns>The world velocity of a point.</returns>
-        public Vector2 GetLinearVelocityFromWorldPoint(ref Vector2 worldPoint)
+        public Vector2 GetLinearVelocityFromWorldPoint( Vector2 worldPoint)
         {
             return _linearVelocity +
                    new Vector2(-_angularVelocity * (worldPoint.Y - _sweep.C.Y),
                                _angularVelocity * (worldPoint.X - _sweep.C.X));
         }
-
+         
         /// <summary>
         /// Get the world velocity of a local point.
         /// </summary>
         /// <param name="localPoint">A point in local coordinates.</param>
         /// <returns>The world velocity of a point.</returns>
-        public Vector2 GetLinearVelocityFromLocalPoint(Vector2 localPoint)
+        public Vector2 GetLinearVelocityFromLocalPoint( Vector2 localPoint)
         {
-            return GetLinearVelocityFromLocalPoint(ref localPoint);
-        }
-
-        /// <summary>
-        /// Get the world velocity of a local point.
-        /// </summary>
-        /// <param name="localPoint">A point in local coordinates.</param>
-        /// <returns>The world velocity of a point.</returns>
-        public Vector2 GetLinearVelocityFromLocalPoint(ref Vector2 localPoint)
-        {
-            return GetLinearVelocityFromWorldPoint(GetWorldPoint(ref localPoint));
+            return GetLinearVelocityFromWorldPoint(GetWorldPoint( localPoint));
         }
 
         internal void SynchronizeFixtures()
@@ -1194,7 +1078,7 @@ namespace FarseerPhysics.Dynamics
             IBroadPhase broadPhase = _world.ContactManager.BroadPhase;
             for (int i = 0; i < FixtureList.Count; i++)
             {
-                FixtureList[i].Synchronize(broadPhase, ref xf1, ref _xf);
+                FixtureList[i].Synchronize(broadPhase,  xf1,  _xf);
             }
         }
 

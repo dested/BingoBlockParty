@@ -48,7 +48,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
                 }
 
                 return true;
-            }, ref aabb);
+            },   aabb);
 
             return ApplyImpulse(pos, radius, force, maxForce, affectedBodies);
         }

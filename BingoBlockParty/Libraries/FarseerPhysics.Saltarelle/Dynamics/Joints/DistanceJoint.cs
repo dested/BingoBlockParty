@@ -92,15 +92,15 @@ namespace FarseerPhysics.Dynamics.Joints
 
             if (useWorldCoordinates)
             {
-                LocalAnchorA = bodyA.GetLocalPoint(ref anchorA);
-                LocalAnchorB = bodyB.GetLocalPoint(ref anchorB);
+                LocalAnchorA = bodyA.GetLocalPoint( anchorA);
+                LocalAnchorB = bodyB.GetLocalPoint( anchorB);
                 Length = (anchorB - anchorA).Length();
             }
             else
             {
                 LocalAnchorA = anchorA;
                 LocalAnchorB = anchorB;
-                Length = (BodyB.GetWorldPoint(ref anchorB) - BodyA.GetWorldPoint(ref anchorA)).Length();
+                Length = (BodyB.GetWorldPoint( anchorB) - BodyA.GetWorldPoint( anchorA)).Length();
             }
         }
 
@@ -165,7 +165,7 @@ namespace FarseerPhysics.Dynamics.Joints
             return 0.0f;
         }
 
-        internal override void InitVelocityConstraints(ref SolverData data)
+        internal override void InitVelocityConstraints( SolverData data)
         {
             _indexA = BodyA.IslandIndex;
             _indexB = BodyB.IslandIndex;
@@ -260,7 +260,7 @@ namespace FarseerPhysics.Dynamics.Joints
             data.velocities[_indexB].w = wB;
         }
 
-        internal override void SolveVelocityConstraints(ref SolverData data)
+        internal override void SolveVelocityConstraints(  SolverData data)
         {
             Vector2 vA = data.velocities[_indexA].v;
             float wA = data.velocities[_indexA].w;
@@ -288,7 +288,7 @@ namespace FarseerPhysics.Dynamics.Joints
 
         }
 
-        internal override bool SolvePositionConstraints(ref SolverData data)
+        internal override bool SolvePositionConstraints(  SolverData data)
         {
             if (Frequency > 0.0f)
             {

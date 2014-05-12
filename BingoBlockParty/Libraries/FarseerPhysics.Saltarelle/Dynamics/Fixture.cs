@@ -398,7 +398,7 @@ namespace FarseerPhysics.Dynamics
             if (Body.Enabled)
             {
                 IBroadPhase broadPhase = Body._world.ContactManager.BroadPhase;
-                CreateProxies(broadPhase, ref Body._xf);
+                CreateProxies(broadPhase,  Body._xf);
             }
 
             Body.FixtureList.Add(this);
@@ -423,22 +423,12 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="point">A point in world coordinates.</param>
         /// <returns></returns>
-        public bool TestPoint(ref Vector2 point)
+        public bool TestPoint( Vector2 point)
         {
-            return Shape.TestPoint(ref Body._xf, ref point);
+            return Shape.TestPoint( Body._xf,  point);
         }
 
-        /// <summary>
-        /// Cast a ray against this Shape.
-        /// </summary>
-        /// <param name="output">The ray-cast results.</param>
-        /// <param name="input">The ray-cast input parameters.</param>
-        /// <param name="childIndex">Index of the child.</param>
-        /// <returns></returns>
-        public bool RayCast(out RayCastOutput output, ref RayCastInput input, int childIndex)
-        {
-            return Shape.RayCast(out output, ref input, ref Body._xf, childIndex);
-        }
+      
 
         /// <summary>
         /// Get the fixture's AABB. This AABB may be enlarge and/or stale.
@@ -487,7 +477,7 @@ namespace FarseerPhysics.Dynamics
         }
 
         // These support body activation/deactivation.
-        internal void CreateProxies(IBroadPhase broadPhase, ref Transform xf)
+        internal void CreateProxies(IBroadPhase broadPhase, Transform xf)
         {
             Debug.Assert(ProxyCount == 0);
 
@@ -497,12 +487,12 @@ namespace FarseerPhysics.Dynamics
             for (int i = 0; i < ProxyCount; ++i)
             {
                 FixtureProxy proxy = new FixtureProxy();
-                Shape.ComputeAABB(out proxy.AABB, ref xf, i);
+                proxy.AABB=Shape.ComputeAABB(xf, i);
                 proxy.Fixture = this;
                 proxy.ChildIndex = i;
 
                 //FPE note: This line needs to be after the previous two because FixtureProxy is a struct
-                proxy.ProxyId = broadPhase.AddProxy(ref proxy);
+                proxy.ProxyId = broadPhase.AddProxy(proxy);
 
                 Proxies[i] = proxy;
             }
@@ -520,7 +510,7 @@ namespace FarseerPhysics.Dynamics
             ProxyCount = 0;
         }
 
-        internal void Synchronize(IBroadPhase broadPhase, ref Transform transform1, ref Transform transform2)
+        internal void Synchronize(IBroadPhase broadPhase,  Transform transform1,  Transform transform2)
         {
             if (ProxyCount == 0)
             {
@@ -533,14 +523,14 @@ namespace FarseerPhysics.Dynamics
 
                 // Compute an AABB that covers the swept Shape (may miss some rotation effect).
                 AABB aabb1, aabb2;
-                Shape.ComputeAABB(out aabb1, ref transform1, proxy.ChildIndex);
-                Shape.ComputeAABB(out aabb2, ref transform2, proxy.ChildIndex);
+                aabb1=Shape.ComputeAABB(transform1, proxy.ChildIndex);
+                aabb2=Shape.ComputeAABB(transform2, proxy.ChildIndex);
 
-                proxy.AABB.Combine(ref aabb1, ref aabb2);
+                proxy.AABB.Combine( aabb1,  aabb2);
 
                 Vector2 displacement = transform2.p - transform1.p;
 
-                broadPhase.MoveProxy(proxy.ProxyId, ref proxy.AABB, displacement);
+                broadPhase.MoveProxy(proxy.ProxyId,  proxy.AABB, displacement);
             }
         }
 

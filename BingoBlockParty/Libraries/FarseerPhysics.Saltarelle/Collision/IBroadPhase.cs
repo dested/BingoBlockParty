@@ -11,11 +11,11 @@ namespace FarseerPhysics.Collision
 
         bool TestOverlap(int proxyIdA, int proxyIdB);
 
-        int AddProxy(ref FixtureProxy proxy);
+        int AddProxy( FixtureProxy proxy);
 
         void RemoveProxy(int proxyId);
 
-        void MoveProxy(int proxyId, ref AABB aabb, Vector2 displacement);
+        void MoveProxy(int proxyId,  AABB aabb, Vector2 displacement);
 
         FixtureProxy GetProxy(int proxyId);
 
@@ -23,7 +23,7 @@ namespace FarseerPhysics.Collision
 
         void GetFatAABB(int proxyId, out AABB aabb);
 
-        void Query(Func<int, bool> callback, ref AABB aabb);
+        void Query(Func<int, bool> callback,  AABB aabb);
 
 
         void ShiftOrigin(Vector2 newOrigin);

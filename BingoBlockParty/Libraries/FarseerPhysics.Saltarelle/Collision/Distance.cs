@@ -255,7 +255,7 @@ namespace FarseerPhysics.Collision
         internal int Count;
         internal FixedArray3<SimplexVertex> V;
 
-        internal void ReadCache(ref SimplexCache cache, DistanceProxy proxyA, ref Transform transformA, DistanceProxy proxyB, ref Transform transformB)
+        internal void ReadCache( SimplexCache cache, DistanceProxy proxyA,  Transform transformA, DistanceProxy proxyB,  Transform transformB)
         {
             Debug.Assert(cache.Count <= 3);
 
@@ -268,8 +268,8 @@ namespace FarseerPhysics.Collision
                 v.IndexB = cache.IndexB[i];
                 Vector2 wALocal = proxyA.Vertices[v.IndexA];
                 Vector2 wBLocal = proxyB.Vertices[v.IndexB];
-                v.WA = MathUtils.Mul(ref transformA, wALocal);
-                v.WB = MathUtils.Mul(ref transformB, wBLocal);
+                v.WA = MathUtils.Mul( transformA, wALocal);
+                v.WB = MathUtils.Mul( transformB, wBLocal);
                 v.W = v.WB - v.WA;
                 v.A = 0.0f;
                 V[i] = v;
@@ -296,8 +296,8 @@ namespace FarseerPhysics.Collision
                 v.IndexB = 0;
                 Vector2 wALocal = proxyA.Vertices[0];
                 Vector2 wBLocal = proxyB.Vertices[0];
-                v.WA = MathUtils.Mul(ref transformA, wALocal);
-                v.WB = MathUtils.Mul(ref transformB, wBLocal);
+                v.WA = MathUtils.Mul( transformA, wALocal);
+                v.WB = MathUtils.Mul( transformB, wBLocal);
                 v.W = v.WB - v.WA;
                 v.A = 1.0f;
                 V[0] = v;
@@ -305,7 +305,7 @@ namespace FarseerPhysics.Collision
             }
         }
 
-        internal void WriteCache(ref SimplexCache cache)
+        internal void WriteCache( SimplexCache cache)
         {
             cache.Metric = GetMetric();
             cache.Count = (UInt16)Count;
@@ -368,8 +368,11 @@ namespace FarseerPhysics.Collision
             }
         }
 
-        internal void GetWitnessPoints(out Vector2 pA, out Vector2 pB)
+        internal Tuple<Vector2,Vector2> GetWitnessPoints()
         {
+            Vector2 pA;
+            Vector2 pB;
+            
             switch (Count)
             {
                 case 0:
@@ -396,6 +399,7 @@ namespace FarseerPhysics.Collision
                 default:
                     throw new Exception();
             }
+            return new Tuple<Vector2, Vector2>(pA,pB);
         }
 
         internal float GetMetric()
@@ -659,7 +663,7 @@ namespace FarseerPhysics.Collision
 
             // Initialize the simplex.
             Simplex simplex = new Simplex();
-            simplex.ReadCache(ref cache, input.ProxyA, ref input.TransformA, input.ProxyB, ref input.TransformB);
+            simplex.ReadCache( cache, input.ProxyA,  input.TransformA, input.ProxyB,  input.TransformB);
 
             // These store the vertices of the last simplex so that we
             // can check for duplicates and prevent cycling.
@@ -731,10 +735,10 @@ namespace FarseerPhysics.Collision
                 // Compute a tentative new simplex vertex using support points.
                 SimplexVertex vertex = simplex.V[simplex.Count];
                 vertex.IndexA = input.ProxyA.GetSupport(MathUtils.MulT(input.TransformA.q, -d));
-                vertex.WA = MathUtils.Mul(ref input.TransformA, input.ProxyA.Vertices[vertex.IndexA]);
+                vertex.WA = MathUtils.Mul(input.TransformA, input.ProxyA.Vertices[vertex.IndexA]);
 
                 vertex.IndexB = input.ProxyB.GetSupport(MathUtils.MulT(input.TransformB.q, d));
-                vertex.WB = MathUtils.Mul(ref input.TransformB, input.ProxyB.Vertices[vertex.IndexB]);
+                vertex.WB = MathUtils.Mul(input.TransformB, input.ProxyB.Vertices[vertex.IndexB]);
                 vertex.W = vertex.WB - vertex.WA;
                 simplex.V[simplex.Count] = vertex;
 
@@ -769,12 +773,17 @@ namespace FarseerPhysics.Collision
                 GJKMaxIters = Math.Max(GJKMaxIters, iter);
 
             // Prepare output.
-            simplex.GetWitnessPoints(out output.PointA, out output.PointB);
+            
+
+            var items=simplex.GetWitnessPoints();
+            output.PointA = items.Item1;
+            output.PointB = items.Item2;
+
             output.Distance = (output.PointA - output.PointB).Length();
             output.Iterations = iter;
 
             // Cache the simplex.
-            simplex.WriteCache(ref cache);
+            simplex.WriteCache( cache);
 
             // Apply radii if requested.
             if (input.UseRadii)

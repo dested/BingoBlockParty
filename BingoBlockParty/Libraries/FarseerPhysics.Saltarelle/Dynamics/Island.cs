@@ -91,7 +91,7 @@ namespace FarseerPhysics.Dynamics
             JointCount = 0;
         }
 
-        public void Solve(ref TimeStep step, ref Vector2 gravity)
+        public void Solve( TimeStep step,  Vector2 gravity)
         {
             float h = step.dt;
 
@@ -158,7 +158,7 @@ namespace FarseerPhysics.Dynamics
             for (int i = 0; i < JointCount; ++i)
             {
                 if (_joints[i].Enabled)
-                    _joints[i].InitVelocityConstraints(ref solverData);
+                    _joints[i].InitVelocityConstraints(  solverData);
             }
 
             if (Settings.EnableDiagnostics)
@@ -177,7 +177,7 @@ namespace FarseerPhysics.Dynamics
                     if (Settings.EnableDiagnostics)
                         _watch.Start();
 
-                    joint.SolveVelocityConstraints(ref solverData);
+                    joint.SolveVelocityConstraints( solverData);
                     joint.Validate(step.inv_dt);
 
                     if (Settings.EnableDiagnostics)
@@ -241,7 +241,7 @@ namespace FarseerPhysics.Dynamics
                     if (Settings.EnableDiagnostics)
                         _watch.Start();
 
-                    bool jointOkay = joint.SolvePositionConstraints(ref solverData);
+                    bool jointOkay = joint.SolvePositionConstraints( solverData);
 
                     if (Settings.EnableDiagnostics)
                         _watch.Stop();

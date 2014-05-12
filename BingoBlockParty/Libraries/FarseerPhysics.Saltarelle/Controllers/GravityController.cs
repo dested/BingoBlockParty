@@ -71,7 +71,7 @@ namespace FarseerPhysics.Controllers
                             break;
                     }
 
-                    worldBody.ApplyForce(ref f);
+                    worldBody.ApplyForce( f);
                 }
 
                 foreach (Vector2 point in Points)
@@ -92,7 +92,7 @@ namespace FarseerPhysics.Controllers
                             break;
                     }
 
-                    worldBody.ApplyForce(ref f);
+                    worldBody.ApplyForce( f);
                 }
             }
         }

@@ -119,7 +119,7 @@ namespace FarseerPhysics.Common
 
 #region Public Methods
 
-        public static void Reflect(ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+        public static void Reflect(Vector2 vector, Vector2 normal, out Vector2 result)
         {
             result = new Vector2();
 
@@ -131,7 +131,7 @@ namespace FarseerPhysics.Common
         public static Vector2 Reflect(Vector2 vector, Vector2 normal)
         {
             Vector2 result;
-            Reflect(ref vector, ref normal, out result);
+            Reflect(vector, normal, out result);
             return result;
         }
 
@@ -142,7 +142,7 @@ namespace FarseerPhysics.Common
             return value1;
         }
 
-        public static void Add(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Add(Vector2 value1, Vector2 value2, out Vector2 result)
         {
             result = new Vector2();
             result.X = value1.X + value2.X;
@@ -156,7 +156,7 @@ namespace FarseerPhysics.Common
                 MathHelper.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2));
         }
 
-        public static void Barycentric(ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1,
+        public static void Barycentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1,
                                        float amount2, out Vector2 result)
         {
             result = new Vector2(
@@ -171,7 +171,7 @@ namespace FarseerPhysics.Common
                 MathHelper.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
         }
 
-        public static void CatmullRom(ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4,
+        public static void CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4,
                                       float amount, out Vector2 result)
         {
             result = new Vector2(
@@ -186,7 +186,7 @@ namespace FarseerPhysics.Common
                 MathHelper.Clamp(value1.Y, min.Y, max.Y));
         }
 
-        public static void Clamp(ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+        public static void Clamp(Vector2 value1, Vector2 min, Vector2 max, out Vector2 result)
         {
             result = new Vector2(
                 MathHelper.Clamp(value1.X, min.X, max.X),
@@ -208,25 +208,25 @@ namespace FarseerPhysics.Common
         public static float Distance(Vector2 value1, Vector2 value2)
         {
             float result;
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared( value1,  value2, out result);
             return (float) Math.Sqrt(result);
         }
 
 
-        public static void Distance(ref Vector2 value1, ref Vector2 value2, out float result)
+        public static void Distance( Vector2 value1,  Vector2 value2, out float result)
         {
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared( value1,  value2, out result);
             result = (float) Math.Sqrt(result);
         }
 
         public static float DistanceSquared(Vector2 value1, Vector2 value2)
         {
             float result;
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared( value1,  value2, out result);
             return result;
         }
 
-        public static void DistanceSquared(ref Vector2 value1, ref Vector2 value2, out float result)
+        public static void DistanceSquared( Vector2 value1,  Vector2 value2, out float result)
         {
             result = (value1.X - value2.X)*(value1.X - value2.X) + (value1.Y - value2.Y)*(value1.Y - value2.Y);
         }
@@ -250,7 +250,7 @@ namespace FarseerPhysics.Common
             return value1;
         }
 
-        public static void Divide(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Divide( Vector2 value1,  Vector2 value2, out Vector2 result)
         {
             result = new Vector2();
             result.X = value1.X / value2.X;
@@ -265,7 +265,7 @@ namespace FarseerPhysics.Common
             return value1;
         }
 
-        public static void Divide(ref Vector2 value1, float divider, out Vector2 result)
+        public static void Divide( Vector2 value1, float divider, out Vector2 result)
         {
             float factor = 1/divider;
             result = new Vector2();
@@ -278,7 +278,7 @@ namespace FarseerPhysics.Common
             return value1.X*value2.X + value1.Y*value2.Y;
         }
 
-        public static void Dot(ref Vector2 value1, ref Vector2 value2, out float result)
+        public static void Dot(  Vector2 value1,   Vector2 value2, out float result)
         {
             result = value1.X*value2.X + value1.Y*value2.Y;
         }
@@ -301,11 +301,11 @@ namespace FarseerPhysics.Common
         public static Vector2 Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount)
         {
             Vector2 result = new Vector2();
-            Hermite(ref value1, ref tangent1, ref value2, ref tangent2, amount, out result);
+            Hermite( value1,  tangent1,  value2,  tangent2, amount, out result);
             return result;
         }
 
-        public static void Hermite(ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2,
+        public static void Hermite( Vector2 value1,  Vector2 tangent1,  Vector2 value2,  Vector2 tangent2,
                                    float amount, out Vector2 result)
         {
             result = new Vector2();
@@ -317,7 +317,7 @@ namespace FarseerPhysics.Common
         {
             float result;
             var vector2 = this;
-            DistanceSquared(ref vector2, ref zeroVector, out result);
+            DistanceSquared( vector2,  zeroVector, out result);
             return (float) Math.Sqrt(result);
         }
 
@@ -325,7 +325,7 @@ namespace FarseerPhysics.Common
         {
             float result;
             var vector2 = this;
-            DistanceSquared(ref vector2, ref zeroVector, out result);
+            DistanceSquared( vector2,  zeroVector, out result);
             return result;
         }
 
@@ -336,7 +336,7 @@ namespace FarseerPhysics.Common
                 MathHelper.Lerp(value1.Y, value2.Y, amount));
         }
 
-        public static void Lerp(ref Vector2 value1, ref Vector2 value2, float amount, out Vector2 result)
+        public static void Lerp( Vector2 value1,  Vector2 value2, float amount, out Vector2 result)
         {
             result = new Vector2(
                 MathHelper.Lerp(value1.X, value2.X, amount),
@@ -350,7 +350,7 @@ namespace FarseerPhysics.Common
                 MathHelper.Max(value1.Y, value2.Y));
         }
 
-        public static void Max(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Max( Vector2 value1,  Vector2 value2, out Vector2 result)
         {
             result = new Vector2(
                 MathHelper.Max(value1.X, value2.X),
@@ -364,7 +364,7 @@ namespace FarseerPhysics.Common
                 MathHelper.Min(value1.Y, value2.Y));
         }
 
-        public static void Min(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Min( Vector2 value1,  Vector2 value2, out Vector2 result)
         {
             result = new Vector2(
                 MathHelper.Min(value1.X, value2.X),
@@ -385,14 +385,14 @@ namespace FarseerPhysics.Common
             return value1;
         }
 
-        public static void Multiply(ref Vector2 value1, float scaleFactor, out Vector2 result)
+        public static void Multiply(  Vector2 value1, float scaleFactor, out Vector2 result)
         {
             result = new Vector2();
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y*scaleFactor;
         }
 
-        public static void Multiply(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Multiply(  Vector2 value1,   Vector2 value2, out Vector2 result)
         {
             result = new Vector2();
             result.X = value1.X * value2.X;
@@ -406,7 +406,7 @@ namespace FarseerPhysics.Common
             return value;
         }
 
-        public static void Negate(ref Vector2 value, out Vector2 result)
+        public static void Negate(  Vector2 value, out Vector2 result)
         {
             result = new Vector2();
             result.X = -value.X;
@@ -417,21 +417,21 @@ namespace FarseerPhysics.Common
         {
             var vector2 = this;
             var result = this;
-            Normalize(ref vector2, out result);
+            Normalize(  vector2, out result);
             this.X = result.X;
             this.Y = result.Y;
         }
 
         public static Vector2 Normalize(Vector2 value)
         {
-            Normalize(ref value, out value);
+            Normalize(  value, out value);
             return value;
         }
 
-        public static void Normalize(ref Vector2 value, out Vector2 result)
+        public static void Normalize( Vector2 value, out Vector2 result)
         {
             float factor;
-            DistanceSquared(ref value, ref zeroVector, out factor);
+            DistanceSquared( value,  zeroVector, out factor);
             factor = 1f/(float) Math.Sqrt(factor);
             result = new Vector2();
             result.X = value.X*factor;
@@ -445,7 +445,7 @@ namespace FarseerPhysics.Common
                 MathHelper.SmoothStep(value1.Y, value2.Y, amount));
         }
 
-        public static void SmoothStep(ref Vector2 value1, ref Vector2 value2, float amount, out Vector2 result)
+        public static void SmoothStep( Vector2 value1,  Vector2 value2, float amount, out Vector2 result)
         {
             result = new Vector2(
                 MathHelper.SmoothStep(value1.X, value2.X, amount),
@@ -459,7 +459,7 @@ namespace FarseerPhysics.Common
             return value1;
         }
 
-        public static void Subtract(ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+        public static void Subtract(Vector2 value1, Vector2 value2, out Vector2 result)
         {
             result = new Vector2();
             result.X = value1.X - value2.X;
@@ -468,22 +468,22 @@ namespace FarseerPhysics.Common
 
         public static Vector2 Transform(Vector2 position, Matrix matrix)
         {
-            Transform(ref position, ref matrix, out position);
+            Transform(position, matrix, out position);
             return position;
         }
 
-        public static void Transform(ref Vector2 position, ref Matrix matrix, out Vector2 result)
+        public static void Transform(Vector2 position, Matrix matrix, out Vector2 result)
         {
             result = new Vector2((position.X*matrix.M11) + (position.Y*matrix.M21) + matrix.M41,
                                  (position.X*matrix.M12) + (position.Y*matrix.M22) + matrix.M42);
         }
 
-        public static void Transform(Vector2[] sourceArray, ref Matrix matrix, Vector2[] destinationArray)
+        public static void Transform(Vector2[] sourceArray, Matrix matrix, Vector2[] destinationArray)
         {
             throw new NotImplementedException();
         }
 
-        public static void Transform(Vector2[] sourceArray, int sourceIndex, ref Matrix matrix,
+        public static void Transform(Vector2[] sourceArray, int sourceIndex, Matrix matrix,
                                      Vector2[] destinationArray, int destinationIndex, int length)
         {
             throw new NotImplementedException();
@@ -491,22 +491,22 @@ namespace FarseerPhysics.Common
 
         public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
         {
-            TransformNormal(ref normal, ref matrix, out normal);
+            TransformNormal(normal, matrix, out normal);
             return normal;
         }
 
-        public static void TransformNormal(ref Vector2 normal, ref Matrix matrix, out Vector2 result)
+        public static void TransformNormal(Vector2 normal, Matrix matrix, out Vector2 result)
         {
             result = new Vector2((normal.X*matrix.M11) + (normal.Y*matrix.M21),
                                  (normal.X*matrix.M12) + (normal.Y*matrix.M22));
         }
 
-        public static void TransformNormal(Vector2[] sourceArray, ref Matrix matrix, Vector2[] destinationArray)
+        public static void TransformNormal(Vector2[] sourceArray, Matrix matrix, Vector2[] destinationArray)
         {
             throw new NotImplementedException();
         }
 
-        public static void TransformNormal(Vector2[] sourceArray, int sourceIndex, ref Matrix matrix,
+        public static void TransformNormal(Vector2[] sourceArray, int sourceIndex, Matrix matrix,
                                            Vector2[] destinationArray, int destinationIndex, int length)
         {
             throw new NotImplementedException();

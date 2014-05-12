@@ -71,7 +71,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
       Vector2 lbSubject = subject.GetAABB().LowerBound;
       Vector2 lbClip = clip.GetAABB().LowerBound;
       Vector2 translate;
-      Vector2.Min(ref lbSubject, ref lbClip, out translate);
+      Vector2.Min( lbSubject,  lbClip, out translate);
       translate = Vector2.One - translate;
       if (translate != Vector2.Zero)
       {
@@ -406,7 +406,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
     /// <remarks>Used by method <c>CalculateSimplicalChain()</c>.</remarks>
     private static float CalculateSimplexCoefficient(Vector2 a, Vector2 b, Vector2 c)
     {
-      float isLeft = MathUtils.Area(ref a, ref b, ref c);
+      float isLeft = MathUtils.Area( a,  b,  c);
       if (isLeft < 0f)
       {
         return -1f;
@@ -443,7 +443,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
     private static bool PointOnLineSegment(Vector2 start, Vector2 end, Vector2 point)
     {
       Vector2 segment = end - start;
-      return MathUtils.Area(ref start, ref end, ref point) == 0f &&
+      return MathUtils.Area( start,  end,  point) == 0f &&
              Vector2.Dot(point - start, segment) >= 0f &&
              Vector2.Dot(point - end, segment) <= 0f;
     }

@@ -171,7 +171,7 @@ namespace FarseerPhysics.Dynamics.Joints
             return invDt * _angularImpulse;
         }
 
-        internal override void InitVelocityConstraints(ref SolverData data)
+        internal override void InitVelocityConstraints( SolverData data)
         {
             _indexA = BodyA.IslandIndex;
             _indexB = BodyB.IslandIndex;
@@ -253,7 +253,7 @@ namespace FarseerPhysics.Dynamics.Joints
             data.velocities[_indexB].w = wB;
         }
 
-        internal override void SolveVelocityConstraints(ref SolverData data)
+        internal override void SolveVelocityConstraints( SolverData data)
         {
             Vector2 vA = data.velocities[_indexA].v;
             float wA = data.velocities[_indexA].w;
@@ -284,7 +284,7 @@ namespace FarseerPhysics.Dynamics.Joints
             {
                 Vector2 Cdot = vB + MathUtils.Cross(wB, _rB) - vA - MathUtils.Cross(wA, _rA) + inv_h * CorrectionFactor * _linearError;
 
-                Vector2 impulse = -MathUtils.Mul(ref _linearMass, ref Cdot);
+                Vector2 impulse = -MathUtils.Mul( _linearMass,  Cdot);
                 Vector2 oldImpulse = _linearImpulse;
                 _linearImpulse += impulse;
 
@@ -311,7 +311,7 @@ namespace FarseerPhysics.Dynamics.Joints
             data.velocities[_indexB].w = wB;
         }
 
-        internal override bool SolvePositionConstraints(ref SolverData data)
+        internal override bool SolvePositionConstraints(  SolverData data)
         {
             return true;
         }

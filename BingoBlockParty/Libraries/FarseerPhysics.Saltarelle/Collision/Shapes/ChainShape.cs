@@ -172,12 +172,13 @@ namespace FarseerPhysics.Collision.Shapes
             return edgeShape;
         }
 
-        public override bool TestPoint(ref Transform transform, ref Vector2 point)
+        public override bool TestPoint( Transform transform,  Vector2 point)
         {
             return false;
         }
 
-        public override bool RayCast(out RayCastOutput output, ref RayCastInput input, ref Transform transform, int childIndex)
+
+        public override AABB ComputeAABB(Transform transform, int childIndex)
         {
             Debug.Assert(childIndex < Vertices.Count);
 
@@ -188,28 +189,12 @@ namespace FarseerPhysics.Collision.Shapes
                 i2 = 0;
             }
 
-            _edgeShape.Vertex1 = Vertices[i1];
-            _edgeShape.Vertex2 = Vertices[i2];
-
-            return _edgeShape.RayCast(out output, ref input, ref transform, 0);
-        }
-
-        public override void ComputeAABB(out AABB aabb, ref Transform transform, int childIndex)
-        {
-            Debug.Assert(childIndex < Vertices.Count);
-
-            int i1 = childIndex;
-            int i2 = childIndex + 1;
-            if (i2 == Vertices.Count)
-            {
-                i2 = 0;
-            }
-
-            Vector2 v1 = MathUtils.Mul(ref transform, Vertices[i1]);
-            Vector2 v2 = MathUtils.Mul(ref transform, Vertices[i2]);
-            aabb=new AABB();
+            Vector2 v1 = MathUtils.Mul( transform, Vertices[i1]);
+            Vector2 v2 = MathUtils.Mul( transform, Vertices[i2]);
+           var  aabb=new AABB();
             aabb.LowerBound = Vector2.Min(v1, v2);
             aabb.UpperBound = Vector2.Max(v1, v2);
+            return aabb;
         }
 
         protected override void ComputeProperties()

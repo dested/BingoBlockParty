@@ -215,7 +215,7 @@ namespace FarseerPhysics.Collision.Shapes
             MassData.Inertia += MassData.Mass * (Vector2.Dot(MassData.Centroid, MassData.Centroid) - Vector2.Dot(center, center));
         }
 
-        public override bool TestPoint(ref Transform transform, ref Vector2 point)
+        public override bool TestPoint( Transform transform,  Vector2 point)
         {
             Vector2 pLocal = MathUtils.MulT(transform.q, point - transform.p);
 
@@ -231,99 +231,30 @@ namespace FarseerPhysics.Collision.Shapes
             return true;
         }
 
-        public override bool RayCast(out RayCastOutput output, ref RayCastInput input, ref Transform transform, int childIndex)
-        {
-            output = new RayCastOutput();
-
-            // Put the ray into the polygon's frame of reference.
-            Vector2 p1 = MathUtils.MulT(transform.q, input.Point1 - transform.p);
-            Vector2 p2 = MathUtils.MulT(transform.q, input.Point2 - transform.p);
-            Vector2 d = p2 - p1;
-
-            float lower = 0.0f, upper = input.MaxFraction;
-
-            int index = -1;
-
-            for (int i = 0; i < Vertices.Count; ++i)
-            {
-                // p = p1 + a * d
-                // dot(normal, p - v) = 0
-                // dot(normal, p1 - v) + a * dot(normal, d) = 0
-                float numerator = Vector2.Dot(Normals[i], Vertices[i] - p1);
-                float denominator = Vector2.Dot(Normals[i], d);
-
-                if (denominator == 0.0f)
-                {
-                    if (numerator < 0.0f)
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    // Note: we want this predicate without division:
-                    // lower < numerator / denominator, where denominator < 0
-                    // Since denominator < 0, we have to flip the inequality:
-                    // lower < numerator / denominator <==> denominator * lower > numerator.
-                    if (denominator < 0.0f && numerator < lower * denominator)
-                    {
-                        // Increase lower.
-                        // The segment enters this half-space.
-                        lower = numerator / denominator;
-                        index = i;
-                    }
-                    else if (denominator > 0.0f && numerator < upper * denominator)
-                    {
-                        // Decrease upper.
-                        // The segment exits this half-space.
-                        upper = numerator / denominator;
-                    }
-                }
-
-                // The use of epsilon here causes the assert on lower to trip
-                // in some cases. Apparently the use of epsilon was to make edge
-                // shapes work, but now those are handled separately.
-                //if (upper < lower - b2_epsilon)
-                if (upper < lower)
-                {
-                    return false;
-                }
-            }
-
-            Debug.Assert(0.0f <= lower && lower <= input.MaxFraction);
-
-            if (index >= 0)
-            {
-                output.Fraction = lower;
-                output.Normal = MathUtils.Mul(transform.q, Normals[index]);
-                return true;
-            }
-
-            return false;
-        }
-
+ 
         /// <summary>
         /// Given a transform, compute the associated axis aligned bounding box for a child shape.
         /// </summary>
         /// <param name="aabb">The aabb results.</param>
         /// <param name="transform">The world transform of the shape.</param>
         /// <param name="childIndex">The child shape index.</param>
-        public override void ComputeAABB(out AABB aabb, ref Transform transform, int childIndex)
+        public override AABB ComputeAABB( Transform transform, int childIndex)
         {
-            Vector2 lower = MathUtils.Mul(ref transform, Vertices[0]);
+            Vector2 lower = MathUtils.Mul( transform, Vertices[0]);
             Vector2 upper = lower;
 
             for (int i = 1; i < Vertices.Count; ++i)
             {
-                Vector2 v = MathUtils.Mul(ref transform, Vertices[i]);
+                Vector2 v = MathUtils.Mul( transform, Vertices[i]);
                 lower = Vector2.Min(lower, v);
                 upper = Vector2.Max(upper, v);
             }
 
             Vector2 r = new Vector2(Radius, Radius);
-            aabb = new AABB();
+           var aabb = new AABB();
             aabb.LowerBound = lower - r;
             aabb.UpperBound = upper + r;
+            return aabb;
         }
 
         public override float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc)
@@ -372,7 +303,7 @@ namespace FarseerPhysics.Collision.Shapes
                     if (lastSubmerged)
                     {
                         //Completely submerged
-                        sc = MathUtils.Mul(ref xf, MassData.Centroid);
+                        sc = MathUtils.Mul(xf, MassData.Centroid);
                         return MassData.Mass / Density;
                     }
 
@@ -437,7 +368,7 @@ namespace FarseerPhysics.Collision.Shapes
             //Normalize and transform centroid
             center *= 1.0f / area;
 
-            sc = MathUtils.Mul(ref xf, center);
+            sc = MathUtils.Mul( xf, center);
 
             return area;
         }

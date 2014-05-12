@@ -32,20 +32,20 @@ namespace BingoBlockParty.Client.BallGame
         {
             layer.Translate(-X, -Y);
         }
-       private int median(int[] xs)
+        private int median(int[] xs)
         {
-            Array.Sort(xs);
+            xs.Sort();
             return xs[xs.Length / 2];
         }
 
-       public void Center(int x, int y)
-       {
-           var proposedX = median(new[] { x - ViewWidth / 2, x - PaddingBox.Width, x + PaddingBox.Width - ViewWidth });
-           var proposedY = median(new[] { y - ViewHeight / 2,y - PaddingBox.Height, y + PaddingBox.Height - ViewHeight });
+        public void Center(int x, int y)
+        {
+            var proposedX = median(new[] { x - ViewWidth / 2, x - PaddingBox.Width, x + PaddingBox.Width - ViewWidth });
+            var proposedY = median(new[] { y - ViewHeight / 2, y - PaddingBox.Height, y + PaddingBox.Height - ViewHeight });
 
-           X = median(new[] { proposedX, 0, GameBoard.GameModel.BoardWidth - ViewWidth });
-           Y = median(new[] { proposedY, 0, GameBoard.GameModel.BoardHeight - ViewHeight });
-       }
+            X = median(new[] { proposedX, 0, GameBoard.GameModel.BoardWidth - ViewWidth });
+            Y = median(new[] { proposedY, 0, GameBoard.GameModel.BoardHeight - ViewHeight });
+        }
 
-     }
+    }
 }

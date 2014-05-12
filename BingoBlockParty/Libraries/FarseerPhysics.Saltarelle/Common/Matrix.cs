@@ -234,16 +234,16 @@ namespace FarseerPhysics.Common
         public static Matrix CreateWorld(Vector3 position, Vector3 forward, Vector3 up)
         {
             Matrix ret;
-            CreateWorld(ref position, ref forward, ref up, out ret);
+            CreateWorld( position,  forward,  up, out ret);
             return ret;
         }
 
-        public static void CreateWorld(ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix result)
+        public static void CreateWorld( Vector3 position,  Vector3 forward,  Vector3 up, out Matrix result)
         {
             Vector3 x, y, z;
-            Vector3.Normalize(ref forward, out z);
-            Vector3.Cross(ref forward, ref up, out x);
-            Vector3.Cross(ref x, ref forward, out y);
+            Vector3.Normalize( forward, out z);
+            Vector3.Cross( forward,  up, out x);
+            Vector3.Cross( x,  forward, out y);
             x.Normalize();
             y.Normalize();
 
@@ -301,7 +301,7 @@ namespace FarseerPhysics.Common
         /// <param name="result">
         /// A <see cref="Matrix"/>
         /// </param>
-        public static void Add(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        public static void Add( Matrix matrix1,  Matrix matrix2, out Matrix result)
         {
             result=new Matrix();
             result.M11 = matrix1.M11 + matrix2.M11;
@@ -326,12 +326,12 @@ namespace FarseerPhysics.Common
         public static Matrix CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector)
         {
             Matrix ret;
-            CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out ret);
+            CreateLookAt( cameraPosition,  cameraTarget,  cameraUpVector, out ret);
             return ret;
         }
 
 
-        public static void CreateLookAt(ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector,
+        public static void CreateLookAt( Vector3 cameraPosition,  Vector3 cameraTarget,  Vector3 cameraUpVector,
                                         out Matrix result)
         {
             // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
@@ -616,7 +616,7 @@ namespace FarseerPhysics.Common
         }
 
 
-        public static void CreateScale(ref Vector3 scales, out Matrix result)
+        public static void CreateScale( Vector3 scales, out Matrix result)
         {
             result = Identity;
 
@@ -660,7 +660,7 @@ namespace FarseerPhysics.Common
         }
 
 
-        public static void CreateTranslation(ref Vector3 position, out Matrix result)
+        public static void CreateTranslation( Vector3 position, out Matrix result)
         {
             result = Identity;
 
@@ -672,40 +672,40 @@ namespace FarseerPhysics.Common
         public static Matrix Divide(Matrix matrix1, Matrix matrix2)
         {
             Matrix ret;
-            Divide(ref matrix1, ref matrix2, out ret);
+            Divide( matrix1,  matrix2, out ret);
             return ret;
         }
 
 
-        public static void Divide(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        public static void Divide( Matrix matrix1,  Matrix matrix2, out Matrix result)
         {
             Matrix inverse = Invert(matrix2);
-            Multiply(ref matrix1, ref inverse, out result);
+            Multiply( matrix1,  inverse, out result);
         }
 
 
         public static Matrix Divide(Matrix matrix1, float divider)
         {
             Matrix ret;
-            Divide(ref matrix1, divider, out ret);
+            Divide( matrix1, divider, out ret);
             return ret;
         }
 
 
-        public static void Divide(ref Matrix matrix1, float divider, out Matrix result)
+        public static void Divide( Matrix matrix1, float divider, out Matrix result)
         {
             float inverseDivider = 1f/divider;
-            Multiply(ref matrix1, inverseDivider, out result);
+            Multiply( matrix1, inverseDivider, out result);
         }
 
         public static Matrix Invert(Matrix matrix)
         {
-            Invert(ref matrix, out matrix);
+            Invert( matrix, out matrix);
             return matrix;
         }
 
 
-        public static void Invert(ref Matrix matrix, out Matrix result)
+        public static void Invert( Matrix matrix, out Matrix result)
         {
             //
             // Use Laplace expansion theorem to calculate the inverse of a 4x4 matrix
@@ -760,7 +760,7 @@ namespace FarseerPhysics.Common
         }
 
 
-        public static void Lerp(ref Matrix matrix1, ref Matrix matrix2, float amount, out Matrix result)
+        public static void Lerp( Matrix matrix1,  Matrix matrix2, float amount, out Matrix result)
         {
             throw new NotImplementedException();
         }
@@ -768,12 +768,12 @@ namespace FarseerPhysics.Common
         public static Matrix Multiply(Matrix matrix1, Matrix matrix2)
         {
             Matrix ret;
-            Multiply(ref matrix1, ref matrix2, out ret);
+            Multiply( matrix1,  matrix2, out ret);
             return ret;
         }
 
 
-        public static void Multiply(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        public static void Multiply( Matrix matrix1,  Matrix matrix2, out Matrix result)
         {
             result = new Matrix();
             result.M11 = matrix1.M11 * matrix2.M11 + matrix1.M12 * matrix2.M21 + matrix1.M13 * matrix2.M31 +
@@ -836,7 +836,7 @@ namespace FarseerPhysics.Common
         }
 
 
-        public static void Multiply(ref Matrix matrix1, float factor, out Matrix result)
+        public static void Multiply( Matrix matrix1, float factor, out Matrix result)
         {
             result = new Matrix();
             result.M11 = matrix1.M11 * factor;
@@ -861,14 +861,14 @@ namespace FarseerPhysics.Common
 
         public static Matrix Negate(Matrix matrix)
         {
-            Multiply(ref matrix, -1.0f, out matrix);
+            Multiply( matrix, -1.0f, out matrix);
             return matrix;
         }
 
 
-        public static void Negate(ref Matrix matrix, out Matrix result)
+        public static void Negate( Matrix matrix, out Matrix result)
         {
-            Multiply(ref matrix, -1.0f, out result);
+            Multiply( matrix, -1.0f, out result);
         }
 
         public static Matrix Subtract(Matrix matrix1, Matrix matrix2)
@@ -892,7 +892,7 @@ namespace FarseerPhysics.Common
             return matrix1;
         }
 
-        public static void Subtract(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        public static void Subtract( Matrix matrix1,  Matrix matrix2, out Matrix result)
         {
             result = new Matrix();
             result.M11 = matrix1.M11 - matrix2.M11;
@@ -916,12 +916,12 @@ namespace FarseerPhysics.Common
         public static Matrix Transpose(Matrix matrix)
         {
             Matrix ret;
-            Transpose(ref matrix, out ret);
+            Transpose( matrix, out ret);
             return ret;
         }
 
 
-        public static void Transpose(ref Matrix matrix, out Matrix result)
+        public static void Transpose( Matrix matrix, out Matrix result)
         {
             result = new Matrix();
             result.M11 = matrix.M11;
@@ -977,21 +977,21 @@ namespace FarseerPhysics.Common
 
         public static Matrix operator +(Matrix matrix1, Matrix matrix2)
         {
-            Add(ref matrix1, ref matrix2, out matrix1);
+            Add( matrix1,  matrix2, out matrix1);
             return matrix1;
         }
 
         public static Matrix operator /(Matrix matrix1, Matrix matrix2)
         {
             Matrix ret;
-            Divide(ref matrix1, ref matrix2, out ret);
+            Divide( matrix1,  matrix2, out ret);
             return ret;
         }
 
         public static Matrix operator /(Matrix matrix1, float divider)
         {
             Matrix ret;
-            Divide(ref matrix1, divider, out ret);
+            Divide( matrix1, divider, out ret);
             return ret;
         }
 
@@ -1015,13 +1015,13 @@ namespace FarseerPhysics.Common
         public static Matrix operator *(Matrix matrix1, Matrix matrix2)
         {
             Matrix returnMatrix = new Matrix();
-            Multiply(ref matrix1, ref matrix2, out returnMatrix);
+            Multiply( matrix1,  matrix2, out returnMatrix);
             return returnMatrix;
         }
 
         public static Matrix operator *(Matrix matrix, float scaleFactor)
         {
-            Multiply(ref matrix, scaleFactor, out matrix);
+            Multiply( matrix, scaleFactor, out matrix);
             return matrix;
         }
 
@@ -1050,14 +1050,14 @@ namespace FarseerPhysics.Common
         public static Matrix operator -(Matrix matrix1, Matrix matrix2)
         {
             Matrix returnMatrix = new Matrix();
-            Subtract(ref matrix1, ref matrix2, out returnMatrix);
+            Subtract( matrix1,  matrix2, out returnMatrix);
             return returnMatrix;
         }
 
 
         public static Matrix operator -(Matrix matrix1)
         {
-            Negate(ref matrix1, out matrix1);
+            Negate( matrix1, out matrix1);
             return matrix1;
         }
 

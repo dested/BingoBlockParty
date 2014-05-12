@@ -257,7 +257,7 @@ namespace FarseerPhysics.Dynamics.Joints
             return invDt * _motorImpulse;
         }
 
-        internal override void InitVelocityConstraints(ref SolverData data)
+        internal override void InitVelocityConstraints( SolverData data)
         {
             _indexA = BodyA.IslandIndex;
             _indexB = BodyB.IslandIndex;
@@ -396,7 +396,7 @@ namespace FarseerPhysics.Dynamics.Joints
             data.velocities[_indexB].w = wB;
         }
 
-        internal override void SolveVelocityConstraints(ref SolverData data)
+        internal override void SolveVelocityConstraints( SolverData data)
         {
             float mA = _invMassA, mB = _invMassB;
             float iA = _invIA, iB = _invIB;
@@ -409,7 +409,7 @@ namespace FarseerPhysics.Dynamics.Joints
             // Solve spring constraint
             {
                 float Cdot = Vector2.Dot(_ax, vB - vA) + _sBx * wB - _sAx * wA;
-                float impulse = -_springMass * (Cdot + _bias + _gamma * _springImpulse);
+                float impulse = -_springMass * (Cdot + _bias + _gamma * _springImpulse); 
                 _springImpulse += impulse;
 
                 Vector2 P = impulse * _ax;
@@ -460,7 +460,7 @@ namespace FarseerPhysics.Dynamics.Joints
             data.velocities[_indexB].w = wB;
         }
 
-        internal override bool SolvePositionConstraints(ref SolverData data)
+        internal override bool SolvePositionConstraints( SolverData data)
         {
             Vector2 cA = data.positions[_indexA].c;
             float aA = data.positions[_indexA].a;

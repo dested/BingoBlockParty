@@ -236,7 +236,7 @@ namespace FarseerPhysics.Common
 
             Vector2 output, temp;
 
-            Vector2.Subtract(ref a, ref b, out temp);
+            Vector2.Subtract( a,  b, out temp);
 
 #if (XBOX360 || WINDOWS_PHONE)
 output = new Vector2();
@@ -245,7 +245,7 @@ output = new Vector2();
             output.X = -temp.Y;
             output.Y = temp.X;
 
-            Vector2.Normalize(ref output, out output);
+            Vector2.Normalize( output, out output);
 
             return output;
         }

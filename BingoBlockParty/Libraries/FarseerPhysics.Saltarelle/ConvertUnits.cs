@@ -36,9 +36,9 @@ namespace FarseerPhysics
             return simUnits * _displayUnitsToSimUnitsRatio;
         }
 
-        public static void ToDisplayUnits(ref Vector2 simUnits, out Vector2 displayUnits)
+        public static void ToDisplayUnits( Vector2 simUnits, out Vector2 displayUnits)
         {
-            Vector2.Multiply(ref simUnits, _displayUnitsToSimUnitsRatio, out displayUnits);
+            Vector2.Multiply( simUnits, _displayUnitsToSimUnitsRatio, out displayUnits);
         }
 
         public static Vector3 ToDisplayUnits(Vector3 simUnits)
@@ -83,9 +83,9 @@ namespace FarseerPhysics
             return displayUnits * _simUnitsToDisplayUnitsRatio;
         }
 
-        public static void ToSimUnits(ref Vector2 displayUnits, out Vector2 simUnits)
+        public static void ToSimUnits( Vector2 displayUnits, out Vector2 simUnits)
         {
-            Vector2.Multiply(ref displayUnits, _simUnitsToDisplayUnitsRatio, out simUnits);
+            Vector2.Multiply(displayUnits, _simUnitsToDisplayUnitsRatio, out simUnits);
         }
 
         public static Vector2 ToSimUnits(float x, float y)

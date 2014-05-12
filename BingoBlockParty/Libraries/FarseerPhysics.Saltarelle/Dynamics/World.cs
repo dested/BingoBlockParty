@@ -58,8 +58,6 @@ namespace FarseerPhysics.Dynamics
         private Vector2 _point2;
         private List<Fixture> _testPointAllFixtures;
         private Stopwatch _watch = new Stopwatch();
-        private Func<Fixture, Vector2, Vector2, float, float> _rayCastCallback;
-        private Func<RayCastInput, int, float> _rayCastCallbackWrapper;
 
         internal Queue<Contact> _contactPool = new Queue<Contact>();
         internal bool _worldHasNewFixture;
@@ -127,7 +125,6 @@ namespace FarseerPhysics.Dynamics
 #endif
 
             _queryAABBCallbackWrapper = QueryAABBCallbackWrapper;
-            _rayCastCallbackWrapper = RayCastCallbackWrapper;
 
             ContactManager = new ContactManager(new DynamicTreeBroadPhase());
             Gravity = gravity;
@@ -390,24 +387,7 @@ namespace FarseerPhysics.Dynamics
             return _queryAABBCallback(proxy.Fixture);
         }
 
-        private float RayCastCallbackWrapper(RayCastInput rayCastInput, int proxyId)
-        {
-            FixtureProxy proxy = ContactManager.BroadPhase.GetProxy(proxyId);
-            Fixture fixture = proxy.Fixture;
-            int index = proxy.ChildIndex;
-            RayCastOutput output;
-            bool hit = fixture.RayCast(out output, ref rayCastInput, index);
-
-            if (hit)
-            {
-                float fraction = output.Fraction;
-                Vector2 point = (1.0f - fraction)*rayCastInput.Point1 + fraction*rayCastInput.Point2;
-                return _rayCastCallback(fixture, point, output.Normal, fraction);
-            }
-
-            return rayCastInput.MaxFraction;
-        }
-
+ 
         private void Solve(ref TimeStep step)
         {
             // Size the island for the worst case.
@@ -598,7 +578,7 @@ namespace FarseerPhysics.Dynamics
                     }
                 }
 
-                Island.Solve(ref step, ref Gravity);
+                Island.Solve( step,  Gravity);
 
                 // Post solve cleanup.
                 for (int i = 0; i < Island.BodyCount; ++i)
@@ -1288,10 +1268,10 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="callback">A user implemented callback class.</param>
         /// <param name="aabb">The aabb query box.</param>
-        public void QueryAABB(Func<Fixture, bool> callback, ref AABB aabb)
+        public void QueryAABB(Func<Fixture, bool> callback,  AABB aabb)
         {
             _queryAABBCallback = callback;
-            ContactManager.BroadPhase.Query(_queryAABBCallbackWrapper, ref aabb);
+            ContactManager.BroadPhase.Query(_queryAABBCallbackWrapper,  aabb);
             _queryAABBCallback = null;
         }
 
@@ -1301,7 +1281,7 @@ namespace FarseerPhysics.Dynamics
         /// </summary>
         /// <param name="aabb">The aabb query box.</param>
         /// <returns>A list of fixtures that were in the affected area.</returns>
-        public List<Fixture> QueryAABB(ref AABB aabb)
+        public List<Fixture> QueryAABB( AABB aabb)
         {
             List<Fixture> affected = new List<Fixture>();
 
@@ -1309,7 +1289,7 @@ namespace FarseerPhysics.Dynamics
                       {
                           affected.Add(fixture);
                           return true;
-                      }, ref aabb);
+                      },  aabb);
 
             return affected;
         }
@@ -1355,14 +1335,14 @@ namespace FarseerPhysics.Dynamics
             _point1 = point;
 
             // Query the world for overlapping shapes.
-            QueryAABB(TestPointCallback, ref aabb);
+            QueryAABB(TestPointCallback,  aabb);
 
             return _myFixture;
         }
 
         private bool TestPointCallback(Fixture fixture)
         {
-            bool inside = fixture.TestPoint(ref _point1);
+            bool inside = fixture.TestPoint( _point1);
             if (inside)
             {
                 _myFixture = fixture;
@@ -1390,7 +1370,7 @@ namespace FarseerPhysics.Dynamics
             _testPointAllFixtures = new List<Fixture>();
 
             // Query the world for overlapping shapes.
-            QueryAABB(TestPointAllCallback, ref aabb);
+            QueryAABB(TestPointAllCallback,  aabb);
 
             return _testPointAllFixtures;
         }
@@ -1398,7 +1378,7 @@ namespace FarseerPhysics.Dynamics
         private bool TestPointAllCallback(Fixture fixture)
         {
             var tmp1 = _point2;
-            bool inside = fixture.TestPoint(ref tmp1);
+            bool inside = fixture.TestPoint( tmp1);
             _point2 = tmp1;
 
             if (inside)

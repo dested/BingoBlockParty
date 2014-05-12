@@ -489,7 +489,7 @@ namespace FarseerPhysics.Common
 
                 // Test if a point is directly on the edge
                 Vector2 edge = p2 - p1;
-                float area = MathUtils.Area(ref p1, ref p2, ref point);
+                float area = MathUtils.Area( p1,  p2,  point);
                 if (area == 0f && Vector2.Dot(point - p1, edge) >= 0f && Vector2.Dot(point - p2, edge) <= 0f)
                 {
                     return 0;
@@ -556,7 +556,7 @@ namespace FarseerPhysics.Common
                 for (int i = 0; i < Holes.Count; i++)
                 {
                     Vector2[] temp = Holes[i].InternalList.ToArray();
-                    Vector2.Transform(temp, ref transform, temp);
+                    Vector2.Transform(temp,  transform, temp);
 
                     Holes[i] = new Vertices(temp);
                 }
