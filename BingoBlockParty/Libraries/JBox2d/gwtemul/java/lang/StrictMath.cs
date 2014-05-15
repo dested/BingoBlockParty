@@ -35,7 +35,7 @@ namespace java.lang
     {
         public static double atan2(double y, double x)
         {
-            return (double) Math.Atan2(y, x);
+            return (double)Math.Atan2(y, x);
         }
 
         public static double cos(double a)
