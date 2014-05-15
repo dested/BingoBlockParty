@@ -103,7 +103,7 @@
   <ItemGroup>
     <Reference Include="OpenTK-1.0" />
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\Library\Application Support\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\MonoGame.Framework.dll</HintPath>
+      <HintPath>monogameios\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Engine.Xna">
       <HintPath>..\Engine.Xna\bin\IOS\Engine.Xna.dll</HintPath>
