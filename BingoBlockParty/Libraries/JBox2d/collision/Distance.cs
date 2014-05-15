@@ -128,7 +128,7 @@ namespace org.jbox2d.collision
                 Transform.mulToOutUnsafe(transformA, wALocal, v.wA);
                 Transform.mulToOutUnsafe(transformB, wBLocal, v.wB);
                 v.w.set(v.wB).subLocal(v.wA);
-                v.a = 0.0f;
+                v.a = 0.0d;
             }
 
             // Compute the new simplex metric, if it is substantially different than
@@ -137,7 +137,7 @@ namespace org.jbox2d.collision
             {
                 double metric1 = cache.metric;
                 double metric2 = getMetric();
-                if (metric2 < 0.5f*metric1 || 2.0f*metric1 < metric2 || metric2 < Settings.EPSILON)
+                if (metric2 < 0.5d*metric1 || 2.0d*metric1 < metric2 || metric2 < Settings.EPSILON)
                 {
                     // Reset the simplex.
                     m_count = 0;
@@ -184,14 +184,14 @@ namespace org.jbox2d.collision
                     out_.set(m_v1.w).negateLocal();
                     double sgn = Vec2.cross(e12, out_);
 
-                    if (sgn > 0f)
+                    if (sgn > 0d)
                     {
                         // Origin is left of e12.
-                        Vec2.crossToOutUnsafe(1f, e12, out_);
+                        Vec2.crossToOutUnsafe(1d, e12, out_);
                         return;
                     }
                     // Origin is right of e12.
-                    Vec2.crossToOutUnsafe(e12, 1f, out_);
+                    Vec2.crossToOutUnsafe(e12, 1d, out_);
                     return;
                 default:
                     out_.setZero();
@@ -276,10 +276,10 @@ namespace org.jbox2d.collision
             switch (m_count)
             {
                 case 0:
-                    return 0.0f;
+                    return 0.0d;
 
                 case 1:
-                    return 0.0f;
+                    return 0.0d;
 
                 case 2:
                     return MathUtils.distance(m_v1.w, m_v2.w);
@@ -291,7 +291,7 @@ namespace org.jbox2d.collision
                     return Vec2.cross(case3, case33);
 
                 default:
-                    return 0.0f;
+                    return 0.0d;
             }
         }
 
@@ -331,27 +331,27 @@ namespace org.jbox2d.collision
 
             // w1 region
             double d12_2 = -Vec2.dot(w1, e12);
-            if (d12_2 <= 0.0f)
+            if (d12_2 <= 0.0d)
             {
                 // a2 <= 0, so we clamp it to 0
-                m_v1.a = 1.0f;
+                m_v1.a = 1.0d;
                 m_count = 1;
                 return;
             }
 
             // w2 region
             double d12_1 = Vec2.dot(w2, e12);
-            if (d12_1 <= 0.0f)
+            if (d12_1 <= 0.0d)
             {
                 // a1 <= 0, so we clamp it to 0
-                m_v2.a = 1.0f;
+                m_v2.a = 1.0d;
                 m_count = 1;
                 m_v1.set(m_v2);
                 return;
             }
 
             // Must be in e12 region.
-            double inv_d12 = 1.0f/(d12_1 + d12_2);
+            double inv_d12 = 1.0d/(d12_1 + d12_2);
             m_v1.a = d12_1*inv_d12;
             m_v2.a = d12_2*inv_d12;
             m_count = 2;
@@ -412,17 +412,17 @@ namespace org.jbox2d.collision
             double d123_3 = n123*Vec2.cross(w1, w2);
 
             // w1 region
-            if (d12_2 <= 0.0f && d13_2 <= 0.0f)
+            if (d12_2 <= 0.0d && d13_2 <= 0.0d)
             {
-                m_v1.a = 1.0f;
+                m_v1.a = 1.0d;
                 m_count = 1;
                 return;
             }
 
             // e12
-            if (d12_1 > 0.0f && d12_2 > 0.0f && d123_3 <= 0.0f)
+            if (d12_1 > 0.0d && d12_2 > 0.0d && d123_3 <= 0.0d)
             {
-                double inv_d12 = 1.0f/(d12_1 + d12_2);
+                double inv_d12 = 1.0d/(d12_1 + d12_2);
                 m_v1.a = d12_1*inv_d12;
                 m_v2.a = d12_2*inv_d12;
                 m_count = 2;
@@ -430,9 +430,9 @@ namespace org.jbox2d.collision
             }
 
             // e13
-            if (d13_1 > 0.0f && d13_2 > 0.0f && d123_2 <= 0.0f)
+            if (d13_1 > 0.0d && d13_2 > 0.0d && d123_2 <= 0.0d)
             {
-                double inv_d13 = 1.0f/(d13_1 + d13_2);
+                double inv_d13 = 1.0d/(d13_1 + d13_2);
                 m_v1.a = d13_1*inv_d13;
                 m_v3.a = d13_2*inv_d13;
                 m_count = 2;
@@ -441,27 +441,27 @@ namespace org.jbox2d.collision
             }
 
             // w2 region
-            if (d12_1 <= 0.0f && d23_2 <= 0.0f)
+            if (d12_1 <= 0.0d && d23_2 <= 0.0d)
             {
-                m_v2.a = 1.0f;
+                m_v2.a = 1.0d;
                 m_count = 1;
                 m_v1.set(m_v2);
                 return;
             }
 
             // w3 region
-            if (d13_1 <= 0.0f && d23_1 <= 0.0f)
+            if (d13_1 <= 0.0d && d23_1 <= 0.0d)
             {
-                m_v3.a = 1.0f;
+                m_v3.a = 1.0d;
                 m_count = 1;
                 m_v1.set(m_v3);
                 return;
             }
 
             // e23
-            if (d23_1 > 0.0f && d23_2 > 0.0f && d123_1 <= 0.0f)
+            if (d23_1 > 0.0d && d23_2 > 0.0d && d123_1 <= 0.0d)
             {
-                double inv_d23 = 1.0f/(d23_1 + d23_2);
+                double inv_d23 = 1.0d/(d23_1 + d23_2);
                 m_v2.a = d23_1*inv_d23;
                 m_v3.a = d23_2*inv_d23;
                 m_count = 2;
@@ -470,7 +470,7 @@ namespace org.jbox2d.collision
             }
 
             // Must be in triangle123
-            double inv_d123 = 1.0f/(d123_1 + d123_2 + d123_3);
+            double inv_d123 = 1.0d/(d123_1 + d123_2 + d123_3);
             m_v1.a = d123_1*inv_d123;
             m_v2.a = d123_2*inv_d123;
             m_v3.a = d123_3*inv_d123;
@@ -494,7 +494,7 @@ namespace org.jbox2d.collision
             }
             m_buffer = new Vec2[2];
             m_count = 0;
-            m_radius = 0f;
+            m_radius = 0d;
         }
 
         /**
@@ -822,10 +822,10 @@ namespace org.jbox2d.collision
                 {
                     // Shapes are overlapped when radii are considered.
                     // Move the witness points to the middle.
-                    // Vec2 p = 0.5f * (output.pointA + output.pointB);
-                    output.pointA.addLocal(output.pointB).mulLocal(.5f);
+                    // Vec2 p = 0.5d * (output.pointA + output.pointB);
+                    output.pointA.addLocal(output.pointB).mulLocal(.5d);
                     output.pointB.set(output.pointA);
-                    output.distance = 0.0f;
+                    output.distance = 0.0d;
                 }
             }
         }

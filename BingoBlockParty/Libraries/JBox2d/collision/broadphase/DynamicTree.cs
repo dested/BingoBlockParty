@@ -136,7 +136,7 @@ namespace org.jbox2d.collision.broadphase
             // Predict AABB displacement.
             double dx = displacement.x*Settings.aabbMultiplier;
             double dy = displacement.y*Settings.aabbMultiplier;
-            if (dx < 0.0f)
+            if (dx < 0.0d)
             {
                 lowerBound.x += dx;
             }
@@ -145,7 +145,7 @@ namespace org.jbox2d.collision.broadphase
                 upperBound.x += dx;
             }
 
-            if (dy < 0.0f)
+            if (dy < 0.0d)
             {
                 lowerBound.y += dy;
             }
@@ -222,8 +222,8 @@ namespace org.jbox2d.collision.broadphase
             ry = r.y;
 
             // v is perpendicular to the segment.
-            vx = -1f*ry;
-            vy = 1f*rx;
+            vx = -1d*ry;
+            vy = 1d*rx;
             absVx = MathUtils.abs(vx);
             absVy = MathUtils.abs(vy);
 
@@ -267,14 +267,14 @@ namespace org.jbox2d.collision.broadphase
                 // |dot(v, p1 - c)| > dot(|v|, h)
                 // node.aabb.getCenterToOut(c);
                 // node.aabb.getExtentsToOut(h);
-                cx = (nodeAABB.lowerBound.x + nodeAABB.upperBound.x)*.5f;
-                cy = (nodeAABB.lowerBound.y + nodeAABB.upperBound.y)*.5f;
-                hx = (nodeAABB.upperBound.x - nodeAABB.lowerBound.x)*.5f;
-                hy = (nodeAABB.upperBound.y - nodeAABB.lowerBound.y)*.5f;
+                cx = (nodeAABB.lowerBound.x + nodeAABB.upperBound.x)*.5d;
+                cy = (nodeAABB.lowerBound.y + nodeAABB.upperBound.y)*.5d;
+                hx = (nodeAABB.upperBound.x - nodeAABB.lowerBound.x)*.5d;
+                hy = (nodeAABB.upperBound.y - nodeAABB.lowerBound.y)*.5d;
                 tempx = p1x - cx;
                 tempy = p1y - cy;
                 double separation = MathUtils.abs(vx*tempx + vy*tempy) - (absVx*hx + absVy*hy);
-                if (separation > 0.0f)
+                if (separation > 0.0d)
                 {
                     continue;
                 }
@@ -289,13 +289,13 @@ namespace org.jbox2d.collision.broadphase
 
                     double value = callback.raycastCallback(subInput, node.id);
 
-                    if (value == 0.0f)
+                    if (value == 0.0d)
                     {
                         // The client has terminated the ray cast.
                         return;
                     }
 
-                    if (value > 0.0f)
+                    if (value > 0.0d)
                     {
                         // Update segment bounding box.
                         maxFraction = value;
@@ -360,13 +360,13 @@ namespace org.jbox2d.collision.broadphase
         {
             if (m_root == null)
             {
-                return 0.0f;
+                return 0.0d;
             }
 
             DynamicTreeNode root = m_root;
             double rootArea = root.aabb.getPerimeter();
 
-            double totalArea = 0.0f;
+            double totalArea = 0.0d;
             for (int i = 0; i < m_nodeCapacity; ++i)
             {
                 DynamicTreeNode node = m_nodes[i];
@@ -576,10 +576,10 @@ namespace org.jbox2d.collision.broadphase
                 double combinedArea = combinedAABB.getPerimeter();
 
                 // Cost of creating a new parent for this node and the new leaf
-                double cost = 2.0f*combinedArea;
+                double cost = 2.0d*combinedArea;
 
                 // Minimum cost of pushing the leaf further down the tree
-                double inheritanceCost = 2.0f*(combinedArea - area);
+                double inheritanceCost = 2.0d*(combinedArea - area);
 
                 // Cost of descending into child1
                 double cost1;
@@ -930,7 +930,7 @@ namespace org.jbox2d.collision.broadphase
         {
             node.aabb.getVertices(drawVecs);
 
-            color.set(1, (height - spot)*1f/height, (height - spot)*1f/height);
+            color.set(1, (height - spot)*1d/height, (height - spot)*1d/height);
             argDraw.drawPolygon(drawVecs, 4, color);
 
             argDraw.getViewportTranform().getWorldToScreen(node.aabb.upperBound, textVec);

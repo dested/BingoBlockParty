@@ -68,7 +68,7 @@ namespace org.jbox2d.collision.shapes
 
         public MassData()
         {
-            mass = I = 0f;
+            mass = I = 0d;
             center = new Vec2();
         }
 

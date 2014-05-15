@@ -34,7 +34,7 @@ namespace org.jbox2d.common
     {
 /*
         private static readonly double SHIFT23 = 1 << 23;
-        private static readonly double INV_SHIFT23 = 1.0f/SHIFT23;
+        private static readonly double INV_SHIFT23 = 1.0d/SHIFT23;
 
         public static double fastPow(double a, double b)
         {
@@ -42,9 +42,9 @@ namespace org.jbox2d.common
             x *= INV_SHIFT23;
             x -= 127;
             double y = x - (x >= 0 ? (int) x : (int) x - 1);
-            b *= x + (y - y*y)*0.346607f;
+            b *= x + (y - y*y)*0.346607d;
             y = b - (b >= 0 ? (int) b : (int) b - 1);
-            y = (y - y*y)*0.33971f;
+            y = (y - y*y)*0.33971d;
             return NumberHelper.intBitsToDouble((int) ((b + 127 - y)*SHIFT23));
         }
 */

@@ -70,9 +70,9 @@ namespace org.jbox2d.dynamics
         {
             shape = null;
             userData = null;
-            friction = 0.2f;
-            restitution = 0f;
-            density = 0f;
+            friction = 0.2d;
+            restitution = 0d;
+            density = 0d;
             filter = new Filter();
             isSensor = false;
         }

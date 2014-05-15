@@ -92,14 +92,14 @@ namespace org.jbox2d.dynamics.joints
             type = JointType.PRISMATIC;
             localAnchorA = new Vec2();
             localAnchorB = new Vec2();
-            localAxisA = new Vec2(1.0f, 0.0f);
-            referenceAngle = 0.0f;
+            localAxisA = new Vec2(1.0d, 0.0d);
+            referenceAngle = 0.0d;
             enableLimit = false;
-            lowerTranslation = 0.0f;
-            upperTranslation = 0.0f;
+            lowerTranslation = 0.0d;
+            upperTranslation = 0.0d;
             enableMotor = false;
-            maxMotorForce = 0.0f;
-            motorSpeed = 0.0f;
+            maxMotorForce = 0.0d;
+            motorSpeed = 0.0d;
         }
 
 

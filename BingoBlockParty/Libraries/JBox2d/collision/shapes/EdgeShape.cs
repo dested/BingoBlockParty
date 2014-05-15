@@ -125,13 +125,13 @@ namespace org.jbox2d.collision.shapes
             double numerator = normalx*tempx + normaly*tempy;
             double denominator = normalx*dx + normaly*dy;
 
-            if (denominator == 0.0f)
+            if (denominator == 0.0d)
             {
                 return false;
             }
 
             double t = numerator/denominator;
-            if (t < 0.0f || 1.0f < t)
+            if (t < 0.0d || 1.0d < t)
             {
                 return false;
             }
@@ -146,7 +146,7 @@ namespace org.jbox2d.collision.shapes
             double rx = v2.x - v1.x;
             double ry = v2.y - v1.y;
             double rr = rx*rx + ry*ry;
-            if (rr == 0.0f)
+            if (rr == 0.0d)
             {
                 return false;
             }
@@ -154,13 +154,13 @@ namespace org.jbox2d.collision.shapes
             tempy = qy - v1.y;
             // double s = Vec2.dot(pool5, r) / rr;
             double s = (tempx*rx + tempy*ry)/rr;
-            if (s < 0.0f || 1.0f < s)
+            if (s < 0.0d || 1.0d < s)
             {
                 return false;
             }
 
             output.fraction = t;
-            if (numerator > 0.0f)
+            if (numerator > 0.0d)
             {
                 // argOutput.normal = -normal;
                 output.normal.x = -normalx;
@@ -201,9 +201,9 @@ namespace org.jbox2d.collision.shapes
 
         public override void computeMass(MassData massData, double density)
         {
-            massData.mass = 0.0f;
-            massData.center.set(m_vertex1).addLocal(m_vertex2).mulLocal(0.5f);
-            massData.I = 0.0f;
+            massData.mass = 0.0d;
+            massData.center.set(m_vertex1).addLocal(m_vertex2).mulLocal(0.5d);
+            massData.I = 0.0d;
         }
 
 

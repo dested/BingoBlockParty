@@ -1209,7 +1209,7 @@
 		var atan;
 		var z = y / x;
 		if ($org_jbox2d_common_MathUtils.abs(z) < 1) {
-			atan = z / (1 + 0.280000001192093 * z * z);
+			atan = z / (1 + 0.28 * z * z);
 			if (x < 0) {
 				if (y < 0) {
 					return atan - $org_jbox2d_common_MathUtils.PI;
@@ -1218,7 +1218,7 @@
 			}
 		}
 		else {
-			atan = $org_jbox2d_common_MathUtils.halF_PI - z / (z * z + 0.280000001192093);
+			atan = $org_jbox2d_common_MathUtils.halF_PI - z / (z * z + 0.28);
 			if (y < 0) {
 				return atan - $org_jbox2d_common_MathUtils.PI;
 			}
@@ -1259,7 +1259,7 @@
 	};
 	$org_jbox2d_common_NumberHelper.__typeName = 'org.jbox2d.common.NumberHelper';
 	$org_jbox2d_common_NumberHelper.compareDoubles = function(f, f1) {
-		return Math.abs(f - f1) < 4.94065645841247E-324;
+		return Math.abs(f - f1) < $org_jbox2d_common_Settings.EPSILON;
 	};
 	global.org.jbox2d.common.NumberHelper = $org_jbox2d_common_NumberHelper;
 	////////////////////////////////////////////////////////////////////////////////
@@ -1824,7 +1824,7 @@
 		this.userData = null;
 		this.shape = null;
 		this.userData = null;
-		this.friction = 0.200000002980232;
+		this.friction = 0.2;
 		this.restitution = 0;
 		this.density = 0;
 		this.filter = new $org_jbox2d_dynamics_Filter();
@@ -1926,7 +1926,7 @@
 		this.$input = new $org_jbox2d_collision_RayCastInput();
 		this.$island = new $org_jbox2d_dynamics_Island();
 		this.$islandProfile = new $org_jbox2d_dynamics_Profile();
-		this.$liquidColor = new $org_jbox2d_common_Color3f.$ctor1(0.400000005960464, 0.400000005960464, 1);
+		this.$liquidColor = new $org_jbox2d_common_Color3f.$ctor1(0.4, 0.4, 1);
 		this.$liquidOffset = new $org_jbox2d_common_Vec2();
 		this.$m_gravity = new $org_jbox2d_common_Vec2();
 		this.$m_profile = null;
@@ -1948,7 +1948,7 @@
 		this.activeContacts = 0;
 		this.$averageLinearVel = -1;
 		this.contactPoolCount = 0;
-		this.$liquidLength = 0.119999997317791;
+		this.$liquidLength = 0.12;
 		this.$m_allowSleep = false;
 		this.$m_bodyCount = 0;
 		this.$m_bodyList = null;
@@ -2260,9 +2260,9 @@
 			for (var i1 = 0; i1 < this.$targetLengths.length; ++i1) {
 				var next1 = ((i1 === this.$targetLengths.length - 1) ? 0 : (i1 + 1));
 				djd.frequencyHz = def.frequencyHz;
-				// 20.0f;
+				// 20.0d;
 				djd.dampingRatio = def.dampingRatio;
-				// 50.0f;
+				// 50.0d;
 				djd.collideConnected = def.collideConnected;
 				djd.initialize(this.$bodies[i1], this.$bodies[next1], this.$bodies[i1].getWorldCenter(), this.$bodies[next1].getWorldCenter());
 				this.$distanceJoints[i1] = ss.cast(this.$world.createJoint(djd), $org_jbox2d_dynamics_joints_DistanceJoint);
@@ -2696,7 +2696,7 @@
 		this.target.set$1(0, 0);
 		this.maxForce = 0;
 		this.frequencyHz = 5;
-		this.dampingRatio = 0.699999988079071;
+		this.dampingRatio = 0.7;
 	};
 	$org_jbox2d_dynamics_joints_MouseJointDef.__typeName = 'org.jbox2d.dynamics.joints.MouseJointDef';
 	global.org.jbox2d.dynamics.joints.MouseJointDef = $org_jbox2d_dynamics_joints_MouseJointDef;
@@ -3829,7 +3829,7 @@
 			this.$input.useRadii = true;
 			this.$cache.count = 0;
 			this.$pool.getDistance().distance(this.$output, this.$cache, this.$input);
-			// djm note: anything significant about 10.0f?
+			// djm note: anything significant about 10.0d?
 			return this.$output.distance < 10 * $org_jbox2d_common_Settings.EPSILON;
 		},
 		collideCircles: function(manifold, circle1, xfA, circle2, xfB) {
@@ -3918,7 +3918,7 @@
 				manifold.type = 1;
 				// before inline:
 				// manifold.localNormal.set(normals[normalIndex]);
-				// manifold.localPoint.set(v1).addLocal(v2).mulLocal(.5f);
+				// manifold.localPoint.set(v1).addLocal(v2).mulLocal(.5d);
 				// manifold.points[0].localPoint.set(circle.m_p);
 				// after inline:
 				var normal = normals[normalIndex];
@@ -3994,10 +3994,10 @@
 				manifold.points[0].id.zero();
 			}
 			else {
-				// Vec2 faceCenter = 0.5f * (v1 + v2);
+				// Vec2 faceCenter = 0.5d * (v1 + v2);
 				// (temp is faceCenter)
 				// before inline:
-				// temp.set(v1).addLocal(v2).mulLocal(.5f);
+				// temp.set(v1).addLocal(v2).mulLocal(.5d);
 				//
 				// temp2.set(cLocal).subLocal(temp);
 				// separation = Vec2.dot(temp2, normals[vertIndex1]);
@@ -4243,8 +4243,8 @@
 			var edge1;
 			// reference edge
 			var flip;
-			var k_relativeTol = 0.980000019073486;
-			var k_absoluteTol = 0.00100000004749745;
+			var k_relativeTol = 0.98;
+			var k_absoluteTol = 0.001;
 			if (this.$results2.separation > k_relativeTol * this.$results1.separation + k_absoluteTol) {
 				poly1 = polyB;
 				poly2 = polyA;
@@ -4274,16 +4274,16 @@
 			this.$localTangent.x = this.$v12.x - this.$v11.x;
 			this.$localTangent.y = this.$v12.y - this.$v11.y;
 			this.$localTangent.normalize();
-			// Vec2 localNormal = Vec2.cross(dv, 1.0f);
+			// Vec2 localNormal = Vec2.cross(dv, 1.0d);
 			this.$localNormal.x = 1 * this.$localTangent.y;
 			this.$localNormal.y = -1 * this.$localTangent.x;
-			// Vec2 planePoint = 0.5f * (v11+ v12);
+			// Vec2 planePoint = 0.5d * (v11+ v12);
 			this.$planePoint.x = (this.$v11.x + this.$v12.x) * 0.5;
 			this.$planePoint.y = (this.$v11.y + this.$v12.y) * 0.5;
 			// Rot.mulToOutUnsafe(xf1.q, localTangent, tangent);
 			this.$tangent.x = xf1q.c * this.$localTangent.x - xf1q.s * this.$localTangent.y;
 			this.$tangent.y = xf1q.s * this.$localTangent.x + xf1q.c * this.$localTangent.y;
-			// Vec2.crossToOutUnsafe(tangent, 1f, normal);
+			// Vec2.crossToOutUnsafe(tangent, 1d, normal);
 			var normalx = 1 * this.$tangent.y;
 			var normaly = -1 * this.$tangent.x;
 			$org_jbox2d_common_Transform.mulToOut$1(xf1, this.$v11, this.$v11);
@@ -4419,7 +4419,7 @@
 			}
 			// Region AB
 			var den = $org_jbox2d_common_Vec2.dot(this.$e, this.$e);
-			// Vec2 P = (1.0f / den) * (u * A + v * B);
+			// Vec2 P = (1.0d / den) * (u * A + v * B);
 			this.$p2.set(A).mulLocal(u).addLocal(this.$temp.set(B).mulLocal(v));
 			this.$p2.mulLocal(1 / den);
 			$org_jbox2d_collision_Collision.$d.set(this.$q).subLocal(this.$p2);
@@ -4693,8 +4693,8 @@
 				return;
 			}
 			// Use hysteresis for jitter reduction.
-			var k_relativeTol = 0.980000019073486;
-			var k_absoluteTol = 0.00100000004749745;
+			var k_relativeTol = 0.98;
+			var k_absoluteTol = 0.001;
 			var primaryAxis;
 			if (this.$polygonAxis.type === 0) {
 				primaryAxis = this.$edgeAxis;
@@ -5035,7 +5035,7 @@
 				else {
 					// Shapes are overlapped when radii are considered.
 					// Move the witness points to the middle.
-					// Vec2 p = 0.5f * (output.pointA + output.pointB);
+					// Vec2 p = 0.5d * (output.pointA + output.pointB);
 					output.pointA.addLocal(output.pointB).mulLocal(0.5);
 					output.pointB.set(output.pointA);
 					output.distance = 0;
@@ -5659,7 +5659,7 @@
 						//
 						// cA.set(normal).mulLocal(radiusA).addLocal(pointA);
 						// cB.set(normal).mulLocal(radiusB).subLocal(pointB).negateLocal();
-						// points[0].set(cA).addLocal(cB).mulLocal(0.5f);
+						// points[0].set(cA).addLocal(cB).mulLocal(0.5d);
 						var pointA = this.$pool3;
 						var pointB = this.$pool4;
 						this.normal.x = 1;
@@ -5699,14 +5699,14 @@
 							// b2Vec2 cA = clipPoint + (radiusA - b2Dot(clipPoint - planePoint,
 							// normal)) * normal;
 							// b2Vec2 cB = clipPoint - radiusB * normal;
-							// points[i] = 0.5f * (cA + cB);
+							// points[i] = 0.5d * (cA + cB);
 							$org_jbox2d_common_Transform.mulToOut$1(xfB, manifold.points[i].localPoint, clipPoint);
 							// use cA as temporary for now
 							// cA.set(clipPoint).subLocal(planePoint);
 							// double scalar = radiusA - Vec2.dot(cA, normal);
 							// cA.set(normal).mulLocal(scalar).addLocal(clipPoint);
 							// cB.set(normal).mulLocal(radiusB).subLocal(clipPoint).negateLocal();
-							// points[i].set(cA).addLocal(cB).mulLocal(0.5f);
+							// points[i].set(cA).addLocal(cB).mulLocal(0.5d);
 							var scalar = radiusA - ((clipPoint.x - planePoint.x) * this.normal.x + (clipPoint.y - planePoint.y) * this.normal.y);
 							var cAx1 = this.normal.x * scalar + clipPoint.x;
 							var cAy1 = this.normal.y * scalar + clipPoint.y;
@@ -5734,14 +5734,14 @@
 						// b2Vec2 cB = clipPoint + (radiusB - b2Dot(clipPoint - planePoint,
 						// normal)) * normal;
 						// b2Vec2 cA = clipPoint - radiusA * normal;
-						// points[i] = 0.5f * (cA + cB);
+						// points[i] = 0.5d * (cA + cB);
 						$org_jbox2d_common_Transform.mulToOut$1(xfA, manifold.points[i1].localPoint, clipPoint2);
 						// cB.set(clipPoint).subLocal(planePoint);
 						// double scalar = radiusB - Vec2.dot(cB, normal);
 						// cB.set(normal).mulLocal(scalar).addLocal(clipPoint);
 						// cA.set(normal).mulLocal(radiusA).subLocal(clipPoint).negateLocal();
-						// points[i].set(cA).addLocal(cB).mulLocal(0.5f);
-						// points[i] = 0.5f * (cA + cB);
+						// points[i].set(cA).addLocal(cB).mulLocal(0.5d);
+						// points[i] = 0.5d * (cA + cB);
 						//
 						// clipPoint.x = xfA.p.x + xfA.q.ex.x * manifold.points[i].localPoint.x + xfA.q.ey.x *
 						// manifold.points[i].localPoint.y;
@@ -6807,7 +6807,7 @@
 			massData.center.x = this.m_p.x;
 			massData.center.y = this.m_p.y;
 			// inertia about the local origin
-			// massData.I = massData.mass * (0.5f * m_radius * m_radius + Vec2.dot(m_p, m_p));
+			// massData.I = massData.mass * (0.5d * m_radius * m_radius + Vec2.dot(m_p, m_p));
 			massData.i = massData.mass * (0.5 * this.m_radius * this.m_radius + (this.m_p.x * this.m_p.x + this.m_p.y * this.m_p.y));
 		}
 	}, $org_jbox2d_collision_shapes_Shape);
@@ -7195,7 +7195,7 @@
 			pRef.setZero();
 			var e1 = this.$pool2;
 			var e2 = this.$pool3;
-			var inv3 = 0.333333343267441;
+			var inv3 = 0.333333333333333;
 			for (var i = 0; i < count; ++i) {
 				// Triangle vertices.
 				var p1 = pRef;
@@ -7250,7 +7250,7 @@
 				s.addLocal(this.m_vertices[i]);
 			}
 			s.mulLocal(1 / this.m_count);
-			var k_inv3 = 0.333333343267441;
+			var k_inv3 = 0.333333333333333;
 			var e1 = this.$pool3;
 			var e2 = this.$pool4;
 			for (var i1 = 0; i1 < this.m_count; ++i1) {
@@ -7407,7 +7407,7 @@
 		invertToOut: function(out_) {
 			var a = this.ex.x, b = this.ey.x, c = this.ex.y, d = this.ey.y;
 			var det = a * d - b * c;
-			// b2Assert(det != 0.0f);
+			// b2Assert(det != 0.0d);
 			det = 1 / det;
 			out_.ex.x = det * d;
 			out_.ey.x = -det * b;
@@ -7871,16 +7871,16 @@
 			// xf = new XForm();
 			// center = p + R * localCenter
 			//
-			//     * if (1.0f - t0 > Settings.EPSILON) { double alpha = (t - t0) / (1.0f - t0); xf.position.x =
+			//     * if (1.0d - t0 > Settings.EPSILON) { double alpha = (t - t0) / (1.0d - t0); xf.position.x =
 			//
-			//     * (1.0f - alpha) * c0.x + alpha * c.x; xf.position.y = (1.0f - alpha) * c0.y + alpha * c.y;
+			//     * (1.0d - alpha) * c0.x + alpha * c.x; xf.position.y = (1.0d - alpha) * c0.y + alpha * c.y;
 			//
-			//     * double angle = (1.0f - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
+			//     * double angle = (1.0d - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
 			//
 			//     * xf.R.set(a); }
 			xf.p.x = (1 - beta) * this.c0.x + beta * this.c.x;
 			xf.p.y = (1 - beta) * this.c0.y + beta * this.c.y;
-			// double angle = (1.0f - alpha) * a0 + alpha * a;
+			// double angle = (1.0d - alpha) * a0 + alpha * a;
 			// xf.R.set(angle);
 			xf.q.set((1 - beta) * this.a0 + beta * this.a);
 			// Shift to origin
@@ -7890,11 +7890,11 @@
 			xf.p.y -= q.s * this.localCenter.x + q.c * this.localCenter.y;
 		},
 		advance: function(alpha) {
-			//    // c0 = (1.0f - t) * c0 + t*c;
-			//    double beta = (alpha - alpha0) / (1.0f - alpha0);
-			//    c0.x = (1.0f - beta) * c0.x + beta * c.x;
-			//    c0.y = (1.0f - beta) * c0.y + beta * c.y;
-			//    a0 = (1.0f - beta) * a0 + beta * a;
+			//    // c0 = (1.0d - t) * c0 + t*c;
+			//    double beta = (alpha - alpha0) / (1.0d - alpha0);
+			//    c0.x = (1.0d - beta) * c0.x + beta * c.x;
+			//    c0.y = (1.0d - beta) * c0.y + beta * c.y;
+			//    a0 = (1.0d - beta) * a0 + beta * a;
 			//    alpha0 = alpha;
 			this.c0.x = (1 - alpha) * this.c0.x + alpha * this.c.x;
 			this.c0.y = (1 - alpha) * this.c0.y + alpha * this.c.y;
@@ -8155,7 +8155,7 @@
 			var hit = fixture.raycast(this.$output, input, index);
 			if (hit) {
 				var fraction = this.$output.fraction;
-				// Vec2 point = (1.0f - fraction) * input.p1 + fraction * input.p2;
+				// Vec2 point = (1.0d - fraction) * input.p1 + fraction * input.p2;
 				this.$temp.set(input.p2).mulLocal(fraction);
 				this.$point.set(input.p1).mulLocal(1 - fraction).addLocal(this.$temp);
 				return this.$callback.reportFixture(fixture, this.$point, this.$output.normal, fraction);
@@ -9195,7 +9195,7 @@
 					// exp(-c * dt)
 					// v2 = exp(-c * dt) * v1
 					// Taylor expansion:
-					// v2 = (1.0f - c * dt) * v1
+					// v2 = (1.0d - c * dt) * v1
 					var a1 = $org_jbox2d_common_MathUtils.clamp(1 - h * b.m_linearDamping, 0, 1);
 					v.x *= a1;
 					v.y *= a1;
@@ -9802,15 +9802,15 @@
 					this.$xf.set(b.getTransform());
 					for (var f = b.getFixtureList(); ss.isValue(f); f = f.getNext()) {
 						if (b.isActive() === false) {
-							this.$color.set$1(0.5, 0.5, 0.300000011920929);
+							this.$color.set$1(0.5, 0.5, 0.3);
 							this.$drawShape(f, this.$xf, this.$color);
 						}
 						else if (b.getType() === 0) {
-							this.$color.set$1(0.5, 0.899999976158142, 0.300000011920929);
+							this.$color.set$1(0.5, 0.9, 0.3);
 							this.$drawShape(f, this.$xf, this.$color);
 						}
 						else if (b.getType() === 1) {
-							this.$color.set$1(0.5, 0.5, 0.899999976158142);
+							this.$color.set$1(0.5, 0.5, 0.9);
 							this.$drawShape(f, this.$xf, this.$color);
 						}
 						else if (b.isAwake() === false) {
@@ -9818,7 +9818,7 @@
 							this.$drawShape(f, this.$xf, this.$color);
 						}
 						else {
-							this.$color.set$1(0.899999976158142, 0.699999988079071, 0.699999988079071);
+							this.$color.set$1(0.9, 0.7, 0.7);
 							this.$drawShape(f, this.$xf, this.$color);
 						}
 					}
@@ -9830,7 +9830,7 @@
 				}
 			}
 			if ((flags & $org_jbox2d_callbacks_DebugDraw.e_pairBit) === $org_jbox2d_callbacks_DebugDraw.e_pairBit) {
-				this.$color.set$1(0.300000011920929, 0.899999976158142, 0.899999976158142);
+				this.$color.set$1(0.3, 0.9, 0.9);
 				for (var c = this.m_contactManager.m_contactList; ss.isValue(c); c = c.getNext()) {
 					var fixtureA = c.getFixtureA();
 					var fixtureB = c.getFixtureB();
@@ -9840,7 +9840,7 @@
 				}
 			}
 			if ((flags & $org_jbox2d_callbacks_DebugDraw.e_aabbBit) === $org_jbox2d_callbacks_DebugDraw.e_aabbBit) {
-				this.$color.set$1(0.899999976158142, 0.300000011920929, 0.899999976158142);
+				this.$color.set$1(0.9, 0.3, 0.9);
 				for (var b1 = this.$m_bodyList; ss.isValue(b1); b1 = b1.getNext()) {
 					if (b1.isActive() === false) {
 						continue;
@@ -10319,7 +10319,7 @@
 			var p2 = this.$pool.popVec2();
 			joint.getAnchorA(p1);
 			joint.getAnchorB(p2);
-			this.$color.set$1(0.5, 0.800000011920929, 0.800000011920929);
+			this.$color.set$1(0.5, 0.8, 0.8);
 			switch (joint.getType()) {
 				case 3: {
 					this.$m_debugDraw.drawSegment(p1, p2, this.$color);
@@ -10367,7 +10367,7 @@
 								this.$averageLinearVel = linVelLength;
 							}
 							else {
-								this.$averageLinearVel = 0.980000019073486 * this.$averageLinearVel + 0.0199999995529652 * linVelLength;
+								this.$averageLinearVel = 0.98 * this.$averageLinearVel + 0.02 * linVelLength;
 							}
 							this.$liquidOffset.mulLocal(this.$liquidLength / this.$averageLinearVel / 2);
 							this.$circCenterMoved.set(this.$center).addLocal(this.$liquidOffset);
@@ -10410,7 +10410,7 @@
 						for (var i1 = 1; i1 < count; ++i1) {
 							$org_jbox2d_common_Transform.mulToOutUnsafe$1(xf, vertices1[i1], this.$v2);
 							this.$m_debugDraw.drawSegment(this.$v1, this.$v2, color);
-							this.$m_debugDraw.drawCircle(this.$v1, 0.0500000007450581, color);
+							this.$m_debugDraw.drawCircle(this.$v1, 0.05, color);
 							this.$v1.set(this.$v2);
 						}
 					}
@@ -10435,7 +10435,7 @@
 					// normal.set(pointB).subLocal(pointA);
 					// normal.normalize();
 					//
-					// point.set(pointA).addLocal(pointB).mulLocal(.5f);
+					// point.set(pointA).addLocal(pointB).mulLocal(.5d);
 					// temp.set(pointB).subLocal(pointA);
 					// separation = Vec2.dot(temp, normal) - pc.radiusA - pc.radiusB;
 					var plocalPoint = pc.localPoint;
@@ -11035,7 +11035,7 @@
 					this.$b.x -= R.ex.x * this.$a.x + R.ey.x * this.$a.y;
 					this.$b.y -= R.ex.y * this.$a.x + R.ey.y * this.$a.y;
 					// System.out.println("b' is " + b.x + "," + b.y);
-					// double k_errorTol = 1e-3f;
+					// double k_errorTol = 1e-3d;
 					// B2_NOT_USED(k_errorTol);
 					for (;;) {
 						//
@@ -11514,7 +11514,7 @@
 			var deltaArea = this.$targetVolume - this.$getSolverArea(positions);
 			var toExtrude = 0.5 * deltaArea / perimeter;
 			// *relaxationFactor
-			// double sumdeltax = 0.0f;
+			// double sumdeltax = 0.0d;
 			var done = true;
 			for (var i1 = 0; i1 < this.$bodies.length; ++i1) {
 				var next1 = ((i1 === this.$bodies.length - 1) ? 0 : (i1 + 1));
@@ -11548,7 +11548,7 @@
 			}
 			if (step.step.warmStarting) {
 				this.$m_impulse *= step.step.dtRatio;
-				// double lambda = -2.0f * crossMassSum / dotMassSum;
+				// double lambda = -2.0d * crossMassSum / dotMassSum;
 				// System.out.println(crossMassSum + " " +dotMassSum);
 				// lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
 				// Settings.maxLinearCorrection);
@@ -12339,7 +12339,7 @@
 			this.$m_C.set(cB).addLocal(this.$m_rB).subLocal(this.$m_targetA);
 			this.$m_C.mulLocal(this.$m_beta);
 			// Cheat with some damping
-			wB *= 0.980000019073486;
+			wB *= 0.98;
 			if (data.step.warmStarting) {
 				this.$m_impulse.mulLocal(data.step.dtRatio);
 				vB.x += this.$m_invMassB * this.$m_impulse.x;
@@ -14396,6 +14396,7 @@
 			return this.$position;
 		}
 	});
+	$org_jbox2d_common_Vec2.$serialVersionUID = 1;
 	$org_jbox2d_common_Settings.EPSILON = 1.19209289550781E-07;
 	$org_jbox2d_common_Settings.PI = Math.PI;
 	$org_jbox2d_common_Settings.fasT_ABS = true;
@@ -14405,30 +14406,30 @@
 	$org_jbox2d_common_Settings.fasT_ATAN2 = true;
 	$org_jbox2d_common_Settings.contacT_STACK_INIT_SIZE = 10;
 	$org_jbox2d_common_Settings.sincoS_LUT_ENABLED = true;
-	$org_jbox2d_common_Settings.sincoS_LUT_PRECISION = 0.000110000000859145;
+	$org_jbox2d_common_Settings.sincoS_LUT_PRECISION = 0.00011;
 	$org_jbox2d_common_Settings.sincoS_LUT_LENGTH = ss.Int32.trunc(Math.ceil(Math.PI * 2 / $org_jbox2d_common_Settings.sincoS_LUT_PRECISION));
 	$org_jbox2d_common_Settings.sincoS_LUT_LERP = false;
 	$org_jbox2d_common_Settings.maxManifoldPoints = 2;
 	$org_jbox2d_common_Settings.maxPolygonVertices = 8;
-	$org_jbox2d_common_Settings.aabbExtension = 0.100000001490116;
+	$org_jbox2d_common_Settings.aabbExtension = 0.1;
 	$org_jbox2d_common_Settings.aabbMultiplier = 2;
-	$org_jbox2d_common_Settings.linearSlop = 0.00499999988824129;
-	$org_jbox2d_common_Settings.angularSlop = 0.0111111113801599 * $org_jbox2d_common_Settings.PI;
+	$org_jbox2d_common_Settings.linearSlop = 0.005;
+	$org_jbox2d_common_Settings.angularSlop = 0.0111111111111111 * $org_jbox2d_common_Settings.PI;
 	$org_jbox2d_common_Settings.polygonRadius = 2 * $org_jbox2d_common_Settings.linearSlop;
 	$org_jbox2d_common_Settings.maxSubSteps = 8;
 	$org_jbox2d_common_Settings.maxTOIContacts = 32;
 	$org_jbox2d_common_Settings.velocityThreshold = 1;
-	$org_jbox2d_common_Settings.maxLinearCorrection = 0.200000002980232;
-	$org_jbox2d_common_Settings.maxAngularCorrection = 0.0444444455206394 * $org_jbox2d_common_Settings.PI;
+	$org_jbox2d_common_Settings.maxLinearCorrection = 0.2;
+	$org_jbox2d_common_Settings.maxAngularCorrection = 0.0444444444444444 * $org_jbox2d_common_Settings.PI;
 	$org_jbox2d_common_Settings.maxTranslation = 2;
 	$org_jbox2d_common_Settings.maxTranslationSquared = $org_jbox2d_common_Settings.maxTranslation * $org_jbox2d_common_Settings.maxTranslation;
 	$org_jbox2d_common_Settings.maxRotation = 0.5 * $org_jbox2d_common_Settings.PI;
 	$org_jbox2d_common_Settings.maxRotationSquared = $org_jbox2d_common_Settings.maxRotation * $org_jbox2d_common_Settings.maxRotation;
-	$org_jbox2d_common_Settings.baumgarte = 0.200000002980232;
+	$org_jbox2d_common_Settings.baumgarte = 0.2;
 	$org_jbox2d_common_Settings.toiBaugarte = 0.75;
 	$org_jbox2d_common_Settings.timeToSleep = 0.5;
-	$org_jbox2d_common_Settings.linearSleepTolerance = 0.00999999977648258;
-	$org_jbox2d_common_Settings.angularSleepTolerance = 0.0111111113801599 * $org_jbox2d_common_Settings.PI;
+	$org_jbox2d_common_Settings.linearSleepTolerance = 0.01;
+	$org_jbox2d_common_Settings.angularSleepTolerance = 0.0111111111111111 * $org_jbox2d_common_Settings.PI;
 	$org_jbox2d_common_MathUtils.PI = Math.PI;
 	$org_jbox2d_common_MathUtils.TWOPI = Math.PI * 2;
 	$org_jbox2d_common_MathUtils.inV_PI = 1 / $org_jbox2d_common_MathUtils.PI;
@@ -14442,7 +14443,6 @@
 	for (var i = 0; i < $org_jbox2d_common_Settings.sincoS_LUT_LENGTH; i++) {
 		$org_jbox2d_common_MathUtils.sinLUT2[i] = Math.sin(i * $org_jbox2d_common_Settings.sincoS_LUT_PRECISION);
 	}
-	$org_jbox2d_common_Vec2.$serialVersionUID = 1;
 	$org_jbox2d_callbacks_DebugDraw.e_shapeBit = 1;
 	$org_jbox2d_callbacks_DebugDraw.e_jointBit = 2;
 	$org_jbox2d_callbacks_DebugDraw.e_aabbBit = 4;
@@ -14485,7 +14485,7 @@
 	$org_jbox2d_collision_broadphase_DynamicTree.nulL_NODE = -1;
 	$org_jbox2d_dynamics_joints_PulleyJoint.miN_PULLEY_LENGTH = 2;
 	$org_jbox2d_dynamics_contacts_ContactSolver.debuG_SOLVER = false;
-	$org_jbox2d_dynamics_contacts_ContactSolver.k_errorTol = 0.00100000004749745;
+	$org_jbox2d_dynamics_contacts_ContactSolver.k_errorTol = 0.001;
 	$org_jbox2d_dynamics_contacts_ContactSolver.initiaL_NUM_CONSTRAINTS = 256;
 	$org_jbox2d_dynamics_contacts_ContactSolver.k_maxConditionNumber = 100;
 	$org_jbox2d_dynamics_World.worlD_POOL_SIZE = 100;

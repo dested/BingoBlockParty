@@ -101,11 +101,11 @@ namespace org.jbox2d.dynamics.joints
             m_localAnchorA.set(def.localAnchorA);
             m_localAnchorB.set(def.localAnchorB);
             m_localXAxisA.set(def.localAxisA);
-            Vec2.crossToOutUnsafe(1.0f, m_localXAxisA, m_localYAxisA);
+            Vec2.crossToOutUnsafe(1.0d, m_localXAxisA, m_localYAxisA);
 
 
-            m_motorMass = 0.0f;
-            m_motorImpulse = 0.0f;
+            m_motorMass = 0.0d;
+            m_motorImpulse = 0.0d;
 
             m_maxMotorTorque = def.maxMotorTorque;
             m_motorSpeed = def.motorSpeed;
@@ -290,17 +290,17 @@ namespace org.jbox2d.dynamics.joints
 
                 m_mass = mA + mB + iA*m_sAy*m_sAy + iB*m_sBy*m_sBy;
 
-                if (m_mass > 0.0f)
+                if (m_mass > 0.0d)
                 {
-                    m_mass = 1.0f/m_mass;
+                    m_mass = 1.0d/m_mass;
                 }
             }
 
             // Spring constraint
-            m_springMass = 0.0f;
-            m_bias = 0.0f;
-            m_gamma = 0.0f;
-            if (m_frequencyHz > 0.0f)
+            m_springMass = 0.0d;
+            m_bias = 0.0d;
+            m_gamma = 0.0d;
+            if (m_frequencyHz > 0.0d)
             {
                 Rot.mulToOut(qA, m_localXAxisA, m_ax);
                 m_sAx = Vec2.cross(temp.set(d2).addLocal(rA), m_ax);
@@ -308,17 +308,17 @@ namespace org.jbox2d.dynamics.joints
 
                 double invMass = mA + mB + iA*m_sAx*m_sAx + iB*m_sBx*m_sBx;
 
-                if (invMass > 0.0f)
+                if (invMass > 0.0d)
                 {
-                    m_springMass = 1.0f/invMass;
+                    m_springMass = 1.0d/invMass;
 
                     double C = Vec2.dot(d2, m_ax);
 
                     // Frequency
-                    double omega = 2.0f*MathUtils.PI*m_frequencyHz;
+                    double omega = 2.0d*MathUtils.PI*m_frequencyHz;
 
                     // Damping coefficient
-                    double d = 2.0f*m_springMass*m_dampingRatio*omega;
+                    double d = 2.0d*m_springMass*m_dampingRatio*omega;
 
                     // Spring stiffness
                     double k = m_springMass*omega*omega;
@@ -326,38 +326,38 @@ namespace org.jbox2d.dynamics.joints
                     // magic formulas
                     double h = data.step.dt;
                     m_gamma = h*(d + h*k);
-                    if (m_gamma > 0.0f)
+                    if (m_gamma > 0.0d)
                     {
-                        m_gamma = 1.0f/m_gamma;
+                        m_gamma = 1.0d/m_gamma;
                     }
 
                     m_bias = C*h*k*m_gamma;
 
                     m_springMass = invMass + m_gamma;
-                    if (m_springMass > 0.0f)
+                    if (m_springMass > 0.0d)
                     {
-                        m_springMass = 1.0f/m_springMass;
+                        m_springMass = 1.0d/m_springMass;
                     }
                 }
             }
             else
             {
-                m_springImpulse = 0.0f;
+                m_springImpulse = 0.0d;
             }
 
             // Rotational motor
             if (m_enableMotor)
             {
                 m_motorMass = iA + iB;
-                if (m_motorMass > 0.0f)
+                if (m_motorMass > 0.0d)
                 {
-                    m_motorMass = 1.0f/m_motorMass;
+                    m_motorMass = 1.0d/m_motorMass;
                 }
             }
             else
             {
-                m_motorMass = 0.0f;
-                m_motorImpulse = 0.0f;
+                m_motorMass = 0.0d;
+                m_motorImpulse = 0.0d;
             }
 
             if (data.step.warmStarting)
@@ -384,9 +384,9 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                m_impulse = 0.0f;
-                m_springImpulse = 0.0f;
-                m_motorImpulse = 0.0f;
+                m_impulse = 0.0d;
+                m_springImpulse = 0.0d;
+                m_motorImpulse = 0.0d;
             }
             pool.pushRot(2);
             pool.pushVec2(1);
@@ -502,13 +502,13 @@ namespace org.jbox2d.dynamics.joints
             double k = m_invMassA + m_invMassB + m_invIA*m_sAy*m_sAy + m_invIB*m_sBy*m_sBy;
 
             double impulse;
-            if (k != 0.0f)
+            if (k != 0.0d)
             {
                 impulse = -C/k;
             }
             else
             {
-                impulse = 0.0f;
+                impulse = 0.0d;
             }
 
             Vec2 P = pool.popVec2();

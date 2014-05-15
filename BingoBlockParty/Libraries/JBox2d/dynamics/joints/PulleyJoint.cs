@@ -43,7 +43,7 @@ namespace org.jbox2d.dynamics.joints
 {
     public class PulleyJoint : Joint
     {
-        public static readonly double MIN_PULLEY_LENGTH = 2.0f;
+        public static readonly double MIN_PULLEY_LENGTH = 2.0d;
         private readonly double m_constant;
 
         private readonly Vec2 m_groundAnchorA = new Vec2();
@@ -86,7 +86,7 @@ namespace org.jbox2d.dynamics.joints
             m_lengthB = def.lengthB;
 
             m_constant = def.lengthA + m_ratio*def.lengthB;
-            m_impulse = 0.0f;
+            m_impulse = 0.0d;
         }
 
         public double getLengthA()
@@ -151,7 +151,7 @@ namespace org.jbox2d.dynamics.joints
 
         public override double getReactionTorque(double inv_dt)
         {
-            return 0f;
+            return 0d;
         }
 
         public Vec2 getGroundAnchorA()
@@ -230,18 +230,18 @@ namespace org.jbox2d.dynamics.joints
             double lengthA = m_uA.length();
             double lengthB = m_uB.length();
 
-            if (lengthA > 10f*Settings.linearSlop)
+            if (lengthA > 10d*Settings.linearSlop)
             {
-                m_uA.mulLocal(1.0f/lengthA);
+                m_uA.mulLocal(1.0d/lengthA);
             }
             else
             {
                 m_uA.setZero();
             }
 
-            if (lengthB > 10f*Settings.linearSlop)
+            if (lengthB > 10d*Settings.linearSlop)
             {
-                m_uB.mulLocal(1.0f/lengthB);
+                m_uB.mulLocal(1.0d/lengthB);
             }
             else
             {
@@ -257,9 +257,9 @@ namespace org.jbox2d.dynamics.joints
 
             m_mass = mA + m_ratio*m_ratio*mB;
 
-            if (m_mass > 0.0f)
+            if (m_mass > 0.0d)
             {
-                m_mass = 1.0f/m_mass;
+                m_mass = 1.0d/m_mass;
             }
 
             if (data.step.warmStarting)
@@ -285,7 +285,7 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                m_impulse = 0.0f;
+                m_impulse = 0.0d;
             }
 //    data.velocities[m_indexA].v.set(vA);
             data.velocities[m_indexA].w = wA;
@@ -365,18 +365,18 @@ namespace org.jbox2d.dynamics.joints
             double lengthA = uA.length();
             double lengthB = uB.length();
 
-            if (lengthA > 10.0f*Settings.linearSlop)
+            if (lengthA > 10.0d*Settings.linearSlop)
             {
-                uA.mulLocal(1.0f/lengthA);
+                uA.mulLocal(1.0d/lengthA);
             }
             else
             {
                 uA.setZero();
             }
 
-            if (lengthB > 10.0f*Settings.linearSlop)
+            if (lengthB > 10.0d*Settings.linearSlop)
             {
-                uB.mulLocal(1.0f/lengthB);
+                uB.mulLocal(1.0d/lengthB);
             }
             else
             {
@@ -392,9 +392,9 @@ namespace org.jbox2d.dynamics.joints
 
             double mass = mA + m_ratio*m_ratio*mB;
 
-            if (mass > 0.0f)
+            if (mass > 0.0d)
             {
-                mass = 1.0f/mass;
+                mass = 1.0d/mass;
             }
 
             double C = m_constant - lengthA - m_ratio*lengthB;

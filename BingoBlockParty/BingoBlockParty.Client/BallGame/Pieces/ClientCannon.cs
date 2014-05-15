@@ -103,7 +103,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
                     context.Translate(cannonLocation.X - cannonImage.Width / 2, cannonLocation.Y);
 
 
-                    context.DrawImage(cannonImage, 0, 0, (float)(this.GameBoard.GameModel.CannonAngle * Math.PI / 180), cannonImage.Width / 2, 0);
+                    context.DrawImage(cannonImage, 0, 0,  (this.GameBoard.GameModel.CannonAngle * Math.PI / 180), cannonImage.Width / 2, 0);
               
                     context.Restore();
 

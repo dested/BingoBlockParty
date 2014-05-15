@@ -84,7 +84,7 @@ namespace org.jbox2d.collision
                     //
                     // cA.set(normal).mulLocal(radiusA).addLocal(pointA);
                     // cB.set(normal).mulLocal(radiusB).subLocal(pointB).negateLocal();
-                    // points[0].set(cA).addLocal(cB).mulLocal(0.5f);
+                    // points[0].set(cA).addLocal(cB).mulLocal(0.5d);
                     Vec2 pointA = pool3;
                     Vec2 pointB = pool4;
 
@@ -114,8 +114,8 @@ namespace org.jbox2d.collision
                     double cBx = -normal.x*radiusB + pointB.x;
                     double cBy = -normal.y*radiusB + pointB.y;
 
-                    points[0].x = (cAx + cBx)*.5f;
-                    points[0].y = (cAy + cBy)*.5f;
+                    points[0].x = (cAx + cBx)*.5d;
+                    points[0].y = (cAy + cBy)*.5d;
                 }
                     break;
                 case ManifoldType.FACE_A:
@@ -133,14 +133,14 @@ namespace org.jbox2d.collision
                         // b2Vec2 cA = clipPoint + (radiusA - b2Dot(clipPoint - planePoint,
                         // normal)) * normal;
                         // b2Vec2 cB = clipPoint - radiusB * normal;
-                        // points[i] = 0.5f * (cA + cB);
+                        // points[i] = 0.5d * (cA + cB);
                         Transform.mulToOut(xfB, manifold.points[i].localPoint, clipPoint);
                         // use cA as temporary for now
                         // cA.set(clipPoint).subLocal(planePoint);
                         // double scalar = radiusA - Vec2.dot(cA, normal);
                         // cA.set(normal).mulLocal(scalar).addLocal(clipPoint);
                         // cB.set(normal).mulLocal(radiusB).subLocal(clipPoint).negateLocal();
-                        // points[i].set(cA).addLocal(cB).mulLocal(0.5f);
+                        // points[i].set(cA).addLocal(cB).mulLocal(0.5d);
 
                         double scalar =
                             radiusA
@@ -153,8 +153,8 @@ namespace org.jbox2d.collision
                         double cBx = -normal.x*radiusB + clipPoint.x;
                         double cBy = -normal.y*radiusB + clipPoint.y;
 
-                        points[i].x = (cAx + cBx)*.5f;
-                        points[i].y = (cAy + cBy)*.5f;
+                        points[i].x = (cAx + cBx)*.5d;
+                        points[i].y = (cAy + cBy)*.5d;
                     }
                 }
                     break;
@@ -178,16 +178,16 @@ namespace org.jbox2d.collision
                         // b2Vec2 cB = clipPoint + (radiusB - b2Dot(clipPoint - planePoint,
                         // normal)) * normal;
                         // b2Vec2 cA = clipPoint - radiusA * normal;
-                        // points[i] = 0.5f * (cA + cB);
+                        // points[i] = 0.5d * (cA + cB);
 
                         Transform.mulToOut(xfA, manifold.points[i].localPoint, clipPoint2);
                         // cB.set(clipPoint).subLocal(planePoint);
                         // double scalar = radiusB - Vec2.dot(cB, normal);
                         // cB.set(normal).mulLocal(scalar).addLocal(clipPoint);
                         // cA.set(normal).mulLocal(radiusA).subLocal(clipPoint).negateLocal();
-                        // points[i].set(cA).addLocal(cB).mulLocal(0.5f);
+                        // points[i].set(cA).addLocal(cB).mulLocal(0.5d);
 
-                        // points[i] = 0.5f * (cA + cB);
+                        // points[i] = 0.5d * (cA + cB);
 
                         //
                         // clipPoint.x = xfA.p.x + xfA.q.ex.x * manifold.points[i].localPoint.x + xfA.q.ey.x *
@@ -206,8 +206,8 @@ namespace org.jbox2d.collision
                         double cAx = -normal.x*radiusA + clipPoint2.x;
                         double cAy = -normal.y*radiusA + clipPoint2.y;
 
-                        points[i].x = (cAx + cBx)*.5f;
-                        points[i].y = (cAy + cBy)*.5f;
+                        points[i].x = (cAx + cBx)*.5d;
+                        points[i].y = (cAy + cBy)*.5d;
                     }
                     // Ensure normal points from A to B.
                     normal.x = -normal.x;

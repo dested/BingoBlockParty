@@ -67,7 +67,7 @@ namespace org.jbox2d.dynamics.joints
             m_localAnchorB = new Vec2(def.localAnchorB);
 
             m_linearImpulse = new Vec2();
-            m_angularImpulse = 0.0f;
+            m_angularImpulse = 0.0d;
 
             m_maxForce = def.maxForce;
             m_maxTorque = def.maxTorque;
@@ -183,9 +183,9 @@ namespace org.jbox2d.dynamics.joints
             K.invertToOut(m_linearMass);
 
             m_angularMass = iA + iB;
-            if (m_angularMass > 0.0f)
+            if (m_angularMass > 0.0d)
             {
-                m_angularMass = 1.0f/m_angularMass;
+                m_angularMass = 1.0d/m_angularMass;
             }
 
             if (data.step.warmStarting)
@@ -210,7 +210,7 @@ namespace org.jbox2d.dynamics.joints
             else
             {
                 m_linearImpulse.setZero();
-                m_angularImpulse = 0.0f;
+                m_angularImpulse = 0.0d;
             }
 //    data.velocities[m_indexA].v.set(vA);
             if (data.velocities[m_indexA].w != wA)

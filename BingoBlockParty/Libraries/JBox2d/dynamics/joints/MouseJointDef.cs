@@ -58,7 +58,7 @@ namespace org.jbox2d.dynamics.joints
             target.set(0, 0);
             maxForce = 0;
             frequencyHz = 5;
-            dampingRatio = .7f;
+            dampingRatio = .7d;
         }
     }
 }

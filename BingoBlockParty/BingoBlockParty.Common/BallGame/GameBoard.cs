@@ -49,7 +49,7 @@ namespace BingoBlockParty.Common.BallGame
 
             var type = 0;
             var pegLocs = new List<PegData>();
-            for (var i = 0; i < 400; i += 50)
+            for (var i = 0; i < 800; i += 50)
             {
                 pegLocs.Add(new PegData(62, 201 + i, PegType.None));
                 pegLocs.Add(new PegData(101, 178 + i, PegType.None));

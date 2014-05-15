@@ -72,8 +72,8 @@ namespace org.jbox2d.dynamics.joints
                 for (int i = 0; i < targetLengths.Length; ++i)
                 {
                     int next = (i == targetLengths.Length - 1) ? 0 : i + 1;
-                    djd.frequencyHz = def.frequencyHz; // 20.0f;
-                    djd.dampingRatio = def.dampingRatio; // 50.0f;
+                    djd.frequencyHz = def.frequencyHz; // 20.0d;
+                    djd.dampingRatio = def.dampingRatio; // 50.0d;
                     djd.collideConnected = def.collideConnected;
                     djd.initialize(bodies[i], bodies[next], bodies[i].getWorldCenter(),
                         bodies[next].getWorldCenter());
@@ -118,7 +118,7 @@ namespace org.jbox2d.dynamics.joints
 
         private double getBodyArea()
         {
-            double area = 0.0f;
+            double area = 0.0d;
             for (int i = 0; i < bodies.Length - 1; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
@@ -126,13 +126,13 @@ namespace org.jbox2d.dynamics.joints
                     bodies[i].getWorldCenter().x*bodies[next].getWorldCenter().y
                     - bodies[next].getWorldCenter().x*bodies[i].getWorldCenter().y;
             }
-            area *= .5f;
+            area *= .5d;
             return area;
         }
 
         private double getSolverArea(Position[] positions)
         {
-            double area = 0.0f;
+            double area = 0.0d;
             for (int i = 0; i < bodies.Length; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
@@ -140,13 +140,13 @@ namespace org.jbox2d.dynamics.joints
                     positions[bodies[i].m_islandIndex].c.x*positions[bodies[next].m_islandIndex].c.y
                     - positions[bodies[next].m_islandIndex].c.x*positions[bodies[i].m_islandIndex].c.y;
             }
-            area *= .5f;
+            area *= .5d;
             return area;
         }
 
         private bool constrainEdges(Position[] positions)
         {
-            double perimeter = 0.0f;
+            double perimeter = 0.0d;
             for (int i = 0; i < bodies.Length; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
@@ -155,7 +155,7 @@ namespace org.jbox2d.dynamics.joints
                 double dist = MathUtils.sqrt(dx*dx + dy*dy);
                 if (dist < Settings.EPSILON)
                 {
-                    dist = 1.0f;
+                    dist = 1.0d;
                 }
                 normals[i].x = dy/dist;
                 normals[i].y = -dx/dist;
@@ -165,8 +165,8 @@ namespace org.jbox2d.dynamics.joints
             Vec2 delta = pool.popVec2();
 
             double deltaArea = targetVolume - getSolverArea(positions);
-            double toExtrude = 0.5f*deltaArea/perimeter; // *relaxationFactor
-            // double sumdeltax = 0.0f;
+            double toExtrude = 0.5d*deltaArea/perimeter; // *relaxationFactor
+            // double sumdeltax = 0.0d;
             bool done = true;
             for (int i = 0; i < bodies.Length; ++i)
             {
@@ -212,20 +212,20 @@ namespace org.jbox2d.dynamics.joints
             if (step.step.warmStarting)
             {
                 m_impulse *= step.step.dtRatio;
-                // double lambda = -2.0f * crossMassSum / dotMassSum;
+                // double lambda = -2.0d * crossMassSum / dotMassSum;
                 // System.out.println(crossMassSum + " " +dotMassSum);
                 // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
                 // Settings.maxLinearCorrection);
                 // m_impulse = lambda;
                 for (int i = 0; i < bodies.Length; ++i)
                 {
-                    velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass*d[i].y*.5f*m_impulse;
-                    velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass*-d[i].x*.5f*m_impulse;
+                    velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass*d[i].y*.5d*m_impulse;
+                    velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass*-d[i].x*.5d*m_impulse;
                 }
             }
             else
             {
-                m_impulse = 0.0f;
+                m_impulse = 0.0d;
             }
         }
 
@@ -238,8 +238,8 @@ namespace org.jbox2d.dynamics.joints
 
         public override void solveVelocityConstraints(SolverData step)
         {
-            double crossMassSum = 0.0f;
-            double dotMassSum = 0.0f;
+            double crossMassSum = 0.0d;
+            double dotMassSum = 0.0d;
 
             Velocity[] velocities = step.velocities;
             Position[] positions = step.positions;
@@ -254,7 +254,7 @@ namespace org.jbox2d.dynamics.joints
                 dotMassSum += (d[i].lengthSquared())/bodies[i].getMass();
                 crossMassSum += Vec2.cross(velocities[bodies[i].m_islandIndex].v, d[i]);
             }
-            double lambda = -2.0f*crossMassSum/dotMassSum;
+            double lambda = -2.0d*crossMassSum/dotMassSum;
             // System.out.println(crossMassSum + " " +dotMassSum);
             // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
             // Settings.maxLinearCorrection);
@@ -262,8 +262,8 @@ namespace org.jbox2d.dynamics.joints
             // System.out.println(m_impulse);
             for (int i = 0; i < bodies.Length; ++i)
             {
-                velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass*d[i].y*.5f*lambda;
-                velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass*-d[i].x*.5f*lambda;
+                velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass*d[i].y*.5d*lambda;
+                velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass*-d[i].x*.5d*lambda;
             }
         }
 

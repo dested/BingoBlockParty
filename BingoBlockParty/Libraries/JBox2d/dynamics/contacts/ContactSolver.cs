@@ -37,7 +37,7 @@ namespace org.jbox2d.dynamics.contacts
     public class ContactSolver
     {
         public static readonly bool DEBUG_SOLVER = false;
-        public static readonly double k_errorTol = 1e-3f;
+        public static readonly double k_errorTol = 1e-3d;
         /**
    * For each solver, this is the initial number of constraints in the array, which expands as
    * needed.
@@ -47,7 +47,7 @@ namespace org.jbox2d.dynamics.contacts
         /**
    * Ensure a reasonable condition number. for the block solver
    */
-        public static readonly double k_maxConditionNumber = 100.0f;
+        public static readonly double k_maxConditionNumber = 100.0d;
         private readonly Vec2 P = new Vec2();
         private readonly Vec2 P1 = new Vec2();
         private readonly Vec2 P2 = new Vec2();
@@ -222,8 +222,8 @@ namespace org.jbox2d.dynamics.contacts
                 double wB = m_velocities[indexB].w;
 
                 Vec2 normal = vc.normal;
-                double tangentx = 1.0f*normal.y;
-                double tangenty = -1.0f*normal.x;
+                double tangentx = 1.0d*normal.y;
+                double tangenty = -1.0d*normal.x;
 
                 for (int j = 0; j < pointCount; ++j)
                 {
@@ -301,20 +301,20 @@ namespace org.jbox2d.dynamics.contacts
 
                     double kNormal = mA + mB + iA*rnA*rnA + iB*rnB*rnB;
 
-                    vcp.normalMass = kNormal > 0.0f ? 1.0f/kNormal : 0.0f;
+                    vcp.normalMass = kNormal > 0.0d ? 1.0d/kNormal : 0.0d;
 
-                    double tangentx = 1.0f*vc.normal.y;
-                    double tangenty = -1.0f*vc.normal.x;
+                    double tangentx = 1.0d*vc.normal.y;
+                    double tangenty = -1.0d*vc.normal.x;
 
                     double rtA = vcp.rA.x*tangenty - vcp.rA.y*tangentx;
                     double rtB = vcp.rB.x*tangenty - vcp.rB.y*tangentx;
 
                     double kTangent = mA + mB + iA*rtA*rtA + iB*rtB*rtB;
 
-                    vcp.tangentMass = kTangent > 0.0f ? 1.0f/kTangent : 0.0f;
+                    vcp.tangentMass = kTangent > 0.0d ? 1.0d/kTangent : 0.0d;
 
                     // Setup a velocity bias for restitution.
-                    vcp.velocityBias = 0.0f;
+                    vcp.velocityBias = 0.0d;
                     double tempx = vB.x + -wB*vcp.rB.y - vA.x - (-wA*vcp.rA.y);
                     double tempy = vB.y + wB*vcp.rB.x - vA.y - (wA*vcp.rA.x);
                     double vRel = vc.normal.x*tempx + vc.normal.y*tempy;
@@ -378,8 +378,8 @@ namespace org.jbox2d.dynamics.contacts
                 double wB = m_velocities[indexB].w;
 
                 Vec2 normal = vc.normal;
-                tangent.x = 1.0f*vc.normal.y;
-                tangent.y = -1.0f*vc.normal.x;
+                tangent.x = 1.0d*vc.normal.y;
+                tangent.y = -1.0d*vc.normal.x;
                 double friction = vc.friction;
 
                 // Solve tangent constraints
@@ -435,7 +435,7 @@ namespace org.jbox2d.dynamics.contacts
 
                     // Clamp the accumulated impulse
                     double a = vcp.normalImpulse + lambda;
-                    double newImpulse = (a > 0.0f ? a : 0.0f);
+                    double newImpulse = (a > 0.0d ? a : 0.0d);
                     lambda = newImpulse - vcp.normalImpulse;
                     vcp.normalImpulse = newImpulse;
 
@@ -521,7 +521,7 @@ namespace org.jbox2d.dynamics.contacts
                     b.y -= R.ex.y*a.x + R.ey.y*a.y;
                     // System.out.println("b' is " + b.x + "," + b.y);
 
-                    // double k_errorTol = 1e-3f;
+                    // double k_errorTol = 1e-3d;
                     // B2_NOT_USED(k_errorTol);
                     for (;;)
                     {
@@ -539,7 +539,7 @@ namespace org.jbox2d.dynamics.contacts
                         x.x *= -1;
                         x.y *= -1;
 
-                        if (x.x >= 0.0f && x.y >= 0.0f)
+                        if (x.x >= 0.0d && x.y >= 0.0d)
                         {
                             // System.out.println("case 1");
                             // Get the incremental impulse
@@ -601,11 +601,11 @@ namespace org.jbox2d.dynamics.contacts
                         // vn2 = a21 * x1' + a22 * 0 + '
                         //
                         x.x = -cp1.normalMass*b.x;
-                        x.y = 0.0f;
-                        vn1 = 0.0f;
+                        x.y = 0.0d;
+                        vn1 = 0.0d;
                         vn2 = vc.K.ex.y*x.x + b.y;
 
-                        if (x.x >= 0.0f && vn2 >= 0.0f)
+                        if (x.x >= 0.0d && vn2 >= 0.0d)
                         {
                             // System.out.println("case 2");
                             // Get the incremental impulse
@@ -662,12 +662,12 @@ namespace org.jbox2d.dynamics.contacts
                         // vn1 = a11 * 0 + a12 * x2' + b1'
                         // 0 = a21 * 0 + a22 * x2' + '
                         //
-                        x.x = 0.0f;
+                        x.x = 0.0d;
                         x.y = -cp2.normalMass*b.y;
                         vn1 = vc.K.ey.x*x.y + b.x;
-                        vn2 = 0.0f;
+                        vn2 = 0.0d;
 
-                        if (x.y >= 0.0f && vn1 >= 0.0f)
+                        if (x.y >= 0.0d && vn1 >= 0.0d)
                         {
                             // System.out.println("case 3");
                             // Resubstitute for the incremental impulse
@@ -721,12 +721,12 @@ namespace org.jbox2d.dynamics.contacts
                         //
                         // vn1 = b1
                         // vn2 = ;
-                        x.x = 0.0f;
-                        x.y = 0.0f;
+                        x.x = 0.0d;
+                        x.y = 0.0d;
                         vn1 = b.x;
                         vn2 = b.y;
 
-                        if (vn1 >= 0.0f && vn2 >= 0.0f)
+                        if (vn1 >= 0.0d && vn2 >= 0.0d)
                         {
                             // System.out.println("case 4");
                             // Resubstitute for the incremental impulse
@@ -786,7 +786,7 @@ namespace org.jbox2d.dynamics.contacts
 
         /*
    * #if 0 // Sequential solver. bool ContactSolver::SolvePositionConstraints(double baumgarte) {
-   * double minSeparation = 0.0f;
+   * double minSeparation = 0.0d;
    * 
    * for (int i = 0; i < m_constraintCount; ++i) { ContactConstraint* c = m_constraints + i; Body*
    * bodyA = c.bodyA; Body* bodyB = c.bodyB; double invMassA = bodyA.m_mass * bodyA.m_invMass; double
@@ -808,7 +808,7 @@ namespace org.jbox2d.dynamics.contacts
    * // Track max constraint error. minSeparation = Min(minSeparation, separation);
    * 
    * // Prevent large corrections and allow slop. double C = Clamp(baumgarte * (separation +
-   * _linearSlop), -_maxLinearCorrection, 0.0f);
+   * _linearSlop), -_maxLinearCorrection, 0.0d);
    * 
    * // Compute normal impulse double impulse = -ccp.equalizedMass * C;
    * 
@@ -821,7 +821,7 @@ namespace org.jbox2d.dynamics.contacts
    * bodyB.SynchronizeTransform(); } }
    * 
    * // We can't expect minSpeparation >= -_linearSlop because we don't // push the separation above
-   * -_linearSlop. return minSeparation >= -1.5f * _linearSlop; }
+   * -_linearSlop. return minSeparation >= -1.5d * _linearSlop; }
    */
 
         // djm pooling, and from above
@@ -832,7 +832,7 @@ namespace org.jbox2d.dynamics.contacts
 
         public bool solvePositionConstraints()
         {
-            double minSeparation = 0.0f;
+            double minSeparation = 0.0d;
 
             for (int i = 0; i < m_count; ++i)
             {
@@ -880,7 +880,7 @@ namespace org.jbox2d.dynamics.contacts
                     // Prevent large corrections and allow slop.
                     double C =
                         MathUtils.clamp(Settings.baumgarte*(separation + Settings.linearSlop),
-                            -Settings.maxLinearCorrection, 0.0f);
+                            -Settings.maxLinearCorrection, 0.0d);
 
                     // Compute the effective mass.
                     double rnA = Vec2.cross(rA, normal);
@@ -888,7 +888,7 @@ namespace org.jbox2d.dynamics.contacts
                     double K = mA + mB + iA*rnA*rnA + iB*rnB*rnB;
 
                     // Compute normal impulse
-                    double impulse = K > 0.0f ? -C/K : 0.0f;
+                    double impulse = K > 0.0d ? -C/K : 0.0d;
 
                     P.set(normal).mulLocal(impulse);
 
@@ -908,13 +908,13 @@ namespace org.jbox2d.dynamics.contacts
 
             // We can't expect minSpeparation >= -linearSlop because we don't
             // push the separation above -linearSlop.
-            return minSeparation >= -3.0f*Settings.linearSlop;
+            return minSeparation >= -3.0d*Settings.linearSlop;
         }
 
         // Sequential position solver for position constraints.
         public bool solveTOIPositionConstraints(int toiIndexA, int toiIndexB)
         {
-            double minSeparation = 0.0f;
+            double minSeparation = 0.0d;
 
             for (int i = 0; i < m_count; ++i)
             {
@@ -926,16 +926,16 @@ namespace org.jbox2d.dynamics.contacts
                 Vec2 localCenterB = pc.localCenterB;
                 int pointCount = pc.pointCount;
 
-                double mA = 0.0f;
-                double iA = 0.0f;
+                double mA = 0.0d;
+                double iA = 0.0d;
                 if (indexA == toiIndexA || indexA == toiIndexB)
                 {
                     mA = pc.invMassA;
                     iA = pc.invIA;
                 }
 
-                double mB = 0f;
-                double iB = 0f;
+                double mB = 0d;
+                double iB = 0d;
                 if (indexB == toiIndexA || indexB == toiIndexB)
                 {
                     mB = pc.invMassB;
@@ -974,7 +974,7 @@ namespace org.jbox2d.dynamics.contacts
                     // Prevent large corrections and allow slop.
                     double C =
                         MathUtils.clamp(Settings.toiBaugarte*(separation + Settings.linearSlop),
-                            -Settings.maxLinearCorrection, 0.0f);
+                            -Settings.maxLinearCorrection, 0.0d);
 
                     // Compute the effective mass.
                     double rnA = Vec2.cross(rA, normal);
@@ -982,7 +982,7 @@ namespace org.jbox2d.dynamics.contacts
                     double K = mA + mB + iA*rnA*rnA + iB*rnB*rnB;
 
                     // Compute normal impulse
-                    double impulse = K > 0.0f ? -C/K : 0.0f;
+                    double impulse = K > 0.0d ? -C/K : 0.0d;
 
                     P.set(normal).mulLocal(impulse);
 
@@ -1002,7 +1002,7 @@ namespace org.jbox2d.dynamics.contacts
 
             // We can't expect minSpeparation >= -_linearSlop because we don't
             // push the separation above -_linearSlop.
-            return minSeparation >= -1.5f*Settings.linearSlop;
+            return minSeparation >= -1.5d*Settings.linearSlop;
         }
     }
 
@@ -1036,7 +1036,7 @@ namespace org.jbox2d.dynamics.contacts
                     // normal.set(pointB).subLocal(pointA);
                     // normal.normalize();
                     //
-                    // point.set(pointA).addLocal(pointB).mulLocal(.5f);
+                    // point.set(pointA).addLocal(pointB).mulLocal(.5d);
                     // temp.set(pointB).subLocal(pointA);
                     // separation = Vec2.dot(temp, normal) - pc.radiusA - pc.radiusB;
                     Vec2 plocalPoint = pc.localPoint;
@@ -1049,8 +1049,8 @@ namespace org.jbox2d.dynamics.contacts
                     normal.y = pointBy - pointAy;
                     normal.normalize();
 
-                    point.x = (pointAx + pointBx)*.5f;
-                    point.y = (pointAy + pointBy)*.5f;
+                    point.x = (pointAx + pointBx)*.5d;
+                    point.y = (pointAy + pointBy)*.5d;
                     double tempx = pointBx - pointAx;
                     double tempy = pointBy - pointAy;
                     separation = tempx*normal.x + tempy*normal.y - pc.radiusA - pc.radiusB;

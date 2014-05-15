@@ -249,7 +249,7 @@
 		init: function(renderer) {
 			var boardWidth = 430;
 			var boardHeight = 557;
-			this.set_gameBoard(new $BingoBlockParty_Client_BallGame_ClientGameBoard(this, boardWidth, ss.Int32.trunc(boardHeight * 1.2), renderer, boardWidth, boardHeight));
+			this.set_gameBoard(new $BingoBlockParty_Client_BallGame_ClientGameBoard(this, boardWidth, ss.Int32.trunc(boardHeight * 40.2), renderer, boardWidth, boardHeight));
 			this.get_gameBoard().init();
 		},
 		loadImages: function(renderer) {

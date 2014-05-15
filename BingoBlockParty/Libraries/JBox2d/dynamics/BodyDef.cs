@@ -56,7 +56,7 @@ namespace org.jbox2d.dynamics
 
         /**
 	 * Angular damping is use to reduce the angular velocity. The damping parameter
-	 * can be larger than 1.0f but the damping effect becomes sensitive to the
+	 * can be larger than 1.0d but the damping effect becomes sensitive to the
 	 * time step when the damping parameter is large.
 	 */
         public double angularDamping;
@@ -108,18 +108,18 @@ namespace org.jbox2d.dynamics
         {
             userData = null;
             position = new Vec2();
-            angle = 0f;
+            angle = 0d;
             linearVelocity = new Vec2();
-            angularVelocity = 0f;
-            linearDamping = 0f;
-            angularDamping = 0f;
+            angularVelocity = 0d;
+            linearDamping = 0d;
+            angularDamping = 0d;
             allowSleep = true;
             awake = true;
             fixedRotation = false;
             bullet = false;
             type = BodyType.STATIC;
             active = true;
-            gravityScale = 1.0f;
+            gravityScale = 1.0d;
         }
     }
 }

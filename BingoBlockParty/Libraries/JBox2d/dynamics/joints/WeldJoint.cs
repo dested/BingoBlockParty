@@ -208,20 +208,20 @@ namespace org.jbox2d.dynamics.joints
             K.ey.z = K.ez.y;
             K.ez.z = iA + iB;
 
-            if (m_frequencyHz > 0.0f)
+            if (m_frequencyHz > 0.0d)
             {
                 K.getInverse22(m_mass);
 
                 double invM = iA + iB;
-                double m = invM > 0.0f ? 1.0f/invM : 0.0f;
+                double m = invM > 0.0d ? 1.0d/invM : 0.0d;
 
                 double C = aB - aA - m_referenceAngle;
 
                 // Frequency
-                double omega = 2.0f*MathUtils.PI*m_frequencyHz;
+                double omega = 2.0d*MathUtils.PI*m_frequencyHz;
 
                 // Damping coefficient
-                double d = 2.0f*m*m_dampingRatio*omega;
+                double d = 2.0d*m*m_dampingRatio*omega;
 
                 // Spring stiffness
                 double k = m*omega*omega;
@@ -229,17 +229,17 @@ namespace org.jbox2d.dynamics.joints
                 // magic formulas
                 double h = data.step.dt;
                 m_gamma = h*(d + h*k);
-                m_gamma = m_gamma != 0.0f ? 1.0f/m_gamma : 0.0f;
+                m_gamma = m_gamma != 0.0d ? 1.0d/m_gamma : 0.0d;
                 m_bias = C*h*k*m_gamma;
 
                 invM += m_gamma;
-                m_mass.ez.z = invM != 0.0f ? 1.0f/invM : 0.0f;
+                m_mass.ez.z = invM != 0.0d ? 1.0d/invM : 0.0d;
             }
             else
             {
                 K.getSymInverse33(m_mass);
-                m_gamma = 0.0f;
-                m_bias = 0.0f;
+                m_gamma = 0.0d;
+                m_bias = 0.0d;
             }
 
             if (data.step.warmStarting)
@@ -288,7 +288,7 @@ namespace org.jbox2d.dynamics.joints
             Vec2 Cdot1 = pool.popVec2();
             Vec2 P = pool.popVec2();
             Vec2 temp = pool.popVec2();
-            if (m_frequencyHz > 0.0f)
+            if (m_frequencyHz > 0.0d)
             {
                 double Cdot2 = wB - wA;
 
@@ -389,12 +389,12 @@ namespace org.jbox2d.dynamics.joints
             K.ex.z = K.ez.x;
             K.ey.z = K.ez.y;
             K.ez.z = iA + iB;
-            if (m_frequencyHz > 0.0f)
+            if (m_frequencyHz > 0.0d)
             {
                 C1.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);
 
                 positionError = C1.length();
-                angularError = 0.0f;
+                angularError = 0.0d;
 
                 K.solve22ToOut(C1, P);
                 P.negateLocal();

@@ -144,7 +144,7 @@ namespace org.jbox2d.dynamics.joints
             double mA = m_invMassA, mB = m_invMassB;
             double iA = m_invIA, iB = m_invIB;
 
-            bool fixedRotation = (iA + iB == 0.0f);
+            bool fixedRotation = (iA + iB == 0.0d);
 
             m_mass.ex.x = mA + mB + m_rA.y*m_rA.y*iA + m_rB.y*m_rB.y*iB;
             m_mass.ey.x = -m_rA.y*m_rA.x*iA - m_rB.y*m_rB.x*iB;
@@ -157,20 +157,20 @@ namespace org.jbox2d.dynamics.joints
             m_mass.ez.z = iA + iB;
 
             m_motorMass = iA + iB;
-            if (m_motorMass > 0.0f)
+            if (m_motorMass > 0.0d)
             {
-                m_motorMass = 1.0f/m_motorMass;
+                m_motorMass = 1.0d/m_motorMass;
             }
 
             if (m_enableMotor == false || fixedRotation)
             {
-                m_motorImpulse = 0.0f;
+                m_motorImpulse = 0.0d;
             }
 
             if (m_enableLimit && fixedRotation == false)
             {
                 double jointAngle = aB - aA - m_referenceAngle;
-                if (MathUtils.abs(m_upperAngle - m_lowerAngle) < 2.0f*Settings.angularSlop)
+                if (MathUtils.abs(m_upperAngle - m_lowerAngle) < 2.0d*Settings.angularSlop)
                 {
                     m_limitState = LimitState.EQUAL;
                 }
@@ -178,7 +178,7 @@ namespace org.jbox2d.dynamics.joints
                 {
                     if (m_limitState != LimitState.AT_LOWER)
                     {
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                     }
                     m_limitState = LimitState.AT_LOWER;
                 }
@@ -186,14 +186,14 @@ namespace org.jbox2d.dynamics.joints
                 {
                     if (m_limitState != LimitState.AT_UPPER)
                     {
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                     }
                     m_limitState = LimitState.AT_UPPER;
                 }
                 else
                 {
                     m_limitState = LimitState.INACTIVE;
-                    m_impulse.z = 0.0f;
+                    m_impulse.z = 0.0d;
                 }
             }
             else
@@ -224,7 +224,7 @@ namespace org.jbox2d.dynamics.joints
             else
             {
                 m_impulse.setZero();
-                m_motorImpulse = 0.0f;
+                m_motorImpulse = 0.0d;
             }
             // data.velocities[m_indexA].v.set(vA);
             data.velocities[m_indexA].w = wA;
@@ -246,7 +246,7 @@ namespace org.jbox2d.dynamics.joints
             double mA = m_invMassA, mB = m_invMassB;
             double iA = m_invIA, iB = m_invIB;
 
-            bool fixedRotation = (iA + iB == 0.0f);
+            bool fixedRotation = (iA + iB == 0.0d);
 
             // Solve motor constraint.
             if (m_enableMotor && m_limitState != LimitState.EQUAL && fixedRotation == false)
@@ -287,7 +287,7 @@ namespace org.jbox2d.dynamics.joints
                 else if (m_limitState == LimitState.AT_LOWER)
                 {
                     double newImpulse = m_impulse.z + impulse.z;
-                    if (newImpulse < 0.0f)
+                    if (newImpulse < 0.0d)
                     {
                         Vec2 rhs = pool.popVec2();
                         rhs.set(m_mass.ez.x, m_mass.ez.y).mulLocal(m_impulse.z).subLocal(Cdot1);
@@ -297,7 +297,7 @@ namespace org.jbox2d.dynamics.joints
                         impulse.z = -m_impulse.z;
                         m_impulse.x += temp.x;
                         m_impulse.y += temp.y;
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                         pool.pushVec2(1);
                     }
                     else
@@ -308,7 +308,7 @@ namespace org.jbox2d.dynamics.joints
                 else if (m_limitState == LimitState.AT_UPPER)
                 {
                     double newImpulse = m_impulse.z + impulse.z;
-                    if (newImpulse > 0.0f)
+                    if (newImpulse > 0.0d)
                     {
                         Vec2 rhs = pool.popVec2();
                         rhs.set(m_mass.ez.x, m_mass.ez.y).mulLocal(m_impulse.z).subLocal(Cdot1);
@@ -318,7 +318,7 @@ namespace org.jbox2d.dynamics.joints
                         impulse.z = -m_impulse.z;
                         m_impulse.x += temp.x;
                         m_impulse.y += temp.y;
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                         pool.pushVec2(1);
                     }
                     else
@@ -387,16 +387,16 @@ namespace org.jbox2d.dynamics.joints
             qA.set(aA);
             qB.set(aB);
 
-            double angularError = 0.0f;
-            double positionError = 0.0f;
+            double angularError = 0.0d;
+            double positionError = 0.0d;
 
-            bool fixedRotation = (m_invIA + m_invIB == 0.0f);
+            bool fixedRotation = (m_invIA + m_invIB == 0.0d);
 
             // Solve angular limit constraint.
             if (m_enableLimit && m_limitState != LimitState.INACTIVE && fixedRotation == false)
             {
                 double angle = aB - aA - m_referenceAngle;
-                double limitImpulse = 0.0f;
+                double limitImpulse = 0.0d;
 
                 if (m_limitState == LimitState.EQUAL)
                 {
@@ -413,7 +413,7 @@ namespace org.jbox2d.dynamics.joints
                     angularError = -C;
 
                     // Prevent large angular corrections and allow some slop.
-                    C = MathUtils.clamp(C + Settings.angularSlop, -Settings.maxAngularCorrection, 0.0f);
+                    C = MathUtils.clamp(C + Settings.angularSlop, -Settings.maxAngularCorrection, 0.0d);
                     limitImpulse = -m_motorMass*C;
                 }
                 else if (m_limitState == LimitState.AT_UPPER)
@@ -422,7 +422,7 @@ namespace org.jbox2d.dynamics.joints
                     angularError = C;
 
                     // Prevent large angular corrections and allow some slop.
-                    C = MathUtils.clamp(C - Settings.angularSlop, 0.0f, Settings.maxAngularCorrection);
+                    C = MathUtils.clamp(C - Settings.angularSlop, 0.0d, Settings.maxAngularCorrection);
                     limitImpulse = -m_motorMass*C;
                 }
 
@@ -582,7 +582,7 @@ namespace org.jbox2d.dynamics.joints
                 m_bodyA.setAwake(true);
                 m_bodyB.setAwake(true);
                 m_enableLimit = flag;
-                m_impulse.z = 0.0f;
+                m_impulse.z = 0.0d;
             }
         }
 
@@ -602,7 +602,7 @@ namespace org.jbox2d.dynamics.joints
             {
                 m_bodyA.setAwake(true);
                 m_bodyB.setAwake(true);
-                m_impulse.z = 0.0f;
+                m_impulse.z = 0.0d;
                 m_lowerAngle = lower;
                 m_upperAngle = upper;
             }

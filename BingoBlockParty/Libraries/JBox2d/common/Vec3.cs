@@ -39,7 +39,7 @@ namespace org.jbox2d.common
 
         public Vec3()
         {
-            x = y = z = 0f;
+            x = y = z = 0d;
         }
 
         public Vec3(double argX, double argY, double argZ)
@@ -198,7 +198,7 @@ namespace org.jbox2d.common
 
         public static bool CompareDoubles(double f, double f1)
         {
-            return Math.Abs((f - f1)) < double.Epsilon;
+            return Math.Abs((f - f1)) < Settings.EPSILON;
         }
     }
 

@@ -155,7 +155,7 @@ namespace Engine.Web
 
         }
 
-        public void DrawImage(IImage image, int x, int y, float angle, int centerX, int centerY)
+        public void DrawImage(IImage image, int x, int y, double angle, int centerX, int centerY)
         {
             Save();
             CanvasInformation.Context.Translate(centerX,centerY);
@@ -183,11 +183,11 @@ namespace Engine.Web
 
     public class WebImageCache
     {
-        private readonly Dictionary<string, WebImage> textures;
+        private readonly JsDictionary<string, WebImage> textures;
 
         public WebImageCache()
         {
-            textures = new Dictionary<string, WebImage>();
+            textures = new JsDictionary<string, WebImage>();
         }
         public WebImage GetImage(string imageName)
         {
@@ -195,7 +195,7 @@ namespace Engine.Web
         }
         public void CreateImage(string imageName, string imagePath, Point center, Action ready)
         {
-            textures.Add(imageName, new WebImage(imagePath, center, ready));
+            textures[imageName]=new WebImage(imagePath, center, ready);
         }
 
     }

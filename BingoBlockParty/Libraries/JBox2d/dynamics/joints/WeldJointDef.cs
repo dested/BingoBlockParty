@@ -62,7 +62,7 @@ namespace org.jbox2d.dynamics.joints
             type = JointType.WELD;
             localAnchorA = new Vec2();
             localAnchorB = new Vec2();
-            referenceAngle = 0.0f;
+            referenceAngle = 0.0d;
         }
 
         /**

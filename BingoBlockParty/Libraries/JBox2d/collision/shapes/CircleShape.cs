@@ -152,7 +152,7 @@ namespace org.jbox2d.collision.shapes
             double sigma = c*c - rr*b;
 
             // Check for negative discriminant and short segment.
-            if (sigma < 0.0f || rr < Settings.EPSILON)
+            if (sigma < 0.0d || rr < Settings.EPSILON)
             {
                 return false;
             }
@@ -161,7 +161,7 @@ namespace org.jbox2d.collision.shapes
             double a = -(c + MathUtils.sqrt(sigma));
 
             // Is the intersection point on the segment?
-            if (0.0f <= a && a <= input.maxFraction*rr)
+            if (0.0d <= a && a <= input.maxFraction*rr)
             {
                 a /= rr;
                 output.fraction = a;
@@ -196,8 +196,8 @@ namespace org.jbox2d.collision.shapes
             massData.center.y = m_p.y;
 
             // inertia about the local origin
-            // massData.I = massData.mass * (0.5f * m_radius * m_radius + Vec2.dot(m_p, m_p));
-            massData.I = massData.mass*(0.5f*m_radius*m_radius + (m_p.x*m_p.x + m_p.y*m_p.y));
+            // massData.I = massData.mass * (0.5d * m_radius * m_radius + Vec2.dot(m_p, m_p));
+            massData.I = massData.mass*(0.5d*m_radius*m_radius + (m_p.x*m_p.x + m_p.y*m_p.y));
         }
     }
 }

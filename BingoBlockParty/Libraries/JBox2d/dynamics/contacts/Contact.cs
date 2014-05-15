@@ -323,8 +323,8 @@ namespace org.jbox2d.dynamics.contacts
                 for (int i = 0; i < m_manifold.pointCount; ++i)
                 {
                     ManifoldPoint mp2 = m_manifold.points[i];
-                    mp2.normalImpulse = 0.0f;
-                    mp2.tangentImpulse = 0.0f;
+                    mp2.normalImpulse = 0.0d;
+                    mp2.tangentImpulse = 0.0d;
                     ContactID id2 = mp2.id;
 
                     for (int j = 0; j < oldManifold.pointCount; ++j)

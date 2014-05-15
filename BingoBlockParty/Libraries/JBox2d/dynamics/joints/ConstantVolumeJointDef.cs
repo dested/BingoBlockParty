@@ -45,8 +45,8 @@ namespace org.jbox2d.dynamics.joints
             bodies = new List<Body>();
             joints = null;
             collideConnected = false;
-            frequencyHz = 0.0f;
-            dampingRatio = 0.0f;
+            frequencyHz = 0.0d;
+            dampingRatio = 0.0d;
         }
 
         /**

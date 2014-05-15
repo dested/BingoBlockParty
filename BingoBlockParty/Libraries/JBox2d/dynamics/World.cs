@@ -66,7 +66,7 @@ namespace org.jbox2d.dynamics
         private readonly RayCastInput input = new RayCastInput();
         private readonly Island island = new Island();
         private readonly Profile islandProfile = new Profile();
-        private readonly Color3f liquidColor = new Color3f(.4f, .4f, 1f);
+        private readonly Color3f liquidColor = new Color3f(.4d, .4d, 1d);
         private readonly Vec2 liquidOffset = new Vec2();
         private readonly Vec2 m_gravity = new Vec2();
         private readonly Profile m_profile;
@@ -91,7 +91,7 @@ namespace org.jbox2d.dynamics
         public int activeContacts = 0;
         private double averageLinearVel = -1;
         public int contactPoolCount = 0;
-        private double liquidLength = .12f;
+        private double liquidLength = .12d;
 
         private bool m_allowSleep;
         private int m_bodyCount;
@@ -163,7 +163,7 @@ namespace org.jbox2d.dynamics
 
             m_flags = CLEAR_FORCES;
 
-            m_inv_dt0 = 0f;
+            m_inv_dt0 = 0d;
 
             m_contactManager = new ContactManager(this, broadPhaseStrategy);
             m_profile = new Profile();
@@ -637,13 +637,13 @@ namespace org.jbox2d.dynamics
             timeStep.dt = dt;
             timeStep.velocityIterations = velocityIterations;
             timeStep.positionIterations = positionIterations;
-            if (dt > 0.0f)
+            if (dt > 0.0d)
             {
-                timeStep.inv_dt = 1.0f/dt;
+                timeStep.inv_dt = 1.0d/dt;
             }
             else
             {
-                timeStep.inv_dt = 0.0f;
+                timeStep.inv_dt = 0.0d;
             }
 
             timeStep.dtRatio = m_inv_dt0*dt;
@@ -656,7 +656,7 @@ namespace org.jbox2d.dynamics
             m_profile.collide = tempTimer.getMilliseconds();
 
             // Integrate velocities, solve velocity constraints, and integrate positions.
-            if (m_stepComplete && timeStep.dt > 0.0f)
+            if (m_stepComplete && timeStep.dt > 0.0d)
             {
                 tempTimer.reset();
                 solve(timeStep);
@@ -664,14 +664,14 @@ namespace org.jbox2d.dynamics
             }
 
             // Handle TOI events.
-            if (m_continuousPhysics && timeStep.dt > 0.0f)
+            if (m_continuousPhysics && timeStep.dt > 0.0d)
             {
                 tempTimer.reset();
                 solveTOI(timeStep);
                 m_profile.solveTOI = tempTimer.getMilliseconds();
             }
 
-            if (timeStep.dt > 0.0f)
+            if (timeStep.dt > 0.0d)
             {
                 m_inv_dt0 = timeStep.inv_dt;
             }
@@ -700,7 +700,7 @@ namespace org.jbox2d.dynamics
             for (Body body = m_bodyList; body != null; body = body.getNext())
             {
                 body.m_force.setZero();
-                body.m_torque = 0.0f;
+                body.m_torque = 0.0d;
             }
         }
 
@@ -726,27 +726,27 @@ namespace org.jbox2d.dynamics
                     {
                         if (b.isActive() == false)
                         {
-                            color.set(0.5f, 0.5f, 0.3f);
+                            color.set(0.5d, 0.5d, 0.3d);
                             drawShape(f, xf, color);
                         }
                         else if (b.getType() == BodyType.STATIC)
                         {
-                            color.set(0.5f, 0.9f, 0.3f);
+                            color.set(0.5d, 0.9d, 0.3d);
                             drawShape(f, xf, color);
                         }
                         else if (b.getType() == BodyType.KINEMATIC)
                         {
-                            color.set(0.5f, 0.5f, 0.9f);
+                            color.set(0.5d, 0.5d, 0.9d);
                             drawShape(f, xf, color);
                         }
                         else if (b.isAwake() == false)
                         {
-                            color.set(0.5f, 0.5f, 0.5f);
+                            color.set(0.5d, 0.5d, 0.5d);
                             drawShape(f, xf, color);
                         }
                         else
                         {
-                            color.set(0.9f, 0.7f, 0.7f);
+                            color.set(0.9d, 0.7d, 0.7d);
                             drawShape(f, xf, color);
                         }
                     }
@@ -763,7 +763,7 @@ namespace org.jbox2d.dynamics
 
             if ((flags & DebugDraw.e_pairBit) == DebugDraw.e_pairBit)
             {
-                color.set(0.3f, 0.9f, 0.9f);
+                color.set(0.3d, 0.9d, 0.9d);
                 for (Contact c = m_contactManager.m_contactList; c != null; c = c.getNext())
                 {
                     Fixture fixtureA = c.getFixtureA();
@@ -776,7 +776,7 @@ namespace org.jbox2d.dynamics
 
             if ((flags & DebugDraw.e_aabbBit) == DebugDraw.e_aabbBit)
             {
-                color.set(0.9f, 0.3f, 0.9f);
+                color.set(0.9d, 0.3d, 0.9d);
 
                 for (Body b = m_bodyList; b != null; b = b.getNext())
                 {
@@ -846,7 +846,7 @@ namespace org.jbox2d.dynamics
         {
             wrcwrapper.broadPhase = m_contactManager.m_broadPhase;
             wrcwrapper.callback = callback;
-            input.maxFraction = 1.0f;
+            input.maxFraction = 1.0d;
             input.p1.set(point1);
             input.p2.set(point2);
             m_contactManager.m_broadPhase.raycast(wrcwrapper, input);
@@ -1276,7 +1276,7 @@ namespace org.jbox2d.dynamics
                 for (Body b = m_bodyList; b != null; b = b.m_next)
                 {
                     b.m_flags &= ~Body.e_islandFlag;
-                    b.m_sweep.alpha0 = 0.0f;
+                    b.m_sweep.alpha0 = 0.0d;
                 }
 
                 for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
@@ -1284,7 +1284,7 @@ namespace org.jbox2d.dynamics
                     // Invalidate TOI
                     c.m_flags &= ~(Contact.TOI_FLAG | Contact.ISLAND_FLAG);
                     c.m_toiCount = 0;
-                    c.m_toi = 1.0f;
+                    c.m_toi = 1.0d;
                 }
             }
 
@@ -1293,7 +1293,7 @@ namespace org.jbox2d.dynamics
             {
                 // Find the first TOI.
                 Contact minContact = null;
-                double minAlpha = 1.0f;
+                double minAlpha = 1.0d;
 
                 for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
                 {
@@ -1309,7 +1309,7 @@ namespace org.jbox2d.dynamics
                         continue;
                     }
 
-                    double alpha = 1.0f;
+                    double alpha = 1.0d;
                     if ((c.m_flags & Contact.TOI_FLAG) != 0)
                     {
                         // This contact has a valid cached TOI.
@@ -1374,7 +1374,7 @@ namespace org.jbox2d.dynamics
                         input.proxyB.set(fB.getShape(), indexB);
                         input.sweepA.set(bA.m_sweep);
                         input.sweepB.set(bB.m_sweep);
-                        input.tMax = 1.0f;
+                        input.tMax = 1.0d;
 
                         pool.getTimeOfImpact().timeOfImpact(toiOutput, input);
 
@@ -1382,11 +1382,11 @@ namespace org.jbox2d.dynamics
                         double beta = toiOutput.t;
                         if (toiOutput.state == TOIOutputState.TOUCHING)
                         {
-                            alpha = MathUtils.min(alpha0 + (1.0f - alpha0)*beta, 1.0f);
+                            alpha = MathUtils.min(alpha0 + (1.0d - alpha0)*beta, 1.0d);
                         }
                         else
                         {
-                            alpha = 1.0f;
+                            alpha = 1.0d;
                         }
 
                         c.m_toi = alpha;
@@ -1401,7 +1401,7 @@ namespace org.jbox2d.dynamics
                     }
                 }
 
-                if (minContact == null || 1.0f - 10.0f*Settings.EPSILON < minAlpha)
+                if (minContact == null || 1.0d - 10.0d*Settings.EPSILON < minAlpha)
                 {
                     // No more TOI events. Done!
                     m_stepComplete = true;
@@ -1543,9 +1543,9 @@ namespace org.jbox2d.dynamics
                     }
                 }
 
-                subStep.dt = (1.0f - minAlpha)*step.dt;
-                subStep.inv_dt = 1.0f/subStep.dt;
-                subStep.dtRatio = 1.0f;
+                subStep.dt = (1.0d - minAlpha)*step.dt;
+                subStep.inv_dt = 1.0d/subStep.dt;
+                subStep.dtRatio = 1.0d;
                 subStep.positionIterations = 20;
                 subStep.velocityIterations = step.velocityIterations;
                 subStep.warmStarting = false;
@@ -1596,7 +1596,7 @@ namespace org.jbox2d.dynamics
             joint.getAnchorA(p1);
             joint.getAnchorB(p2);
 
-            color.set(0.5f, 0.8f, 0.8f);
+            color.set(0.5d, 0.8d, 0.8d);
 
             switch (joint.getType())
             {
@@ -1655,7 +1655,7 @@ namespace org.jbox2d.dynamics
                         }
                         else
                         {
-                            averageLinearVel = .98f*averageLinearVel + .02f*linVelLength;
+                            averageLinearVel = .98d*averageLinearVel + .02d*linVelLength;
                         }
                         liquidOffset.mulLocal(liquidLength/averageLinearVel/2);
                         circCenterMoved.set(center).addLocal(liquidOffset);
@@ -1703,7 +1703,7 @@ namespace org.jbox2d.dynamics
                     {
                         Transform.mulToOutUnsafe(xf, vertices[i], v2);
                         m_debugDraw.drawSegment(v1, v2, color);
-                        m_debugDraw.drawCircle(v1, 0.05f, color);
+                        m_debugDraw.drawCircle(v1, 0.05d, color);
                         v1.set(v2);
                     }
                 }
@@ -1751,7 +1751,7 @@ namespace org.jbox2d.dynamics
             if (hit)
             {
                 double fraction = output.fraction;
-                // Vec2 point = (1.0f - fraction) * input.p1 + fraction * input.p2;
+                // Vec2 point = (1.0d - fraction) * input.p1 + fraction * input.p2;
                 temp.set(input.p2).mulLocal(fraction);
                 point.set(input.p1).mulLocal(1 - fraction).addLocal(temp);
                 return callback.reportFixture(fixture, point, output.normal, fraction);

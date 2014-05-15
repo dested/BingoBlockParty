@@ -81,7 +81,7 @@ namespace org.jbox2d.collision
         public ManifoldPoint()
         {
             localPoint = new Vec2();
-            normalImpulse = tangentImpulse = 0f;
+            normalImpulse = tangentImpulse = 0d;
             id = new ContactID();
         }
 

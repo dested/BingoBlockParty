@@ -103,13 +103,13 @@ namespace org.jbox2d.dynamics.joints
         public RevoluteJointDef()
         {
             type = JointType.REVOLUTE;
-            localAnchorA = new Vec2(0.0f, 0.0f);
-            localAnchorB = new Vec2(0.0f, 0.0f);
-            referenceAngle = 0.0f;
-            lowerAngle = 0.0f;
-            upperAngle = 0.0f;
-            maxMotorTorque = 0.0f;
-            motorSpeed = 0.0f;
+            localAnchorA = new Vec2(0.0d, 0.0d);
+            localAnchorB = new Vec2(0.0d, 0.0d);
+            referenceAngle = 0.0d;
+            lowerAngle = 0.0d;
+            upperAngle = 0.0d;
+            maxMotorTorque = 0.0d;
+            motorSpeed = 0.0d;
             enableLimit = false;
             enableMotor = false;
         }

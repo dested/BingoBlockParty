@@ -45,10 +45,10 @@ namespace org.jbox2d.dynamics.joints
 
             m_maxLength = def.maxLength;
 
-            m_mass = 0.0f;
-            m_impulse = 0.0f;
+            m_mass = 0.0d;
+            m_impulse = 0.0d;
             m_state = LimitState.INACTIVE;
-            m_length = 0.0f;
+            m_length = 0.0d;
         }
 
 
@@ -89,7 +89,7 @@ namespace org.jbox2d.dynamics.joints
             m_length = m_u.length();
 
             double C = m_length - m_maxLength;
-            if (C > 0.0f)
+            if (C > 0.0d)
             {
                 m_state = LimitState.AT_UPPER;
             }
@@ -100,13 +100,13 @@ namespace org.jbox2d.dynamics.joints
 
             if (m_length > Settings.linearSlop)
             {
-                m_u.mulLocal(1.0f/m_length);
+                m_u.mulLocal(1.0d/m_length);
             }
             else
             {
                 m_u.setZero();
-                m_mass = 0.0f;
-                m_impulse = 0.0f;
+                m_mass = 0.0d;
+                m_impulse = 0.0d;
                 return;
             }
 
@@ -115,7 +115,7 @@ namespace org.jbox2d.dynamics.joints
             double crB = Vec2.cross(m_rB, m_u);
             double invMass = m_invMassA + m_invIA*crA*crA + m_invMassB + m_invIB*crB*crB;
 
-            m_mass = invMass != 0.0f ? 1.0f/invMass : 0.0f;
+            m_mass = invMass != 0.0d ? 1.0d/invMass : 0.0d;
 
             if (data.step.warmStarting)
             {
@@ -134,7 +134,7 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                m_impulse = 0.0f;
+                m_impulse = 0.0d;
             }
 
             pool.pushRot(2);
@@ -168,14 +168,14 @@ namespace org.jbox2d.dynamics.joints
             double Cdot = Vec2.dot(m_u, temp.set(vpB).subLocal(vpA));
 
             // Predictive constraint.
-            if (C < 0.0f)
+            if (C < 0.0d)
             {
                 Cdot += data.step.inv_dt*C;
             }
 
             double impulse = -m_mass*Cdot;
             double oldImpulse = m_impulse;
-            m_impulse = MathUtils.min(0.0f, m_impulse + impulse);
+            m_impulse = MathUtils.min(0.0d, m_impulse + impulse);
             impulse = m_impulse - oldImpulse;
 
             double Px = impulse*m_u.x;
@@ -221,7 +221,7 @@ namespace org.jbox2d.dynamics.joints
             double length = u.normalize();
             double C = length - m_maxLength;
 
-            C = MathUtils.clamp(C, 0.0f, Settings.maxLinearCorrection);
+            C = MathUtils.clamp(C, 0.0d, Settings.maxLinearCorrection);
 
             double impulse = -m_mass*C;
             double Px = impulse*u.x;
@@ -266,7 +266,7 @@ namespace org.jbox2d.dynamics.joints
 
         public override double getReactionTorque(double inv_dt)
         {
-            return 0f;
+            return 0d;
         }
 
         public Vec2 getLocalAnchorA()

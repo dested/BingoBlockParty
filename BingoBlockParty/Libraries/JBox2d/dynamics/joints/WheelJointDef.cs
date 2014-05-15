@@ -83,8 +83,8 @@ namespace org.jbox2d.dynamics.joints
             type = JointType.WHEEL;
             localAxisA.set(1, 0);
             enableMotor = false;
-            maxMotorTorque = 0f;
-            motorSpeed = 0f;
+            maxMotorTorque = 0d;
+            motorSpeed = 0d;
         }
 
         public void initialize(Body b1, Body b2, Vec2 anchor, Vec2 axis)

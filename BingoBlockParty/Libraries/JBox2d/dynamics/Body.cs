@@ -117,7 +117,7 @@ namespace org.jbox2d.dynamics
             m_sweep.c.set(m_xf.p);
             m_sweep.a0 = bd.angle;
             m_sweep.a = bd.angle;
-            m_sweep.alpha0 = 0.0f;
+            m_sweep.alpha0 = 0.0d;
 
             m_jointList = null;
             m_contactList = null;
@@ -132,25 +132,25 @@ namespace org.jbox2d.dynamics
             m_gravityScale = bd.gravityScale;
 
             m_force.setZero();
-            m_torque = 0.0f;
+            m_torque = 0.0d;
 
-            m_sleepTime = 0.0f;
+            m_sleepTime = 0.0d;
 
             m_type = bd.type;
 
             if (m_type == BodyType.DYNAMIC)
             {
-                m_mass = 1f;
-                m_invMass = 1f;
+                m_mass = 1d;
+                m_invMass = 1d;
             }
             else
             {
-                m_mass = 0f;
-                m_invMass = 0f;
+                m_mass = 0d;
+                m_invMass = 0d;
             }
 
-            m_I = 0.0f;
-            m_invI = 0.0f;
+            m_I = 0.0d;
+            m_invI = 0.0d;
 
             m_userData = bd.userData;
 
@@ -191,7 +191,7 @@ namespace org.jbox2d.dynamics
             fixture.m_body = this;
 
             // Adjust mass properties if needed.
-            if (fixture.m_density > 0.0f)
+            if (fixture.m_density > 0.0d)
             {
                 resetMassData();
             }
@@ -399,7 +399,7 @@ namespace org.jbox2d.dynamics
                 return;
             }
 
-            if (Vec2.dot(v, v) > 0.0f)
+            if (Vec2.dot(v, v) > 0.0d)
             {
                 setAwake(true);
             }
@@ -432,7 +432,7 @@ namespace org.jbox2d.dynamics
                 return;
             }
 
-            if (w*w > 0f)
+            if (w*w > 0d)
             {
                 setAwake(true);
             }
@@ -671,22 +671,22 @@ namespace org.jbox2d.dynamics
                 return;
             }
 
-            m_invMass = 0.0f;
-            m_I = 0.0f;
-            m_invI = 0.0f;
+            m_invMass = 0.0d;
+            m_I = 0.0d;
+            m_invI = 0.0d;
 
             m_mass = massData.mass;
-            if (m_mass <= 0.0f)
+            if (m_mass <= 0.0d)
             {
-                m_mass = 1f;
+                m_mass = 1d;
             }
 
-            m_invMass = 1.0f/m_mass;
+            m_invMass = 1.0d/m_mass;
 
-            if (massData.I > 0.0f && (m_flags & e_fixedRotationFlag) == 0)
+            if (massData.I > 0.0d && (m_flags & e_fixedRotationFlag) == 0)
             {
                 m_I = massData.I - m_mass*Vec2.dot(massData.center, massData.center);
-                m_invI = 1.0f/m_I;
+                m_invI = 1.0d/m_I;
             }
 
             Vec2 oldCenter = m_world.getPool().popVec2();
@@ -716,10 +716,10 @@ namespace org.jbox2d.dynamics
         public void resetMassData()
         {
             // Compute mass data from shapes. Each shape has its own density.
-            m_mass = 0.0f;
-            m_invMass = 0.0f;
-            m_I = 0.0f;
-            m_invI = 0.0f;
+            m_mass = 0.0d;
+            m_invMass = 0.0d;
+            m_I = 0.0d;
+            m_invI = 0.0d;
             m_sweep.localCenter.setZero();
 
             // Static and kinematic bodies have zero mass.
@@ -739,7 +739,7 @@ namespace org.jbox2d.dynamics
             MassData massData = pmd;
             for (Fixture f = m_fixtureList; f != null; f = f.m_next)
             {
-                if (f.m_density == 0.0f)
+                if (f.m_density == 0.0d)
                 {
                     continue;
                 }
@@ -752,28 +752,28 @@ namespace org.jbox2d.dynamics
             }
 
             // Compute center of mass.
-            if (m_mass > 0.0f)
+            if (m_mass > 0.0d)
             {
-                m_invMass = 1.0f/m_mass;
+                m_invMass = 1.0d/m_mass;
                 localCenter.mulLocal(m_invMass);
             }
             else
             {
                 // Force all dynamic bodies to have a positive mass.
-                m_mass = 1.0f;
-                m_invMass = 1.0f;
+                m_mass = 1.0d;
+                m_invMass = 1.0d;
             }
 
-            if (m_I > 0.0f && (m_flags & e_fixedRotationFlag) == 0)
+            if (m_I > 0.0d && (m_flags & e_fixedRotationFlag) == 0)
             {
                 // Center the inertia about the center of mass.
                 m_I -= m_mass*Vec2.dot(localCenter, localCenter);
-                m_invI = 1.0f/m_I;
+                m_invI = 1.0d/m_I;
             }
             else
             {
-                m_I = 0.0f;
-                m_invI = 0.0f;
+                m_I = 0.0d;
+                m_invI = 0.0d;
             }
 
             Vec2 oldCenter = m_world.getPool().popVec2();
@@ -980,7 +980,7 @@ namespace org.jbox2d.dynamics
             if (m_type == BodyType.STATIC)
             {
                 m_linearVelocity.setZero();
-                m_angularVelocity = 0.0f;
+                m_angularVelocity = 0.0d;
                 m_sweep.a0 = m_sweep.a;
                 m_sweep.c0.set(m_sweep.c);
                 synchronizeFixtures();
@@ -989,7 +989,7 @@ namespace org.jbox2d.dynamics
             setAwake(true);
 
             m_force.setZero();
-            m_torque = 0.0f;
+            m_torque = 0.0d;
 
             // Delete the attached contacts.
             ContactEdge ce = m_contactList;
@@ -1078,17 +1078,17 @@ namespace org.jbox2d.dynamics
                 if ((m_flags & e_awakeFlag) == 0)
                 {
                     m_flags |= e_awakeFlag;
-                    m_sleepTime = 0.0f;
+                    m_sleepTime = 0.0d;
                 }
             }
             else
             {
                 m_flags &= ~e_awakeFlag;
-                m_sleepTime = 0.0f;
+                m_sleepTime = 0.0d;
                 m_linearVelocity.setZero();
-                m_angularVelocity = 0.0f;
+                m_angularVelocity = 0.0d;
                 m_force.setZero();
-                m_torque = 0.0f;
+                m_torque = 0.0d;
             }
         }
 

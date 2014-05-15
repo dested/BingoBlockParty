@@ -91,17 +91,17 @@ namespace org.jbox2d.common
             // xf = new XForm();
             // center = p + R * localCenter
             /*
-     * if (1.0f - t0 > Settings.EPSILON) { double alpha = (t - t0) / (1.0f - t0); xf.position.x =
-     * (1.0f - alpha) * c0.x + alpha * c.x; xf.position.y = (1.0f - alpha) * c0.y + alpha * c.y;
-     * double angle = (1.0f - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
+     * if (1.0d - t0 > Settings.EPSILON) { double alpha = (t - t0) / (1.0d - t0); xf.position.x =
+     * (1.0d - alpha) * c0.x + alpha * c.x; xf.position.y = (1.0d - alpha) * c0.y + alpha * c.y;
+     * double angle = (1.0d - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
      * xf.R.set(a); }
      */
 
-            xf.p.x = (1.0f - beta)*c0.x + beta*c.x;
-            xf.p.y = (1.0f - beta)*c0.y + beta*c.y;
-            // double angle = (1.0f - alpha) * a0 + alpha * a;
+            xf.p.x = (1.0d - beta)*c0.x + beta*c.x;
+            xf.p.y = (1.0d - beta)*c0.y + beta*c.y;
+            // double angle = (1.0d - alpha) * a0 + alpha * a;
             // xf.R.set(angle);
-            xf.q.set((1.0f - beta)*a0 + beta*a);
+            xf.q.set((1.0d - beta)*a0 + beta*a);
 
             // Shift to origin
             //xf->p -= b2Mul(xf->q, localCenter);
@@ -118,15 +118,15 @@ namespace org.jbox2d.common
 
         public void advance(double alpha)
         {
-//    // c0 = (1.0f - t) * c0 + t*c;
-//    double beta = (alpha - alpha0) / (1.0f - alpha0);
-//    c0.x = (1.0f - beta) * c0.x + beta * c.x;
-//    c0.y = (1.0f - beta) * c0.y + beta * c.y;
-//    a0 = (1.0f - beta) * a0 + beta * a;
+//    // c0 = (1.0d - t) * c0 + t*c;
+//    double beta = (alpha - alpha0) / (1.0d - alpha0);
+//    c0.x = (1.0d - beta) * c0.x + beta * c.x;
+//    c0.y = (1.0d - beta) * c0.y + beta * c.y;
+//    a0 = (1.0d - beta) * a0 + beta * a;
 //    alpha0 = alpha;
-            c0.x = (1.0f - alpha)*c0.x + alpha*c.x;
-            c0.y = (1.0f - alpha)*c0.y + alpha*c.y;
-            a0 = (1.0f - alpha)*a0 + alpha*a;
+            c0.x = (1.0d - alpha)*c0.x + alpha*c.x;
+            c0.y = (1.0d - alpha)*c0.y + alpha*c.y;
+            a0 = (1.0d - alpha)*a0 + alpha*a;
         }
     }
 }

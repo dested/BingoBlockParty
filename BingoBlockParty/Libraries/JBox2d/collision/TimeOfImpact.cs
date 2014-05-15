@@ -139,10 +139,10 @@ namespace org.jbox2d.collision
 
             double totalRadius = proxyA.m_radius + proxyB.m_radius;
             // djm: whats with all these constants?
-            double target = MathUtils.max(Settings.linearSlop, totalRadius - 3.0f*Settings.linearSlop);
-            double tolerance = 0.25f*Settings.linearSlop;
+            double target = MathUtils.max(Settings.linearSlop, totalRadius - 3.0d*Settings.linearSlop);
+            double tolerance = 0.25d*Settings.linearSlop;
 
-            double t1 = 0f;
+            double t1 = 0d;
             int iter = 0;
 
             cache.count = 0;
@@ -170,12 +170,12 @@ namespace org.jbox2d.collision
                 // distanceOutput.iterations);
 
                 // If the shapes are overlapped, we give up on continuous collision.
-                if (distanceOutput.distance <= 0f)
+                if (distanceOutput.distance <= 0d)
                 {
                     // System.out.println("failure, overlapped");
                     // Failure!
                     output.state = TOIOutputState.OVERLAPPED;
-                    output.t = 0f;
+                    output.t = 0d;
                     break;
                 }
 
@@ -263,7 +263,7 @@ namespace org.jbox2d.collision
                         else
                         {
                             // Bisection to guarantee progress.
-                            t = 0.5f*(a1 + a2);
+                            t = 0.5d*(a1 + a2);
                         }
 
                         double s = fcn.evaluate(indexes[0], indexes[1], t);
@@ -409,12 +409,12 @@ namespace org.jbox2d.collision
                 localPointB2.set(m_proxyB.getVertex(cache.indexB[1]));
 
                 temp.set(localPointB2).subLocal(localPointB1);
-                Vec2.crossToOutUnsafe(temp, 1f, m_axis);
+                Vec2.crossToOutUnsafe(temp, 1d, m_axis);
                 m_axis.normalize();
 
                 Rot.mulToOutUnsafe(xfb.q, m_axis, normal);
 
-                m_localPoint.set(localPointB1).addLocal(localPointB2).mulLocal(.5f);
+                m_localPoint.set(localPointB1).addLocal(localPointB2).mulLocal(.5d);
                 Transform.mulToOutUnsafe(xfb, m_localPoint, pointB);
 
                 localPointA.set(proxyA.getVertex(cache.indexA[0]));
@@ -422,7 +422,7 @@ namespace org.jbox2d.collision
 
                 temp.set(pointA).subLocal(pointB);
                 double s = Vec2.dot(temp, normal);
-                if (s < 0.0f)
+                if (s < 0.0d)
                 {
                     m_axis.negateLocal();
                     s = -s;
@@ -438,12 +438,12 @@ namespace org.jbox2d.collision
                 localPointA2.set(m_proxyA.getVertex(cache.indexA[1]));
 
                 temp.set(localPointA2).subLocal(localPointA1);
-                Vec2.crossToOutUnsafe(temp, 1.0f, m_axis);
+                Vec2.crossToOutUnsafe(temp, 1.0d, m_axis);
                 m_axis.normalize();
 
                 Rot.mulToOutUnsafe(xfa.q, m_axis, normal);
 
-                m_localPoint.set(localPointA1).addLocal(localPointA2).mulLocal(.5f);
+                m_localPoint.set(localPointA1).addLocal(localPointA2).mulLocal(.5d);
                 Transform.mulToOutUnsafe(xfa, m_localPoint, pointA);
 
                 localPointB.set(m_proxyB.getVertex(cache.indexB[0]));
@@ -451,7 +451,7 @@ namespace org.jbox2d.collision
 
                 temp.set(pointB).subLocal(pointA);
                 double s = Vec2.dot(temp, normal);
-                if (s < 0.0f)
+                if (s < 0.0d)
                 {
                     m_axis.negateLocal();
                     s = -s;
@@ -523,7 +523,7 @@ namespace org.jbox2d.collision
                 default:
                     indexes[0] = -1;
                     indexes[1] = -1;
-                    return 0f;
+                    return 0d;
             }
         }
 
@@ -579,7 +579,7 @@ namespace org.jbox2d.collision
                     return separation;
                 }
                 default:
-                    return 0f;
+                    return 0d;
             }
         }
     }

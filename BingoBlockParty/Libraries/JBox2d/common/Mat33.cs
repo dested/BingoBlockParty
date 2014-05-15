@@ -129,9 +129,9 @@ namespace org.jbox2d.common
         {
             double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
             double det = a11*a22 - a12*a21;
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             out_.x = det*(a22*b.x - a12*b.y);
             out_.y = det*(a11*b.y - a21*b.x);
@@ -165,9 +165,9 @@ namespace org.jbox2d.common
         {
             Vec3.crossToOutUnsafe(ey, ez, out_);
             double det = Vec3.dot(ex, out_);
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             Vec3.crossToOutUnsafe(ey, ez, out_);
             double x = det*Vec3.dot(b, out_);
@@ -184,20 +184,20 @@ namespace org.jbox2d.common
         {
             double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
             double det = a*d - b*c;
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
 
             M.ex.x = det*d;
             M.ey.x = -det*b;
-            M.ex.z = 0.0f;
+            M.ex.z = 0.0d;
             M.ex.y = -det*c;
             M.ey.y = det*a;
-            M.ey.z = 0.0f;
-            M.ez.x = 0.0f;
-            M.ez.y = 0.0f;
-            M.ez.z = 0.0f;
+            M.ey.z = 0.0d;
+            M.ez.x = 0.0d;
+            M.ez.y = 0.0d;
+            M.ez.z = 0.0d;
         }
 
         // / Returns the zero matrix if singular.
@@ -207,9 +207,9 @@ namespace org.jbox2d.common
             double by = ey.z*ez.x - ey.x*ez.z;
             double bz = ey.x*ez.y - ey.y*ez.x;
             double det = ex.x*bx + ex.y*by + ex.z*bz;
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
 
             double a11 = ex.x, a12 = ey.x, a13 = ez.x;

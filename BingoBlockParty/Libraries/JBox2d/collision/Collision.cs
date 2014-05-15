@@ -119,8 +119,8 @@ namespace org.jbox2d.collision
             cache.count = 0;
 
             pool.getDistance().distance(output, cache, input);
-            // djm note: anything significant about 10.0f?
-            return output.distance < 10.0f*Settings.EPSILON;
+            // djm note: anything significant about 10.0d?
+            return output.distance < 10.0d*Settings.EPSILON;
         }
 
         /**
@@ -203,17 +203,17 @@ namespace org.jbox2d.collision
             double distance1 = Vec2.dot(normal, vIn1v) - offset;
 
             // If the points are behind the plane
-            if (distance0 <= 0.0f)
+            if (distance0 <= 0.0d)
             {
                 vOut[numOut++].set(vIn0);
             }
-            if (distance1 <= 0.0f)
+            if (distance1 <= 0.0d)
             {
                 vOut[numOut++].set(vIn1);
             }
 
             // If the points are on different sides of the plane
-            if (distance0*distance1 < 0.0f)
+            if (distance0*distance1 < 0.0d)
             {
                 // Find intersection point of edge and plane
                 double interp = distance0/(distance0 - distance1);
@@ -369,14 +369,14 @@ namespace org.jbox2d.collision
 
                 // before inline:
                 // manifold.localNormal.set(normals[normalIndex]);
-                // manifold.localPoint.set(v1).addLocal(v2).mulLocal(.5f);
+                // manifold.localPoint.set(v1).addLocal(v2).mulLocal(.5d);
                 // manifold.points[0].localPoint.set(circle.m_p);
                 // after inline:
                 Vec2 normal = normals[normalIndex];
                 manifold.localNormal.x = normal.x;
                 manifold.localNormal.y = normal.y;
-                manifold.localPoint.x = (v1.x + v2.x)*.5f;
-                manifold.localPoint.y = (v1.y + v2.y)*.5f;
+                manifold.localPoint.x = (v1.x + v2.x)*.5d;
+                manifold.localPoint.y = (v1.y + v2.y)*.5d;
                 ManifoldPoint mpoint = manifold.points[0];
                 mpoint.localPoint.x = circlep.x;
                 mpoint.localPoint.y = circlep.y;
@@ -408,7 +408,7 @@ namespace org.jbox2d.collision
             double u2 = temp3X*temp4X + temp3Y*temp4Y;
             // end inline
 
-            if (u1 <= 0f)
+            if (u1 <= 0d)
             {
                 // inlined
                 double dx = cLocalx - v1.x;
@@ -431,7 +431,7 @@ namespace org.jbox2d.collision
                 manifold.points[0].localPoint.set(circlep);
                 manifold.points[0].id.zero();
             }
-            else if (u2 <= 0.0f)
+            else if (u2 <= 0.0d)
             {
                 // inlined
                 double dx = cLocalx - v2.x;
@@ -456,10 +456,10 @@ namespace org.jbox2d.collision
             }
             else
             {
-                // Vec2 faceCenter = 0.5f * (v1 + v2);
+                // Vec2 faceCenter = 0.5d * (v1 + v2);
                 // (temp is faceCenter)
                 // before inline:
-                // temp.set(v1).addLocal(v2).mulLocal(.5f);
+                // temp.set(v1).addLocal(v2).mulLocal(.5d);
                 //
                 // temp2.set(cLocal).subLocal(temp);
                 // separation = Vec2.dot(temp2, normals[vertIndex1]);
@@ -467,8 +467,8 @@ namespace org.jbox2d.collision
                 // return;
                 // }
                 // after inline:
-                double fcx = (v1.x + v2.x)*.5f;
-                double fcy = (v1.y + v2.y)*.5f;
+                double fcx = (v1.x + v2.x)*.5d;
+                double fcy = (v1.y + v2.y)*.5d;
 
                 double tx = cLocalx - fcx;
                 double ty = cLocaly - fcy;
@@ -796,8 +796,8 @@ namespace org.jbox2d.collision
             Transform xf1, xf2;
             int edge1; // reference edge
             bool flip;
-            double k_relativeTol = 0.98f;
-            double k_absoluteTol = 0.001f;
+            double k_relativeTol = 0.98d;
+            double k_absoluteTol = 0.001d;
 
             if (results2.separation > k_relativeTol*results1.separation + k_absoluteTol)
             {
@@ -834,21 +834,21 @@ namespace org.jbox2d.collision
             localTangent.y = v12.y - v11.y;
             localTangent.normalize();
 
-            // Vec2 localNormal = Vec2.cross(dv, 1.0f);
-            localNormal.x = 1f*localTangent.y;
-            localNormal.y = -1f*localTangent.x;
+            // Vec2 localNormal = Vec2.cross(dv, 1.0d);
+            localNormal.x = 1d*localTangent.y;
+            localNormal.y = -1d*localTangent.x;
 
-            // Vec2 planePoint = 0.5f * (v11+ v12);
-            planePoint.x = (v11.x + v12.x)*.5f;
-            planePoint.y = (v11.y + v12.y)*.5f;
+            // Vec2 planePoint = 0.5d * (v11+ v12);
+            planePoint.x = (v11.x + v12.x)*.5d;
+            planePoint.y = (v11.y + v12.y)*.5d;
 
             // Rot.mulToOutUnsafe(xf1.q, localTangent, tangent);
             tangent.x = xf1q.c*localTangent.x - xf1q.s*localTangent.y;
             tangent.y = xf1q.s*localTangent.x + xf1q.c*localTangent.y;
 
-            // Vec2.crossToOutUnsafe(tangent, 1f, normal);
-            double normalx = 1f*tangent.y;
-            double normaly = -1f*tangent.x;
+            // Vec2.crossToOutUnsafe(tangent, 1d, normal);
+            double normalx = 1d*tangent.y;
+            double normaly = -1d*tangent.x;
 
 
             Transform.mulToOut(xf1, v11, v11);
@@ -950,7 +950,7 @@ namespace org.jbox2d.collision
             cf.typeB = (int) ContactID.Type.VERTEX;
 
             // Region A
-            if (v <= 0.0f)
+            if (v <= 0.0d)
             {
                 Vec2 P = A;
                 d.set(Q).subLocal(P);
@@ -969,7 +969,7 @@ namespace org.jbox2d.collision
                     double u1 = Vec2.dot(e1, temp.set(B1).subLocal(Q));
 
                     // Is the circle in Region AB of the previous edge?
-                    if (u1 > 0.0f)
+                    if (u1 > 0.0d)
                     {
                         return;
                     }
@@ -988,7 +988,7 @@ namespace org.jbox2d.collision
             }
 
             // Region B
-            if (u <= 0.0f)
+            if (u <= 0.0d)
             {
                 Vec2 P = B;
                 d.set(Q).subLocal(P);
@@ -1008,7 +1008,7 @@ namespace org.jbox2d.collision
                     double v2 = Vec2.dot(e2, temp.set(Q).subLocal(A2));
 
                     // Is the circle in Region AB of the next edge?
-                    if (v2 > 0.0f)
+                    if (v2 > 0.0d)
                     {
                         return;
                     }
@@ -1029,9 +1029,9 @@ namespace org.jbox2d.collision
             // Region AB
             double den = Vec2.dot(e, e);
 
-            // Vec2 P = (1.0f / den) * (u * A + v * B);
+            // Vec2 P = (1.0d / den) * (u * A + v * B);
             P2.set(A).mulLocal(u).addLocal(temp.set(B).mulLocal(v));
-            P2.mulLocal(1.0f/den);
+            P2.mulLocal(1.0d/den);
             d.set(Q).subLocal(P2);
             double dd2 = Vec2.dot(d, d);
             if (dd2 > radius*radius)
@@ -1041,7 +1041,7 @@ namespace org.jbox2d.collision
 
             n.x = -e.y;
             n.y = e.x;
-            if (Vec2.dot(n, temp.set(Q).subLocal(A)) < 0.0f)
+            if (Vec2.dot(n, temp.set(Q).subLocal(A)) < 0.0d)
             {
                 n.set(-n.x, -n.y);
             }
@@ -1197,7 +1197,7 @@ namespace org.jbox2d.collision
                 edge1.normalize();
                 m_normal1.set(edge1.y, -edge1.x);
                 double offset1 = Vec2.dot(m_normal1, temp.set(m_centroidB).subLocal(m_v1));
-                double offset0 = 0.0f, offset2 = 0.0f;
+                double offset0 = 0.0d, offset2 = 0.0d;
                 bool convex1 = false, convex2 = false;
 
                 // Is there a preceding edge?
@@ -1206,7 +1206,7 @@ namespace org.jbox2d.collision
                     edge0.set(m_v1).subLocal(m_v0);
                     edge0.normalize();
                     m_normal0.set(edge0.y, -edge0.x);
-                    convex1 = Vec2.cross(edge0, edge1) >= 0.0f;
+                    convex1 = Vec2.cross(edge0, edge1) >= 0.0d;
                     offset0 = Vec2.dot(m_normal0, temp.set(m_centroidB).subLocal(m_v0));
                 }
 
@@ -1216,7 +1216,7 @@ namespace org.jbox2d.collision
                     edge2.set(m_v3).subLocal(m_v2);
                     edge2.normalize();
                     m_normal2.set(edge2.y, -edge2.x);
-                    convex2 = Vec2.cross(edge1, edge2) > 0.0f;
+                    convex2 = Vec2.cross(edge1, edge2) > 0.0d;
                     offset2 = Vec2.dot(m_normal2, temp.set(m_centroidB).subLocal(m_v2));
                 }
 
@@ -1225,7 +1225,7 @@ namespace org.jbox2d.collision
                 {
                     if (convex1 && convex2)
                     {
-                        m_front = offset0 >= 0.0f || offset1 >= 0.0f || offset2 >= 0.0f;
+                        m_front = offset0 >= 0.0d || offset1 >= 0.0d || offset2 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1247,7 +1247,7 @@ namespace org.jbox2d.collision
                     }
                     else if (convex1)
                     {
-                        m_front = offset0 >= 0.0f || (offset1 >= 0.0f && offset2 >= 0.0f);
+                        m_front = offset0 >= 0.0d || (offset1 >= 0.0d && offset2 >= 0.0d);
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1269,7 +1269,7 @@ namespace org.jbox2d.collision
                     }
                     else if (convex2)
                     {
-                        m_front = offset2 >= 0.0f || (offset0 >= 0.0f && offset1 >= 0.0f);
+                        m_front = offset2 >= 0.0d || (offset0 >= 0.0d && offset1 >= 0.0d);
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1291,7 +1291,7 @@ namespace org.jbox2d.collision
                     }
                     else
                     {
-                        m_front = offset0 >= 0.0f && offset1 >= 0.0f && offset2 >= 0.0f;
+                        m_front = offset0 >= 0.0d && offset1 >= 0.0d && offset2 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1316,7 +1316,7 @@ namespace org.jbox2d.collision
                 {
                     if (convex1)
                     {
-                        m_front = offset0 >= 0.0f || offset1 >= 0.0f;
+                        m_front = offset0 >= 0.0d || offset1 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1338,7 +1338,7 @@ namespace org.jbox2d.collision
                     }
                     else
                     {
-                        m_front = offset0 >= 0.0f && offset1 >= 0.0f;
+                        m_front = offset0 >= 0.0d && offset1 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1363,7 +1363,7 @@ namespace org.jbox2d.collision
                 {
                     if (convex2)
                     {
-                        m_front = offset1 >= 0.0f || offset2 >= 0.0f;
+                        m_front = offset1 >= 0.0d || offset2 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1385,7 +1385,7 @@ namespace org.jbox2d.collision
                     }
                     else
                     {
-                        m_front = offset1 >= 0.0f && offset2 >= 0.0f;
+                        m_front = offset1 >= 0.0d && offset2 >= 0.0d;
                         if (m_front)
                         {
                             m_normal.x = m_normal1.x;
@@ -1408,7 +1408,7 @@ namespace org.jbox2d.collision
                 }
                 else
                 {
-                    m_front = offset1 >= 0.0f;
+                    m_front = offset1 >= 0.0d;
                     if (m_front)
                     {
                         m_normal.x = m_normal1.x;
@@ -1437,7 +1437,7 @@ namespace org.jbox2d.collision
                     Rot.mulToOutUnsafe(m_xf.q, polygonB.m_normals[i], m_polygonB.normals[i]);
                 }
 
-                m_radius = 2.0f*Settings.polygonRadius;
+                m_radius = 2.0d*Settings.polygonRadius;
 
                 manifold.pointCount = 0;
 
@@ -1461,8 +1461,8 @@ namespace org.jbox2d.collision
                 }
 
                 // Use hysteresis for jitter reduction.
-                double k_relativeTol = 0.98f;
-                double k_absoluteTol = 0.001f;
+                double k_relativeTol = 0.98d;
+                double k_absoluteTol = 0.001d;
 
                 EPAxis primaryAxis;
                 if (polygonAxis.type == EPAxis.Type.UNKNOWN)
@@ -1680,7 +1680,7 @@ namespace org.jbox2d.collision
                     }
 
                     // Adjacency
-                    if (n.x*perp.x + n.y*perp.y >= 0.0f)
+                    if (n.x*perp.x + n.y*perp.y >= 0.0d)
                     {
                         if (Vec2.dot(temp.set(n).subLocal(m_upperLimit), m_normal) < -Settings.angularSlop)
                         {

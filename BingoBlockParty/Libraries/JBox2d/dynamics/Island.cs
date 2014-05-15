@@ -271,11 +271,11 @@ namespace org.jbox2d.dynamics
                     // exp(-c * dt)
                     // v2 = exp(-c * dt) * v1
                     // Taylor expansion:
-                    // v2 = (1.0f - c * dt) * v1
-                    double a1 = MathUtils.clamp(1.0f - h * b.m_linearDamping, 0.0f, 1.0f);
+                    // v2 = (1.0d - c * dt) * v1
+                    double a1 = MathUtils.clamp(1.0d - h * b.m_linearDamping, 0.0d, 1.0d);
                     v.x *= a1;
                     v.y *= a1;
-                    w *= MathUtils.clamp(1.0f - h * b.m_angularDamping, 0.0f, 1.0f);
+                    w *= MathUtils.clamp(1.0d - h * b.m_angularDamping, 0.0d, 1.0d);
                 }
 
                 m_positions[i].c.x = c.x;
@@ -428,8 +428,8 @@ namespace org.jbox2d.dynamics
                         || b.m_angularVelocity * b.m_angularVelocity > angTolSqr
                         || Vec2.dot(b.m_linearVelocity, b.m_linearVelocity) > linTolSqr)
                     {
-                        b.m_sleepTime = 0.0f;
-                        minSleepTime = 0.0f;
+                        b.m_sleepTime = 0.0d;
+                        minSleepTime = 0.0d;
                     }
                     else
                     {

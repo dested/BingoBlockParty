@@ -93,7 +93,7 @@ namespace org.jbox2d.collision
         public bool isValid()
         {
             double dx = upperBound.x - lowerBound.x;
-            if (dx < 0f)
+            if (dx < 0d)
             {
                 return false;
             }
@@ -115,14 +115,14 @@ namespace org.jbox2d.collision
         {
             var center = new Vec2(lowerBound);
             center.addLocal(upperBound);
-            center.mulLocal(.5f);
+            center.mulLocal(.5d);
             return center;
         }
 
         public void getCenterToOut(Vec2 out_)
         {
-            out_.x = (lowerBound.x + upperBound.x)*.5f;
-            out_.y = (lowerBound.y + upperBound.y)*.5f;
+            out_.x = (lowerBound.x + upperBound.x)*.5d;
+            out_.y = (lowerBound.y + upperBound.y)*.5d;
         }
 
         /**
@@ -135,14 +135,14 @@ namespace org.jbox2d.collision
         {
             var center = new Vec2(upperBound);
             center.subLocal(lowerBound);
-            center.mulLocal(.5f);
+            center.mulLocal(.5d);
             return center;
         }
 
         public void getExtentsToOut(Vec2 out_)
         {
-            out_.x = (upperBound.x - lowerBound.x)*.5f;
-            out_.y = (upperBound.y - lowerBound.y)*.5f; // thanks FDN1
+            out_.x = (upperBound.x - lowerBound.x)*.5d;
+            out_.y = (upperBound.y - lowerBound.y)*.5d; // thanks FDN1
         }
 
         public void getVertices(Vec2[] argRay)
@@ -178,7 +178,7 @@ namespace org.jbox2d.collision
 
         public double getPerimeter()
         {
-            return 2.0f*(upperBound.x - lowerBound.x + upperBound.y - lowerBound.y);
+            return 2.0d*(upperBound.x - lowerBound.x + upperBound.y - lowerBound.y);
         }
 
         /**
@@ -261,19 +261,19 @@ namespace org.jbox2d.collision
             }
             else
             {
-                double inv_d = 1.0f/d.x;
+                double inv_d = 1.0d/d.x;
                 double t1 = (lowerBound.x - p.x)*inv_d;
                 double t2 = (upperBound.x - p.x)*inv_d;
 
                 // Sign of the normal vector.
-                double s = -1.0f;
+                double s = -1.0d;
 
                 if (t1 > t2)
                 {
                     double temp = t1;
                     t1 = t2;
                     t2 = temp;
-                    s = 1.0f;
+                    s = 1.0d;
                 }
 
                 // Push the min up
@@ -305,19 +305,19 @@ namespace org.jbox2d.collision
             }
             else
             {
-                double inv_d = 1.0f/d.y;
+                double inv_d = 1.0d/d.y;
                 double t1 = (lowerBound.y - p.y)*inv_d;
                 double t2 = (upperBound.y - p.y)*inv_d;
 
                 // Sign of the normal vector.
-                double s = -1.0f;
+                double s = -1.0d;
 
                 if (t1 > t2)
                 {
                     double temp = t1;
                     t1 = t2;
                     t2 = temp;
-                    s = 1.0f;
+                    s = 1.0d;
                 }
 
                 // Push the min up
@@ -340,7 +340,7 @@ namespace org.jbox2d.collision
 
             // Does the ray start inside the box?
             // Does the ray intersect beyond the max fraction?
-            if (tmin < 0.0f || input.maxFraction < tmin)
+            if (tmin < 0.0d || input.maxFraction < tmin)
             {
                 argPool.pushVec2(4);
                 return false;
@@ -356,12 +356,12 @@ namespace org.jbox2d.collision
 
         public static bool testOverlap(AABB a, AABB b)
         {
-            if (b.lowerBound.x - a.upperBound.x > 0.0f || b.lowerBound.y - a.upperBound.y > 0.0f)
+            if (b.lowerBound.x - a.upperBound.x > 0.0d || b.lowerBound.y - a.upperBound.y > 0.0d)
             {
                 return false;
             }
 
-            if (a.lowerBound.x - b.upperBound.x > 0.0f || a.lowerBound.y - b.upperBound.y > 0.0f)
+            if (a.lowerBound.x - b.upperBound.x > 0.0d || a.lowerBound.y - b.upperBound.y > 0.0d)
             {
                 return false;
             }

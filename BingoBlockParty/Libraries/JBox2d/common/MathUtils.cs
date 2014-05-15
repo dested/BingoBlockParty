@@ -57,7 +57,7 @@ namespace org.jbox2d.common
     {
         public static readonly double PI = (double) Math.PI;
         public static readonly double TWOPI = (double) (Math.PI*2);
-        public static readonly double INV_PI = 1f/PI;
+        public static readonly double INV_PI = 1d/PI;
         public static readonly double HALF_PI = PI/2;
         public static readonly double QUARTER_PI = PI/4;
         public static readonly double THREE_HALVES_PI = TWOPI - HALF_PI;
@@ -178,7 +178,7 @@ namespace org.jbox2d.common
         {
             if (Settings.FAST_ROUND)
             {
-                return floor(x + .5f);
+                return floor(x + .5d);
             }
             return StrictMath.round(x);
         }
@@ -286,27 +286,27 @@ namespace org.jbox2d.common
 
         public static double fastAtan2(double y, double x)
         {
-            if (x == 0.0f)
+            if (x == 0.0d)
             {
-                if (y > 0.0f) return HALF_PI;
-                if (y == 0.0f) return 0.0f;
+                if (y > 0.0d) return HALF_PI;
+                if (y == 0.0d) return 0.0d;
                 return -HALF_PI;
             }
             double atan;
             double z = y/x;
-            if (abs(z) < 1.0f)
+            if (abs(z) < 1.0d)
             {
-                atan = z/(1.0f + 0.28f*z*z);
-                if (x < 0.0f)
+                atan = z/(1.0d + 0.28d*z*z);
+                if (x < 0.0d)
                 {
-                    if (y < 0.0f) return atan - PI;
+                    if (y < 0.0d) return atan - PI;
                     return atan + PI;
                 }
             }
             else
             {
-                atan = HALF_PI - z/(z*z + 0.28f);
-                if (y < 0.0f) return atan - PI;
+                atan = HALF_PI - z/(z*z + 0.28d);
+                if (y < 0.0d) return atan - PI;
             }
             return atan;
         }

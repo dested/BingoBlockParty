@@ -113,7 +113,7 @@ namespace BingoBlockParty.Common.BallGame
 
             PolygonShape polyShape;
             fixDef.shape = polyShape = new PolygonShape();
-            polyShape.setAsBox(this.PixelToMeter(width) / 2f, this.PixelToMeter(height) / 2f);
+            polyShape.setAsBox(this.PixelToMeter(width) / 2d, this.PixelToMeter(height) / 2d);
             var body = this.World.createBody(bodyDef);
             body.createFixture(fixDef);
             body.setUserData(userData); return new PhysicsBody(body);
@@ -134,7 +134,7 @@ namespace BingoBlockParty.Common.BallGame
 
             PolygonShape polyShape;
             fixDef.shape = polyShape = new PolygonShape();
-            polyShape.setAsBox(this.PixelToMeter(width) / 2f, this.PixelToMeter(height) / 2f);
+            polyShape.setAsBox(this.PixelToMeter(width) / 2d, this.PixelToMeter(height) / 2d);
             var body = this.World.createBody(bodyDef);
             var fixture = body.createFixture(fixDef);
             fixture.setSensor(true);
@@ -248,7 +248,7 @@ namespace BingoBlockParty.Common.BallGame
         {
             this.Collisions.Clear();
 
-            this.World.step(0.0166, 10, 10);
+            this.World.step(0.0166, 2, 2);
             this.World.clearForces();
 
             for (var i = 0; i < this.Collisions.Count; i++)

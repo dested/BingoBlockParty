@@ -93,11 +93,11 @@ namespace org.jbox2d.dynamics.joints
             m_localAnchorA = def.localAnchorA.clone();
             m_localAnchorB = def.localAnchorB.clone();
             m_length = def.length;
-            m_impulse = 0.0f;
+            m_impulse = 0.0d;
             m_frequencyHz = def.frequencyHz;
             m_dampingRatio = def.dampingRatio;
-            m_gamma = 0.0f;
-            m_bias = 0.0f;
+            m_gamma = 0.0d;
+            m_bias = 0.0d;
         }
 
         public void setFrequency(double hz)
@@ -169,7 +169,7 @@ namespace org.jbox2d.dynamics.joints
 
         public override double getReactionTorque(double inv_dt)
         {
-            return 0.0f;
+            return 0.0d;
         }
 
 
@@ -211,12 +211,12 @@ namespace org.jbox2d.dynamics.joints
             double length = m_u.length();
             if (length > Settings.linearSlop)
             {
-                m_u.x *= 1.0f/length;
-                m_u.y *= 1.0f/length;
+                m_u.x *= 1.0d/length;
+                m_u.y *= 1.0d/length;
             }
             else
             {
-                m_u.set(0.0f, 0.0f);
+                m_u.set(0.0d, 0.0d);
             }
 
 
@@ -225,17 +225,17 @@ namespace org.jbox2d.dynamics.joints
             double invMass = m_invMassA + m_invIA*crAu*crAu + m_invMassB + m_invIB*crBu*crBu;
 
             // Compute the effective mass matrix.
-            m_mass = invMass != 0.0f ? 1.0f/invMass : 0.0f;
+            m_mass = invMass != 0.0d ? 1.0d/invMass : 0.0d;
 
-            if (m_frequencyHz > 0.0f)
+            if (m_frequencyHz > 0.0d)
             {
                 double C = length - m_length;
 
                 // Frequency
-                double omega = 2.0f*MathUtils.PI*m_frequencyHz;
+                double omega = 2.0d*MathUtils.PI*m_frequencyHz;
 
                 // Damping coefficient
-                double d = 2.0f*m_mass*m_dampingRatio*omega;
+                double d = 2.0d*m_mass*m_dampingRatio*omega;
 
                 // Spring stiffness
                 double k = m_mass*omega*omega;
@@ -243,16 +243,16 @@ namespace org.jbox2d.dynamics.joints
                 // magic formulas
                 double h = data.step.dt;
                 m_gamma = h*(d + h*k);
-                m_gamma = m_gamma != 0.0f ? 1.0f/m_gamma : 0.0f;
+                m_gamma = m_gamma != 0.0d ? 1.0d/m_gamma : 0.0d;
                 m_bias = C*h*k*m_gamma;
 
                 invMass += m_gamma;
-                m_mass = invMass != 0.0f ? 1.0f/invMass : 0.0f;
+                m_mass = invMass != 0.0d ? 1.0d/invMass : 0.0d;
             }
             else
             {
-                m_gamma = 0.0f;
-                m_bias = 0.0f;
+                m_gamma = 0.0d;
+                m_bias = 0.0d;
             }
             if (data.step.warmStarting)
             {
@@ -274,7 +274,7 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                m_impulse = 0.0f;
+                m_impulse = 0.0d;
             }
 //    data.velocities[m_indexA].v.set(vA);
             data.velocities[m_indexA].w = wA;
@@ -325,7 +325,7 @@ namespace org.jbox2d.dynamics.joints
 
         public override bool solvePositionConstraints(SolverData data)
         {
-            if (m_frequencyHz > 0.0f)
+            if (m_frequencyHz > 0.0d)
             {
                 return true;
             }

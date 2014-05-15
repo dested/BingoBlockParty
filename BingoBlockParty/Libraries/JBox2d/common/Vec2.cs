@@ -56,8 +56,8 @@ namespace org.jbox2d.common
 
         public void setZero()
         {
-            x = 0.0f;
-            y = 0.0f;
+            x = 0.0d;
+            y = 0.0d;
         }
 
         /** Set the vector component-wise. */
@@ -188,10 +188,10 @@ namespace org.jbox2d.common
             double _length = length();
             if (_length < Settings.EPSILON)
             {
-                return 0f;
+                return 0d;
             }
 
-            double invLength = 1.0f / _length;
+            double invLength = 1.0d / _length;
             x *= invLength;
             y *= invLength;
             return _length;

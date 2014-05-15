@@ -30,8 +30,8 @@ namespace org.jbox2d.dynamics.joints
         public RopeJointDef()
         {
             type = JointType.ROPE;
-            localAnchorA.set(-1.0f, 0.0f);
-            localAnchorB.set(1.0f, 0.0f);
+            localAnchorA.set(-1.0d, 0.0d);
+            localAnchorB.set(1.0d, 0.0d);
         }
     }
 }

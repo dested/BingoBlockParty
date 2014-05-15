@@ -138,10 +138,10 @@ namespace org.jbox2d.common
 
         public void setIdentity()
         {
-            ex.x = 1.0f;
-            ey.x = 0.0f;
-            ex.y = 0.0f;
-            ey.y = 1.0f;
+            ex.x = 1.0d;
+            ey.x = 0.0d;
+            ex.y = 0.0d;
+            ey.y = 1.0d;
         }
 
         /**
@@ -150,10 +150,10 @@ namespace org.jbox2d.common
 
         public void setZero()
         {
-            ex.x = 0.0f;
-            ey.x = 0.0f;
-            ex.y = 0.0f;
-            ey.y = 0.0f;
+            ex.x = 0.0d;
+            ey.x = 0.0d;
+            ex.y = 0.0d;
+            ey.y = 0.0d;
         }
 
         /**
@@ -191,7 +191,7 @@ namespace org.jbox2d.common
             double det = a*d - b*c;
             if (det != 0)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             B.ex.x = det*d;
             B.ey.x = -det*b;
@@ -206,7 +206,7 @@ namespace org.jbox2d.common
             double det = a*d - b*c;
             if (det != 0)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             ex.x = det*d;
             ey.x = -det*b;
@@ -219,8 +219,8 @@ namespace org.jbox2d.common
         {
             double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
             double det = a*d - b*c;
-            // b2Assert(det != 0.0f);
-            det = 1.0f/det;
+            // b2Assert(det != 0.0d);
+            det = 1.0d/det;
             out_.ex.x = det*d;
             out_.ey.x = -det*b;
             out_.ex.y = -det*c;
@@ -468,9 +468,9 @@ namespace org.jbox2d.common
         {
             double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
             double det = a11*a22 - a12*a21;
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             var x = new Vec2(det*(a22*b.x - a12*b.y), det*(a11*b.y - a21*b.x));
             return x;
@@ -480,9 +480,9 @@ namespace org.jbox2d.common
         {
             double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
             double det = a11*a22 - a12*a21;
-            if (det != 0.0f)
+            if (det != 0.0d)
             {
-                det = 1.0f/det;
+                det = 1.0d/det;
             }
             double tempy = det*(a11*b.y - a21*b.x);
             out_.x = det*(a22*b.x - a12*b.y);

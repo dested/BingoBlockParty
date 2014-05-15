@@ -195,7 +195,7 @@ namespace org.jbox2d.dynamics.joints
 
             m_constant = coordinateA + m_ratio*coordinateB;
 
-            m_impulse = 0.0f;
+            m_impulse = 0.0d;
         }
 
 
@@ -280,15 +280,15 @@ namespace org.jbox2d.dynamics.joints
             qC.set(aC);
             qD.set(aD);
 
-            m_mass = 0.0f;
+            m_mass = 0.0d;
 
             Vec2 temp = pool.popVec2();
 
             if (m_typeA == JointType.REVOLUTE)
             {
                 m_JvAC.setZero();
-                m_JwA = 1.0f;
-                m_JwC = 1.0f;
+                m_JwA = 1.0d;
+                m_JwC = 1.0d;
                 m_mass += m_iA + m_iC;
             }
             else
@@ -327,7 +327,7 @@ namespace org.jbox2d.dynamics.joints
             }
 
             // Compute effective mass.
-            m_mass = m_mass > 0.0f ? 1.0f/m_mass : 0.0f;
+            m_mass = m_mass > 0.0d ? 1.0d/m_mass : 0.0d;
 
             if (data.step.warmStarting)
             {
@@ -349,7 +349,7 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                m_impulse = 0.0f;
+                m_impulse = 0.0d;
             }
             pool.pushVec2(1);
             pool.pushRot(4);
@@ -441,7 +441,7 @@ namespace org.jbox2d.dynamics.joints
             qC.set(aC);
             qD.set(aD);
 
-            double linearError = 0.0f;
+            double linearError = 0.0d;
 
             double coordinateA, coordinateB;
 
@@ -449,13 +449,13 @@ namespace org.jbox2d.dynamics.joints
             Vec2 JvAC = pool.popVec2();
             Vec2 JvBD = pool.popVec2();
             double JwA, JwB, JwC, JwD;
-            double mass = 0.0f;
+            double mass = 0.0d;
 
             if (m_typeA == JointType.REVOLUTE)
             {
                 JvAC.setZero();
-                JwA = 1.0f;
-                JwC = 1.0f;
+                JwA = 1.0d;
+                JwC = 1.0d;
                 mass += m_iA + m_iC;
 
                 coordinateA = aA - aC - m_referenceAngleA;
@@ -511,8 +511,8 @@ namespace org.jbox2d.dynamics.joints
 
             double C = (coordinateA + m_ratio*coordinateB) - m_constant;
 
-            double impulse = 0.0f;
-            if (mass > 0.0f)
+            double impulse = 0.0d;
+            if (mass > 0.0d)
             {
                 impulse = -C/mass;
             }

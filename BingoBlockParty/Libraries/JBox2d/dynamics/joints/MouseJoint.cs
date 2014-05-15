@@ -96,7 +96,7 @@ namespace org.jbox2d.dynamics.joints
 
         public override double getReactionTorque(double invDt)
         {
-            return invDt*0.0f;
+            return invDt*0.0d;
         }
 
 
@@ -167,10 +167,10 @@ namespace org.jbox2d.dynamics.joints
             double mass = m_bodyB.getMass();
 
             // Frequency
-            double omega = 2.0f*MathUtils.PI*m_frequencyHz;
+            double omega = 2.0d*MathUtils.PI*m_frequencyHz;
 
             // Damping coefficient
-            double d = 2.0f*mass*m_dampingRatio*omega;
+            double d = 2.0d*mass*m_dampingRatio*omega;
 
             // Spring stiffness
             double k = mass*(omega*omega);
@@ -180,9 +180,9 @@ namespace org.jbox2d.dynamics.joints
             // beta has units of inverse time.
             double h = data.step.dt;
             m_gamma = h*(d + h*k);
-            if (m_gamma != 0.0f)
+            if (m_gamma != 0.0d)
             {
-                m_gamma = 1.0f/m_gamma;
+                m_gamma = 1.0d/m_gamma;
             }
             m_beta = h*k*m_gamma;
 
@@ -206,7 +206,7 @@ namespace org.jbox2d.dynamics.joints
             m_C.mulLocal(m_beta);
 
             // Cheat with some damping
-            wB *= 0.98f;
+            wB *= 0.98d;
 
             if (data.step.warmStarting)
             {

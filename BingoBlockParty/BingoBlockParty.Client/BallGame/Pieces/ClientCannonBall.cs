@@ -16,7 +16,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
         {
             base.Tick();
             var position = Body.Position;
-            GameBoard.Client().ViewManager.Center((int)GameBoard.PegPhysicsManager.MeterToPixel((float)position.X), (int)GameBoard.PegPhysicsManager.MeterToPixel((float)position.Y));
+            GameBoard.Client().ViewManager.Center((int)GameBoard.PegPhysicsManager.MeterToPixel( position.X), (int)GameBoard.PegPhysicsManager.MeterToPixel( position.Y));
         }
 
         public void Render(ILayer context)
@@ -24,8 +24,8 @@ namespace BingoBlockParty.Client.BallGame.Pieces
             if (this.BallDead) return;
             var position = this.Body.Position;
 
-            var x = this.GameBoard.PegPhysicsManager.MeterToPixel((float)position.X);
-            var y = this.GameBoard.PegPhysicsManager.MeterToPixel((float)position.Y);
+            var x = this.GameBoard.PegPhysicsManager.MeterToPixel( position.X);
+            var y = this.GameBoard.PegPhysicsManager.MeterToPixel( position.Y);
             var cannonBall = GameBoard.Client().Renderer.GetImage("cannonBall");
             var cannonBallShine = GameBoard.Client().Renderer.GetImage("cannonBallShine");
 

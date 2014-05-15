@@ -336,7 +336,7 @@
 			this.get_pegsPlane().init();
 			var type = 0;
 			var pegLocs = [];
-			for (var i = 0; i < 400; i += 50) {
+			for (var i = 0; i < 16800; i += 50) {
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(62, 201 + i, 0));
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(101, 178 + i, 0));
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(145, 173 + i, 0));
@@ -581,7 +581,7 @@
 		},
 		tick: function() {
 			ss.clear(this.get_collisions());
-			this.get_world().step(0.0166, 10, 10);
+			this.get_world().step(0.0166, 2, 2);
 			this.get_world().clearForces();
 			for (var i = 0; i < this.get_collisions().length; i++) {
 				var collision = this.get_collisions()[i];

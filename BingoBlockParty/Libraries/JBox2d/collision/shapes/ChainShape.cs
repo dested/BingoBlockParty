@@ -164,9 +164,9 @@ namespace org.jbox2d.collision.shapes
 
         public override void computeMass(MassData massData, double density)
         {
-            massData.mass = 0.0f;
+            massData.mass = 0.0d;
             massData.center.setZero();
-            massData.I = 0.0f;
+            massData.I = 0.0d;
         }
 
 

@@ -35,7 +35,7 @@ namespace org.jbox2d.common
     public class Settings
     {
         /** A "close to zero" double epsilon value for use */
-        public static readonly double EPSILON = 1.1920928955078125E-7f;
+        public static readonly double EPSILON = 1.1920928955078125E-7d;
 
         /** Pi. */
         public static readonly double PI = (double) Math.PI;
@@ -73,7 +73,7 @@ namespace org.jbox2d.common
    * <li>1.53999E-5</li>
    * </ul>
    */
-        public static readonly double SINCOS_LUT_PRECISION = .00011f;
+        public static readonly double SINCOS_LUT_PRECISION = .00011d;
         public static readonly int SINCOS_LUT_LENGTH = (int) Math.Ceiling(Math.PI*2/SINCOS_LUT_PRECISION);
         /**
    * Use if the table's precision is large (eg .006 or greater). Although it is more expensive, it
@@ -99,32 +99,32 @@ namespace org.jbox2d.common
    * This is used to fatten AABBs in the dynamic tree. This allows proxies to move by a small amount
    * without triggering a tree adjustment. This is in meters.
    */
-        public static readonly double aabbExtension = 0.1f;
+        public static readonly double aabbExtension = 0.1d;
 
         /**
    * This is used to fatten AABBs in the dynamic tree. This is used to predict the future position
    * based on the current displacement. This is a dimensionless multiplier.
    */
-        public static readonly double aabbMultiplier = 2.0f;
+        public static readonly double aabbMultiplier = 2.0d;
 
         /**
    * A small length used as a collision and constraint tolerance. Usually it is chosen to be
    * numerically significant, but visually insignificant.
    */
-        public static readonly double linearSlop = 0.005f;
+        public static readonly double linearSlop = 0.005d;
 
         /**
    * A small angle used as a collision and constraint tolerance. Usually it is chosen to be
    * numerically significant, but visually insignificant.
    */
-        public static readonly double angularSlop = (2.0f/180.0f*PI);
+        public static readonly double angularSlop = (2.0d/180.0d*PI);
 
         /**
    * The radius of the polygon/edge shape skin. This should not be modified. Making this smaller
    * means polygons will have and insufficient for continuous collision. Making it larger may create
    * artifacts for vertex collision.
    */
-        public static readonly double polygonRadius = (2.0f*linearSlop);
+        public static readonly double polygonRadius = (2.0d*linearSlop);
 
         /** Maximum number of sub-steps per contact in continuous physics simulation. */
         public static readonly int maxSubSteps = 8;
@@ -140,40 +140,40 @@ namespace org.jbox2d.common
    * A velocity threshold for elastic collisions. Any collision with a relative linear velocity
    * below this threshold will be treated as inelastic.
    */
-        public static readonly double velocityThreshold = 1.0f;
+        public static readonly double velocityThreshold = 1.0d;
 
         /**
    * The maximum linear position correction used when solving constraints. This helps to prevent
    * overshoot.
    */
-        public static readonly double maxLinearCorrection = 0.2f;
+        public static readonly double maxLinearCorrection = 0.2d;
 
         /**
    * The maximum angular position correction used when solving constraints. This helps to prevent
    * overshoot.
    */
-        public static readonly double maxAngularCorrection = (8.0f/180.0f*PI);
+        public static readonly double maxAngularCorrection = (8.0d/180.0d*PI);
 
         /**
    * The maximum linear velocity of a body. This limit is very large and is used to prevent
    * numerical problems. You shouldn't need to adjust this.
    */
-        public static readonly double maxTranslation = 2.0f;
+        public static readonly double maxTranslation = 2.0d;
         public static readonly double maxTranslationSquared = (maxTranslation*maxTranslation);
 
         /**
    * The maximum angular velocity of a body. This limit is very large and is used to prevent
    * numerical problems. You shouldn't need to adjust this.
    */
-        public static readonly double maxRotation = (0.5f*PI);
+        public static readonly double maxRotation = (0.5d*PI);
         public static double maxRotationSquared = (maxRotation*maxRotation);
 
         /**
    * This scale factor controls how fast overlap is resolved. Ideally this would be 1 so that
    * overlap is removed in one time step. However using values close to 1 often lead to overshoot.
    */
-        public static readonly double baumgarte = 0.2f;
-        public static readonly double toiBaugarte = 0.75f;
+        public static readonly double baumgarte = 0.2d;
+        public static readonly double toiBaugarte = 0.75d;
 
 
         // Sleep
@@ -181,17 +181,17 @@ namespace org.jbox2d.common
         /**
    * The time that a body must be still before it will go to sleep.
    */
-        public static readonly double timeToSleep = 0.5f;
+        public static readonly double timeToSleep = 0.5d;
 
         /**
    * A body cannot sleep if its linear velocity is above this tolerance.
    */
-        public static readonly double linearSleepTolerance = 0.01f;
+        public static readonly double linearSleepTolerance = 0.01d;
 
         /**
    * A body cannot sleep if its angular velocity is above this tolerance.
    */
-        public static readonly double angularSleepTolerance = (2.0f/180.0f*PI);
+        public static readonly double angularSleepTolerance = (2.0d/180.0d*PI);
 
         /**
    * Friction mixing law. Feel free to customize this. TODO djm: add customization

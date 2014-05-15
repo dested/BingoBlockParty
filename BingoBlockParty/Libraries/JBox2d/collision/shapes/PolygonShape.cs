@@ -127,7 +127,7 @@ namespace org.jbox2d.collision.shapes
         {
             if (num < 3)
             {
-                setAsBox(1.0f, 1.0f);
+                setAsBox(1.0d, 1.0d);
                 return;
             }
 
@@ -179,13 +179,13 @@ namespace org.jbox2d.collision.shapes
                     Vec2 r = pool1.set(ps[ie]).subLocal(ps[hull[m]]);
                     Vec2 v = pool2.set(ps[j]).subLocal(ps[hull[m]]);
                     double c = Vec2.cross(r, v);
-                    if (c < 0.0f)
+                    if (c < 0.0d)
                     {
                         ie = j;
                     }
 
                     // Collinearity check
-                    if (c == 0.0f && v.lengthSquared() > r.lengthSquared())
+                    if (c == 0.0d && v.lengthSquared() > r.lengthSquared())
                     {
                         ie = j;
                     }
@@ -220,7 +220,7 @@ namespace org.jbox2d.collision.shapes
                 int i1 = i;
                 int i2 = i + 1 < m_count ? i + 1 : 0;
                 edge.set(m_vertices[i2]).subLocal(m_vertices[i1]);
-                Vec2.crossToOutUnsafe(edge, 1f, m_normals[i]);
+                Vec2.crossToOutUnsafe(edge, 1d, m_normals[i]);
                 m_normals[i].normalize();
             }
 
@@ -242,10 +242,10 @@ namespace org.jbox2d.collision.shapes
             m_vertices[1].set(hx, -hy);
             m_vertices[2].set(hx, hy);
             m_vertices[3].set(-hx, hy);
-            m_normals[0].set(0.0f, -1.0f);
-            m_normals[1].set(1.0f, 0.0f);
-            m_normals[2].set(0.0f, 1.0f);
-            m_normals[3].set(-1.0f, 0.0f);
+            m_normals[0].set(0.0d, -1.0d);
+            m_normals[1].set(1.0d, 0.0d);
+            m_normals[2].set(0.0d, 1.0d);
+            m_normals[3].set(-1.0d, 0.0d);
             m_centroid.setZero();
         }
 
@@ -265,10 +265,10 @@ namespace org.jbox2d.collision.shapes
             m_vertices[1].set(hx, -hy);
             m_vertices[2].set(hx, hy);
             m_vertices[3].set(-hx, hy);
-            m_normals[0].set(0.0f, -1.0f);
-            m_normals[1].set(1.0f, 0.0f);
-            m_normals[2].set(0.0f, 1.0f);
-            m_normals[3].set(-1.0f, 0.0f);
+            m_normals[0].set(0.0d, -1.0d);
+            m_normals[1].set(1.0d, 0.0d);
+            m_normals[2].set(0.0d, 1.0d);
+            m_normals[3].set(-1.0d, 0.0d);
             m_centroid.set(center);
 
             Transform xf = poolt1;
@@ -317,7 +317,7 @@ namespace org.jbox2d.collision.shapes
                 tempx = pLocalx - vertex.x;
                 tempy = pLocaly - vertex.y;
                 double dot = normal.x*tempx + normal.y*tempy;
-                if (dot > 0.0f)
+                if (dot > 0.0d)
                 {
                     return false;
                 }
@@ -419,9 +419,9 @@ namespace org.jbox2d.collision.shapes
                 double numerator = normal.x*tempxn + normal.y*tempyn;
                 double denominator = normal.x*dx + normal.y*dy;
 
-                if (denominator == 0.0f)
+                if (denominator == 0.0d)
                 {
-                    if (numerator < 0.0f)
+                    if (numerator < 0.0d)
                     {
                         return false;
                     }
@@ -433,14 +433,14 @@ namespace org.jbox2d.collision.shapes
                     // Since denominator < 0, we have to flip the inequality:
                     // lower < numerator / denominator <==> denominator * lower >
                     // numerator.
-                    if (denominator < 0.0f && numerator < lower*denominator)
+                    if (denominator < 0.0d && numerator < lower*denominator)
                     {
                         // Increase lower.
                         // The segment enters this half-space.
                         lower = numerator/denominator;
                         index = i;
                     }
-                    else if (denominator > 0.0f && numerator < upper*denominator)
+                    else if (denominator > 0.0d && numerator < upper*denominator)
                     {
                         // Decrease upper.
                         // The segment exits this half-space.
@@ -469,8 +469,8 @@ namespace org.jbox2d.collision.shapes
 
         public void computeCentroidToOut(Vec2[] vs, int count, Vec2 out_)
         {
-            out_.set(0.0f, 0.0f);
-            double area = 0.0f;
+            out_.set(0.0d, 0.0d);
+            double area = 0.0d;
 
             // pRef is the reference point for forming triangles.
             // It's location doesn't change the result (except for rounding error).
@@ -480,7 +480,7 @@ namespace org.jbox2d.collision.shapes
             Vec2 e1 = pool2;
             Vec2 e2 = pool3;
 
-            double inv3 = 1.0f/3.0f;
+            double inv3 = 1.0d/3.0d;
 
             for (int i = 0; i < count; ++i)
             {
@@ -494,7 +494,7 @@ namespace org.jbox2d.collision.shapes
 
                 double D = Vec2.cross(e1, e2);
 
-                double triangleArea = 0.5f*D;
+                double triangleArea = 0.5d*D;
                 area += triangleArea;
 
                 // Area weighted centroid
@@ -503,7 +503,7 @@ namespace org.jbox2d.collision.shapes
             }
 
             // Centroid 
-            out_.mulLocal(1.0f/area);
+            out_.mulLocal(1.0d/area);
         }
 
         public override void computeMass(MassData massData, double density)
@@ -535,8 +535,8 @@ namespace org.jbox2d.collision.shapes
 
             Vec2 center = pool1;
             center.setZero();
-            double area = 0.0f;
-            double I = 0.0f;
+            double area = 0.0d;
+            double I = 0.0d;
 
             // pRef is the reference point for forming triangles.
             // It's location doesn't change the result (except for rounding error).
@@ -547,9 +547,9 @@ namespace org.jbox2d.collision.shapes
             {
                 s.addLocal(m_vertices[i]);
             }
-            s.mulLocal(1.0f/m_count);
+            s.mulLocal(1.0d/m_count);
 
-            double k_inv3 = 1.0f/3.0f;
+            double k_inv3 = 1.0d/3.0d;
 
             Vec2 e1 = pool3;
             Vec2 e2 = pool4;
@@ -562,7 +562,7 @@ namespace org.jbox2d.collision.shapes
 
                 double D = Vec2.cross(e1, e2);
 
-                double triangleArea = 0.5f*D;
+                double triangleArea = 0.5d*D;
                 area += triangleArea;
 
                 // Area weighted centroid
@@ -575,14 +575,14 @@ namespace org.jbox2d.collision.shapes
                 double intx2 = ex1*ex1 + ex2*ex1 + ex2*ex2;
                 double inty2 = ey1*ey1 + ey2*ey1 + ey2*ey2;
 
-                I += (0.25f*k_inv3*D)*(intx2 + inty2);
+                I += (0.25d*k_inv3*D)*(intx2 + inty2);
             }
 
             // Total mass
             massData.mass = density*area;
 
             // Center of mass 
-            center.mulLocal(1.0f/area);
+            center.mulLocal(1.0d/area);
             massData.center.set(center).addLocal(s);
 
             // Inertia tensor relative to the local origin (point s)
@@ -616,7 +616,7 @@ namespace org.jbox2d.collision.shapes
 
                     Vec2 v = pool2.set(m_vertices[j]).subLocal(p);
                     double c = Vec2.cross(e, v);
-                    if (c < 0.0f)
+                    if (c < 0.0d)
                     {
                         return false;
                     }

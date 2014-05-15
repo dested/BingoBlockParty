@@ -30,7 +30,7 @@ namespace org.jbox2d.common
     public class RaycastResult
     {
         public readonly Vec2 normal = new Vec2();
-        public double lambda = 0.0f;
+        public double lambda = 0.0d;
 
         public RaycastResult set(RaycastResult argOther)
         {

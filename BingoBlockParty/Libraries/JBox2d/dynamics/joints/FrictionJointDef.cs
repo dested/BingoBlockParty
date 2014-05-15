@@ -62,8 +62,8 @@ namespace org.jbox2d.dynamics.joints
             type = JointType.FRICTION;
             localAnchorA = new Vec2();
             localAnchorB = new Vec2();
-            maxForce = 0f;
-            maxTorque = 0f;
+            maxForce = 0d;
+            maxTorque = 0d;
         }
 
         /**

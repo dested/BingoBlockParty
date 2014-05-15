@@ -77,13 +77,13 @@ namespace org.jbox2d.dynamics.joints
         public PulleyJointDef()
         {
             type = JointType.PULLEY;
-            groundAnchorA = new Vec2(-1.0f, 1.0f);
-            groundAnchorB = new Vec2(1.0f, 1.0f);
-            localAnchorA = new Vec2(-1.0f, 0.0f);
-            localAnchorB = new Vec2(1.0f, 0.0f);
-            lengthA = 0.0f;
-            lengthB = 0.0f;
-            ratio = 1.0f;
+            groundAnchorA = new Vec2(-1.0d, 1.0d);
+            groundAnchorB = new Vec2(1.0d, 1.0d);
+            localAnchorA = new Vec2(-1.0d, 0.0d);
+            localAnchorB = new Vec2(1.0d, 0.0d);
+            lengthA = 0.0d;
+            lengthB = 0.0d;
+            ratio = 1.0d;
             collideConnected = true;
         }
 

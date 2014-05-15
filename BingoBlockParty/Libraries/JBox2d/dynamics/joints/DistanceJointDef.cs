@@ -80,11 +80,11 @@ namespace org.jbox2d.dynamics.joints
         public DistanceJointDef()
         {
             type = JointType.DISTANCE;
-            localAnchorA = new Vec2(0.0f, 0.0f);
-            localAnchorB = new Vec2(0.0f, 0.0f);
-            length = 1.0f;
-            frequencyHz = 0.0f;
-            dampingRatio = 0.0f;
+            localAnchorA = new Vec2(0.0d, 0.0d);
+            localAnchorB = new Vec2(0.0d, 0.0d);
+            length = 1.0d;
+            frequencyHz = 0.0d;
+            dampingRatio = 0.0d;
         }
 
         /**

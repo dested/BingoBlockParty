@@ -70,7 +70,7 @@
 	// Engine.Web.WebImageCache
 	var $Engine_Web_WebImageCache = function() {
 		this.$textures = null;
-		this.$textures = new (ss.makeGenericType(ss.Dictionary$2, [String, $Engine_Web_WebImage]))();
+		this.$textures = {};
 	};
 	$Engine_Web_WebImageCache.__typeName = 'Engine.Web.WebImageCache';
 	global.Engine.Web.WebImageCache = $Engine_Web_WebImageCache;
@@ -182,10 +182,10 @@
 	}, null, [Engine.Interfaces.IImage]);
 	ss.initClass($Engine_Web_WebImageCache, {
 		getImage: function(imageName) {
-			return this.$textures.get_item(imageName);
+			return this.$textures[imageName];
 		},
 		createImage: function(imageName, imagePath, center, ready) {
-			this.$textures.add(imageName, new $Engine_Web_WebImage(imagePath, center, ready));
+			this.$textures[imageName] = new $Engine_Web_WebImage(imagePath, center, ready);
 		}
 	});
 	ss.initClass($Engine_Web_WebLayer, {

@@ -145,12 +145,12 @@ namespace org.jbox2d.dynamics.joints
             m_localXAxisA = new Vec2(def.localAxisA);
             m_localXAxisA.normalize();
             m_localYAxisA = new Vec2();
-            Vec2.crossToOutUnsafe(1f, m_localXAxisA, m_localYAxisA);
+            Vec2.crossToOutUnsafe(1d, m_localXAxisA, m_localYAxisA);
             m_referenceAngle = def.referenceAngle;
 
             m_impulse = new Vec3();
-            m_motorMass = 0.0f;
-            m_motorImpulse = 0.0f;
+            m_motorMass = 0.0d;
+            m_motorImpulse = 0.0d;
 
             m_lowerTranslation = def.lowerTranslation;
             m_upperTranslation = def.upperTranslation;
@@ -287,7 +287,7 @@ namespace org.jbox2d.dynamics.joints
                 m_bodyA.setAwake(true);
                 m_bodyB.setAwake(true);
                 m_enableLimit = flag;
-                m_impulse.z = 0.0f;
+                m_impulse.z = 0.0d;
             }
         }
 
@@ -328,7 +328,7 @@ namespace org.jbox2d.dynamics.joints
                 m_bodyB.setAwake(true);
                 m_lowerTranslation = lower;
                 m_upperTranslation = upper;
-                m_impulse.z = 0.0f;
+                m_impulse.z = 0.0d;
             }
         }
 
@@ -468,9 +468,9 @@ namespace org.jbox2d.dynamics.joints
                 m_a2 = Vec2.cross(rB, m_axis);
 
                 m_motorMass = mA + mB + iA*m_a1*m_a1 + iB*m_a2*m_a2;
-                if (m_motorMass > 0.0f)
+                if (m_motorMass > 0.0d)
                 {
-                    m_motorMass = 1.0f/m_motorMass;
+                    m_motorMass = 1.0d/m_motorMass;
                 }
             }
 
@@ -486,10 +486,10 @@ namespace org.jbox2d.dynamics.joints
                 double k12 = iA*m_s1 + iB*m_s2;
                 double k13 = iA*m_s1*m_a1 + iB*m_s2*m_a2;
                 double k22 = iA + iB;
-                if (k22 == 0.0f)
+                if (k22 == 0.0d)
                 {
                     // For bodies with fixed rotation.
-                    k22 = 1.0f;
+                    k22 = 1.0d;
                 }
                 double k23 = iA*m_a1 + iB*m_a2;
                 double k33 = mA + mB + iA*m_a1*m_a1 + iB*m_a2*m_a2;
@@ -503,7 +503,7 @@ namespace org.jbox2d.dynamics.joints
             if (m_enableLimit)
             {
                 double jointTranslation = Vec2.dot(m_axis, d);
-                if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0f*Settings.linearSlop)
+                if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0d*Settings.linearSlop)
                 {
                     m_limitState = LimitState.EQUAL;
                 }
@@ -512,7 +512,7 @@ namespace org.jbox2d.dynamics.joints
                     if (m_limitState != LimitState.AT_LOWER)
                     {
                         m_limitState = LimitState.AT_LOWER;
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                     }
                 }
                 else if (jointTranslation >= m_upperTranslation)
@@ -520,24 +520,24 @@ namespace org.jbox2d.dynamics.joints
                     if (m_limitState != LimitState.AT_UPPER)
                     {
                         m_limitState = LimitState.AT_UPPER;
-                        m_impulse.z = 0.0f;
+                        m_impulse.z = 0.0d;
                     }
                 }
                 else
                 {
                     m_limitState = LimitState.INACTIVE;
-                    m_impulse.z = 0.0f;
+                    m_impulse.z = 0.0d;
                 }
             }
             else
             {
                 m_limitState = LimitState.INACTIVE;
-                m_impulse.z = 0.0f;
+                m_impulse.z = 0.0d;
             }
 
             if (m_enableMotor == false)
             {
-                m_motorImpulse = 0.0f;
+                m_motorImpulse = 0.0d;
             }
 
             if (data.step.warmStarting)
@@ -566,7 +566,7 @@ namespace org.jbox2d.dynamics.joints
             else
             {
                 m_impulse.setZero();
-                m_motorImpulse = 0.0f;
+                m_motorImpulse = 0.0d;
             }
 
             // data.velocities[m_indexA].v.set(vA);
@@ -644,11 +644,11 @@ namespace org.jbox2d.dynamics.joints
 
                 if (m_limitState == LimitState.AT_LOWER)
                 {
-                    m_impulse.z = MathUtils.max(m_impulse.z, 0.0f);
+                    m_impulse.z = MathUtils.max(m_impulse.z, 0.0d);
                 }
                 else if (m_limitState == LimitState.AT_UPPER)
                 {
-                    m_impulse.z = MathUtils.min(m_impulse.z, 0.0f);
+                    m_impulse.z = MathUtils.min(m_impulse.z, 0.0d);
                 }
 
                 // f2(1:2) = invK(1:2,1:2) * (-Cdot(1:2) - K(1:2,3) * (f2(3) - f1(3))) +
@@ -764,11 +764,11 @@ namespace org.jbox2d.dynamics.joints
             double angularError = MathUtils.abs(C1.y);
 
             bool active = false;
-            double C2 = 0.0f;
+            double C2 = 0.0d;
             if (m_enableLimit)
             {
                 double translation = Vec2.dot(axis, d);
-                if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0f*Settings.linearSlop)
+                if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0d*Settings.linearSlop)
                 {
                     // Prevent large angular corrections
                     C2 =
@@ -782,7 +782,7 @@ namespace org.jbox2d.dynamics.joints
                     // Prevent large linear corrections and allow some slop.
                     C2 =
                         MathUtils.clamp(translation - m_lowerTranslation + Settings.linearSlop,
-                            -Settings.maxLinearCorrection, 0.0f);
+                            -Settings.maxLinearCorrection, 0.0d);
                     linearError = MathUtils.max(linearError, m_lowerTranslation - translation);
                     active = true;
                 }
@@ -790,7 +790,7 @@ namespace org.jbox2d.dynamics.joints
                 {
                     // Prevent large linear corrections and allow some slop.
                     C2 =
-                        MathUtils.clamp(translation - m_upperTranslation - Settings.linearSlop, 0.0f,
+                        MathUtils.clamp(translation - m_upperTranslation - Settings.linearSlop, 0.0d,
                             Settings.maxLinearCorrection);
                     linearError = MathUtils.max(linearError, translation - m_upperTranslation);
                     active = true;
@@ -803,10 +803,10 @@ namespace org.jbox2d.dynamics.joints
                 double k12 = iA*s1 + iB*s2;
                 double k13 = iA*s1*a1 + iB*s2*a2;
                 double k22 = iA + iB;
-                if (k22 == 0.0f)
+                if (k22 == 0.0d)
                 {
                     // For fixed rotation
-                    k22 = 1.0f;
+                    k22 = 1.0d;
                 }
                 double k23 = iA*a1 + iB*a2;
                 double k33 = mA + mB + iA*a1*a1 + iB*a2*a2;
@@ -830,9 +830,9 @@ namespace org.jbox2d.dynamics.joints
                 double k11 = mA + mB + iA*s1*s1 + iB*s2*s2;
                 double k12 = iA*s1 + iB*s2;
                 double k22 = iA + iB;
-                if (k22 == 0.0f)
+                if (k22 == 0.0d)
                 {
-                    k22 = 1.0f;
+                    k22 = 1.0d;
                 }
 
                 Mat22 K = pool.popMat22();
@@ -845,7 +845,7 @@ namespace org.jbox2d.dynamics.joints
 
                 impulse.x = temp.x;
                 impulse.y = temp.y;
-                impulse.z = 0.0f;
+                impulse.z = 0.0d;
 
                 pool.pushMat22(1);
             }
