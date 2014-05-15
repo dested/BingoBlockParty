@@ -61,9 +61,9 @@
       <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
       <Name>Engine.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
-      <Project>{581295bb-62b9-4877-b6cd-7ec30561a62d}</Project>
-      <Name>FarseerPhysics</Name>
+    <ProjectReference Include="..\Libraries\JBox2d\JBox2d.csproj">
+      <Project>{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}</Project>
+      <Name>JBox2d</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

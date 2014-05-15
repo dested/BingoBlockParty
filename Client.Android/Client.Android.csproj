@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\spriteFont1.xnb" />
-    <AndroidAsset Include="Assets\Content\images\people\Thumbs.db" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

@@ -17,6 +17,11 @@ namespace Engine.Xna
             Game = new BingoBlockParty.Client.Game(this);
         }
 
+        public void LoadImages(IRenderer renderer)
+        {
+            Game.LoadImages(renderer);
+        }
+
         public void Init(IRenderer renderer)
         {
             Renderer = (XnaRenderer)renderer;

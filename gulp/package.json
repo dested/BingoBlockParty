@@ -1,0 +1,25 @@
+{
+  "name": "gulp-config",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "gulp-insert": "^0.3.0",
+    "gulp": "^3.6.0",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.2.1",
+    "gulp-clean": "^0.2.4",
+    "run-sequence": "^0.3.6",
+    "gulp-util": "^2.2.14",
+    "express": "^4.0.0",
+    "gulp-watch": "^0.5.4",
+    "gulp-nodemon": "^1.0.2",
+    "gulp-concat-sourcemap": "^1.2.1"
+  }
+}

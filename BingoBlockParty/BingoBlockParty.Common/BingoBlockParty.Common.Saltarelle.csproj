@@ -52,9 +52,9 @@
       <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
       <Name>Engine.Interfaces.Saltarelle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\FarseerPhysics.Saltarelle\FarseerPhysics.Saltarelle.csproj">
-      <Project>{581295bb-62b9-4877-b6cd-7ec30561a62d}</Project>
-      <Name>FarseerPhysics.Saltarelle</Name>
+    <ProjectReference Include="..\Libraries\JBox2d\JBox2d.Saltarelle.csproj">
+      <Project>{b7e61384-5dfa-4d28-bc90-e59d6e38e0f4}</Project>
+      <Name>JBox2d.Saltarelle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

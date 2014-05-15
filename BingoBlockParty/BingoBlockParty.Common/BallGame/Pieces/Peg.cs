@@ -1,7 +1,6 @@
 ﻿using System;
 using BingoBlockParty.Common.BallGame.Models;
 using BingoBlockParty.Common.BallGame.Planes;
-using FarseerPhysics.Dynamics;
 
 namespace BingoBlockParty.Common.BallGame.Pieces
 {
@@ -12,7 +11,7 @@ namespace BingoBlockParty.Common.BallGame.Pieces
         public int Y { get; set; }
         public PegType PegType { get; set; }
         public bool Hit { get; set; }
-        public Body Body { get; set; }
+        public IPhysicsBody Body { get; set; }
         public int Bonus { get; set; }
 
         public Peg(GameBoard gameBoard, int x, int y, PegType pegType)

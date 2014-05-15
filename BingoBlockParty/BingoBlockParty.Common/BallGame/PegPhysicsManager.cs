@@ -1,13 +1,54 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using BingoBlockParty.Common.BallGame.Models;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
+using Engine.Interfaces;
+using org.jbox2d.callbacks;
+using org.jbox2d.collision.shapes;
+using org.jbox2d.common;
+using org.jbox2d.dynamics;
 using Math = System.Math;
 
 namespace BingoBlockParty.Common.BallGame
 {
+
+    public interface IPhysicsBody
+    {
+        Body Body { get; set; }
+
+        bool Awake { get; }
+        PointF Position { get; }
+        float Rotation { get;  }
+    }
+    public class PhysicsBody : IPhysicsBody
+    {
+        public PhysicsBody(Body body)
+        {
+            Body = body;
+        }
+
+        public bool Awake
+        {
+            get { return Body.isAwake(); }
+        }
+
+        public PointF Position
+        {
+            get
+            {
+                var position = Body.getPosition();
+                return new PointF(position.x, position.y);
+            }
+        }
+
+        public float Rotation
+        {
+            get { return Body.getAngle(); }
+        }
+        public Body Body { get; set; }
+    }
+
+
+
     public class PegPhysicsManager
     {
         public World World { get; set; }
@@ -22,7 +63,7 @@ namespace BingoBlockParty.Common.BallGame
 
         public void Init()
         {
-            this.World = new World(new Vector2(0, 35));
+            this.World = new World(new Vec2(0, 35));
 
 
             this.CreateRectangleWall(0, -this.GameBoard.GameModel.BoardHeight, 1, this.GameBoard.GameModel.BoardHeight * 2, null);
@@ -32,125 +73,158 @@ namespace BingoBlockParty.Common.BallGame
 
             this.Collisions = new List<CollisionObject>();
 
+            var myListener = new ContactListener();
 
-            this.World.ContactManager.BeginContact += (contact) =>
-                                                      {
-                                                          {
-                                                              if (contact.FixtureA.UserData!=null)
-                                                              {
-                                                                  if (contact.FixtureA.UserData is ICollider)
-                                                                  {
-                                                                      this.Collisions.Add(new CollisionObject((ICollider)contact.FixtureA.UserData, (ICollider)contact.FixtureB.UserData));
-                                                                  }
-                                                              }
+            myListener.beginContact = (fixture) =>
+            {
+                if (fixture.getFixtureA().getBody().getUserData() != null)
+                {
+                    if (fixture.getFixtureA().getBody().getUserData() is ICollider)
+                    {
+                        this.Collisions.Add(new CollisionObject((ICollider)fixture.getFixtureA().getBody().getUserData(), (ICollider)fixture.getFixtureB().getBody().getUserData()));
+                    }
+                }
 
-                                                              if (contact.FixtureB.UserData != null)
-                                                              {
-                                                                  if (contact.FixtureB.UserData is ICollider)
-                                                                  {
-                                                                      this.Collisions.Add(new CollisionObject((ICollider)contact.FixtureB.UserData, (ICollider)contact.FixtureA.UserData));
-                                                                  }
-                                                              }
-                                                          }
-                                                          return true;
-                                                      }; 
-        }
+                if (fixture.getFixtureB().getBody().getUserData() != null)
+                {
+                    if (fixture.getFixtureB().getBody().getUserData() is ICollider)
+                    {
+                        this.Collisions.Add(new CollisionObject((ICollider)fixture.getFixtureB().getBody().getUserData(), (ICollider)fixture.getFixtureA().getBody().getUserData()));
+                    }
+                }
+            };
 
 
-        public Body CreateRectangleWall(int x, int y, int width, int height, ICollider userData)
+            this.World.setContactListener(myListener);         }
+
+
+        public IPhysicsBody CreateRectangleWall(int x, int y, int width, int height, ICollider userData)
         {
 
-            var body = BodyFactory.CreateBody(World);
-            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
-            PolygonShape shape = new PolygonShape(1);
+            var fixDef = new FixtureDef();
+            fixDef.density = 1;
+            fixDef.friction = 1;
+            fixDef.restitution = (float).6;
+            var bodyDef = new BodyDef();
 
-            shape.Vertices = PolygonTools.CreateRectangle(PixelToMeter(width) / 2f, PixelToMeter(height) / 2f);
-            var fixture = body.CreateFixture(shape, userData);
-            return body;
-            /*
+            bodyDef.type = BodyType.STATIC;
+            bodyDef.position.x = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
+            bodyDef.position.y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
 
-                        var fixDef = new PolygonDef();
-                        fixDef.Density = 1;
-                        fixDef.Friction = 1;
-                        fixDef.Restitution = .6f;
-
-                        fixDef.SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
-
-                        var bodyDef = new BodyDef();
-                        bodyDef.Position.X = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
-                        bodyDef.Position.Y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
-                        var body = this.World.CreateBody(bodyDef);
-                        var fixture = body.CreateFixture(fixDef);
-            //            ((PolygonShape)fixture.Shape).SetAsBox(this.PixelToMeter(width) / 2, this.PixelToMeter(height) / 2);
-                        body.SetStatic();
-                        body.SetUserData(userData);
-                        return body;
-            */
-        }
-
-        public Body CreateRectangleSensor(int x, int y, int width, int height, ICollider userData)
-        {
-            var body = BodyFactory.CreateBody(World);
-            body.IsSensor = true;
-            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
-
-            PolygonShape shape = new PolygonShape(1);
-            shape.Vertices = PolygonTools.CreateRectangle(PixelToMeter(width) / 2f, PixelToMeter(height) / 2f);
-            var fixture = body.CreateFixture(shape, userData);
-
-            return body;
+            PolygonShape polyShape;
+            fixDef.shape = polyShape = new PolygonShape();
+            polyShape.setAsBox(this.PixelToMeter(width) / 2f, this.PixelToMeter(height) / 2f);
+            var body = this.World.createBody(bodyDef);
+            body.createFixture(fixDef);
+            body.setUserData(userData); return new PhysicsBody(body);
 
         }
 
-
-        public Body CreateCircleWall(int x, int y, int rad, ICollider userData)
+        public IPhysicsBody CreateRectangleSensor(int x, int y, int width, int height, ICollider userData)
         {
+            var fixDef = new FixtureDef();
+            fixDef.density = 1;
+            fixDef.friction = 1;
+            fixDef.restitution = (float).6;
+            var bodyDef = new BodyDef();
 
-            var body = BodyFactory.CreateBody(World);
-            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
+            bodyDef.type = BodyType.STATIC;
+            bodyDef.position.x = this.PixelToMeter(x) + this.PixelToMeter(width) / 2;
+            bodyDef.position.y = this.PixelToMeter(y) + this.PixelToMeter(height) / 2;
 
-            CircleShape shape = new CircleShape(PixelToMeter(rad), 1);
-            var fixture = body.CreateFixture(shape, userData);
-            return body;
+            PolygonShape polyShape;
+            fixDef.shape = polyShape = new PolygonShape();
+            polyShape.setAsBox(this.PixelToMeter(width) / 2f, this.PixelToMeter(height) / 2f);
+            var body = this.World.createBody(bodyDef);
+            var fixture = body.createFixture(fixDef);
+            fixture.setSensor(true);
+            body.setUserData(userData); return new PhysicsBody(body);
+
 
         }
 
-        public void DestroyBody(Body body)
+
+        public IPhysicsBody CreateCircleWall(int x, int y, int rad, ICollider userData)
         {
-            this.World.RemoveBody(body);
+
+            var fixDef = new FixtureDef();
+            fixDef.density = 1;
+            fixDef.friction = 1;
+            fixDef.restitution = (float).6;
+            var bodyDef = new BodyDef();
+
+            bodyDef.type = BodyType.STATIC;
+            bodyDef.position.x = this.PixelToMeter(x);
+            bodyDef.position.y = this.PixelToMeter(y);
+
+            var circleShape = new CircleShape();
+            circleShape.m_radius = this.PixelToMeter(rad);
+
+            fixDef.shape = circleShape;
+            var body = this.World.createBody(bodyDef);
+            var fixture = body.createFixture(fixDef);
+            body.setUserData(userData); return new PhysicsBody(body);
+
         }
 
-        public Body CreatePeg(int x, int y, ICollider peg)
+        public void DestroyBody(IPhysicsBody body)
         {
-            var body = BodyFactory.CreateBody(World);
-            body.Position = new Vector2(PixelToMeter(x), PixelToMeter(y));
-
-            CircleShape shape = new CircleShape(1f / 2f, 1);
-            var fixture = body.CreateFixture(shape, peg);
-
-            return body;
+            this.World.destroyBody(body.Body);
         }
-        public Body CreateCannonBall(int x, int y, float angle, float velocity, ICollider cannonBall)
+
+        public IPhysicsBody CreatePeg(int x, int y, ICollider peg)
         {
-            var vx = (float)(Math.Cos((angle) * Math.PI / 180) * velocity);
-            var vy = (float)(Math.Sin((angle) * Math.PI / 180) * velocity);
+            var fixDef = new FixtureDef();
+            fixDef.density = 1;
+            fixDef.friction = 1;
+            fixDef.restitution = (float).6;
+            var bodyDef = new BodyDef();
+
+            bodyDef.type = BodyType.STATIC;
+            bodyDef.position.x = this.PixelToMeter(x);
+            bodyDef.position.y = this.PixelToMeter(y);
+
+            var circleShape = new CircleShape();
+            circleShape.m_radius = 1f / 2f;
+            fixDef.shape = circleShape;
+            var body = this.World.createBody(bodyDef);
+            var fixture = body.createFixture(fixDef);
+            body.setUserData(peg);
+            return new PhysicsBody(body);
 
 
-            var offvx = (float)(Math.Cos((angle) * Math.PI / 180) * 9 * 16);
-            var offvy = (float)(Math.Sin((angle) * Math.PI / 180) * 3 * 16);
+        }
+        public IPhysicsBody CreateCannonBall(int x, int y, float angle, float velocity, ICollider cannonBall)
+        {
+            var vx = (float)Math.Cos((angle) * Math.PI / 180) * velocity;
+            var vy = (float)Math.Sin((angle) * Math.PI / 180) * velocity;
 
-            var body = BodyFactory.CreateBody(World);
-            body.BodyType = BodyType.Dynamic;
+            var offvx = (float)Math.Cos((angle) * Math.PI / 180) * 9f * 16f;
+            var offvy = (float)Math.Sin((angle) * Math.PI / 180) * 3f * 16f;
 
-            body.Position = new Vector2(PixelToMeter(x + offvx), PixelToMeter(y + offvy));
 
-            CircleShape shape = new CircleShape(1.25f / 2f, 1);
 
-            var fixture = body.CreateFixture(shape, cannonBall);
-            fixture.Restitution = .6f;
+            var fixDef = new FixtureDef();
+            fixDef.density = 1;
+            fixDef.friction = 1;
+            fixDef.restitution = (float).6;
+            var bodyDef = new BodyDef();
 
-            body.ApplyForce(new Vector2(vx, vy), body.WorldCenter);
-            return body;
+            bodyDef.type = BodyType.DYNAMIC;
+            bodyDef.position.x = this.PixelToMeter(x + offvx);
+            bodyDef.position.y = this.PixelToMeter(y + offvy);
+
+            var circleShape = new CircleShape();
+            circleShape.m_radius = 1.25f / 2f;
+
+            fixDef.shape = circleShape;
+
+            var body = this.World.createBody(bodyDef);
+            var fixture = body.createFixture(fixDef);
+            body.setUserData(cannonBall);
+            body.applyLinearImpulse(new Vec2(vx, vy), body.getWorldCenter());
+
+            return new PhysicsBody(body);
 
         }
 
@@ -174,7 +248,8 @@ namespace BingoBlockParty.Common.BallGame
         {
             this.Collisions.Clear();
 
-            this.World.Step(1f / 60f);
+            this.World.step(1f / 60f, 10, 10);
+            this.World.clearForces();
 
             for (var i = 0; i < this.Collisions.Count; i++)
             {

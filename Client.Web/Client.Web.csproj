@@ -61,6 +61,73 @@
       <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
       <Name>Engine.Interfaces.Saltarelle</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine.Web\Engine.Web.csproj">
+      <Project>{11A1E696-F9A8-4D06-91CA-105A78D16E8E}</Project>
+      <Name>Engine.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Content\images\cannonBalls\ball_inner.png" />
+    <Content Include="Assets\Content\images\cannonBalls\ball_noshine.png" />
+    <Content Include="Assets\Content\images\cannonBalls\ball_outer.png" />
+    <Content Include="Assets\Content\images\cannons\shooter.png" />
+    <Content Include="Assets\Content\images\chutes\blue_bucket.png" />
+    <Content Include="Assets\Content\images\chutes\blue_bucket_lit.png" />
+    <Content Include="Assets\Content\images\chutes\buckets.png" />
+    <Content Include="Assets\Content\images\chutes\bumpers.png" />
+    <Content Include="Assets\Content\images\chutes\green_bucket.png" />
+    <Content Include="Assets\Content\images\chutes\green_bucket_lit.png" />
+    <Content Include="Assets\Content\images\chutes\purple_bucket.png" />
+    <Content Include="Assets\Content\images\chutes\purple_bucket_lit.png" />
+    <Content Include="Assets\Content\images\chutes\red_bucket.png" />
+    <Content Include="Assets\Content\images\chutes\red_bucket_lit.png" />
+    <Content Include="Assets\Content\images\chutes\yellow_bucket.png" />
+    <Content Include="Assets\Content\images\chutes\yellow_bucket_lit.png" />
+    <Content Include="Assets\Content\images\gameBoards\board1.png" />
+    <Content Include="Assets\Content\images\overlays\coin_box.png" />
+    <Content Include="Assets\Content\images\overlays\jackpot_shooter_overlay.png" />
+    <Content Include="Assets\Content\images\overlays\pulls_button.png" />
+    <Content Include="Assets\Content\images\pegs\blue_peg.png" />
+    <Content Include="Assets\Content\images\pegs\blue_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\pegs\green_peg.png" />
+    <Content Include="Assets\Content\images\pegs\green_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\pegs\purple_peg.png" />
+    <Content Include="Assets\Content\images\pegs\purple_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\pegs\red_peg.png" />
+    <Content Include="Assets\Content\images\pegs\red_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\pegs\white_peg.png" />
+    <Content Include="Assets\Content\images\pegs\white_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\pegs\yellow_peg.png" />
+    <Content Include="Assets\Content\images\pegs\yellow_peg_lit_overlay.png" />
+    <Content Include="Assets\Content\images\people\Female1Cat_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female1Cat_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\Female1_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female1_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\Female2Rabbit_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female2Rabbit_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\Female2_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female2_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\Female3Bear_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female3Bear_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\Female3_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\Female3_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\FemaleBouncer_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\FemaleBouncer_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male1Frog_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male1Frog_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male1_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male1_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male2Dragon_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male2Dragon_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male2_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male2_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male3Monkey_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male3Monkey_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\male3_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\male3_FrontDesign.png" />
+    <Content Include="Assets\Content\images\people\MaleBouncer_BackDesign.png" />
+    <Content Include="Assets\Content\images\people\MaleBouncer_FrontDesign.png" />
+    <Content Include="Assets\Content\images\walkway\walkway-red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />
   <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />

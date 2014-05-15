@@ -32,8 +32,9 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
             context.Save();
             context.Translate((int)x, (int)y);
+            context.Translate(-cannonBall.Width / 2, -cannonBall.Height / 2);
             context.DrawImage(cannonBall, 0, 0, this.Body.Rotation, cannonBall.Width / 2, cannonBall.Height / 2);
-            context.DrawImage(cannonBallShine, -cannonBall.Width / 2, -cannonBall.Height / 2);
+            context.DrawImage(cannonBallShine, 0, 0);
             context.Restore();
 
         }

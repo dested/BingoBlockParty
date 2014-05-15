@@ -244,7 +244,7 @@ namespace Engine.Xna
         {
         }
 
-        public int MeasureString(string text)
+        public double MeasureString(string text)
         {
             return 0;
         }

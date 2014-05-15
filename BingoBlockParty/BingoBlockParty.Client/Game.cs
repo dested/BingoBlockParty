@@ -27,15 +27,12 @@ namespace BingoBlockParty.Client
             var boardHeight = 557;
             GameBoard = new ClientGameBoard(this, boardWidth, (int)(boardHeight * 1.2), renderer, boardWidth, boardHeight);
 
-            loadImages(renderer);
-
-
             GameBoard.Init();
 
 
         }
 
-        private static void loadImages(IRenderer renderer)
+        public void LoadImages(IRenderer renderer)
         {
             renderer.CreateImage("board", "images/gameBoards/board1.png");
 

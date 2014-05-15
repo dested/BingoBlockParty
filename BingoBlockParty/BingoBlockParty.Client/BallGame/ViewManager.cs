@@ -34,7 +34,11 @@ namespace BingoBlockParty.Client.BallGame
         }
         private int median(int[] xs)
         {
+#if XNA
+            Array.Sort(xs);
+#else
             xs.Sort();
+#endif
             return xs[xs.Length / 2];
         }
 

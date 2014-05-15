@@ -28,7 +28,7 @@ namespace Engine.Interfaces
         void DrawImage(IImage image, int x, int y, float angle, int centerX, int centerY);
         void DrawString(string text, int x, int y);
         void Clear();
-        int MeasureString(string text);
+        double MeasureString(string text);
     }
     public interface IImage
     {

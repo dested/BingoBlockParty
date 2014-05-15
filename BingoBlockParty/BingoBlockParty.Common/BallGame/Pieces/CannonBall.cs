@@ -1,5 +1,7 @@
-﻿using BingoBlockParty.Common.BallGame.Models;
-using FarseerPhysics.Dynamics;
+﻿using System;
+using System.Diagnostics;
+using System.Text;
+using BingoBlockParty.Common.BallGame.Models;
 
 namespace BingoBlockParty.Common.BallGame.Pieces
 {
@@ -11,7 +13,7 @@ namespace BingoBlockParty.Common.BallGame.Pieces
         public int Angle { get; set; }
         public int Velocity { get; set; }
         public bool BallDead { get; set; }
-        public Body Body { get; set; }
+        public IPhysicsBody Body { get; set; }
 
         public CannonBall(GameBoard gameBoard, int x, int y, int angle)
         {
@@ -37,20 +39,24 @@ namespace BingoBlockParty.Common.BallGame.Pieces
 
             if (other is Chute)
             {
+                var format = sb.ToString();
+                Console.WriteLine(format); 
                 this.GameBoard.PegPhysicsManager.DestroyBody(this.Body);
                 this.BallDead = true;
                 other.Trigger();
                 this.GameBoard.RoundOver();
             }
              
-        }
-
+        } 
         public void Trigger()
         {
         }
 
+        public StringBuilder sb = new StringBuilder();
+
         public virtual void Tick()
         {
+            sb.AppendLine(Body.Position.X + ", " + Body.Position.Y);
             if (!Body.Awake)
             {
                 BallDead = true;

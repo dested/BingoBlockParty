@@ -62,6 +62,8 @@ namespace Client.Android
 
             client = new XnaClient();
             renderer = new XnaRenderer(GraphicsDevice, Content);
+            client.LoadImages(renderer);
+
             client.Init(renderer);
 
         }

@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -70,10 +70,6 @@
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
       <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\FarseerPhysics\FarseerPhysics.csproj">
-      <Project>{581295BB-62B9-4877-B6CD-7EC30561A62D}</Project>
-      <Name>FarseerPhysics</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,5 @@
+
+
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -5,7 +7,7 @@ using droid=Android;
 
 namespace Client.Android
 {
-    [Activity(Label = "Client.Android"
+    [Activity(Label = "Bingo Block Party!"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"

@@ -84,7 +84,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
             */
 
             var size = context.MeasureString(this.GameBoard.GameModel.JackpotScore.ToString());
-            context.DrawString(this.GameBoard.GameModel.JackpotScore.ToString(), -size / 2, -fontSize / 2);
+            context.DrawString(this.GameBoard.GameModel.JackpotScore.ToString(), (int)(-size / 2), (int)-fontSize / 2);
             context.Restore();
         }
         private void renderCoinBox(ILayer context)
@@ -106,7 +106,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
             */
 
             var size = context.MeasureString(this.GameBoard.GameModel.NumberOfCoins.ToString());
-            context.DrawString(this.GameBoard.GameModel.NumberOfCoins.ToString(), -size / 2, -fontSize / 2);
+            context.DrawString(this.GameBoard.GameModel.NumberOfCoins.ToString(), (int)-size / 2, -fontSize / 2);
             context.Restore();
         }
         private void renderPullBox(ILayer context)
@@ -128,7 +128,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
             */
 
             var size = context.MeasureString(this.GameBoard.GameModel.NumberOfPulls.ToString());
-            context.DrawString(this.GameBoard.GameModel.NumberOfPulls.ToString(), -size / 2, -fontSize / 2);
+            context.DrawString(this.GameBoard.GameModel.NumberOfPulls.ToString(), (int)-size / 2, -fontSize / 2);
             context.Restore();
         }
 
