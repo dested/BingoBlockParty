@@ -26,17 +26,17 @@
 using System.Collections.Generic;
 
 /**
- * Not thread safe float[] pooling.
+ * Not thread safe double[] pooling.
  * @author Daniel
  */
 
 namespace org.jbox2d.pooling.arrays
 {
-    public class FloatArray
+    public class DoubleArray
     {
-        private readonly Dictionary<int, float[]> map = new Dictionary<int, float[]>();
+        private readonly Dictionary<int, double[]> map = new Dictionary<int, double[]>();
 
-        public float[] get(int argLength)
+        public double[] get(int argLength)
         {
             if (!map.ContainsKey(argLength))
             {
@@ -46,9 +46,9 @@ namespace org.jbox2d.pooling.arrays
             return map[argLength];
         }
 
-        public float[] getInitializedArray(int argLength)
+        public double[] getInitializedArray(int argLength)
         {
-            return new float[argLength];
+            return new double[argLength];
         }
     }
 }

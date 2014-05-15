@@ -45,7 +45,7 @@ namespace org.jbox2d.dynamics
         /**
 	 * The density, usually in kg/m^2
 	 */
-        public float density;
+        public double density;
 
         /**
 	 * A sensor shape collects contact information but never generates a collision
@@ -56,9 +56,9 @@ namespace org.jbox2d.dynamics
 	 * Contact filtering data;
 	 */
         public Filter filter;
-        public float friction;
+        public double friction;
         public bool isSensor;
-        public float restitution;
+        public double restitution;
         public Shape shape = null;
 
         /**

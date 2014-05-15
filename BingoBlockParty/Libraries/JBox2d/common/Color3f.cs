@@ -62,9 +62,9 @@ namespace org.jbox2d.common
         public static readonly Color3f GREEN = new Color3f(0, 1, 0);
         public static readonly Color3f RED = new Color3f(1, 0, 0);
 
-        public float x;
-        public float y;
-        public float z;
+        public double x;
+        public double y;
+        public double z;
 
 
         public Color3f()
@@ -72,14 +72,14 @@ namespace org.jbox2d.common
             x = y = z = 0;
         }
 
-        public Color3f(float r, float g, float b)
+        public Color3f(double r, double g, double b)
         {
             x = r;
             y = g;
             z = b;
         }
 
-        public void set(float r, float g, float b)
+        public void set(double r, double g, double b)
         {
             x = r;
             y = g;

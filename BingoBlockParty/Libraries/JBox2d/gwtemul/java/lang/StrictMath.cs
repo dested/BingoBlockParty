@@ -33,29 +33,29 @@ namespace java.lang
 {
     public class StrictMath
     {
-        public static float atan2(float y, float x)
+        public static double atan2(double y, double x)
         {
-            return (float) Math.Atan2(y, x);
+            return (double) Math.Atan2(y, x);
         }
 
-        public static float cos(float a)
+        public static double cos(double a)
         {
-            return (float) Math.Cos(a);
+            return (double) Math.Cos(a);
         }
 
-        public static int round(float a)
+        public static int round(double a)
         {
             return (int) Math.Round(a);
         }
 
-        public static float sin(float a)
+        public static double sin(double a)
         {
-            return (float) Math.Sin(a);
+            return (double) Math.Sin(a);
         }
 
-        public static float sqrt(float a)
+        public static double sqrt(double a)
         {
-            return (float) Math.Sqrt(a);
+            return (double) Math.Sqrt(a);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BingoBlockParty.Common.BallGame
 
         bool Awake { get; }
         PointF Position { get; }
-        float Rotation { get;  }
+        double Rotation { get;  }
     }
     public class PhysicsBody : IPhysicsBody
     {
@@ -40,7 +40,7 @@ namespace BingoBlockParty.Common.BallGame
             }
         }
 
-        public float Rotation
+        public double Rotation
         {
             get { return Body.getAngle(); }
         }
@@ -104,7 +104,7 @@ namespace BingoBlockParty.Common.BallGame
             var fixDef = new FixtureDef();
             fixDef.density = 1;
             fixDef.friction = 1;
-            fixDef.restitution = (float).6;
+            fixDef.restitution = .6;
             var bodyDef = new BodyDef();
 
             bodyDef.type = BodyType.STATIC;
@@ -125,7 +125,7 @@ namespace BingoBlockParty.Common.BallGame
             var fixDef = new FixtureDef();
             fixDef.density = 1;
             fixDef.friction = 1;
-            fixDef.restitution = (float).6;
+            fixDef.restitution =  .6;
             var bodyDef = new BodyDef();
 
             bodyDef.type = BodyType.STATIC;
@@ -150,7 +150,7 @@ namespace BingoBlockParty.Common.BallGame
             var fixDef = new FixtureDef();
             fixDef.density = 1;
             fixDef.friction = 1;
-            fixDef.restitution = (float).6;
+            fixDef.restitution =  .6;
             var bodyDef = new BodyDef();
 
             bodyDef.type = BodyType.STATIC;
@@ -177,7 +177,7 @@ namespace BingoBlockParty.Common.BallGame
             var fixDef = new FixtureDef();
             fixDef.density = 1;
             fixDef.friction = 1;
-            fixDef.restitution = (float).6;
+            fixDef.restitution =  .6;
             var bodyDef = new BodyDef();
 
             bodyDef.type = BodyType.STATIC;
@@ -185,7 +185,7 @@ namespace BingoBlockParty.Common.BallGame
             bodyDef.position.y = this.PixelToMeter(y);
 
             var circleShape = new CircleShape();
-            circleShape.m_radius = 1f / 2f;
+            circleShape.m_radius = 1d  / 2d;
             fixDef.shape = circleShape;
             var body = this.World.createBody(bodyDef);
             var fixture = body.createFixture(fixDef);
@@ -194,20 +194,20 @@ namespace BingoBlockParty.Common.BallGame
 
 
         }
-        public IPhysicsBody CreateCannonBall(int x, int y, float angle, float velocity, ICollider cannonBall)
+        public IPhysicsBody CreateCannonBall(int x, int y, double angle, double velocity, ICollider cannonBall)
         {
-            var vx = (float)Math.Cos((angle) * Math.PI / 180) * velocity;
-            var vy = (float)Math.Sin((angle) * Math.PI / 180) * velocity;
+            var vx =  Math.Cos((angle) * Math.PI / 180) * velocity;
+            var vy =  Math.Sin((angle) * Math.PI / 180) * velocity;
 
-            var offvx = (float)Math.Cos((angle) * Math.PI / 180) * 9f * 16f;
-            var offvy = (float)Math.Sin((angle) * Math.PI / 180) * 3f * 16f;
+            var offvx =  Math.Cos((angle) * Math.PI / 180) * 9d * 16d;
+            var offvy =  Math.Sin((angle) * Math.PI / 180) * 3d * 16d;
 
 
 
             var fixDef = new FixtureDef();
             fixDef.density = 1;
             fixDef.friction = 1;
-            fixDef.restitution = (float).6;
+            fixDef.restitution = .6;
             var bodyDef = new BodyDef();
 
             bodyDef.type = BodyType.DYNAMIC;
@@ -215,7 +215,7 @@ namespace BingoBlockParty.Common.BallGame
             bodyDef.position.y = this.PixelToMeter(y + offvy);
 
             var circleShape = new CircleShape();
-            circleShape.m_radius = 1.25f / 2f;
+            circleShape.m_radius = 1.25d / 2d;
 
             fixDef.shape = circleShape;
 
@@ -228,14 +228,14 @@ namespace BingoBlockParty.Common.BallGame
 
         }
 
-        public float MeterPixelSize { get { return 16; } }
+        public double MeterPixelSize { get { return 16; } }
 
-        public float MeterToPixel(float meter)
+        public double MeterToPixel(double meter)
         {
             return meter * MeterPixelSize;
         }
 
-        public float PixelToMeter(float pixel)
+        public double PixelToMeter(double pixel)
         {
             return pixel / MeterPixelSize;
         }
@@ -248,7 +248,7 @@ namespace BingoBlockParty.Common.BallGame
         {
             this.Collisions.Clear();
 
-            this.World.step(1f / 60f, 10, 10);
+            this.World.step(0.0166, 10, 10);
             this.World.clearForces();
 
             for (var i = 0; i < this.Collisions.Count; i++)

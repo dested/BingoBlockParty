@@ -150,10 +150,10 @@ namespace org.jbox2d.collision.shapes
             Vec2 vi2 = m_vertices[i2];
             Rot xfq = xf.q;
             Vec2 xfp = xf.p;
-            float v1x = (xfq.c*vi1.x - xfq.s*vi1.y) + xfp.x;
-            float v1y = (xfq.s*vi1.x + xfq.c*vi1.y) + xfp.y;
-            float v2x = (xfq.c*vi2.x - xfq.s*vi2.y) + xfp.x;
-            float v2y = (xfq.s*vi2.x + xfq.c*vi2.y) + xfp.y;
+            double v1x = (xfq.c*vi1.x - xfq.s*vi1.y) + xfp.x;
+            double v1y = (xfq.s*vi1.x + xfq.c*vi1.y) + xfp.y;
+            double v2x = (xfq.c*vi2.x - xfq.s*vi2.y) + xfp.x;
+            double v2y = (xfq.s*vi2.x + xfq.c*vi2.y) + xfp.y;
 
             lower.x = v1x < v2x ? v1x : v2x;
             lower.y = v1y < v2y ? v1y : v2y;
@@ -162,7 +162,7 @@ namespace org.jbox2d.collision.shapes
         }
 
 
-        public override void computeMass(MassData massData, float density)
+        public override void computeMass(MassData massData, double density)
         {
             massData.mass = 0.0f;
             massData.center.setZero();

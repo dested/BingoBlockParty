@@ -64,7 +64,7 @@ namespace org.jbox2d.common
 	 * @param argHalfWidth
 	 * @param argHalfHeight
 	 */
-        void setExtents(float argHalfWidth, float argHalfHeight); /**
+        void setExtents(double argHalfWidth, double argHalfHeight); /**
 	 * center of the viewport.  Not a copy.
 	 * @return
 	 */
@@ -77,14 +77,14 @@ namespace org.jbox2d.common
 	 * @param x
 	 * @param y
 	 */
-        void setCenter(float x, float y); /**
+        void setCenter(double x, double y); /**
 	 * Sets the transform's center to the given x and y coordinates,
 	 * and using the given scale.
 	 * @param x
 	 * @param y
 	 * @param scale
 	 */
-        void setCamera(float x, float y, float scale); /**
+        void setCamera(double x, double y, double scale); /**
 	 * Transforms the given directional vector by the
 	 * viewport transform (not positional)
 	 * @param argVec

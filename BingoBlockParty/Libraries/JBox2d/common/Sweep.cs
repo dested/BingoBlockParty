@@ -40,11 +40,11 @@ namespace org.jbox2d.common
         public readonly Vec2 c0;
         public readonly Vec2 localCenter;
         /** World angles */
-        public float a;
-        public float a0;
+        public double a;
+        public double a0;
 
         /** Fraction of the current time step in the range [0,1] c0 and a0 are the positions at alpha0. */
-        public float alpha0;
+        public double alpha0;
 
         public Sweep()
         {
@@ -63,7 +63,7 @@ namespace org.jbox2d.common
 
         public void normalize()
         {
-            float d = MathUtils.TWOPI*MathUtils.floor(a0/MathUtils.TWOPI);
+            double d = MathUtils.TWOPI*MathUtils.floor(a0/MathUtils.TWOPI);
             a0 -= d;
             a -= d;
         }
@@ -85,21 +85,21 @@ namespace org.jbox2d.common
    * @param t the normalized time in [0,1].
    */
 
-        public void getTransform(Transform xf, float beta)
+        public void getTransform(Transform xf, double beta)
         {
             // if (xf == null)
             // xf = new XForm();
             // center = p + R * localCenter
             /*
-     * if (1.0f - t0 > Settings.EPSILON) { float alpha = (t - t0) / (1.0f - t0); xf.position.x =
+     * if (1.0f - t0 > Settings.EPSILON) { double alpha = (t - t0) / (1.0f - t0); xf.position.x =
      * (1.0f - alpha) * c0.x + alpha * c.x; xf.position.y = (1.0f - alpha) * c0.y + alpha * c.y;
-     * float angle = (1.0f - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
+     * double angle = (1.0f - alpha) * a0 + alpha * a; xf.R.set(angle); } else { xf.position.set(c);
      * xf.R.set(a); }
      */
 
             xf.p.x = (1.0f - beta)*c0.x + beta*c.x;
             xf.p.y = (1.0f - beta)*c0.y + beta*c.y;
-            // float angle = (1.0f - alpha) * a0 + alpha * a;
+            // double angle = (1.0f - alpha) * a0 + alpha * a;
             // xf.R.set(angle);
             xf.q.set((1.0f - beta)*a0 + beta*a);
 
@@ -116,10 +116,10 @@ namespace org.jbox2d.common
    * @param alpha the new initial time.
    */
 
-        public void advance(float alpha)
+        public void advance(double alpha)
         {
 //    // c0 = (1.0f - t) * c0 + t*c;
-//    float beta = (alpha - alpha0) / (1.0f - alpha0);
+//    double beta = (alpha - alpha0) / (1.0f - alpha0);
 //    c0.x = (1.0f - beta) * c0.x + beta * c.x;
 //    c0.y = (1.0f - beta) * c0.y + beta * c.y;
 //    a0 = (1.0f - beta) * a0 + beta * a;

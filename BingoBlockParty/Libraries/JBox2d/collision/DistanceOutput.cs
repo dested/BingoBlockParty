@@ -40,7 +40,7 @@ namespace org.jbox2d.collision
         /** Closest point on shapeB */
         public readonly Vec2 pointB = new Vec2();
 
-        public float distance;
+        public double distance;
 
         /** number of gjk iterations used */
         public int iterations;

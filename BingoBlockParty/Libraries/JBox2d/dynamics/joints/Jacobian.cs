@@ -30,7 +30,7 @@ namespace org.jbox2d.dynamics.joints
     public class Jacobian
     {
         public readonly Vec2 linearA = new Vec2();
-        public float angularA;
-        public float angularB;
+        public double angularA;
+        public double angularB;
     }
 }

@@ -50,12 +50,12 @@ namespace org.jbox2d.dynamics.joints
         /**
 	 * The maximum friction force in N.
 	 */
-        public float maxForce;
+        public double maxForce;
 
         /**
 	 * The maximum friction torque in N-m.
 	 */
-        public float maxTorque;
+        public double maxTorque;
 
         public FrictionJointDef()
         {

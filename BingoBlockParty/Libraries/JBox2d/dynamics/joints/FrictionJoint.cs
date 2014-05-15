@@ -47,18 +47,18 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_rB = new Vec2();
 
         // Solver shared
-        private float m_angularImpulse;
-        private float m_angularMass;
+        private double m_angularImpulse;
+        private double m_angularMass;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
-        private float m_maxForce;
-        private float m_maxTorque;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
+        private double m_maxForce;
+        private double m_maxTorque;
 
         public FrictionJoint(IWorldPool argWorldPool, FrictionJointDef def)
             : base(argWorldPool, def)
@@ -96,33 +96,33 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.set(m_linearImpulse).mulLocal(inv_dt);
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return inv_dt*m_angularImpulse;
         }
 
-        public void setMaxForce(float force)
+        public void setMaxForce(double force)
         {
             m_maxForce = force;
         }
 
-        public float getMaxForce()
+        public double getMaxForce()
         {
             return m_maxForce;
         }
 
-        public void setMaxTorque(float torque)
+        public void setMaxTorque(double torque)
         {
             m_maxTorque = torque;
         }
 
-        public float getMaxTorque()
+        public double getMaxTorque()
         {
             return m_maxTorque;
         }
@@ -142,13 +142,13 @@ namespace org.jbox2d.dynamics.joints
             m_invIA = m_bodyA.m_invI;
             m_invIB = m_bodyB.m_invI;
 
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
 
             Vec2 temp = pool.popVec2();
@@ -171,8 +171,8 @@ namespace org.jbox2d.dynamics.joints
             // [ -r1y*iA*r1x-r2y*iB*r2x, mA+r1x^2*iA+mB+r2x^2*iB, r1x*iA+r2x*iB]
             // [ -r1y*iA-r2y*iB, r1x*iA+r2x*iB, iA+iB]
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             Mat22 K = pool.popMat22();
             K.ex.x = mA + mB + iA*m_rA.y*m_rA.y + iB*m_rB.y*m_rB.y;
@@ -229,22 +229,22 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
-            float h = data.step.dt;
+            double h = data.step.dt;
 
             // Solve angular friction
             {
-                float Cdot = wB - wA;
-                float impulse = -m_angularMass*Cdot;
+                double Cdot = wB - wA;
+                double impulse = -m_angularMass*Cdot;
 
-                float oldImpulse = m_angularImpulse;
-                float maxImpulse = h*m_maxTorque;
+                double oldImpulse = m_angularImpulse;
+                double maxImpulse = h*m_maxTorque;
                 m_angularImpulse = MathUtils.clamp(m_angularImpulse + impulse, -maxImpulse, maxImpulse);
                 impulse = m_angularImpulse - oldImpulse;
 
@@ -270,7 +270,7 @@ namespace org.jbox2d.dynamics.joints
                 oldImpulse.set(m_linearImpulse);
                 m_linearImpulse.addLocal(impulse);
 
-                float maxImpulse = h*m_maxForce;
+                double maxImpulse = h*m_maxForce;
 
                 if (m_linearImpulse.lengthSquared() > maxImpulse*maxImpulse)
                 {

@@ -37,9 +37,9 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2[] normals;
 
         private readonly World world;
-        private float m_impulse;
-        private float[] targetLengths;
-        private float targetVolume;
+        private double m_impulse;
+        private double[] targetLengths;
+        private double targetVolume;
 
         public ConstantVolumeJoint(World argWorld, ConstantVolumeJointDef def) : base(argWorld.getPool(), def)
         {
@@ -51,11 +51,11 @@ namespace org.jbox2d.dynamics.joints
             }
             bodies = def.bodies.ToArray();
 
-            targetLengths = new float[bodies.Length];
+            targetLengths = new double[bodies.Length];
             for (int i = 0; i < targetLengths.Length; ++i)
             {
                 int next = (i == targetLengths.Length - 1) ? 0 : i + 1;
-                float dist = bodies[i].getWorldCenter().sub(bodies[next].getWorldCenter()).length();
+                double dist = bodies[i].getWorldCenter().sub(bodies[next].getWorldCenter()).length();
                 targetLengths[i] = dist;
             }
             targetVolume = getBodyArea();
@@ -102,7 +102,7 @@ namespace org.jbox2d.dynamics.joints
             return distanceJoints;
         }
 
-        public void inflate(float factor)
+        public void inflate(double factor)
         {
             targetVolume *= factor;
         }
@@ -116,9 +116,9 @@ namespace org.jbox2d.dynamics.joints
             }
         }
 
-        private float getBodyArea()
+        private double getBodyArea()
         {
-            float area = 0.0f;
+            double area = 0.0f;
             for (int i = 0; i < bodies.Length - 1; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
@@ -130,9 +130,9 @@ namespace org.jbox2d.dynamics.joints
             return area;
         }
 
-        private float getSolverArea(Position[] positions)
+        private double getSolverArea(Position[] positions)
         {
-            float area = 0.0f;
+            double area = 0.0f;
             for (int i = 0; i < bodies.Length; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
@@ -146,13 +146,13 @@ namespace org.jbox2d.dynamics.joints
 
         private bool constrainEdges(Position[] positions)
         {
-            float perimeter = 0.0f;
+            double perimeter = 0.0f;
             for (int i = 0; i < bodies.Length; ++i)
             {
                 int next = (i == bodies.Length - 1) ? 0 : i + 1;
-                float dx = positions[bodies[next].m_islandIndex].c.x - positions[bodies[i].m_islandIndex].c.x;
-                float dy = positions[bodies[next].m_islandIndex].c.y - positions[bodies[i].m_islandIndex].c.y;
-                float dist = MathUtils.sqrt(dx*dx + dy*dy);
+                double dx = positions[bodies[next].m_islandIndex].c.x - positions[bodies[i].m_islandIndex].c.x;
+                double dy = positions[bodies[next].m_islandIndex].c.y - positions[bodies[i].m_islandIndex].c.y;
+                double dist = MathUtils.sqrt(dx*dx + dy*dy);
                 if (dist < Settings.EPSILON)
                 {
                     dist = 1.0f;
@@ -164,9 +164,9 @@ namespace org.jbox2d.dynamics.joints
 
             Vec2 delta = pool.popVec2();
 
-            float deltaArea = targetVolume - getSolverArea(positions);
-            float toExtrude = 0.5f*deltaArea/perimeter; // *relaxationFactor
-            // float sumdeltax = 0.0f;
+            double deltaArea = targetVolume - getSolverArea(positions);
+            double toExtrude = 0.5f*deltaArea/perimeter; // *relaxationFactor
+            // double sumdeltax = 0.0f;
             bool done = true;
             for (int i = 0; i < bodies.Length; ++i)
             {
@@ -174,7 +174,7 @@ namespace org.jbox2d.dynamics.joints
                 delta.set(toExtrude*(normals[i].x + normals[next].x), toExtrude
                                                                       *(normals[i].y + normals[next].y));
                 // sumdeltax += dx;
-                float normSqrd = delta.lengthSquared();
+                double normSqrd = delta.lengthSquared();
                 if (normSqrd > Settings.maxLinearCorrection*Settings.maxLinearCorrection)
                 {
                     delta.mulLocal(Settings.maxLinearCorrection/MathUtils.sqrt(normSqrd));
@@ -212,7 +212,7 @@ namespace org.jbox2d.dynamics.joints
             if (step.step.warmStarting)
             {
                 m_impulse *= step.step.dtRatio;
-                // float lambda = -2.0f * crossMassSum / dotMassSum;
+                // double lambda = -2.0f * crossMassSum / dotMassSum;
                 // System.out.println(crossMassSum + " " +dotMassSum);
                 // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
                 // Settings.maxLinearCorrection);
@@ -238,8 +238,8 @@ namespace org.jbox2d.dynamics.joints
 
         public override void solveVelocityConstraints(SolverData step)
         {
-            float crossMassSum = 0.0f;
-            float dotMassSum = 0.0f;
+            double crossMassSum = 0.0f;
+            double dotMassSum = 0.0f;
 
             Velocity[] velocities = step.velocities;
             Position[] positions = step.positions;
@@ -254,7 +254,7 @@ namespace org.jbox2d.dynamics.joints
                 dotMassSum += (d[i].lengthSquared())/bodies[i].getMass();
                 crossMassSum += Vec2.cross(velocities[bodies[i].m_islandIndex].v, d[i]);
             }
-            float lambda = -2.0f*crossMassSum/dotMassSum;
+            double lambda = -2.0f*crossMassSum/dotMassSum;
             // System.out.println(crossMassSum + " " +dotMassSum);
             // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
             // Settings.maxLinearCorrection);
@@ -281,13 +281,13 @@ namespace org.jbox2d.dynamics.joints
 
         /** No-op */
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
         }
 
         /** No-op */
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return 0;
         }

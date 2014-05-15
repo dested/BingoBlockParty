@@ -29,14 +29,14 @@ namespace org.jbox2d.dynamics
 {
     public class Profile
     {
-        public float broadphase;
-        public float collide;
-        public float solve;
-        public float solveInit;
-        public float solvePosition;
-        public float solveTOI;
-        public float solveVelocity;
-        public float step;
+        public double broadphase;
+        public double collide;
+        public double solve;
+        public double solveInit;
+        public double solvePosition;
+        public double solveTOI;
+        public double solveVelocity;
+        public double step;
 
         public void toDebugStrings(IList<string> strings)
         {

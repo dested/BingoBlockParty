@@ -33,13 +33,13 @@ namespace org.jbox2d.dynamics
     public class TimeStep
     {
         /** time step */
-        public float dt;
+        public double dt;
 
         /** inverse time step (0 if dt == 0). */
 
         /** dt * inv_dt0 */
-        public float dtRatio;
-        public float inv_dt;
+        public double dtRatio;
+        public double inv_dt;
 
         public int positionIterations;
         public int velocityIterations;

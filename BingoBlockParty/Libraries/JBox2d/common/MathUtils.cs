@@ -55,44 +55,44 @@ namespace org.jbox2d.common
 {
     public class MathUtils : PlatformMathUtils
     {
-        public static readonly float PI = (float) Math.PI;
-        public static readonly float TWOPI = (float) (Math.PI*2);
-        public static readonly float INV_PI = 1f/PI;
-        public static readonly float HALF_PI = PI/2;
-        public static readonly float QUARTER_PI = PI/4;
-        public static readonly float THREE_HALVES_PI = TWOPI - HALF_PI;
+        public static readonly double PI = (double) Math.PI;
+        public static readonly double TWOPI = (double) (Math.PI*2);
+        public static readonly double INV_PI = 1f/PI;
+        public static readonly double HALF_PI = PI/2;
+        public static readonly double QUARTER_PI = PI/4;
+        public static readonly double THREE_HALVES_PI = TWOPI - HALF_PI;
 
         /**
    * Degrees to radians conversion factor
    */
-        public static readonly float DEG2RAD = PI/180;
+        public static readonly double DEG2RAD = PI/180;
 
         /**
    * Radians to degrees conversion factor
    */
-        public static readonly float RAD2DEG = 180/PI;
+        public static readonly double RAD2DEG = 180/PI;
 
-        public static readonly float[] sinLUT2 = new float[Settings.SINCOS_LUT_LENGTH];
+        public static readonly double[] sinLUT2 = new double[Settings.SINCOS_LUT_LENGTH];
         public static Random random = new Random();
 
         static MathUtils()
         {
             for (int i = 0; i < Settings.SINCOS_LUT_LENGTH; i++)
             {
-                sinLUT2[i] = (float) Math.Sin(i*Settings.SINCOS_LUT_PRECISION);
+                sinLUT2[i] = (double) Math.Sin(i*Settings.SINCOS_LUT_PRECISION);
             }
         }
 
-        public static float sin(float x)
+        public static double sin(double x)
         {
             if (Settings.SINCOS_LUT_ENABLED)
             {
                 return sinLUT(x);
             }
-            return (float) StrictMath.sin(x);
+            return (double) StrictMath.sin(x);
         }
 
-        public static float sinLUT(float x)
+        public static double sinLUT(double x)
         {
             x %= TWOPI;
 
@@ -122,16 +122,16 @@ namespace org.jbox2d.common
             return sinLUT2[round(x/Settings.SINCOS_LUT_PRECISION)%Settings.SINCOS_LUT_LENGTH];
         }
 
-        public static float cos(float x)
+        public static double cos(double x)
         {
             if (Settings.SINCOS_LUT_ENABLED)
             {
                 return sinLUT(HALF_PI - x);
             }
-            return (float) StrictMath.cos(x);
+            return (double) StrictMath.cos(x);
         }
 
-        public static float abs(float x)
+        public static double abs(double x)
         {
             if (Settings.FAST_ABS)
             {
@@ -146,7 +146,7 @@ namespace org.jbox2d.common
             return (x ^ y) - y;
         }
 
-        public static int floor(float x)
+        public static int floor(double x)
         {
             if (Settings.FAST_FLOOR)
             {
@@ -160,7 +160,7 @@ namespace org.jbox2d.common
             return (int) Math.Floor(x);
         }
 
-        public static int ceil(float x)
+        public static int ceil(double x)
         {
             if (Settings.FAST_CEIL)
             {
@@ -174,7 +174,7 @@ namespace org.jbox2d.common
             return (int) Math.Ceiling(x);
         }
 
-        public static int round(float x)
+        public static int round(double x)
         {
             if (Settings.FAST_ROUND)
             {
@@ -200,7 +200,7 @@ namespace org.jbox2d.common
             return pow2;
         }
 
-        public static float max(float a, float b)
+        public static double max(double a, double b)
         {
             return a > b ? a : b;
         }
@@ -210,7 +210,7 @@ namespace org.jbox2d.common
             return a > b ? a : b;
         }
 
-        public static float min(float a, float b)
+        public static double min(double a, double b)
         {
             return a < b ? a : b;
         }
@@ -220,17 +220,17 @@ namespace org.jbox2d.common
             return a < b ? a : b;
         }
 
-        public static float map(float val, float fromMin, float fromMax,
-            float toMin, float toMax)
+        public static double map(double val, double fromMin, double fromMax,
+            double toMin, double toMax)
         {
-            float mult = (val - fromMin)/(fromMax - fromMin);
-            float res = toMin + mult*(toMax - toMin);
+            double mult = (val - fromMin)/(fromMax - fromMin);
+            double res = toMin + mult*(toMax - toMin);
             return res;
         }
 
         /** Returns the closest value to 'a' that is in between 'low' and 'high' */
 
-        public static float clamp(float a, float low, float high)
+        public static double clamp(double a, double low, double high)
         {
             return max(low, min(a, high));
         }
@@ -275,16 +275,16 @@ namespace org.jbox2d.common
             return x > 0 && (x & x - 1) == 0;
         }
 
-        public static float atan2(float y, float x)
+        public static double atan2(double y, double x)
         {
             if (Settings.FAST_ATAN2)
             {
                 return fastAtan2(y, x);
             }
-            return (float) StrictMath.atan2(y, x);
+            return (double) StrictMath.atan2(y, x);
         }
 
-        public static float fastAtan2(float y, float x)
+        public static double fastAtan2(double y, double x)
         {
             if (x == 0.0f)
             {
@@ -292,8 +292,8 @@ namespace org.jbox2d.common
                 if (y == 0.0f) return 0.0f;
                 return -HALF_PI;
             }
-            float atan;
-            float z = y/x;
+            double atan;
+            double z = y/x;
             if (abs(z) < 1.0f)
             {
                 atan = z/(1.0f + 0.28f*z*z);
@@ -311,7 +311,7 @@ namespace org.jbox2d.common
             return atan;
         }
 
-        public static float reduceAngle(float theta)
+        public static double reduceAngle(double theta)
         {
             theta %= TWOPI;
             if (abs(theta) > PI)
@@ -325,29 +325,29 @@ namespace org.jbox2d.common
             return theta;
         }
 
-        public static float randomFloat(float argLow, float argHigh)
+        public static double randomDouble(double argLow, double argHigh)
         {
             return random.Next()*(argHigh - argLow) + argLow;
         }
 
-        public static float randomFloat(Random r, float argLow, float argHigh)
+        public static double randomDouble(Random r, double argLow, double argHigh)
         {
             return r.Next()*(argHigh - argLow) + argLow;
         }
 
-        public static float sqrt(float x)
+        public static double sqrt(double x)
         {
-            return (float) StrictMath.sqrt(x);
+            return (double) StrictMath.sqrt(x);
         }
 
-        public static float distanceSquared(Vec2 v1, Vec2 v2)
+        public static double distanceSquared(Vec2 v1, Vec2 v2)
         {
-            float dx = (v1.x - v2.x);
-            float dy = (v1.y - v2.y);
+            double dx = (v1.x - v2.x);
+            double dy = (v1.y - v2.y);
             return dx*dx + dy*dy;
         }
 
-        public static float distance(Vec2 v1, Vec2 v2)
+        public static double distance(Vec2 v1, Vec2 v2)
         {
             return sqrt(distanceSquared(v1, v2));
         }

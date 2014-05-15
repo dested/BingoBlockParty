@@ -69,7 +69,7 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_JvAC = new Vec2(), m_JvBD = new Vec2();
         private readonly Body m_bodyC;
         private readonly Body m_bodyD;
-        private readonly float m_constant;
+        private readonly double m_constant;
         private readonly Joint m_joint1;
         private readonly Joint m_joint2;
 
@@ -87,21 +87,21 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_localAxisC = new Vec2();
         private readonly Vec2 m_localAxisD = new Vec2();
 
-        private readonly float m_referenceAngleA;
-        private readonly float m_referenceAngleB;
+        private readonly double m_referenceAngleA;
+        private readonly double m_referenceAngleB;
         private readonly JointType m_typeA;
         private readonly JointType m_typeB;
-        private float m_JwA, m_JwB, m_JwC, m_JwD;
-        private float m_iA, m_iB, m_iC, m_iD;
+        private double m_JwA, m_JwB, m_JwC, m_JwD;
+        private double m_iA, m_iB, m_iC, m_iD;
 
-        private float m_impulse;
+        private double m_impulse;
 
         // Solver temp
         private int m_indexA, m_indexB, m_indexC, m_indexD;
 
-        private float m_mA, m_mB, m_mC, m_mD;
-        private float m_mass;
-        private float m_ratio;
+        private double m_mA, m_mB, m_mC, m_mD;
+        private double m_mass;
+        private double m_ratio;
 
         public GearJoint(IWorldPool argWorldPool, GearJointDef def)
             : base(argWorldPool, def)
@@ -113,7 +113,7 @@ namespace org.jbox2d.dynamics.joints
             m_typeB = m_joint2.getType();
 
 
-            float coordinateA, coordinateB;
+            double coordinateA, coordinateB;
 
             // TODO_ERIN there might be some problem with the joint edges in Joint.
 
@@ -122,9 +122,9 @@ namespace org.jbox2d.dynamics.joints
 
             // Get geometry of joint1
             Transform xfA = m_bodyA.m_xf;
-            float aA = m_bodyA.m_sweep.a;
+            double aA = m_bodyA.m_sweep.a;
             Transform xfC = m_bodyC.m_xf;
-            float aC = m_bodyC.m_sweep.a;
+            double aC = m_bodyC.m_sweep.a;
 
             if (m_typeA == JointType.REVOLUTE)
             {
@@ -159,9 +159,9 @@ namespace org.jbox2d.dynamics.joints
 
             // Get geometry of joint2
             Transform xfB = m_bodyB.m_xf;
-            float aB = m_bodyB.m_sweep.a;
+            double aB = m_bodyB.m_sweep.a;
             Transform xfD = m_bodyD.m_xf;
-            float aD = m_bodyD.m_sweep.a;
+            double aD = m_bodyD.m_sweep.a;
 
             if (m_typeB == JointType.REVOLUTE)
             {
@@ -211,25 +211,25 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.set(m_JvAC).mulLocal(m_impulse);
             argOut.mulLocal(inv_dt);
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
-            float L = m_impulse*m_JwA;
+            double L = m_impulse*m_JwA;
             return inv_dt*L;
         }
 
-        public void setRatio(float argRatio)
+        public void setRatio(double argRatio)
         {
             m_ratio = argRatio;
         }
 
-        public float getRatio()
+        public double getRatio()
         {
             return m_ratio;
         }
@@ -255,24 +255,24 @@ namespace org.jbox2d.dynamics.joints
             m_iD = m_bodyD.m_invI;
 
             // Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             // Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             // Vec2 cC = data.positions[m_indexC].c;
-            float aC = data.positions[m_indexC].a;
+            double aC = data.positions[m_indexC].a;
             Vec2 vC = data.velocities[m_indexC].v;
-            float wC = data.velocities[m_indexC].w;
+            double wC = data.velocities[m_indexC].w;
 
             // Vec2 cD = data.positions[m_indexD].c;
-            float aD = data.positions[m_indexD].a;
+            double aD = data.positions[m_indexD].a;
             Vec2 vD = data.velocities[m_indexD].v;
-            float wD = data.velocities[m_indexD].w;
+            double wD = data.velocities[m_indexD].w;
 
             Rot qA = pool.popRot(), qB = pool.popRot(), qC = pool.popRot(), qD = pool.popRot();
             qA.set(aA);
@@ -368,22 +368,22 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
             Vec2 vC = data.velocities[m_indexC].v;
-            float wC = data.velocities[m_indexC].w;
+            double wC = data.velocities[m_indexC].w;
             Vec2 vD = data.velocities[m_indexD].v;
-            float wD = data.velocities[m_indexD].w;
+            double wD = data.velocities[m_indexD].w;
 
             Vec2 temp1 = pool.popVec2();
             Vec2 temp2 = pool.popVec2();
-            float Cdot =
+            double Cdot =
                 Vec2.dot(m_JvAC, temp1.set(vA).subLocal(vC)) + Vec2.dot(m_JvBD, temp2.set(vB).subLocal(vD));
             Cdot += (m_JwA*wA - m_JwC*wC) + (m_JwB*wB - m_JwD*wD);
             pool.pushVec2(2);
 
-            float impulse = -m_mass*Cdot;
+            double impulse = -m_mass*Cdot;
             m_impulse += impulse;
 
             vA.x += (m_mA*impulse)*m_JvAC.x;
@@ -427,13 +427,13 @@ namespace org.jbox2d.dynamics.joints
         public override bool solvePositionConstraints(SolverData data)
         {
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 cC = data.positions[m_indexC].c;
-            float aC = data.positions[m_indexC].a;
+            double aC = data.positions[m_indexC].a;
             Vec2 cD = data.positions[m_indexD].c;
-            float aD = data.positions[m_indexD].a;
+            double aD = data.positions[m_indexD].a;
 
             Rot qA = pool.popRot(), qB = pool.popRot(), qC = pool.popRot(), qD = pool.popRot();
             qA.set(aA);
@@ -441,15 +441,15 @@ namespace org.jbox2d.dynamics.joints
             qC.set(aC);
             qD.set(aD);
 
-            float linearError = 0.0f;
+            double linearError = 0.0f;
 
-            float coordinateA, coordinateB;
+            double coordinateA, coordinateB;
 
             Vec2 temp = pool.popVec2();
             Vec2 JvAC = pool.popVec2();
             Vec2 JvBD = pool.popVec2();
-            float JwA, JwB, JwC, JwD;
-            float mass = 0.0f;
+            double JwA, JwB, JwC, JwD;
+            double mass = 0.0f;
 
             if (m_typeA == JointType.REVOLUTE)
             {
@@ -509,9 +509,9 @@ namespace org.jbox2d.dynamics.joints
                 pool.pushVec2(5);
             }
 
-            float C = (coordinateA + m_ratio*coordinateB) - m_constant;
+            double C = (coordinateA + m_ratio*coordinateB) - m_constant;
 
-            float impulse = 0.0f;
+            double impulse = 0.0f;
             if (mass > 0.0f)
             {
                 impulse = -C/mass;

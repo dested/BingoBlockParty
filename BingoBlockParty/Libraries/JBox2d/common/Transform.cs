@@ -84,7 +84,7 @@ namespace org.jbox2d.common
    * @param angle
    */
 
-        public void set(Vec2 p, float angle)
+        public void set(Vec2 p, double angle)
         {
             this.p.set(p);
             q.set(angle);
@@ -105,7 +105,7 @@ namespace org.jbox2d.common
 
         public static void mulToOut(Transform T, Vec2 v, Vec2 out_)
         {
-            float tempy = (T.q.s*v.x + T.q.c*v.y) + T.p.y;
+            double tempy = (T.q.s*v.x + T.q.c*v.y) + T.p.y;
             out_.x = (T.q.c*v.x - T.q.s*v.y) + T.p.x;
             out_.y = tempy;
         }
@@ -118,24 +118,24 @@ namespace org.jbox2d.common
 
         public static Vec2 mulTrans(Transform T, Vec2 v)
         {
-            float px = v.x - T.p.x;
-            float py = v.y - T.p.y;
+            double px = v.x - T.p.x;
+            double py = v.y - T.p.y;
             return new Vec2((T.q.c*px + T.q.s*py), (-T.q.s*px + T.q.c*py));
         }
 
         public static void mulTransToOut(Transform T, Vec2 v, Vec2 out_)
         {
-            float px = v.x - T.p.x;
-            float py = v.y - T.p.y;
-            float tempy = (-T.q.s*px + T.q.c*py);
+            double px = v.x - T.p.x;
+            double py = v.y - T.p.y;
+            double tempy = (-T.q.s*px + T.q.c*py);
             out_.x = (T.q.c*px + T.q.s*py);
             out_.y = tempy;
         }
 
         public static void mulTransToOutUnsafe(Transform T, Vec2 v, Vec2 out_)
         {
-            float px = v.x - T.p.x;
-            float py = v.y - T.p.y;
+            double px = v.x - T.p.x;
+            double py = v.y - T.p.y;
             out_.x = (T.q.c*px + T.q.s*py);
             out_.y = (-T.q.s*px + T.q.c*py);
         }

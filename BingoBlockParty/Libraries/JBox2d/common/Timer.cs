@@ -47,14 +47,14 @@ namespace org.jbox2d.common
             resetNanos = DateTime.Now;
         }
 
-        public float getMilliseconds()
+        public double getMilliseconds()
         {
             var i = (DateTime.Now - resetNanos);
      #if WEB
-      return (float) i;
+      return (double) i;
 #else
 
-            return (float)i.TotalMilliseconds;
+            return (double)i.TotalMilliseconds;
 #endif
             
         }

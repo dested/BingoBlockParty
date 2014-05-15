@@ -56,12 +56,12 @@ namespace org.jbox2d.dynamics.joints
         /**
    * The a reference length for the segment attached to bodyA.
    */
-        public float lengthA;
+        public double lengthA;
 
         /**
    * The a reference length for the segment attached to bodyB.
    */
-        public float lengthB;
+        public double lengthB;
         public Vec2 localAnchorA;
 
         /**
@@ -72,7 +72,7 @@ namespace org.jbox2d.dynamics.joints
         /**
    * The pulley ratio, used to simulate a block-and-tackle.
    */
-        public float ratio;
+        public double ratio;
 
         public PulleyJointDef()
         {
@@ -91,7 +91,7 @@ namespace org.jbox2d.dynamics.joints
    * Initialize the bodies, anchors, lengths, max lengths, and ratio using the world anchors.
    */
 
-        public void initialize(Body b1, Body b2, Vec2 ga1, Vec2 ga2, Vec2 anchor1, Vec2 anchor2, float r)
+        public void initialize(Body b1, Body b2, Vec2 ga1, Vec2 ga2, Vec2 anchor1, Vec2 anchor2, double r)
         {
             bodyA = b1;
             bodyB = b2;

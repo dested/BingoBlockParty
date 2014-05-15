@@ -472,7 +472,9 @@
 			layer.translate(-this.get_x(), -this.get_y());
 		},
 		$median: function(xs) {
-			xs.sort();
+			xs.sort(function(a, b) {
+				return a - b;
+			});
 			return xs[ss.Int32.div(xs.length, 2)];
 		},
 		center: function(x, y) {

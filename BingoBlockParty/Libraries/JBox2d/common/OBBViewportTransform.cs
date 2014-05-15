@@ -47,10 +47,10 @@ namespace org.jbox2d.common
         }
 
         /**
-   * @see IViewportTransform#setCamera(float, float, float)
+   * @see IViewportTransform#setCamera(double, double, double)
    */
 
-        public void setCamera(float x, float y, float scale)
+        public void setCamera(double x, double y, double scale)
         {
             box.center.set(x, y);
             Mat22.createScaleTransform(scale, box.R);
@@ -75,10 +75,10 @@ namespace org.jbox2d.common
         }
 
         /**
-   * @see IViewportTransform#setExtents(float, float)
+   * @see IViewportTransform#setExtents(double, double)
    */
 
-        public void setExtents(float argHalfWidth, float argHalfHeight)
+        public void setExtents(double argHalfWidth, double argHalfHeight)
         {
             box.extents.set(argHalfWidth, argHalfHeight);
         }
@@ -102,10 +102,10 @@ namespace org.jbox2d.common
         }
 
         /**
-   * @see IViewportTransform#setCenter(float, float)
+   * @see IViewportTransform#setCenter(double, double)
    */
 
-        public void setCenter(float x, float y)
+        public void setCenter(double x, double y)
         {
             box.center.set(x, y);
         }

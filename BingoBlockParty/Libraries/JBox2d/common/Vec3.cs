@@ -35,14 +35,14 @@ namespace org.jbox2d.common
     {
         private static readonly long serialVersionUID = 1L;
 
-        public float x, y, z;
+        public double x, y, z;
 
         public Vec3()
         {
             x = y = z = 0f;
         }
 
-        public Vec3(float argX, float argY, float argZ)
+        public Vec3(double argX, double argY, double argZ)
         {
             x = argX;
             y = argY;
@@ -64,7 +64,7 @@ namespace org.jbox2d.common
             return this;
         }
 
-        public Vec3 set(float argX, float argY, float argZ)
+        public Vec3 set(double argX, double argY, double argZ)
         {
             x = argX;
             y = argY;
@@ -98,7 +98,7 @@ namespace org.jbox2d.common
             return new Vec3(x - argVec.x, y - argVec.y, z - argVec.z);
         }
 
-        public Vec3 mulLocal(float argScalar)
+        public Vec3 mulLocal(double argScalar)
         {
             x *= argScalar;
             y *= argScalar;
@@ -106,7 +106,7 @@ namespace org.jbox2d.common
             return this;
         }
 
-        public Vec3 mul(float argScalar)
+        public Vec3 mul(double argScalar)
         {
             return new Vec3(x*argScalar, y*argScalar, z*argScalar);
         }
@@ -159,13 +159,13 @@ namespace org.jbox2d.common
             if (obj == null) return false;
             if (GetType() != obj.GetType()) return false;
             var other = (Vec3) obj;
-            if (!NumberHelper.CompareFloats(x, other.x)) return false;
-            if (!NumberHelper.CompareFloats(y, other.y)) return false;
-            if (!NumberHelper.CompareFloats(z, other.z)) return false;
+            if (!NumberHelper.CompareDoubles(x, other.x)) return false;
+            if (!NumberHelper.CompareDoubles(y, other.y)) return false;
+            if (!NumberHelper.CompareDoubles(z, other.z)) return false;
             return true;
         }
 
-        public static float dot(Vec3 a, Vec3 b)
+        public static double dot(Vec3 a, Vec3 b)
         {
             return a.x*b.x + a.y*b.y + a.z*b.z;
         }
@@ -177,8 +177,8 @@ namespace org.jbox2d.common
 
         public static void crossToOut(Vec3 a, Vec3 b, Vec3 out_)
         {
-            float tempy = a.z*b.x - a.x*b.z;
-            float tempz = a.x*b.y - a.y*b.x;
+            double tempy = a.z*b.x - a.x*b.z;
+            double tempz = a.x*b.y - a.y*b.x;
             out_.x = a.y*b.z - a.z*b.y;
             out_.y = tempy;
             out_.z = tempz;
@@ -196,9 +196,9 @@ namespace org.jbox2d.common
     {
       
 
-        public static bool CompareFloats(float f, float f1)
+        public static bool CompareDoubles(double f, double f1)
         {
-            return Math.Abs((f - f1)) < float.Epsilon;
+            return Math.Abs((f - f1)) < double.Epsilon;
         }
     }
 

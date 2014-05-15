@@ -315,7 +315,7 @@ namespace org.jbox2d.collision.broadphase
             return m_tree.getMaxBalance();
         }
 
-        public float getTreeQuality()
+        public double getTreeQuality()
         {
             return m_tree.getAreaRatio();
         }

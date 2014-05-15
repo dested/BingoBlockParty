@@ -33,19 +33,19 @@ namespace org.jbox2d.common
     public class PlatformMathUtils
     {
 /*
-        private static readonly float SHIFT23 = 1 << 23;
-        private static readonly float INV_SHIFT23 = 1.0f/SHIFT23;
+        private static readonly double SHIFT23 = 1 << 23;
+        private static readonly double INV_SHIFT23 = 1.0f/SHIFT23;
 
-        public static float fastPow(float a, float b)
+        public static double fastPow(double a, double b)
         {
-            float x = NumberHelper.floatToRawIntBits(a);
+            double x = NumberHelper.doubleToRawIntBits(a);
             x *= INV_SHIFT23;
             x -= 127;
-            float y = x - (x >= 0 ? (int) x : (int) x - 1);
+            double y = x - (x >= 0 ? (int) x : (int) x - 1);
             b *= x + (y - y*y)*0.346607f;
             y = b - (b >= 0 ? (int) b : (int) b - 1);
             y = (y - y*y)*0.33971f;
-            return NumberHelper.intBitsToFloat((int) ((b + 127 - y)*SHIFT23));
+            return NumberHelper.intBitsToDouble((int) ((b + 127 - y)*SHIFT23));
         }
 */
     }

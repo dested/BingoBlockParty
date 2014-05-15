@@ -72,21 +72,21 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_rA = new Vec2();
         private readonly Vec2 m_rB = new Vec2();
         private readonly Vec2 m_u = new Vec2();
-        private float m_bias;
-        private float m_dampingRatio;
-        private float m_frequencyHz;
-        private float m_gamma;
-        private float m_impulse;
+        private double m_bias;
+        private double m_dampingRatio;
+        private double m_frequencyHz;
+        private double m_gamma;
+        private double m_impulse;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
-        private float m_length;
-        private float m_mass;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
+        private double m_length;
+        private double m_mass;
 
         public DistanceJoint(IWorldPool argWorld, DistanceJointDef def) : base(argWorld, def)
         {
@@ -100,32 +100,32 @@ namespace org.jbox2d.dynamics.joints
             m_bias = 0.0f;
         }
 
-        public void setFrequency(float hz)
+        public void setFrequency(double hz)
         {
             m_frequencyHz = hz;
         }
 
-        public float getFrequency()
+        public double getFrequency()
         {
             return m_frequencyHz;
         }
 
-        public float getLength()
+        public double getLength()
         {
             return m_length;
         }
 
-        public void setLength(float argLength)
+        public void setLength(double argLength)
         {
             m_length = argLength;
         }
 
-        public void setDampingRatio(float damp)
+        public void setDampingRatio(double damp)
         {
             m_dampingRatio = damp;
         }
 
-        public float getDampingRatio()
+        public double getDampingRatio()
         {
             return m_dampingRatio;
         }
@@ -156,7 +156,7 @@ namespace org.jbox2d.dynamics.joints
    * Get the reaction force given the inverse time step. Unit is N.
    */
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.x = m_impulse*m_u.x*inv_dt;
             argOut.y = m_impulse*m_u.y*inv_dt;
@@ -167,7 +167,7 @@ namespace org.jbox2d.dynamics.joints
    * distance joint.
    */
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return 0.0f;
         }
@@ -185,14 +185,14 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -208,7 +208,7 @@ namespace org.jbox2d.dynamics.joints
             pool.pushRot(2);
 
             // Handle singularity.
-            float length = m_u.length();
+            double length = m_u.length();
             if (length > Settings.linearSlop)
             {
                 m_u.x *= 1.0f/length;
@@ -220,28 +220,28 @@ namespace org.jbox2d.dynamics.joints
             }
 
 
-            float crAu = Vec2.cross(m_rA, m_u);
-            float crBu = Vec2.cross(m_rB, m_u);
-            float invMass = m_invMassA + m_invIA*crAu*crAu + m_invMassB + m_invIB*crBu*crBu;
+            double crAu = Vec2.cross(m_rA, m_u);
+            double crBu = Vec2.cross(m_rB, m_u);
+            double invMass = m_invMassA + m_invIA*crAu*crAu + m_invMassB + m_invIB*crBu*crBu;
 
             // Compute the effective mass matrix.
             m_mass = invMass != 0.0f ? 1.0f/invMass : 0.0f;
 
             if (m_frequencyHz > 0.0f)
             {
-                float C = length - m_length;
+                double C = length - m_length;
 
                 // Frequency
-                float omega = 2.0f*MathUtils.PI*m_frequencyHz;
+                double omega = 2.0f*MathUtils.PI*m_frequencyHz;
 
                 // Damping coefficient
-                float d = 2.0f*m_mass*m_dampingRatio*omega;
+                double d = 2.0f*m_mass*m_dampingRatio*omega;
 
                 // Spring stiffness
-                float k = m_mass*omega*omega;
+                double k = m_mass*omega*omega;
 
                 // magic formulas
-                float h = data.step.dt;
+                double h = data.step.dt;
                 m_gamma = h*(d + h*k);
                 m_gamma = m_gamma != 0.0f ? 1.0f/m_gamma : 0.0f;
                 m_bias = C*h*k*m_gamma;
@@ -286,9 +286,9 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Vec2 vpA = pool.popVec2();
             Vec2 vpB = pool.popVec2();
@@ -298,14 +298,14 @@ namespace org.jbox2d.dynamics.joints
             vpA.addLocal(vA);
             Vec2.crossToOutUnsafe(wB, m_rB, vpB);
             vpB.addLocal(vB);
-            float Cdot = Vec2.dot(m_u, vpB.subLocal(vpA));
+            double Cdot = Vec2.dot(m_u, vpB.subLocal(vpA));
 
-            float impulse = -m_mass*(Cdot + m_bias + m_gamma*m_impulse);
+            double impulse = -m_mass*(Cdot + m_bias + m_gamma*m_impulse);
             m_impulse += impulse;
 
 
-            float Px = impulse*m_u.x;
-            float Py = impulse*m_u.y;
+            double Px = impulse*m_u.x;
+            double Py = impulse*m_u.y;
 
             vA.x -= m_invMassA*Px;
             vA.y -= m_invMassA*Py;
@@ -336,9 +336,9 @@ namespace org.jbox2d.dynamics.joints
             Vec2 u = pool.popVec2();
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             qA.set(aA);
             qB.set(aB);
@@ -348,13 +348,13 @@ namespace org.jbox2d.dynamics.joints
             u.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);
 
 
-            float length = u.normalize();
-            float C = length - m_length;
+            double length = u.normalize();
+            double C = length - m_length;
             C = MathUtils.clamp(C, -Settings.maxLinearCorrection, Settings.maxLinearCorrection);
 
-            float impulse = -m_mass*C;
-            float Px = impulse*u.x;
-            float Py = impulse*u.y;
+            double impulse = -m_mass*C;
+            double Px = impulse*u.x;
+            double Py = impulse*u.y;
 
             cA.x -= m_invMassA*Px;
             cA.y -= m_invMassA*Py;

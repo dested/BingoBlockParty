@@ -35,20 +35,20 @@ namespace org.jbox2d.common
     {
         private static readonly long serialVersionUID = 1L;
 
-        public float c; // sin and cos
-        public float s; // sin and cos
+        public double c; // sin and cos
+        public double s; // sin and cos
 
         public Rot()
         {
             setIdentity();
         }
 
-        public Rot(float angle)
+        public Rot(double angle)
         {
             set(angle);
         }
 
-        public float getSin()
+        public double getSin()
         {
             return s;
         }
@@ -59,12 +59,12 @@ namespace org.jbox2d.common
             return "Rot(s:" + s + ", c:" + c + ")";
         }
 
-        public float getCos()
+        public double getCos()
         {
             return c;
         }
 
-        public Rot set(float angle)
+        public Rot set(double angle)
         {
             s = MathUtils.sin(angle);
             c = MathUtils.cos(angle);
@@ -85,7 +85,7 @@ namespace org.jbox2d.common
             return this;
         }
 
-        public float getAngle()
+        public double getAngle()
         {
             return MathUtils.atan2(s, c);
         }
@@ -111,7 +111,7 @@ namespace org.jbox2d.common
 
         public static void mul(Rot q, Rot r, Rot out_)
         {
-            float tempc = q.c*r.c - q.s*r.s;
+            double tempc = q.c*r.c - q.s*r.s;
             out_.s = q.s*r.c + q.c*r.s;
             out_.c = tempc;
         }
@@ -128,7 +128,7 @@ namespace org.jbox2d.common
 
         public static void mulTrans(Rot q, Rot r, Rot out_)
         {
-            float tempc = q.c*r.c + q.s*r.s;
+            double tempc = q.c*r.c + q.s*r.s;
             out_.s = q.c*r.s - q.s*r.c;
             out_.c = tempc;
         }
@@ -145,7 +145,7 @@ namespace org.jbox2d.common
 
         public static void mulToOut(Rot q, Vec2 v, Vec2 out_)
         {
-            float tempy = q.s*v.x + q.c*v.y;
+            double tempy = q.s*v.x + q.c*v.y;
             out_.x = q.c*v.x - q.s*v.y;
             out_.y = tempy;
         }
@@ -158,7 +158,7 @@ namespace org.jbox2d.common
 
         public static void mulTrans(Rot q, Vec2 v, Vec2 out_)
         {
-            float tempy = -q.s*v.x + q.c*v.y;
+            double tempy = -q.s*v.x + q.c*v.y;
             out_.x = q.c*v.x + q.s*v.y;
             out_.y = tempy;
         }

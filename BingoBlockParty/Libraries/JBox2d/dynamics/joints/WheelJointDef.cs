@@ -56,23 +56,23 @@ namespace org.jbox2d.dynamics.joints
 	 * The local translation axis in body1.
 	 */
         public readonly Vec2 localAxisA = new Vec2();
-        public float dampingRatio;
+        public double dampingRatio;
 
         /**
 	 * Enable/disable the joint motor.
 	 */
         public bool enableMotor;
-        public float frequencyHz;
+        public double frequencyHz;
 
         /**
 	 * The maximum motor torque, usually in N-m.
 	 */
-        public float maxMotorTorque;
+        public double maxMotorTorque;
 
         /**
 	 * The desired motor speed in radians per second.
 	 */
-        public float motorSpeed;
+        public double motorSpeed;
 
         /**
 	 * Suspension frequency, zero indicates no suspension

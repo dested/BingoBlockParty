@@ -89,9 +89,9 @@ namespace org.jbox2d.dynamics
 
         // statistics gathering
         public int activeContacts = 0;
-        private float averageLinearVel = -1;
+        private double averageLinearVel = -1;
         public int contactPoolCount = 0;
-        private float liquidLength = .12f;
+        private double liquidLength = .12f;
 
         private bool m_allowSleep;
         private int m_bodyCount;
@@ -108,7 +108,7 @@ namespace org.jbox2d.dynamics
         /**
    * This is used to compute the time step ratio to support a variable time step.
    */
-        private float m_inv_dt0;
+        private double m_inv_dt0;
         private int m_jointCount;
         private Joint m_jointList;
 
@@ -620,7 +620,7 @@ namespace org.jbox2d.dynamics
    * @param positionIterations for the position constraint solver.
    */
 
-        public void step(float dt, int velocityIterations, int positionIterations)
+        public void step(double dt, int velocityIterations, int positionIterations)
         {
             stepTimer.reset();
             // log.debug("Starting step");
@@ -1005,7 +1005,7 @@ namespace org.jbox2d.dynamics
    * @return
    */
 
-        public float getTreeQuality()
+        public double getTreeQuality()
         {
             return m_contactManager.m_broadPhase.getTreeQuality();
         }
@@ -1293,7 +1293,7 @@ namespace org.jbox2d.dynamics
             {
                 // Find the first TOI.
                 Contact minContact = null;
-                float minAlpha = 1.0f;
+                double minAlpha = 1.0f;
 
                 for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
                 {
@@ -1309,7 +1309,7 @@ namespace org.jbox2d.dynamics
                         continue;
                     }
 
-                    float alpha = 1.0f;
+                    double alpha = 1.0f;
                     if ((c.m_flags & Contact.TOI_FLAG) != 0)
                     {
                         // This contact has a valid cached TOI.
@@ -1352,7 +1352,7 @@ namespace org.jbox2d.dynamics
 
                         // Compute the TOI for this contact.
                         // Put the sweeps onto the same time interval.
-                        float alpha0 = bA.m_sweep.alpha0;
+                        double alpha0 = bA.m_sweep.alpha0;
 
                         if (bA.m_sweep.alpha0 < bB.m_sweep.alpha0)
                         {
@@ -1379,7 +1379,7 @@ namespace org.jbox2d.dynamics
                         pool.getTimeOfImpact().timeOfImpact(toiOutput, input);
 
                         // Beta is the fraction of the remaining portion of the .
-                        float beta = toiOutput.t;
+                        double beta = toiOutput.t;
                         if (toiOutput.state == TOIOutputState.TOUCHING)
                         {
                             alpha = MathUtils.min(alpha0 + (1.0f - alpha0)*beta, 1.0f);
@@ -1641,14 +1641,14 @@ namespace org.jbox2d.dynamics
 
                     // Vec2 center = Mul(xf, circle.m_p);
                     Transform.mulToOutUnsafe(xf, circle.m_p, center);
-                    float radius = circle.m_radius;
+                    double radius = circle.m_radius;
                     xf.q.getXAxis(axis);
 
                     if (fixture.getUserData() != null && fixture.getUserData().Equals(LIQUID_INT))
                     {
                         Body b = fixture.getBody();
                         liquidOffset.set(b.m_linearVelocity);
-                        float linVelLength = b.m_linearVelocity.length();
+                        double linVelLength = b.m_linearVelocity.length();
                         if (averageLinearVel == -1)
                         {
                             averageLinearVel = linVelLength;
@@ -1740,7 +1740,7 @@ namespace org.jbox2d.dynamics
 
         public RayCastCallback callback;
 
-        public float raycastCallback(RayCastInput input, int nodeId)
+        public double raycastCallback(RayCastInput input, int nodeId)
         {
             object userData = broadPhase.getUserData(nodeId);
             var proxy = (FixtureProxy) userData;
@@ -1750,7 +1750,7 @@ namespace org.jbox2d.dynamics
 
             if (hit)
             {
-                float fraction = output.fraction;
+                double fraction = output.fraction;
                 // Vec2 point = (1.0f - fraction) * input.p1 + fraction * input.p2;
                 temp.set(input.p2).mulLocal(fraction);
                 point.set(input.p1).mulLocal(1 - fraction).addLocal(temp);

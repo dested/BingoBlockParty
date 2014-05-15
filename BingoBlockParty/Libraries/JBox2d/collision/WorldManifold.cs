@@ -58,8 +58,8 @@ namespace org.jbox2d.collision
             }
         }
 
-        public void initialize(Manifold manifold, Transform xfA, float radiusA,
-            Transform xfB, float radiusB)
+        public void initialize(Manifold manifold, Transform xfA, double radiusA,
+            Transform xfB, double radiusB)
         {
             if (manifold.pointCount == 0)
             {
@@ -108,11 +108,11 @@ namespace org.jbox2d.collision
                         normal.normalize();
                     }
 
-                    float cAx = normal.x*radiusA + pointA.x;
-                    float cAy = normal.y*radiusA + pointA.y;
+                    double cAx = normal.x*radiusA + pointA.x;
+                    double cAy = normal.y*radiusA + pointA.y;
 
-                    float cBx = -normal.x*radiusB + pointB.x;
-                    float cBy = -normal.y*radiusB + pointB.y;
+                    double cBx = -normal.x*radiusB + pointB.x;
+                    double cBy = -normal.y*radiusB + pointB.y;
 
                     points[0].x = (cAx + cBx)*.5f;
                     points[0].y = (cAy + cBy)*.5f;
@@ -137,21 +137,21 @@ namespace org.jbox2d.collision
                         Transform.mulToOut(xfB, manifold.points[i].localPoint, clipPoint);
                         // use cA as temporary for now
                         // cA.set(clipPoint).subLocal(planePoint);
-                        // float scalar = radiusA - Vec2.dot(cA, normal);
+                        // double scalar = radiusA - Vec2.dot(cA, normal);
                         // cA.set(normal).mulLocal(scalar).addLocal(clipPoint);
                         // cB.set(normal).mulLocal(radiusB).subLocal(clipPoint).negateLocal();
                         // points[i].set(cA).addLocal(cB).mulLocal(0.5f);
 
-                        float scalar =
+                        double scalar =
                             radiusA
                             - ((clipPoint.x - planePoint.x)*normal.x + (clipPoint.y - planePoint.y)
                                *normal.y);
 
-                        float cAx = normal.x*scalar + clipPoint.x;
-                        float cAy = normal.y*scalar + clipPoint.y;
+                        double cAx = normal.x*scalar + clipPoint.x;
+                        double cAy = normal.y*scalar + clipPoint.y;
 
-                        float cBx = -normal.x*radiusB + clipPoint.x;
-                        float cBy = -normal.y*radiusB + clipPoint.y;
+                        double cBx = -normal.x*radiusB + clipPoint.x;
+                        double cBy = -normal.y*radiusB + clipPoint.y;
 
                         points[i].x = (cAx + cBx)*.5f;
                         points[i].y = (cAy + cBy)*.5f;
@@ -182,7 +182,7 @@ namespace org.jbox2d.collision
 
                         Transform.mulToOut(xfA, manifold.points[i].localPoint, clipPoint2);
                         // cB.set(clipPoint).subLocal(planePoint);
-                        // float scalar = radiusB - Vec2.dot(cB, normal);
+                        // double scalar = radiusB - Vec2.dot(cB, normal);
                         // cB.set(normal).mulLocal(scalar).addLocal(clipPoint);
                         // cA.set(normal).mulLocal(radiusA).subLocal(clipPoint).negateLocal();
                         // points[i].set(cA).addLocal(cB).mulLocal(0.5f);
@@ -195,16 +195,16 @@ namespace org.jbox2d.collision
                         // clipPoint.y = xfA.p.y + xfA.q.ex.y * manifold.points[i].localPoint.x + xfA.q.ey.y *
                         // manifold.points[i].localPoint.y;
 
-                        float scalar =
+                        double scalar =
                             radiusB
                             - ((clipPoint2.x - planePoint2.x)*normal.x + (clipPoint2.y - planePoint2.y)
                                *normal.y);
 
-                        float cBx = normal.x*scalar + clipPoint2.x;
-                        float cBy = normal.y*scalar + clipPoint2.y;
+                        double cBx = normal.x*scalar + clipPoint2.x;
+                        double cBy = normal.y*scalar + clipPoint2.y;
 
-                        float cAx = -normal.x*radiusA + clipPoint2.x;
-                        float cAy = -normal.y*radiusA + clipPoint2.y;
+                        double cAx = -normal.x*radiusA + clipPoint2.x;
+                        double cAy = -normal.y*radiusA + clipPoint2.y;
 
                         points[i].x = (cAx + cBx)*.5f;
                         points[i].y = (cAy + cBy)*.5f;

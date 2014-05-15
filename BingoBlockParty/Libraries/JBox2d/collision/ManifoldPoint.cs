@@ -69,9 +69,9 @@ namespace org.jbox2d.collision
         public readonly ContactID id;
         public readonly Vec2 localPoint;
         /** the non-penetration impulse */
-        public float normalImpulse;
+        public double normalImpulse;
         /** the friction impulse */
-        public float tangentImpulse;
+        public double tangentImpulse;
         /** uniquely identifies a contact point between two shapes */
 
         /**

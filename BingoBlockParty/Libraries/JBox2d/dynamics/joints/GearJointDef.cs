@@ -51,7 +51,7 @@ namespace org.jbox2d.dynamics.joints
 	 * Gear ratio.
 	 * @see GearJoint
 	 */
-        public float ratio;
+        public double ratio;
 
         public GearJointDef()
         {

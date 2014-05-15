@@ -13,10 +13,10 @@ namespace Engine.Interfaces
     }
     public class PointF
     {
-        public float X { get; set; }
-        public float Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
-        public PointF(float x, float y)
+        public PointF(double x, double y)
         {
             X = x;
             Y = y;

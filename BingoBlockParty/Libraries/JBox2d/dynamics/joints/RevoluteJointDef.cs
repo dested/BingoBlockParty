@@ -85,7 +85,7 @@ namespace org.jbox2d.dynamics.joints
         /**
 	 *  The lower angle for the joint limit (radians).
 	 */
-        public float lowerAngle;
+        public double lowerAngle;
 
         /**
 	 *  The upper angle for the joint limit (radians).
@@ -95,10 +95,10 @@ namespace org.jbox2d.dynamics.joints
 	 *  The maximum motor torque used to achieve the desired motor speed.
 	 *  Usually in N-m.
 	 */
-        public float maxMotorTorque;
-        public float motorSpeed;
-        public float referenceAngle;
-        public float upperAngle;
+        public double maxMotorTorque;
+        public double motorSpeed;
+        public double referenceAngle;
+        public double upperAngle;
 
         public RevoluteJointDef()
         {

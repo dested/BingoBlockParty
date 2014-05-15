@@ -46,18 +46,18 @@ namespace org.jbox2d.dynamics.joints
         private readonly Mat22 m_mass = new Mat22();
         private readonly Vec2 m_rB = new Vec2();
         private readonly Vec2 m_targetA = new Vec2();
-        private float m_beta;
-        private float m_dampingRatio;
-        private float m_frequencyHz;
+        private double m_beta;
+        private double m_dampingRatio;
+        private double m_frequencyHz;
 
         // Solver shared
-        private float m_gamma;
+        private double m_gamma;
 
         // Solver temp
         private int m_indexB;
-        private float m_invIB;
-        private float m_invMassB;
-        private float m_maxForce;
+        private double m_invIB;
+        private double m_invMassB;
+        private double m_maxForce;
 
         public MouseJoint(IWorldPool argWorld, MouseJointDef def)
             : base(argWorld, def)
@@ -88,13 +88,13 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float invDt, Vec2 argOut)
+        public override void getReactionForce(double invDt, Vec2 argOut)
         {
             argOut.set(m_impulse).mulLocal(invDt);
         }
 
 
-        public override float getReactionTorque(float invDt)
+        public override double getReactionTorque(double invDt)
         {
             return invDt*0.0f;
         }
@@ -115,34 +115,34 @@ namespace org.jbox2d.dynamics.joints
         }
 
         // / set/get the maximum force in Newtons.
-        public void setMaxForce(float force)
+        public void setMaxForce(double force)
         {
             m_maxForce = force;
         }
 
-        public float getMaxForce()
+        public double getMaxForce()
         {
             return m_maxForce;
         }
 
         // / set/get the frequency in Hertz.
-        public void setFrequency(float hz)
+        public void setFrequency(double hz)
         {
             m_frequencyHz = hz;
         }
 
-        public float getFrequency()
+        public double getFrequency()
         {
             return m_frequencyHz;
         }
 
         // / set/get the damping ratio (dimensionless).
-        public void setDampingRatio(float ratio)
+        public void setDampingRatio(double ratio)
         {
             m_dampingRatio = ratio;
         }
 
-        public float getDampingRatio()
+        public double getDampingRatio()
         {
             return m_dampingRatio;
         }
@@ -156,29 +156,29 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qB = pool.popRot();
 
             qB.set(aB);
 
-            float mass = m_bodyB.getMass();
+            double mass = m_bodyB.getMass();
 
             // Frequency
-            float omega = 2.0f*MathUtils.PI*m_frequencyHz;
+            double omega = 2.0f*MathUtils.PI*m_frequencyHz;
 
             // Damping coefficient
-            float d = 2.0f*mass*m_dampingRatio*omega;
+            double d = 2.0f*mass*m_dampingRatio*omega;
 
             // Spring stiffness
-            float k = mass*(omega*omega);
+            double k = mass*(omega*omega);
 
             // magic formulas
             // gamma has units of inverse mass.
             // beta has units of inverse time.
-            float h = data.step.dt;
+            double h = data.step.dt;
             m_gamma = h*(d + h*k);
             if (m_gamma != 0.0f)
             {
@@ -238,7 +238,7 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             // Cdot = v + cross(w, r)
             Vec2 Cdot = pool.popVec2();
@@ -254,7 +254,7 @@ namespace org.jbox2d.dynamics.joints
             Vec2 oldImpulse = temp;
             oldImpulse.set(m_impulse);
             m_impulse.addLocal(impulse);
-            float maxImpulse = data.step.dt*m_maxForce;
+            double maxImpulse = data.step.dt*m_maxForce;
             if (m_impulse.lengthSquared() > maxImpulse*maxImpulse)
             {
                 m_impulse.mulLocal(maxImpulse/m_impulse.length());

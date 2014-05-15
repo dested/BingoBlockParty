@@ -222,7 +222,7 @@ namespace Engine.Xna
             currentSpriteBatch.Draw(xnaImage.Texture, new Rectangle(xnaContextSettings.Left + x, xnaContextSettings.Top + y, width, height), Color.White);
         }
 
-        public void DrawImage(IImage image, int x, int y, float angle, int centerX, int centerY)
+        public void DrawImage(IImage image, int x, int y, double angle, int centerX, int centerY)
         {
             XnaContextSettings xnaContextSettings = CurrentSettings();
             var xnaImage = (XnaImage)image;
@@ -232,7 +232,7 @@ namespace Engine.Xna
             Rectangle sourceRectangle = new Rectangle(0, 0, image.Width, image.Height);
             Vector2 origin = new Vector2(centerX, centerY);
 
-            currentSpriteBatch.Draw(xnaImage.Texture, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+            currentSpriteBatch.Draw(xnaImage.Texture, location, sourceRectangle, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 1);
 
         }
 

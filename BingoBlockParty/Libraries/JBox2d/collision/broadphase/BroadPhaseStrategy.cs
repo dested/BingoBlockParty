@@ -78,7 +78,7 @@ namespace org.jbox2d.collision.broadphase
    * 
    * @return
    */
-        float getAreaRatio();
+        double getAreaRatio();
 
         int getInsertionCount();
 

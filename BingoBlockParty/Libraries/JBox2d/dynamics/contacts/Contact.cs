@@ -61,7 +61,7 @@ namespace org.jbox2d.dynamics.contacts
         public Fixture m_fixtureA;
         public Fixture m_fixtureB;
         public int m_flags;
-        public float m_friction;
+        public double m_friction;
 
         public int m_indexA;
         public int m_indexB;
@@ -72,11 +72,11 @@ namespace org.jbox2d.dynamics.contacts
         public ContactEdge m_nodeB = null;
         public Contact m_prev;
 
-        public float m_restitution;
+        public double m_restitution;
 
-        public float m_tangentSpeed;
-        public float m_toi;
-        public float m_toiCount;
+        public double m_tangentSpeed;
+        public double m_toi;
+        public double m_toiCount;
 
         public Contact(IWorldPool argPool)
         {
@@ -230,12 +230,12 @@ namespace org.jbox2d.dynamics.contacts
             return m_indexB;
         }
 
-        public void setFriction(float friction)
+        public void setFriction(double friction)
         {
             m_friction = friction;
         }
 
-        public float getFriction()
+        public double getFriction()
         {
             return m_friction;
         }
@@ -245,12 +245,12 @@ namespace org.jbox2d.dynamics.contacts
             m_friction = mixFriction(m_fixtureA.m_friction, m_fixtureB.m_friction);
         }
 
-        public void setRestitution(float restitution)
+        public void setRestitution(double restitution)
         {
             m_restitution = restitution;
         }
 
-        public float getRestitution()
+        public double getRestitution()
         {
             return m_restitution;
         }
@@ -260,12 +260,12 @@ namespace org.jbox2d.dynamics.contacts
             m_restitution = mixRestitution(m_fixtureA.m_restitution, m_fixtureB.m_restitution);
         }
 
-        public void setTangentSpeed(float speed)
+        public void setTangentSpeed(double speed)
         {
             m_tangentSpeed = speed;
         }
 
-        public float getTangentSpeed()
+        public double getTangentSpeed()
         {
             return m_tangentSpeed;
         }
@@ -386,7 +386,7 @@ namespace org.jbox2d.dynamics.contacts
    * @return
    */
 
-        public static float mixFriction(float friction1, float friction2)
+        public static double mixFriction(double friction1, double friction2)
         {
             return MathUtils.sqrt(friction1*friction2);
         }
@@ -400,7 +400,7 @@ namespace org.jbox2d.dynamics.contacts
    * @return
    */
 
-        public static float mixRestitution(float restitution1, float restitution2)
+        public static double mixRestitution(double restitution1, double restitution2)
         {
             return restitution1 > restitution2 ? restitution1 : restitution2;
         }

@@ -44,7 +44,7 @@ namespace org.jbox2d.pooling.normal
     {
         private readonly OrderedStack<AABB> aabbs;
 
-        private readonly Dictionary<int, float[]> afloats = new Dictionary<int, float[]>();
+        private readonly Dictionary<int, double[]> adoubles = new Dictionary<int, double[]>();
         private readonly Dictionary<int, int[]> aints = new Dictionary<int, int[]>();
         private readonly Dictionary<int, Vec2[]> avecs = new Dictionary<int, Vec2[]>();
 
@@ -267,14 +267,14 @@ namespace org.jbox2d.pooling.normal
             return dist;
         }
 
-        public float[] getFloatArray(int argLength)
+        public double[] getDoubleArray(int argLength)
         {
-            if (!afloats.ContainsKey(argLength))
+            if (!adoubles.ContainsKey(argLength))
             {
-                afloats[argLength] = new float[argLength];
+                adoubles[argLength] = new double[argLength];
             }
 
-            return afloats[argLength];
+            return adoubles[argLength];
         }
 
         public int[] getIntArray(int argLength)

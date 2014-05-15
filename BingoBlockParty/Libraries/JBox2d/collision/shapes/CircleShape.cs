@@ -112,8 +112,8 @@ namespace org.jbox2d.collision.shapes
             // return Vec2.dot(d, d) <= m_radius * m_radius;
             Rot q = transform.q;
             Vec2 tp = transform.p;
-            float centerx = -(q.c*m_p.x - q.s*m_p.y + tp.x - p.x);
-            float centery = -(q.s*m_p.x + q.c*m_p.y + tp.y - p.y);
+            double centerx = -(q.c*m_p.x - q.s*m_p.y + tp.x - p.x);
+            double centery = -(q.s*m_p.x + q.c*m_p.y + tp.y - p.y);
 
             return centerx*centerx + centery*centery <= m_radius*m_radius;
         }
@@ -134,22 +134,22 @@ namespace org.jbox2d.collision.shapes
 
             // Rot.mulToOutUnsafe(transform.q, m_p, position);
             // position.addLocal(transform.p);
-            float positionx = tq.c*m_p.x - tq.s*m_p.y + tp.x;
-            float positiony = tq.s*m_p.x + tq.c*m_p.y + tp.y;
+            double positionx = tq.c*m_p.x - tq.s*m_p.y + tp.x;
+            double positiony = tq.s*m_p.x + tq.c*m_p.y + tp.y;
 
-            float sx = inputp1.x - positionx;
-            float sy = inputp1.y - positiony;
-            // float b = Vec2.dot(s, s) - m_radius * m_radius;
-            float b = sx*sx + sy*sy - m_radius*m_radius;
+            double sx = inputp1.x - positionx;
+            double sy = inputp1.y - positiony;
+            // double b = Vec2.dot(s, s) - m_radius * m_radius;
+            double b = sx*sx + sy*sy - m_radius*m_radius;
 
             // Solve quadratic equation.
-            float rx = inputp2.x - inputp1.x;
-            float ry = inputp2.y - inputp1.y;
-            // float c = Vec2.dot(s, r);
-            // float rr = Vec2.dot(r, r);
-            float c = sx*rx + sy*ry;
-            float rr = rx*rx + ry*ry;
-            float sigma = c*c - rr*b;
+            double rx = inputp2.x - inputp1.x;
+            double ry = inputp2.y - inputp1.y;
+            // double c = Vec2.dot(s, r);
+            // double rr = Vec2.dot(r, r);
+            double c = sx*rx + sy*ry;
+            double rr = rx*rx + ry*ry;
+            double sigma = c*c - rr*b;
 
             // Check for negative discriminant and short segment.
             if (sigma < 0.0f || rr < Settings.EPSILON)
@@ -158,7 +158,7 @@ namespace org.jbox2d.collision.shapes
             }
 
             // Find the point of intersection of the line with the circle.
-            float a = -(c + MathUtils.sqrt(sigma));
+            double a = -(c + MathUtils.sqrt(sigma));
 
             // Is the intersection point on the segment?
             if (0.0f <= a && a <= input.maxFraction*rr)
@@ -179,8 +179,8 @@ namespace org.jbox2d.collision.shapes
         {
             Rot tq = transform.q;
             Vec2 tp = transform.p;
-            float px = tq.c*m_p.x - tq.s*m_p.y + tp.x;
-            float py = tq.s*m_p.x + tq.c*m_p.y + tp.y;
+            double px = tq.c*m_p.x - tq.s*m_p.y + tp.x;
+            double py = tq.s*m_p.x + tq.c*m_p.y + tp.y;
 
             aabb.lowerBound.x = px - m_radius;
             aabb.lowerBound.y = py - m_radius;
@@ -189,7 +189,7 @@ namespace org.jbox2d.collision.shapes
         }
 
 
-        public override void computeMass(MassData massData, float density)
+        public override void computeMass(MassData massData, double density)
         {
             massData.mass = density*Settings.PI*m_radius*m_radius;
             massData.center.x = m_p.x;

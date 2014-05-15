@@ -44,13 +44,13 @@ namespace org.jbox2d.collision
         /**
          * defines sweep interval [0, tMax]
          */
-        public float tMax;
+        public double tMax;
     }
 
     public class TOIOutput
     {
         public TOIOutputState state;
-        public float t;
+        public double t;
     }
 
     public enum TOIOutputState
@@ -135,14 +135,14 @@ namespace org.jbox2d.collision
             sweepA.normalize();
             sweepB.normalize();
 
-            float tMax = input.tMax;
+            double tMax = input.tMax;
 
-            float totalRadius = proxyA.m_radius + proxyB.m_radius;
+            double totalRadius = proxyA.m_radius + proxyB.m_radius;
             // djm: whats with all these constants?
-            float target = MathUtils.max(Settings.linearSlop, totalRadius - 3.0f*Settings.linearSlop);
-            float tolerance = 0.25f*Settings.linearSlop;
+            double target = MathUtils.max(Settings.linearSlop, totalRadius - 3.0f*Settings.linearSlop);
+            double tolerance = 0.25f*Settings.linearSlop;
 
-            float t1 = 0f;
+            double t1 = 0f;
             int iter = 0;
 
             cache.count = 0;
@@ -195,12 +195,12 @@ namespace org.jbox2d.collision
                 // resolving the deepest point. This loop is bounded by the number of
                 // vertices.
                 bool done = false;
-                float t2 = tMax;
+                double t2 = tMax;
                 int pushBackIter = 0;
                 for (;;)
                 {
                     // Find the deepest point at t2. Store the witness point indices.
-                    float s2 = fcn.findMinSeparation(indexes, t2);
+                    double s2 = fcn.findMinSeparation(indexes, t2);
                     // System.out.printf("s2: %f", s2);
                     // Is the configuration separated?
                     if (s2 > target + tolerance)
@@ -223,7 +223,7 @@ namespace org.jbox2d.collision
                     }
 
                     // Compute the initial separation of the witness points.
-                    float s1 = fcn.evaluate(indexes[0], indexes[1], t1);
+                    double s1 = fcn.evaluate(indexes[0], indexes[1], t1);
                     // Check for initial overlap. This might happen if the root finder
                     // runs out of iterations.
                     // System.out.printf("s1: %f, target: %f, tolerance: %f", s1, target,
@@ -250,11 +250,11 @@ namespace org.jbox2d.collision
 
                     // Compute 1D root of: f(x) - target = 0
                     int rootIterCount = 0;
-                    float a1 = t1, a2 = t2;
+                    double a1 = t1, a2 = t2;
                     for (;;)
                     {
                         // Use a mix of the secant rule and bisection.
-                        float t;
+                        double t;
                         if ((rootIterCount & 1) == 1)
                         {
                             // Secant rule to improve convergence.
@@ -266,7 +266,7 @@ namespace org.jbox2d.collision
                             t = 0.5f*(a1 + a2);
                         }
 
-                        float s = fcn.evaluate(indexes[0], indexes[1], t);
+                        double s = fcn.evaluate(indexes[0], indexes[1], t);
 
                         if (MathUtils.abs(s - target) < tolerance)
                         {
@@ -367,8 +367,8 @@ namespace org.jbox2d.collision
 
         // TODO_ERIN might not need to return the separation
 
-        public float initialize(SimplexCache cache, DistanceProxy proxyA, Sweep sweepA,
-            DistanceProxy proxyB, Sweep sweepB, float t1)
+        public double initialize(SimplexCache cache, DistanceProxy proxyA, Sweep sweepA,
+            DistanceProxy proxyB, Sweep sweepB, double t1)
         {
             m_proxyA = proxyA;
             m_proxyB = proxyB;
@@ -397,7 +397,7 @@ namespace org.jbox2d.collision
                 Transform.mulToOutUnsafe(xfa, localPointA, pointA);
                 Transform.mulToOutUnsafe(xfb, localPointB, pointB);
                 m_axis.set(pointB).subLocal(pointA);
-                float s = m_axis.normalize();
+                double s = m_axis.normalize();
                 return s;
             }
             if (cache.indexA[0] == cache.indexA[1])
@@ -421,7 +421,7 @@ namespace org.jbox2d.collision
                 Transform.mulToOutUnsafe(xfa, localPointA, pointA);
 
                 temp.set(pointA).subLocal(pointB);
-                float s = Vec2.dot(temp, normal);
+                double s = Vec2.dot(temp, normal);
                 if (s < 0.0f)
                 {
                     m_axis.negateLocal();
@@ -450,7 +450,7 @@ namespace org.jbox2d.collision
                 Transform.mulToOutUnsafe(xfb, localPointB, pointB);
 
                 temp.set(pointB).subLocal(pointA);
-                float s = Vec2.dot(temp, normal);
+                double s = Vec2.dot(temp, normal);
                 if (s < 0.0f)
                 {
                     m_axis.negateLocal();
@@ -460,8 +460,8 @@ namespace org.jbox2d.collision
             }
         }
 
-        // float FindMinSeparation(int* indexA, int* indexB, float t) const
-        public float findMinSeparation(int[] indexes, float t)
+        // double FindMinSeparation(int* indexA, int* indexB, double t) const
+        public double findMinSeparation(int[] indexes, double t)
         {
             m_sweepA.getTransform(xfa, t);
             m_sweepB.getTransform(xfb, t);
@@ -483,7 +483,7 @@ namespace org.jbox2d.collision
                     Transform.mulToOutUnsafe(xfa, localPointA, pointA);
                     Transform.mulToOutUnsafe(xfb, localPointB, pointB);
 
-                    float separation = Vec2.dot(pointB.subLocal(pointA), m_axis);
+                    double separation = Vec2.dot(pointB.subLocal(pointA), m_axis);
                     return separation;
                 }
                 case Type.FACE_A:
@@ -500,7 +500,7 @@ namespace org.jbox2d.collision
                     localPointB.set(m_proxyB.getVertex(indexes[1]));
                     Transform.mulToOutUnsafe(xfb, localPointB, pointB);
 
-                    float separation = Vec2.dot(pointB.subLocal(pointA), normal);
+                    double separation = Vec2.dot(pointB.subLocal(pointA), normal);
                     return separation;
                 }
                 case Type.FACE_B:
@@ -517,7 +517,7 @@ namespace org.jbox2d.collision
                     localPointA.set(m_proxyA.getVertex(indexes[0]));
                     Transform.mulToOutUnsafe(xfa, localPointA, pointA);
 
-                    float separation = Vec2.dot(pointA.subLocal(pointB), normal);
+                    double separation = Vec2.dot(pointA.subLocal(pointB), normal);
                     return separation;
                 }
                 default:
@@ -527,7 +527,7 @@ namespace org.jbox2d.collision
             }
         }
 
-        public float evaluate(int indexA, int indexB, float t)
+        public double evaluate(int indexA, int indexB, double t)
         {
             m_sweepA.getTransform(xfa, t);
             m_sweepB.getTransform(xfb, t);
@@ -546,7 +546,7 @@ namespace org.jbox2d.collision
                     Transform.mulToOutUnsafe(xfa, localPointA, pointA);
                     Transform.mulToOutUnsafe(xfb, localPointB, pointB);
 
-                    float separation = Vec2.dot(pointB.subLocal(pointA), m_axis);
+                    double separation = Vec2.dot(pointB.subLocal(pointA), m_axis);
                     return separation;
                 }
                 case Type.FACE_A:
@@ -560,7 +560,7 @@ namespace org.jbox2d.collision
 
                     localPointB.set(m_proxyB.getVertex(indexB));
                     Transform.mulToOutUnsafe(xfb, localPointB, pointB);
-                    float separation = Vec2.dot(pointB.subLocal(pointA), normal);
+                    double separation = Vec2.dot(pointB.subLocal(pointA), normal);
                     return separation;
                 }
                 case Type.FACE_B:
@@ -575,7 +575,7 @@ namespace org.jbox2d.collision
                     localPointA.set(m_proxyA.getVertex(indexA));
                     Transform.mulToOutUnsafe(xfa, localPointA, pointA);
 
-                    float separation = Vec2.dot(pointA.subLocal(pointB), normal);
+                    double separation = Vec2.dot(pointA.subLocal(pointB), normal);
                     return separation;
                 }
                 default:

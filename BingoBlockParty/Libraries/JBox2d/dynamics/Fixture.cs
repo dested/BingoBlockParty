@@ -49,15 +49,15 @@ namespace org.jbox2d.dynamics
         private readonly AABB pool1 = new AABB();
         private readonly AABB pool2 = new AABB();
         public Body m_body;
-        public float m_density;
+        public double m_density;
 
-        public float m_friction;
+        public double m_friction;
         public bool m_isSensor;
         public Fixture m_next;
 
         public FixtureProxy[] m_proxies;
         public int m_proxyCount;
-        public float m_restitution;
+        public double m_restitution;
         public Shape m_shape;
 
         public object m_userData;
@@ -214,12 +214,12 @@ namespace org.jbox2d.dynamics
             return m_next;
         }
 
-        public void setDensity(float density)
+        public void setDensity(double density)
         {
             m_density = density;
         }
 
-        public float getDensity()
+        public double getDensity()
         {
             return m_density;
         }
@@ -291,7 +291,7 @@ namespace org.jbox2d.dynamics
    * @return
    */
 
-        public float getFriction()
+        public double getFriction()
         {
             return m_friction;
         }
@@ -302,7 +302,7 @@ namespace org.jbox2d.dynamics
    * @param friction
    */
 
-        public void setFriction(float friction)
+        public void setFriction(double friction)
         {
             m_friction = friction;
         }
@@ -313,7 +313,7 @@ namespace org.jbox2d.dynamics
    * @return
    */
 
-        public float getRestitution()
+        public double getRestitution()
         {
             return m_restitution;
         }
@@ -325,7 +325,7 @@ namespace org.jbox2d.dynamics
    * @param restitution
    */
 
-        public void setRestitution(float restitution)
+        public void setRestitution(double restitution)
         {
             m_restitution = restitution;
         }

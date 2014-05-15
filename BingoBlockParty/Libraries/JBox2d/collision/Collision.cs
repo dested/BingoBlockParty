@@ -189,7 +189,7 @@ namespace org.jbox2d.collision
    */
 
         public static int clipSegmentToLine(ClipVertex[] vOut, ClipVertex[] vIn,
-            Vec2 normal, float offset, int vertexIndexA)
+            Vec2 normal, double offset, int vertexIndexA)
         {
             // Start with no output points
             int numOut = 0;
@@ -199,8 +199,8 @@ namespace org.jbox2d.collision
             Vec2 vIn1v = vIn1.v;
 
             // Calculate the distance of end points to the line
-            float distance0 = Vec2.dot(normal, vIn0v) - offset;
-            float distance1 = Vec2.dot(normal, vIn1v) - offset;
+            double distance0 = Vec2.dot(normal, vIn0v) - offset;
+            double distance1 = Vec2.dot(normal, vIn1v) - offset;
 
             // If the points are behind the plane
             if (distance0 <= 0.0f)
@@ -216,7 +216,7 @@ namespace org.jbox2d.collision
             if (distance0*distance1 < 0.0f)
             {
                 // Find intersection point of edge and plane
-                float interp = distance0/(distance0 - distance1);
+                double interp = distance0/(distance0 - distance1);
 
                 ClipVertex vOutNO = vOut[numOut];
                 // vOut[numOut].v = vIn[0].v + interp * (vIn[1].v - vIn[0].v);
@@ -256,21 +256,21 @@ namespace org.jbox2d.collision
             // Transform.mulToOut(xfA, circle1.m_p, pA);
             // Transform.mulToOut(xfB, circle2.m_p, pB);
             // d.set(pB).subLocal(pA);
-            // float distSqr = d.x * d.x + d.y * d.y;
+            // double distSqr = d.x * d.x + d.y * d.y;
 
             // after inline:
             Vec2 circle1p = circle1.m_p;
             Vec2 circle2p = circle2.m_p;
-            float pAx = (xfA.q.c*circle1p.x - xfA.q.s*circle1p.y) + xfA.p.x;
-            float pAy = (xfA.q.s*circle1p.x + xfA.q.c*circle1p.y) + xfA.p.y;
-            float pBx = (xfB.q.c*circle2p.x - xfB.q.s*circle2p.y) + xfB.p.x;
-            float pBy = (xfB.q.s*circle2p.x + xfB.q.c*circle2p.y) + xfB.p.y;
-            float dx = pBx - pAx;
-            float dy = pBy - pAy;
-            float distSqr = dx*dx + dy*dy;
+            double pAx = (xfA.q.c*circle1p.x - xfA.q.s*circle1p.y) + xfA.p.x;
+            double pAy = (xfA.q.s*circle1p.x + xfA.q.c*circle1p.y) + xfA.p.y;
+            double pBx = (xfB.q.c*circle2p.x - xfB.q.s*circle2p.y) + xfB.p.x;
+            double pBy = (xfB.q.s*circle2p.x + xfB.q.c*circle2p.y) + xfB.p.y;
+            double dx = pBx - pAx;
+            double dy = pBy - pAy;
+            double distSqr = dx*dx + dy*dy;
             // end inline
 
-            float radius = circle1.m_radius + circle2.m_radius;
+            double radius = circle1.m_radius + circle2.m_radius;
             if (distSqr > radius*radius)
             {
                 return;
@@ -307,26 +307,26 @@ namespace org.jbox2d.collision
             // before inline:
             // Transform.mulToOutUnsafe(xfB, circle.m_p, c);
             // Transform.mulTransToOut(xfA, c, cLocal);
-            // float cLocalx = cLocal.x;
-            // float cLocaly = cLocal.y;
+            // double cLocalx = cLocal.x;
+            // double cLocaly = cLocal.y;
             // after inline:
             Vec2 circlep = circle.m_p;
             Rot xfBq = xfB.q;
             Rot xfAq = xfA.q;
-            float cx = (xfBq.c*circlep.x - xfBq.s*circlep.y) + xfB.p.x;
-            float cy = (xfBq.s*circlep.x + xfBq.c*circlep.y) + xfB.p.y;
-            float px = cx - xfA.p.x;
-            float py = cy - xfA.p.y;
-            float cLocalx = (xfAq.c*px + xfAq.s*py);
-            float cLocaly = (-xfAq.s*px + xfAq.c*py);
+            double cx = (xfBq.c*circlep.x - xfBq.s*circlep.y) + xfB.p.x;
+            double cy = (xfBq.s*circlep.x + xfBq.c*circlep.y) + xfB.p.y;
+            double px = cx - xfA.p.x;
+            double py = cy - xfA.p.y;
+            double cLocalx = (xfAq.c*px + xfAq.s*py);
+            double cLocaly = (-xfAq.s*px + xfAq.c*py);
             // end inline
 
             // Find the min separating edge.
             int normalIndex = 0;
-            float separation = -float.MaxValue;
-            float radius = polygon.m_radius + circle.m_radius;
+            double separation = -double.MaxValue;
+            double radius = polygon.m_radius + circle.m_radius;
             int vertexCount = polygon.m_count;
-            float s;
+            double s;
             Vec2[] vertices = polygon.m_vertices;
             Vec2[] normals = polygon.m_normals;
 
@@ -334,11 +334,11 @@ namespace org.jbox2d.collision
             {
                 // before inline
                 // temp.set(cLocal).subLocal(vertices[i]);
-                // float s = Vec2.dot(normals[i], temp);
+                // double s = Vec2.dot(normals[i], temp);
                 // after inline
                 Vec2 vertex = vertices[i];
-                float tempx = cLocalx - vertex.x;
-                float tempy = cLocaly - vertex.y;
+                double tempx = cLocalx - vertex.x;
+                double tempy = cLocaly - vertex.y;
                 s = normals[i].x*tempx + normals[i].y*tempy;
 
 
@@ -390,29 +390,29 @@ namespace org.jbox2d.collision
             // before inline:
             // temp.set(cLocal).subLocal(v1);
             // temp2.set(v2).subLocal(v1);
-            // float u1 = Vec2.dot(temp, temp2);
+            // double u1 = Vec2.dot(temp, temp2);
             // temp.set(cLocal).subLocal(v2);
             // temp2.set(v1).subLocal(v2);
-            // float u2 = Vec2.dot(temp, temp2);
+            // double u2 = Vec2.dot(temp, temp2);
             // after inline:
-            float tempX = cLocalx - v1.x;
-            float tempY = cLocaly - v1.y;
-            float temp2X = v2.x - v1.x;
-            float temp2Y = v2.y - v1.y;
-            float u1 = tempX*temp2X + tempY*temp2Y;
+            double tempX = cLocalx - v1.x;
+            double tempY = cLocaly - v1.y;
+            double temp2X = v2.x - v1.x;
+            double temp2Y = v2.y - v1.y;
+            double u1 = tempX*temp2X + tempY*temp2Y;
 
-            float temp3X = cLocalx - v2.x;
-            float temp3Y = cLocaly - v2.y;
-            float temp4X = v1.x - v2.x;
-            float temp4Y = v1.y - v2.y;
-            float u2 = temp3X*temp4X + temp3Y*temp4Y;
+            double temp3X = cLocalx - v2.x;
+            double temp3Y = cLocaly - v2.y;
+            double temp4X = v1.x - v2.x;
+            double temp4Y = v1.y - v2.y;
+            double u2 = temp3X*temp4X + temp3Y*temp4Y;
             // end inline
 
             if (u1 <= 0f)
             {
                 // inlined
-                float dx = cLocalx - v1.x;
-                float dy = cLocaly - v1.y;
+                double dx = cLocalx - v1.x;
+                double dy = cLocaly - v1.y;
                 if (dx*dx + dy*dy > radius*radius)
                 {
                     return;
@@ -434,8 +434,8 @@ namespace org.jbox2d.collision
             else if (u2 <= 0.0f)
             {
                 // inlined
-                float dx = cLocalx - v2.x;
-                float dy = cLocaly - v2.y;
+                double dx = cLocalx - v2.x;
+                double dy = cLocaly - v2.y;
                 if (dx*dx + dy*dy > radius*radius)
                 {
                     return;
@@ -467,11 +467,11 @@ namespace org.jbox2d.collision
                 // return;
                 // }
                 // after inline:
-                float fcx = (v1.x + v2.x)*.5f;
-                float fcy = (v1.y + v2.y)*.5f;
+                double fcx = (v1.x + v2.x)*.5f;
+                double fcy = (v1.y + v2.y)*.5f;
 
-                float tx = cLocalx - fcx;
-                float ty = cLocaly - fcy;
+                double tx = cLocalx - fcx;
+                double ty = cLocaly - fcy;
                 Vec2 normal = normals[vertIndex1];
                 separation = tx*normal.x + ty*normal.y;
                 if (separation > radius)
@@ -500,7 +500,7 @@ namespace org.jbox2d.collision
    * @param xf2
    */
 
-        public float edgeSeparation(PolygonShape poly1, Transform xf1, int edge1,
+        public double edgeSeparation(PolygonShape poly1, Transform xf1, int edge1,
             PolygonShape poly2, Transform xf2)
         {
             int count1 = poly1.m_count;
@@ -515,30 +515,30 @@ namespace org.jbox2d.collision
             // Rot.mulToOutUnsafe(xf1.q, normals1[edge1], normal1World);
             // // Vec2 normal1 = MulT(xf2.R, normal1World);
             // Rot.mulTransUnsafe(xf2.q, normal1World, normal1);
-            // float normal1x = normal1.x;
-            // float normal1y = normal1.y;
-            // float normal1Worldx = normal1World.x;
-            // float normal1Worldy = normal1World.y;
+            // double normal1x = normal1.x;
+            // double normal1y = normal1.y;
+            // double normal1Worldx = normal1World.x;
+            // double normal1Worldy = normal1World.y;
             // after inline:
             Rot xf1q = xf1.q;
             Rot xf2q = xf2.q;
             Rot q = xf1q;
             Vec2 v = normals1[edge1];
-            float normal1Worldx = q.c*v.x - q.s*v.y;
-            float normal1Worldy = q.s*v.x + q.c*v.y;
+            double normal1Worldx = q.c*v.x - q.s*v.y;
+            double normal1Worldy = q.s*v.x + q.c*v.y;
             Rot q1 = xf2q;
-            float normal1x = q1.c*normal1Worldx + q1.s*normal1Worldy;
-            float normal1y = -q1.s*normal1Worldx + q1.c*normal1Worldy;
+            double normal1x = q1.c*normal1Worldx + q1.s*normal1Worldy;
+            double normal1y = -q1.s*normal1Worldx + q1.c*normal1Worldy;
             // end inline
 
             // Find support vertex on poly2 for -normal.
             int index = 0;
-            float minDot = float.MaxValue;
+            double minDot = double.MaxValue;
 
             for (int i = 0; i < count2; ++i)
             {
                 Vec2 a = vertices2[i];
-                float dot = a.x*normal1x + a.y*normal1y;
+                double dot = a.x*normal1x + a.y*normal1y;
                 if (dot < minDot)
                 {
                     minDot = dot;
@@ -552,18 +552,18 @@ namespace org.jbox2d.collision
             // Transform.mulToOut(xf1, vertices1[edge1], v1);
             // Transform.mulToOut(xf2, vertices2[index], v2);
             //
-            // float separation = Vec2.dot(v2.subLocal(v1), normal1World);
+            // double separation = Vec2.dot(v2.subLocal(v1), normal1World);
             // return separation;
 
             // after inline:
             Vec2 v3 = vertices1[edge1];
-            float v1x = (xf1q.c*v3.x - xf1q.s*v3.y) + xf1.p.x;
-            float v1y = (xf1q.s*v3.x + xf1q.c*v3.y) + xf1.p.y;
+            double v1x = (xf1q.c*v3.x - xf1q.s*v3.y) + xf1.p.x;
+            double v1y = (xf1q.s*v3.x + xf1q.c*v3.y) + xf1.p.y;
             Vec2 v4 = vertices2[index];
-            float v2x = (xf2q.c*v4.x - xf2q.s*v4.y) + xf2.p.x - v1x;
-            float v2y = (xf2q.s*v4.x + xf2q.c*v4.y) + xf2.p.y - v1y;
+            double v2x = (xf2q.c*v4.x - xf2q.s*v4.y) + xf2.p.x - v1x;
+            double v2y = (xf2q.s*v4.x + xf2q.c*v4.y) + xf2.p.y - v1y;
 
-            float separation = v2x*normal1Worldx + v2y*normal1Worldy;
+            double separation = v2x*normal1Worldx + v2y*normal1Worldy;
             return separation;
             // end inline
         }
@@ -599,19 +599,19 @@ namespace org.jbox2d.collision
             //
             // Rot.mulTransUnsafe(xf1q, d, dLocal1);
             // after inline:
-            float dx = (xf2q.c*poly2centroid.x - xf2q.s*poly2centroid.y) + xf2.p.x;
-            float dy = (xf2q.s*poly2centroid.x + xf2q.c*poly2centroid.y) + xf2.p.y;
+            double dx = (xf2q.c*poly2centroid.x - xf2q.s*poly2centroid.y) + xf2.p.x;
+            double dy = (xf2q.s*poly2centroid.x + xf2q.c*poly2centroid.y) + xf2.p.y;
             dx -= (xf1q.c*poly1centroid.x - xf1q.s*poly1centroid.y) + xf1.p.x;
             dy -= (xf1q.s*poly1centroid.x + xf1q.c*poly1centroid.y) + xf1.p.y;
 
-            float dLocal1x = xf1q.c*dx + xf1q.s*dy;
-            float dLocal1y = -xf1q.s*dx + xf1q.c*dy;
+            double dLocal1x = xf1q.c*dx + xf1q.s*dy;
+            double dLocal1y = -xf1q.s*dx + xf1q.c*dy;
             // end inline
 
             // Find edge normal on poly1 that has the largest projection onto d.
             int edge = 0;
-            float dot;
-            float maxDot = -float.MaxValue;
+            double dot;
+            double maxDot = -double.MaxValue;
             for (int i = 0; i < count1; i++)
             {
                 Vec2 normal = normals1[i];
@@ -624,19 +624,19 @@ namespace org.jbox2d.collision
             }
 
             // Get the separation for the edge normal.
-            float s = edgeSeparation(poly1, xf1, edge, poly2, xf2);
+            double s = edgeSeparation(poly1, xf1, edge, poly2, xf2);
 
             // Check the separation for the previous edge normal.
             int prevEdge = edge - 1 >= 0 ? edge - 1 : count1 - 1;
-            float sPrev = edgeSeparation(poly1, xf1, prevEdge, poly2, xf2);
+            double sPrev = edgeSeparation(poly1, xf1, prevEdge, poly2, xf2);
 
             // Check the separation for the next edge normal.
             int nextEdge = edge + 1 < count1 ? edge + 1 : 0;
-            float sNext = edgeSeparation(poly1, xf1, nextEdge, poly2, xf2);
+            double sNext = edgeSeparation(poly1, xf1, nextEdge, poly2, xf2);
 
             // Find the best edge and the search direction.
             int bestEdge;
-            float bestSeparation;
+            double bestSeparation;
             int increment;
             if (sPrev > s && sPrev > sNext)
             {
@@ -709,20 +709,20 @@ namespace org.jbox2d.collision
             // Rot.mulTrans(xf2.q, normal1, normal1);
             // after inline:
             Vec2 v = normals1[edge1];
-            float tempx = xf1q.c*v.x - xf1q.s*v.y;
-            float tempy = xf1q.s*v.x + xf1q.c*v.y;
-            float normal1x = xf2q.c*tempx + xf2q.s*tempy;
-            float normal1y = -xf2q.s*tempx + xf2q.c*tempy;
+            double tempx = xf1q.c*v.x - xf1q.s*v.y;
+            double tempy = xf1q.s*v.x + xf1q.c*v.y;
+            double normal1x = xf2q.c*tempx + xf2q.s*tempy;
+            double normal1y = -xf2q.s*tempx + xf2q.c*tempy;
 
             // end inline
 
             // Find the incident edge on poly2.
             int index = 0;
-            float minDot = float.MaxValue;
+            double minDot = double.MaxValue;
             for (int i = 0; i < count2; ++i)
             {
                 Vec2 b = normals2[i];
-                float dot = normal1x*b.x + normal1y*b.y;
+                double dot = normal1x*b.x + normal1y*b.y;
                 if (dot < minDot)
                 {
                     minDot = dot;
@@ -777,7 +777,7 @@ namespace org.jbox2d.collision
             // The normal points from 1 to 2
 
             manifold.pointCount = 0;
-            float totalRadius = polyA.m_radius + polyB.m_radius;
+            double totalRadius = polyA.m_radius + polyB.m_radius;
 
             findMaxSeparation(results1, polyA, xfA, polyB, xfB);
             if (results1.separation > totalRadius)
@@ -796,8 +796,8 @@ namespace org.jbox2d.collision
             Transform xf1, xf2;
             int edge1; // reference edge
             bool flip;
-            float k_relativeTol = 0.98f;
-            float k_absoluteTol = 0.001f;
+            double k_relativeTol = 0.98f;
+            double k_absoluteTol = 0.001f;
 
             if (results2.separation > k_relativeTol*results1.separation + k_absoluteTol)
             {
@@ -847,8 +847,8 @@ namespace org.jbox2d.collision
             tangent.y = xf1q.s*localTangent.x + xf1q.c*localTangent.y;
 
             // Vec2.crossToOutUnsafe(tangent, 1f, normal);
-            float normalx = 1f*tangent.y;
-            float normaly = -1f*tangent.x;
+            double normalx = 1f*tangent.y;
+            double normaly = -1f*tangent.x;
 
 
             Transform.mulToOut(xf1, v11, v11);
@@ -857,14 +857,14 @@ namespace org.jbox2d.collision
             // v12 = Mul(xf1, v12);
 
             // Face offset
-            // float frontOffset = Vec2.dot(normal, v11);
-            float frontOffset = normalx*v11.x + normaly*v11.y;
+            // double frontOffset = Vec2.dot(normal, v11);
+            double frontOffset = normalx*v11.x + normaly*v11.y;
 
             // Side offsets, extended by polytope skin thickness.
-            // float sideOffset1 = -Vec2.dot(tangent, v11) + totalRadius;
-            // float sideOffset2 = Vec2.dot(tangent, v12) + totalRadius;
-            float sideOffset1 = -(tangent.x*v11.x + tangent.y*v11.y) + totalRadius;
-            float sideOffset2 = tangent.x*v12.x + tangent.y*v12.y + totalRadius;
+            // double sideOffset1 = -Vec2.dot(tangent, v11) + totalRadius;
+            // double sideOffset2 = Vec2.dot(tangent, v12) + totalRadius;
+            double sideOffset1 = -(tangent.x*v11.x + tangent.y*v11.y) + totalRadius;
+            double sideOffset2 = tangent.x*v12.x + tangent.y*v12.y + totalRadius;
 
             // Clip incident edge against extruded edge1 side edges.
             // ClipVertex clipPoints1[2];
@@ -897,16 +897,16 @@ namespace org.jbox2d.collision
             int pointCount = 0;
             for (int i = 0; i < Settings.maxManifoldPoints; ++i)
             {
-                // float separation = Vec2.dot(normal, clipPoints2[i].v) - frontOffset;
-                float separation = normalx*clipPoints2[i].v.x + normaly*clipPoints2[i].v.y - frontOffset;
+                // double separation = Vec2.dot(normal, clipPoints2[i].v) - frontOffset;
+                double separation = normalx*clipPoints2[i].v.x + normaly*clipPoints2[i].v.y - frontOffset;
 
                 if (separation <= totalRadius)
                 {
                     ManifoldPoint cp = manifold.points[pointCount];
                     // cp.m_localPoint = MulT(xf2, clipPoints2[i].v);
                     Vec2 out_ = cp.localPoint;
-                    float px = clipPoints2[i].v.x - xf2.p.x;
-                    float py = clipPoints2[i].v.y - xf2.p.y;
+                    double px = clipPoints2[i].v.x - xf2.p.x;
+                    double py = clipPoints2[i].v.y - xf2.p.y;
                     out_.x = (xf2.q.c*px + xf2.q.s*py);
                     out_.y = (-xf2.q.s*px + xf2.q.c*py);
                     cp.id.set(clipPoints2[i].id);
@@ -940,10 +940,10 @@ namespace org.jbox2d.collision
             e.set(B).subLocal(A);
 
             // Barycentric coordinates
-            float u = Vec2.dot(e, temp.set(B).subLocal(Q));
-            float v = Vec2.dot(e, temp.set(Q).subLocal(A));
+            double u = Vec2.dot(e, temp.set(B).subLocal(Q));
+            double v = Vec2.dot(e, temp.set(Q).subLocal(A));
 
-            float radius = edgeA.m_radius + circleB.m_radius;
+            double radius = edgeA.m_radius + circleB.m_radius;
 
             // ContactFeature cf;
             cf.indexB = 0;
@@ -954,7 +954,7 @@ namespace org.jbox2d.collision
             {
                 Vec2 P = A;
                 d.set(Q).subLocal(P);
-                float dd = Vec2.dot(d, d);
+                double dd = Vec2.dot(d, d);
                 if (dd > radius*radius)
                 {
                     return;
@@ -966,7 +966,7 @@ namespace org.jbox2d.collision
                     Vec2 A1 = edgeA.m_vertex0;
                     Vec2 B1 = A;
                     e1.set(B1).subLocal(A1);
-                    float u1 = Vec2.dot(e1, temp.set(B1).subLocal(Q));
+                    double u1 = Vec2.dot(e1, temp.set(B1).subLocal(Q));
 
                     // Is the circle in Region AB of the previous edge?
                     if (u1 > 0.0f)
@@ -992,7 +992,7 @@ namespace org.jbox2d.collision
             {
                 Vec2 P = B;
                 d.set(Q).subLocal(P);
-                float dd = Vec2.dot(d, d);
+                double dd = Vec2.dot(d, d);
                 if (dd > radius*radius)
                 {
                     return;
@@ -1005,7 +1005,7 @@ namespace org.jbox2d.collision
                     Vec2 A2 = B;
                     Vec2 e2 = e1;
                     e2.set(B2).subLocal(A2);
-                    float v2 = Vec2.dot(e2, temp.set(Q).subLocal(A2));
+                    double v2 = Vec2.dot(e2, temp.set(Q).subLocal(A2));
 
                     // Is the circle in Region AB of the next edge?
                     if (v2 > 0.0f)
@@ -1027,13 +1027,13 @@ namespace org.jbox2d.collision
             }
 
             // Region AB
-            float den = Vec2.dot(e, e);
+            double den = Vec2.dot(e, e);
 
             // Vec2 P = (1.0f / den) * (u * A + v * B);
             P2.set(A).mulLocal(u).addLocal(temp.set(B).mulLocal(v));
             P2.mulLocal(1.0f/den);
             d.set(Q).subLocal(P2);
-            float dd2 = Vec2.dot(d, d);
+            double dd2 = Vec2.dot(d, d);
             if (dd2 > radius*radius)
             {
                 return;
@@ -1117,7 +1117,7 @@ namespace org.jbox2d.collision
             }
 
             public int index;
-            public float separation;
+            public double separation;
 
             public
                 Type type;
@@ -1159,7 +1159,7 @@ namespace org.jbox2d.collision
             private readonly ReferenceFace rf = new ReferenceFace();
             private readonly Vec2 temp = new Vec2();
             public bool m_front;
-            public float m_radius;
+            public double m_radius;
 
             public
                 VertexType m_type1, m_type2;
@@ -1196,8 +1196,8 @@ namespace org.jbox2d.collision
                 edge1.set(m_v2).subLocal(m_v1);
                 edge1.normalize();
                 m_normal1.set(edge1.y, -edge1.x);
-                float offset1 = Vec2.dot(m_normal1, temp.set(m_centroidB).subLocal(m_v1));
-                float offset0 = 0.0f, offset2 = 0.0f;
+                double offset1 = Vec2.dot(m_normal1, temp.set(m_centroidB).subLocal(m_v1));
+                double offset0 = 0.0f, offset2 = 0.0f;
                 bool convex1 = false, convex2 = false;
 
                 // Is there a preceding edge?
@@ -1461,8 +1461,8 @@ namespace org.jbox2d.collision
                 }
 
                 // Use hysteresis for jitter reduction.
-                float k_relativeTol = 0.98f;
-                float k_absoluteTol = 0.001f;
+                double k_relativeTol = 0.98f;
+                double k_absoluteTol = 0.001f;
 
                 EPAxis primaryAxis;
                 if (polygonAxis.type == EPAxis.Type.UNKNOWN)
@@ -1487,10 +1487,10 @@ namespace org.jbox2d.collision
 
                     // Search for the polygon normal that is most anti-parallel to the edge normal.
                     int bestIndex = 0;
-                    float bestValue = Vec2.dot(m_normal, m_polygonB.normals[0]);
+                    double bestValue = Vec2.dot(m_normal, m_polygonB.normals[0]);
                     for (int i = 1; i < m_polygonB.count; ++i)
                     {
-                        float value = Vec2.dot(m_normal, m_polygonB.normals[i]);
+                        double value = Vec2.dot(m_normal, m_polygonB.normals[i]);
                         if (value < bestValue)
                         {
                             bestValue = value;
@@ -1592,7 +1592,7 @@ namespace org.jbox2d.collision
                 int pointCount = 0;
                 for (int i = 0; i < Settings.maxManifoldPoints; ++i)
                 {
-                    float separation;
+                    double separation;
 
                     separation = Vec2.dot(rf.normal, temp.set(clipPoints2[i].v).subLocal(rf.v1));
 
@@ -1627,16 +1627,16 @@ namespace org.jbox2d.collision
             {
                 axis.type = EPAxis.Type.EDGE_A;
                 axis.index = m_front ? 0 : 1;
-                axis.separation = float.MaxValue;
-                float nx = m_normal.x;
-                float ny = m_normal.y;
+                axis.separation = double.MaxValue;
+                double nx = m_normal.x;
+                double ny = m_normal.y;
 
                 for (int i = 0; i < m_polygonB.count; ++i)
                 {
                     Vec2 v = m_polygonB.vertices[i];
-                    float tempx = v.x - m_v1.x;
-                    float tempy = v.y - m_v1.y;
-                    float s = nx*tempx + ny*tempy;
+                    double tempx = v.x - m_v1.x;
+                    double tempy = v.y - m_v1.y;
+                    double s = nx*tempx + ny*tempy;
                     if (s < axis.separation)
                     {
                         axis.separation = s;
@@ -1648,7 +1648,7 @@ namespace org.jbox2d.collision
             {
                 axis.type = EPAxis.Type.UNKNOWN;
                 axis.index = -1;
-                axis.separation = -float.MaxValue;
+                axis.separation = -double.MaxValue;
 
                 perp.x = -m_normal.y;
                 perp.y = m_normal.x;
@@ -1660,15 +1660,15 @@ namespace org.jbox2d.collision
                     n.x = -normalB.x;
                     n.y = -normalB.y;
 
-                    // float s1 = Vec2.dot(n, temp.set(vB).subLocal(m_v1));
-                    // float s2 = Vec2.dot(n, temp.set(vB).subLocal(m_v2));
-                    float tempx = vB.x - m_v1.x;
-                    float tempy = vB.y - m_v1.y;
-                    float s1 = n.x*tempx + n.y*tempy;
+                    // double s1 = Vec2.dot(n, temp.set(vB).subLocal(m_v1));
+                    // double s2 = Vec2.dot(n, temp.set(vB).subLocal(m_v2));
+                    double tempx = vB.x - m_v1.x;
+                    double tempy = vB.y - m_v1.y;
+                    double s1 = n.x*tempx + n.y*tempy;
                     tempx = vB.x - m_v2.x;
                     tempy = vB.y - m_v2.y;
-                    float s2 = n.x*tempx + n.y*tempy;
-                    float s = MathUtils.min(s1, s2);
+                    double s2 = n.x*tempx + n.y*tempy;
+                    double s = MathUtils.min(s1, s2);
 
                     if (s > m_radius)
                     {
@@ -1708,7 +1708,7 @@ namespace org.jbox2d.collision
         public class EdgeResults
         {
             public int edgeIndex;
-            public float separation;
+            public double separation;
         }
 
         public
@@ -1725,8 +1725,8 @@ namespace org.jbox2d.collision
             public readonly Vec2 v1 = new Vec2();
             public readonly Vec2 v2 = new Vec2();
             public int i1, i2;
-            public float sideOffset1;
-            public float sideOffset2;
+            public double sideOffset1;
+            public double sideOffset2;
         }
 
         public

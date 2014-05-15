@@ -87,7 +87,7 @@ namespace org.jbox2d.collision.shapes
 
         public override bool raycast(RayCastOutput output, RayCastInput input, Transform xf, int childIndex)
         {
-            float tempx, tempy;
+            double tempx, tempy;
             Vec2 v1 = m_vertex1;
             Vec2 v2 = m_vertex2;
             Rot xfq = xf.q;
@@ -98,62 +98,62 @@ namespace org.jbox2d.collision.shapes
             //b2Vec2 p2 = b2MulT(xf.q, input.p2 - xf.p);
             tempx = input.p1.x - xfp.x;
             tempy = input.p1.y - xfp.y;
-            float p1x = xfq.c*tempx + xfq.s*tempy;
-            float p1y = -xfq.s*tempx + xfq.c*tempy;
+            double p1x = xfq.c*tempx + xfq.s*tempy;
+            double p1y = -xfq.s*tempx + xfq.c*tempy;
 
             tempx = input.p2.x - xfp.x;
             tempy = input.p2.y - xfp.y;
-            float p2x = xfq.c*tempx + xfq.s*tempy;
-            float p2y = -xfq.s*tempx + xfq.c*tempy;
+            double p2x = xfq.c*tempx + xfq.s*tempy;
+            double p2y = -xfq.s*tempx + xfq.c*tempy;
 
-            float dx = p2x - p1x;
-            float dy = p2y - p1y;
+            double dx = p2x - p1x;
+            double dy = p2y - p1y;
 
             // Vec2 normal = pool2.set(v2).subLocal(v1);
             // normal.set(normal.y, -normal.x);
             normal.x = v2.y - v1.y;
             normal.y = v1.x - v2.x;
             normal.normalize();
-            float normalx = normal.x;
-            float normaly = normal.y;
+            double normalx = normal.x;
+            double normaly = normal.y;
 
             // q = p1 + t * d
             // dot(normal, q - v1) = 0
             // dot(normal, p1 - v1) + t * dot(normal, d) = 0
             tempx = v1.x - p1x;
             tempy = v1.y - p1y;
-            float numerator = normalx*tempx + normaly*tempy;
-            float denominator = normalx*dx + normaly*dy;
+            double numerator = normalx*tempx + normaly*tempy;
+            double denominator = normalx*dx + normaly*dy;
 
             if (denominator == 0.0f)
             {
                 return false;
             }
 
-            float t = numerator/denominator;
+            double t = numerator/denominator;
             if (t < 0.0f || 1.0f < t)
             {
                 return false;
             }
 
             // Vec2 q = p1 + t * d;
-            float qx = p1x + t*dx;
-            float qy = p1y + t*dy;
+            double qx = p1x + t*dx;
+            double qy = p1y + t*dy;
 
             // q = v1 + s * r
             // s = dot(q - v1, r) / dot(r, r)
             // Vec2 r = v2 - v1;
-            float rx = v2.x - v1.x;
-            float ry = v2.y - v1.y;
-            float rr = rx*rx + ry*ry;
+            double rx = v2.x - v1.x;
+            double ry = v2.y - v1.y;
+            double rr = rx*rx + ry*ry;
             if (rr == 0.0f)
             {
                 return false;
             }
             tempx = qx - v1.x;
             tempy = qy - v1.y;
-            // float s = Vec2.dot(pool5, r) / rr;
-            float s = (tempx*rx + tempy*ry)/rr;
+            // double s = Vec2.dot(pool5, r) / rr;
+            double s = (tempx*rx + tempy*ry)/rr;
             if (s < 0.0f || 1.0f < s)
             {
                 return false;
@@ -182,10 +182,10 @@ namespace org.jbox2d.collision.shapes
             Vec2 upperBound = aabb.upperBound;
             Rot xfq = xf.q;
 
-            float v1x = (xfq.c*m_vertex1.x - xfq.s*m_vertex1.y) + xf.p.x;
-            float v1y = (xfq.s*m_vertex1.x + xfq.c*m_vertex1.y) + xf.p.y;
-            float v2x = (xfq.c*m_vertex2.x - xfq.s*m_vertex2.y) + xf.p.x;
-            float v2y = (xfq.s*m_vertex2.x + xfq.c*m_vertex2.y) + xf.p.y;
+            double v1x = (xfq.c*m_vertex1.x - xfq.s*m_vertex1.y) + xf.p.x;
+            double v1y = (xfq.s*m_vertex1.x + xfq.c*m_vertex1.y) + xf.p.y;
+            double v2x = (xfq.c*m_vertex2.x - xfq.s*m_vertex2.y) + xf.p.x;
+            double v2y = (xfq.s*m_vertex2.x + xfq.c*m_vertex2.y) + xf.p.y;
 
             lowerBound.x = v1x < v2x ? v1x : v2x;
             lowerBound.y = v1y < v2y ? v1y : v2y;
@@ -199,7 +199,7 @@ namespace org.jbox2d.collision.shapes
         }
 
 
-        public override void computeMass(MassData massData, float density)
+        public override void computeMass(MassData massData, double density)
         {
             massData.mass = 0.0f;
             massData.center.set(m_vertex1).addLocal(m_vertex2).mulLocal(0.5f);

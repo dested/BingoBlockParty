@@ -36,11 +36,11 @@ namespace org.jbox2d.dynamics.contacts
         public readonly Vec2 localPoint = new Vec2();
         public int indexA;
         public int indexB;
-        public float invIA, invIB;
-        public float invMassA, invMassB;
+        public double invIA, invIB;
+        public double invMassA, invMassB;
         public Vec2[] localPoints = new Vec2[Settings.maxManifoldPoints];
         public int pointCount;
-        public float radiusA, radiusB;
+        public double radiusA, radiusB;
         public ManifoldType type;
 
         public ContactPositionConstraint()

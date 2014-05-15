@@ -36,7 +36,7 @@ namespace org.jbox2d.collision
     public class RayCastOutput
     {
         public readonly Vec2 normal;
-        public float fraction;
+        public double fraction;
 
         public RayCastOutput()
         {

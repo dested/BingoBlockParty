@@ -62,7 +62,7 @@ namespace org.jbox2d.common
         }
 
         /**
-   * Create a matrix from four floats.
+   * Create a matrix from four doubles.
    * 
    * @param exx
    * @param col2x
@@ -70,7 +70,7 @@ namespace org.jbox2d.common
    * @param col2y
    */
 
-        public Mat22(float exx, float col2x, float exy, float col2y)
+        public Mat22(double exx, double col2x, double exy, double col2y)
         {
             ex = new Vec2(exx, exy);
             ey = new Vec2(col2x, col2y);
@@ -99,7 +99,7 @@ namespace org.jbox2d.common
             return this;
         }
 
-        public Mat22 set(float exx, float col2x, float exy, float col2y)
+        public Mat22 set(double exx, double col2x, double exy, double col2y)
         {
             ex.x = exx;
             ex.y = exy;
@@ -123,9 +123,9 @@ namespace org.jbox2d.common
    * @param angle Rotation (in radians) that matrix represents.
    */
 
-        public void set(float angle)
+        public void set(double angle)
         {
-            float c = MathUtils.cos(angle), s = MathUtils.sin(angle);
+            double c = MathUtils.cos(angle), s = MathUtils.sin(angle);
             ex.x = c;
             ey.x = -s;
             ex.y = s;
@@ -162,7 +162,7 @@ namespace org.jbox2d.common
    * @return
    */
 
-        public float getAngle()
+        public double getAngle()
         {
             return MathUtils.atan2(ex.y, ex.x);
         }
@@ -186,9 +186,9 @@ namespace org.jbox2d.common
 
         public Mat22 invert()
         {
-            float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
+            double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
             var B = new Mat22();
-            float det = a*d - b*c;
+            double det = a*d - b*c;
             if (det != 0)
             {
                 det = 1.0f/det;
@@ -202,8 +202,8 @@ namespace org.jbox2d.common
 
         public Mat22 invertLocal()
         {
-            float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-            float det = a*d - b*c;
+            double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
+            double det = a*d - b*c;
             if (det != 0)
             {
                 det = 1.0f/det;
@@ -217,8 +217,8 @@ namespace org.jbox2d.common
 
         public void invertToOut(Mat22 out_)
         {
-            float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-            float det = a*d - b*c;
+            double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
+            double det = a*d - b*c;
             // b2Assert(det != 0.0f);
             det = 1.0f/det;
             out_.ex.x = det*d;
@@ -283,7 +283,7 @@ namespace org.jbox2d.common
 
         public void mulToOut(Vec2 v, Vec2 out_)
         {
-            float tempy = ex.y*v.x + ey.y*v.y;
+            double tempy = ex.y*v.x + ey.y*v.y;
             out_.x = ex.x*v.x + ey.x*v.y;
             out_.y = tempy;
         }
@@ -324,12 +324,12 @@ namespace org.jbox2d.common
 
         public void mulToOut(Mat22 R, Mat22 out_)
         {
-            float tempy1 = ex.y*R.ex.x + ey.y*R.ex.y;
-            float tempx1 = ex.x*R.ex.x + ey.x*R.ex.y;
+            double tempy1 = ex.y*R.ex.x + ey.y*R.ex.y;
+            double tempx1 = ex.x*R.ex.x + ey.x*R.ex.y;
             out_.ex.x = tempx1;
             out_.ex.y = tempy1;
-            float tempy2 = ex.y*R.ey.x + ey.y*R.ey.y;
-            float tempx2 = ex.x*R.ey.x + ey.x*R.ey.y;
+            double tempy2 = ex.y*R.ey.x + ey.y*R.ey.y;
+            double tempx2 = ex.x*R.ey.x + ey.x*R.ey.y;
             out_.ey.x = tempx2;
             out_.ey.y = tempy2;
         }
@@ -379,10 +379,10 @@ namespace org.jbox2d.common
      * out_.ex.x = Vec2.dot(this.ex, B.ex); out_.ex.y = Vec2.dot(this.ey, B.ex); out_.ey.x =
      * Vec2.dot(this.ex, B.ey); out_.ey.y = Vec2.dot(this.ey, B.ey);
      */
-            float x1 = ex.x*B.ex.x + ex.y*B.ex.y;
-            float y1 = ey.x*B.ex.x + ey.y*B.ex.y;
-            float x2 = ex.x*B.ey.x + ex.y*B.ey.y;
-            float y2 = ey.x*B.ey.x + ey.y*B.ey.y;
+            double x1 = ex.x*B.ex.x + ex.y*B.ex.y;
+            double y1 = ey.x*B.ex.x + ey.y*B.ex.y;
+            double x2 = ex.x*B.ey.x + ex.y*B.ey.y;
+            double y2 = ey.x*B.ey.x + ey.y*B.ey.y;
             out_.ex.x = x1;
             out_.ey.x = x2;
             out_.ex.y = y1;
@@ -417,7 +417,7 @@ namespace org.jbox2d.common
             /*
      * out_.x = Vec2.dot(v, ex); out_.y = Vec2.dot(v, col2);
      */
-            float tempx = v.x*ex.x + v.y*ex.y;
+            double tempx = v.x*ex.x + v.y*ex.y;
             out_.y = v.x*ey.x + v.y*ey.y;
             out_.x = tempx;
         }
@@ -466,8 +466,8 @@ namespace org.jbox2d.common
 
         public Vec2 solve(Vec2 b)
         {
-            float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-            float det = a11*a22 - a12*a21;
+            double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
+            double det = a11*a22 - a12*a21;
             if (det != 0.0f)
             {
                 det = 1.0f/det;
@@ -478,13 +478,13 @@ namespace org.jbox2d.common
 
         public void solveToOut(Vec2 b, Vec2 out_)
         {
-            float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-            float det = a11*a22 - a12*a21;
+            double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
+            double det = a11*a22 - a12*a21;
             if (det != 0.0f)
             {
                 det = 1.0f/det;
             }
-            float tempy = det*(a11*b.y - a21*b.x);
+            double tempy = det*(a11*b.y - a21*b.x);
             out_.x = det*(a22*b.x - a12*b.y);
             out_.y = tempy;
         }
@@ -497,7 +497,7 @@ namespace org.jbox2d.common
 
         public static void mulToOut(Mat22 R, Vec2 v, Vec2 out_)
         {
-            float tempy = R.ex.y*v.x + R.ey.y*v.y;
+            double tempy = R.ex.y*v.x + R.ey.y*v.y;
             out_.x = R.ex.x*v.x + R.ey.x*v.y;
             out_.y = tempy;
         }
@@ -521,10 +521,10 @@ namespace org.jbox2d.common
 
         public static void mulToOut(Mat22 A, Mat22 B, Mat22 out_)
         {
-            float tempy1 = A.ex.y*B.ex.x + A.ey.y*B.ex.y;
-            float tempx1 = A.ex.x*B.ex.x + A.ey.x*B.ex.y;
-            float tempy2 = A.ex.y*B.ey.x + A.ey.y*B.ey.y;
-            float tempx2 = A.ex.x*B.ey.x + A.ey.x*B.ey.y;
+            double tempy1 = A.ex.y*B.ex.x + A.ey.y*B.ex.y;
+            double tempx1 = A.ex.x*B.ex.x + A.ey.x*B.ex.y;
+            double tempy2 = A.ex.y*B.ey.x + A.ey.y*B.ey.y;
+            double tempx2 = A.ex.x*B.ey.x + A.ey.x*B.ey.y;
             out_.ex.x = tempx1;
             out_.ex.y = tempy1;
             out_.ey.x = tempx2;
@@ -546,7 +546,7 @@ namespace org.jbox2d.common
 
         public static void mulTransToOut(Mat22 R, Vec2 v, Vec2 out_)
         {
-            float out_x = v.x*R.ex.x + v.y*R.ex.y;
+            double out_x = v.x*R.ex.x + v.y*R.ex.y;
             out_.y = v.x*R.ey.x + v.y*R.ey.y;
             out_.x = out_x;
         }
@@ -569,10 +569,10 @@ namespace org.jbox2d.common
 
         public static void mulTransToOut(Mat22 A, Mat22 B, Mat22 out_)
         {
-            float x1 = A.ex.x*B.ex.x + A.ex.y*B.ex.y;
-            float y1 = A.ey.x*B.ex.x + A.ey.y*B.ex.y;
-            float x2 = A.ex.x*B.ey.x + A.ex.y*B.ey.y;
-            float y2 = A.ey.x*B.ey.x + A.ey.y*B.ey.y;
+            double x1 = A.ex.x*B.ex.x + A.ex.y*B.ex.y;
+            double y1 = A.ey.x*B.ex.x + A.ey.y*B.ex.y;
+            double x2 = A.ex.x*B.ey.x + A.ex.y*B.ey.y;
+            double y2 = A.ey.x*B.ey.x + A.ey.y*B.ey.y;
 
             out_.ex.x = x1;
             out_.ex.y = y1;
@@ -588,11 +588,11 @@ namespace org.jbox2d.common
             out_.ey.y = A.ey.x*B.ey.x + A.ey.y*B.ey.y;
         }
 
-        public static Mat22 createRotationalTransform(float angle)
+        public static Mat22 createRotationalTransform(double angle)
         {
             var mat = new Mat22();
-            float c = MathUtils.cos(angle);
-            float s = MathUtils.sin(angle);
+            double c = MathUtils.cos(angle);
+            double s = MathUtils.sin(angle);
             mat.ex.x = c;
             mat.ey.x = -s;
             mat.ex.y = s;
@@ -600,17 +600,17 @@ namespace org.jbox2d.common
             return mat;
         }
 
-        public static void createRotationalTransform(float angle, Mat22 out_)
+        public static void createRotationalTransform(double angle, Mat22 out_)
         {
-            float c = MathUtils.cos(angle);
-            float s = MathUtils.sin(angle);
+            double c = MathUtils.cos(angle);
+            double s = MathUtils.sin(angle);
             out_.ex.x = c;
             out_.ey.x = -s;
             out_.ex.y = s;
             out_.ey.y = c;
         }
 
-        public static Mat22 createScaleTransform(float scale)
+        public static Mat22 createScaleTransform(double scale)
         {
             var mat = new Mat22();
             mat.ex.x = scale;
@@ -618,7 +618,7 @@ namespace org.jbox2d.common
             return mat;
         }
 
-        public static void createScaleTransform(float scale, Mat22 out_)
+        public static void createScaleTransform(double scale, Mat22 out_)
         {
             out_.ex.x = scale;
             out_.ey.y = scale;

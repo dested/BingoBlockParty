@@ -59,8 +59,8 @@ namespace org.jbox2d.collision.shapes
         /** The position of the shape's centroid relative to the shape's origin. */
         public readonly Vec2 center;
         /** The rotational inertia of the shape about the local origin. */
-        public float I;
-        public float mass;
+        public double I;
+        public double mass;
 
         /**
 	 * Blank mass data

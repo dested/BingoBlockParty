@@ -35,7 +35,7 @@ namespace org.jbox2d.collision
     public class RayCastInput
     {
         public readonly Vec2 p1, p2;
-        public float maxFraction;
+        public double maxFraction;
 
         public RayCastInput()
         {

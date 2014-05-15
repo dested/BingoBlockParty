@@ -73,19 +73,19 @@ namespace org.jbox2d.dynamics.joints
 	 * Enable/disable the joint motor.
 	 */
         public bool enableMotor;
-        public float lowerTranslation;
+        public double lowerTranslation;
 
         /**
 	 * The maximum motor torque, usually in N-m.
 	 */
-        public float maxMotorForce;
+        public double maxMotorForce;
 
         /**
 	 * The desired motor speed in radians per second.
 	 */
-        public float motorSpeed;
-        public float referenceAngle;
-        public float upperTranslation;
+        public double motorSpeed;
+        public double referenceAngle;
+        public double upperTranslation;
 
         public PrismaticJointDef()
         {

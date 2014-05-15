@@ -35,8 +35,8 @@ namespace org.jbox2d.dynamics.joints
     public class ConstantVolumeJointDef : JointDef
     {
         public List<Body> bodies;
-        public float dampingRatio;
-        public float frequencyHz;
+        public double dampingRatio;
+        public double frequencyHz;
         public List<DistanceJoint> joints;
 
         public ConstantVolumeJointDef()

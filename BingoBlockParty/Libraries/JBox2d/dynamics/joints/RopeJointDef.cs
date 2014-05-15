@@ -25,7 +25,7 @@ namespace org.jbox2d.dynamics.joints
    * The maximum length of the rope. Warning: this must be larger than b2_linearSlop or the joint
    * will have no effect.
    */
-        public float maxLength;
+        public double maxLength;
 
         public RopeJointDef()
         {

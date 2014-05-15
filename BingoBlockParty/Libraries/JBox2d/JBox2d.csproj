@@ -146,8 +146,6 @@
     <Compile Include="dynamics\TimeStep.cs" />
     <Compile Include="dynamics\World.cs" />
     <Compile Include="gwtemul\java\lang\StrictMath.cs" />
-    <Compile Include="gwtemul\org\jbox2d\common\PlatformMathUtils.cs" />
-    <Compile Include="gwtemul\org\jbox2d\common\Timer.cs" />
     <Compile Include="pooling\arrays\FloatArray.cs" />
     <Compile Include="pooling\arrays\IntArray.cs" />
     <Compile Include="pooling\arrays\Vec2Array.cs" />

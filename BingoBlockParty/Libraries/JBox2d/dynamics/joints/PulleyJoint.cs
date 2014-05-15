@@ -43,13 +43,13 @@ namespace org.jbox2d.dynamics.joints
 {
     public class PulleyJoint : Joint
     {
-        public static readonly float MIN_PULLEY_LENGTH = 2.0f;
-        private readonly float m_constant;
+        public static readonly double MIN_PULLEY_LENGTH = 2.0f;
+        private readonly double m_constant;
 
         private readonly Vec2 m_groundAnchorA = new Vec2();
         private readonly Vec2 m_groundAnchorB = new Vec2();
-        private readonly float m_lengthA;
-        private readonly float m_lengthB;
+        private readonly double m_lengthA;
+        private readonly double m_lengthB;
 
         // Solver shared
         private readonly Vec2 m_localAnchorA = new Vec2();
@@ -58,19 +58,19 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_localCenterB = new Vec2();
         private readonly Vec2 m_rA = new Vec2();
         private readonly Vec2 m_rB = new Vec2();
-        private readonly float m_ratio;
+        private readonly double m_ratio;
         private readonly Vec2 m_uA = new Vec2();
         private readonly Vec2 m_uB = new Vec2();
-        private float m_impulse;
+        private double m_impulse;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
-        private float m_mass;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
+        private double m_mass;
 
         public PulleyJoint(IWorldPool argWorldPool, PulleyJointDef def)
             : base(argWorldPool, def)
@@ -89,32 +89,32 @@ namespace org.jbox2d.dynamics.joints
             m_impulse = 0.0f;
         }
 
-        public float getLengthA()
+        public double getLengthA()
         {
             return m_lengthA;
         }
 
-        public float getLengthB()
+        public double getLengthB()
         {
             return m_lengthB;
         }
 
-        public float getCurrentLengthA()
+        public double getCurrentLengthA()
         {
             Vec2 p = pool.popVec2();
             m_bodyA.getWorldPointToOut(m_localAnchorA, p);
             p.subLocal(m_groundAnchorA);
-            float length = p.length();
+            double length = p.length();
             pool.pushVec2(1);
             return length;
         }
 
-        public float getCurrentLengthB()
+        public double getCurrentLengthB()
         {
             Vec2 p = pool.popVec2();
             m_bodyB.getWorldPointToOut(m_localAnchorB, p);
             p.subLocal(m_groundAnchorB);
-            float length = p.length();
+            double length = p.length();
             pool.pushVec2(1);
             return length;
         }
@@ -143,13 +143,13 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.set(m_uB).mulLocal(m_impulse).mulLocal(inv_dt);
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return 0f;
         }
@@ -164,29 +164,29 @@ namespace org.jbox2d.dynamics.joints
             return m_groundAnchorB;
         }
 
-        public float getLength1()
+        public double getLength1()
         {
             Vec2 p = pool.popVec2();
             m_bodyA.getWorldPointToOut(m_localAnchorA, p);
             p.subLocal(m_groundAnchorA);
 
-            float len = p.length();
+            double len = p.length();
             pool.pushVec2(1);
             return len;
         }
 
-        public float getLength2()
+        public double getLength2()
         {
             Vec2 p = pool.popVec2();
             m_bodyB.getWorldPointToOut(m_localAnchorB, p);
             p.subLocal(m_groundAnchorB);
 
-            float len = p.length();
+            double len = p.length();
             pool.pushVec2(1);
             return len;
         }
 
-        public float getRatio()
+        public double getRatio()
         {
             return m_ratio;
         }
@@ -204,14 +204,14 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -227,8 +227,8 @@ namespace org.jbox2d.dynamics.joints
             m_uA.set(cA).addLocal(m_rA).subLocal(m_groundAnchorA);
             m_uB.set(cB).addLocal(m_rB).subLocal(m_groundAnchorB);
 
-            float lengthA = m_uA.length();
-            float lengthB = m_uB.length();
+            double lengthA = m_uA.length();
+            double lengthB = m_uB.length();
 
             if (lengthA > 10f*Settings.linearSlop)
             {
@@ -249,11 +249,11 @@ namespace org.jbox2d.dynamics.joints
             }
 
             // Compute effective mass.
-            float ruA = Vec2.cross(m_rA, m_uA);
-            float ruB = Vec2.cross(m_rB, m_uB);
+            double ruA = Vec2.cross(m_rA, m_uA);
+            double ruB = Vec2.cross(m_rB, m_uB);
 
-            float mA = m_invMassA + m_invIA*ruA*ruA;
-            float mB = m_invMassB + m_invIB*ruB*ruB;
+            double mA = m_invMassA + m_invIA*ruA*ruA;
+            double mB = m_invMassB + m_invIB*ruB*ruB;
 
             m_mass = mA + m_ratio*m_ratio*mB;
 
@@ -300,9 +300,9 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Vec2 vpA = pool.popVec2();
             Vec2 vpB = pool.popVec2();
@@ -314,8 +314,8 @@ namespace org.jbox2d.dynamics.joints
             Vec2.crossToOutUnsafe(wB, m_rB, vpB);
             vpB.addLocal(vB);
 
-            float Cdot = -Vec2.dot(m_uA, vpA) - m_ratio*Vec2.dot(m_uB, vpB);
-            float impulse = -m_mass*Cdot;
+            double Cdot = -Vec2.dot(m_uA, vpA) - m_ratio*Vec2.dot(m_uB, vpB);
+            double impulse = -m_mass*Cdot;
             m_impulse += impulse;
 
             PA.set(m_uA).mulLocal(-impulse);
@@ -349,9 +349,9 @@ namespace org.jbox2d.dynamics.joints
             Vec2 PB = pool.popVec2();
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             qA.set(aA);
             qB.set(aB);
@@ -362,8 +362,8 @@ namespace org.jbox2d.dynamics.joints
             uA.set(cA).addLocal(rA).subLocal(m_groundAnchorA);
             uB.set(cB).addLocal(rB).subLocal(m_groundAnchorB);
 
-            float lengthA = uA.length();
-            float lengthB = uB.length();
+            double lengthA = uA.length();
+            double lengthB = uB.length();
 
             if (lengthA > 10.0f*Settings.linearSlop)
             {
@@ -384,23 +384,23 @@ namespace org.jbox2d.dynamics.joints
             }
 
             // Compute effective mass.
-            float ruA = Vec2.cross(rA, uA);
-            float ruB = Vec2.cross(rB, uB);
+            double ruA = Vec2.cross(rA, uA);
+            double ruB = Vec2.cross(rB, uB);
 
-            float mA = m_invMassA + m_invIA*ruA*ruA;
-            float mB = m_invMassB + m_invIB*ruB*ruB;
+            double mA = m_invMassA + m_invIA*ruA*ruA;
+            double mB = m_invMassB + m_invIB*ruB*ruB;
 
-            float mass = mA + m_ratio*m_ratio*mB;
+            double mass = mA + m_ratio*m_ratio*mB;
 
             if (mass > 0.0f)
             {
                 mass = 1.0f/mass;
             }
 
-            float C = m_constant - lengthA - m_ratio*lengthB;
-            float linearError = MathUtils.abs(C);
+            double C = m_constant - lengthA - m_ratio*lengthB;
+            double linearError = MathUtils.abs(C);
 
-            float impulse = -mass*C;
+            double impulse = -mass*C;
 
             PA.set(uA).mulLocal(-impulse);
             PB.set(uB).mulLocal(-m_ratio*impulse);

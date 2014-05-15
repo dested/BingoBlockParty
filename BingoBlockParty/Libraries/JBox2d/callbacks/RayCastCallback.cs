@@ -42,7 +42,7 @@ namespace org.jbox2d.callbacks
     {
 /**
 	 * Called for each fixture found in the query. You control how the ray cast
-	 * proceeds by returning a float:
+	 * proceeds by returning a double:
 	 * return -1: ignore this fixture and continue
 	 * return 0: terminate the ray cast
 	 * return fraction: clip the ray to this point
@@ -58,6 +58,6 @@ namespace org.jbox2d.callbacks
 	 * @param fraction
 	 * @return
 	 */
-        float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction);
+        double reportFixture(Fixture fixture, Vec2 point, Vec2 normal, double fraction);
     }
 }

@@ -75,7 +75,7 @@ namespace org.jbox2d.common
 
         public static void mul22ToOut(Mat33 A, Vec2 v, Vec2 out_)
         {
-            float tempx = A.ex.x*v.x + A.ey.x*v.y;
+            double tempx = A.ex.x*v.x + A.ey.x*v.y;
             out_.y = A.ex.y*v.x + A.ey.y*v.y;
             out_.x = tempx;
         }
@@ -88,8 +88,8 @@ namespace org.jbox2d.common
 
         public static void mulToOut(Mat33 A, Vec3 v, Vec3 out_)
         {
-            float tempy = v.x*A.ex.y + v.y*A.ey.y + v.z*A.ez.y;
-            float tempz = v.x*A.ex.z + v.y*A.ey.z + v.z*A.ez.z;
+            double tempy = v.x*A.ex.y + v.y*A.ey.y + v.z*A.ez.y;
+            double tempz = v.x*A.ex.z + v.y*A.ey.z + v.z*A.ez.z;
             out_.x = v.x*A.ex.x + v.y*A.ey.x + v.z*A.ez.x;
             out_.y = tempy;
             out_.z = tempz;
@@ -127,8 +127,8 @@ namespace org.jbox2d.common
 
         public void solve22ToOut(Vec2 b, Vec2 out_)
         {
-            float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-            float det = a11*a22 - a12*a21;
+            double a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
+            double det = a11*a22 - a12*a21;
             if (det != 0.0f)
             {
                 det = 1.0f/det;
@@ -164,17 +164,17 @@ namespace org.jbox2d.common
         public void solve33ToOut(Vec3 b, Vec3 out_)
         {
             Vec3.crossToOutUnsafe(ey, ez, out_);
-            float det = Vec3.dot(ex, out_);
+            double det = Vec3.dot(ex, out_);
             if (det != 0.0f)
             {
                 det = 1.0f/det;
             }
             Vec3.crossToOutUnsafe(ey, ez, out_);
-            float x = det*Vec3.dot(b, out_);
+            double x = det*Vec3.dot(b, out_);
             Vec3.crossToOutUnsafe(b, ez, out_);
-            float y = det*Vec3.dot(ex, out_);
+            double y = det*Vec3.dot(ex, out_);
             Vec3.crossToOutUnsafe(ey, b, out_);
-            float z = det*Vec3.dot(ex, out_);
+            double z = det*Vec3.dot(ex, out_);
             out_.x = x;
             out_.y = y;
             out_.z = z;
@@ -182,8 +182,8 @@ namespace org.jbox2d.common
 
         public void getInverse22(Mat33 M)
         {
-            float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-            float det = a*d - b*c;
+            double a = ex.x, b = ey.x, c = ex.y, d = ey.y;
+            double det = a*d - b*c;
             if (det != 0.0f)
             {
                 det = 1.0f/det;
@@ -203,18 +203,18 @@ namespace org.jbox2d.common
         // / Returns the zero matrix if singular.
         public void getSymInverse33(Mat33 M)
         {
-            float bx = ey.y*ez.z - ey.z*ez.y;
-            float by = ey.z*ez.x - ey.x*ez.z;
-            float bz = ey.x*ez.y - ey.y*ez.x;
-            float det = ex.x*bx + ex.y*by + ex.z*bz;
+            double bx = ey.y*ez.z - ey.z*ez.y;
+            double by = ey.z*ez.x - ey.x*ez.z;
+            double bz = ey.x*ez.y - ey.y*ez.x;
+            double det = ex.x*bx + ex.y*by + ex.z*bz;
             if (det != 0.0f)
             {
                 det = 1.0f/det;
             }
 
-            float a11 = ex.x, a12 = ey.x, a13 = ez.x;
-            float a22 = ey.y, a23 = ez.y;
-            float a33 = ez.z;
+            double a11 = ex.x, a12 = ey.x, a13 = ez.x;
+            double a22 = ey.y, a23 = ez.y;
+            double a33 = ez.z;
 
             M.ex.x = det*(a22*a33 - a23*a23);
             M.ex.y = det*(a13*a23 - a12*a33);

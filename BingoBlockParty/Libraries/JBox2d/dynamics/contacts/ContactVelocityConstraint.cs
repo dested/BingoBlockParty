@@ -33,15 +33,15 @@ namespace org.jbox2d.dynamics.contacts
         public readonly Vec2 normal = new Vec2();
         public readonly Mat22 normalMass = new Mat22();
         public int contactIndex;
-        public float friction;
+        public double friction;
         public int indexA;
         public int indexB;
-        public float invIA, invIB;
-        public float invMassA, invMassB;
+        public double invIA, invIB;
+        public double invMassA, invMassB;
         public int pointCount;
         public VelocityConstraintPoint[] points = new VelocityConstraintPoint[Settings.maxManifoldPoints];
-        public float restitution;
-        public float tangentSpeed;
+        public double restitution;
+        public double tangentSpeed;
 
         public ContactVelocityConstraint()
         {
@@ -56,10 +56,10 @@ namespace org.jbox2d.dynamics.contacts
     {
         public readonly Vec2 rA = new Vec2();
         public readonly Vec2 rB = new Vec2();
-        public float normalImpulse;
-        public float normalMass;
-        public float tangentImpulse;
-        public float tangentMass;
-        public float velocityBias;
+        public double normalImpulse;
+        public double normalMass;
+        public double tangentImpulse;
+        public double tangentMass;
+        public double velocityBias;
     }
 }

@@ -55,8 +55,8 @@ namespace org.jbox2d.dynamics.joints
 
         // Cache here per time step to reduce cache misses.
         // Vec2 m_localCenterA, m_localCenterB;
-        // float m_invMassA, m_invIA;
-        // float m_invMassB, m_invIB;
+        // double m_invMassA, m_invIA;
+        // double m_invMassB, m_invIB;
 
         public Joint(IWorldPool worldPool, JointDef def)
         {
@@ -175,7 +175,7 @@ namespace org.jbox2d.dynamics.joints
    * @param inv_dt
    * @return
    */
-        public abstract void getReactionForce(float inv_dt, Vec2 out_);
+        public abstract void getReactionForce(double inv_dt, Vec2 out_);
 
         /**
    * get the reaction torque on body2 in N*m.
@@ -183,7 +183,7 @@ namespace org.jbox2d.dynamics.joints
    * @param inv_dt
    * @return
    */
-        public abstract float getReactionTorque(float inv_dt);
+        public abstract double getReactionTorque(double inv_dt);
 
         /**
    * get the next joint the world joint list.

@@ -41,7 +41,7 @@ namespace org.jbox2d.callbacks
     public class ContactImpulse
     {
         public int count;
-        public float[] normalImpulses = new float[Settings.maxManifoldPoints];
-        public float[] tangentImpulses = new float[Settings.maxManifoldPoints];
+        public double[] normalImpulses = new double[Settings.maxManifoldPoints];
+        public double[] tangentImpulses = new double[Settings.maxManifoldPoints];
     }
 }

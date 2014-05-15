@@ -36,7 +36,7 @@ namespace org.jbox2d.collision.shapes
     public abstract class Shape
     {
         public readonly ShapeType m_type;
-        public float m_radius;
+        public double m_radius;
 
         public Shape(ShapeType type)
         {
@@ -61,7 +61,7 @@ namespace org.jbox2d.collision.shapes
    * @return
    */
 
-        public float getRadius()
+        public double getRadius()
         {
             return m_radius;
         }
@@ -73,7 +73,7 @@ namespace org.jbox2d.collision.shapes
    * @param radius
    */
 
-        public void setRadius(float radius)
+        public void setRadius(double radius)
         {
             m_radius = radius;
         }
@@ -122,7 +122,7 @@ namespace org.jbox2d.collision.shapes
    * @param massData returns the mass data for this shape.
    * @param density the density in kilograms per meter squared.
    */
-        public abstract void computeMass(MassData massData, float density);
+        public abstract void computeMass(MassData massData, double density);
 
         /*
    * Compute the volume and centroid of this shape intersected with a half plane
@@ -137,7 +137,7 @@ namespace org.jbox2d.collision.shapes
    * 
    * @return the total volume less than offset along normal
    * 
-   * public abstract float computeSubmergedArea(Vec2 normal, float offset, Transform xf, Vec2 c);
+   * public abstract double computeSubmergedArea(Vec2 normal, double offset, Transform xf, Vec2 c);
    */
 
         public abstract Shape clone();

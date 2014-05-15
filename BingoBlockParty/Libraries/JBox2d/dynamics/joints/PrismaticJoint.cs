@@ -116,26 +116,26 @@ namespace org.jbox2d.dynamics.joints
         public readonly Vec2 m_localXAxisA;
         public readonly Vec2 m_localYAxisA;
         private readonly Vec2 m_perp;
-        private float m_a1, m_a2;
+        private double m_a1, m_a2;
         private bool m_enableLimit;
         private bool m_enableMotor;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
         private LimitState m_limitState;
-        private float m_lowerTranslation;
-        private float m_maxMotorForce;
-        private float m_motorImpulse;
-        private float m_motorMass; // effective mass for motor/limit translational constraint.
-        private float m_motorSpeed;
-        public float m_referenceAngle;
-        private float m_s1, m_s2;
-        private float m_upperTranslation;
+        private double m_lowerTranslation;
+        private double m_maxMotorForce;
+        private double m_motorImpulse;
+        private double m_motorMass; // effective mass for motor/limit translational constraint.
+        private double m_motorSpeed;
+        public double m_referenceAngle;
+        private double m_s1, m_s2;
+        private double m_upperTranslation;
 
         public PrismaticJoint(IWorldPool argWorld, PrismaticJointDef def)
             : base(argWorld, def)
@@ -188,7 +188,7 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             Vec2 temp = pool.popVec2();
             temp.set(m_axis).mulLocal(m_motorImpulse + m_impulse.z);
@@ -197,7 +197,7 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return inv_dt*m_impulse.y;
         }
@@ -206,7 +206,7 @@ namespace org.jbox2d.dynamics.joints
    * Get the current joint translation, usually in meters.
    */
 
-        public float getJointSpeed()
+        public double getJointSpeed()
         {
             Body bA = m_bodyA;
             Body bB = m_bodyB;
@@ -235,8 +235,8 @@ namespace org.jbox2d.dynamics.joints
 
             Vec2 vA = bA.m_linearVelocity;
             Vec2 vB = bB.m_linearVelocity;
-            float wA = bA.m_angularVelocity;
-            float wB = bB.m_angularVelocity;
+            double wA = bA.m_angularVelocity;
+            double wB = bB.m_angularVelocity;
 
 
             Vec2.crossToOutUnsafe(wA, axis, temp);
@@ -244,21 +244,21 @@ namespace org.jbox2d.dynamics.joints
             Vec2.crossToOutUnsafe(wA, rA, temp3);
 
             temp2.addLocal(vB).subLocal(vA).subLocal(temp3);
-            float speed = Vec2.dot(d, temp) + Vec2.dot(axis, temp2);
+            double speed = Vec2.dot(d, temp) + Vec2.dot(axis, temp2);
 
             pool.pushVec2(9);
 
             return speed;
         }
 
-        public float getJointTranslation()
+        public double getJointTranslation()
         {
             Vec2 pA = pool.popVec2(), pB = pool.popVec2(), axis = pool.popVec2();
             m_bodyA.getWorldPointToOut(m_localAnchorA, pA);
             m_bodyB.getWorldPointToOut(m_localAnchorB, pB);
             m_bodyA.getWorldVectorToOutUnsafe(m_localXAxisA, axis);
             pB.subLocal(pA);
-            float translation = Vec2.dot(pB, axis);
+            double translation = Vec2.dot(pB, axis);
             pool.pushVec2(3);
             return translation;
         }
@@ -297,7 +297,7 @@ namespace org.jbox2d.dynamics.joints
    * @return
    */
 
-        public float getLowerLimit()
+        public double getLowerLimit()
         {
             return m_lowerTranslation;
         }
@@ -308,7 +308,7 @@ namespace org.jbox2d.dynamics.joints
    * @return
    */
 
-        public float getUpperLimit()
+        public double getUpperLimit()
         {
             return m_upperTranslation;
         }
@@ -320,7 +320,7 @@ namespace org.jbox2d.dynamics.joints
    * @param upper
    */
 
-        public void setLimits(float lower, float upper)
+        public void setLimits(double lower, double upper)
         {
             if (lower != m_lowerTranslation || upper != m_upperTranslation)
             {
@@ -362,7 +362,7 @@ namespace org.jbox2d.dynamics.joints
    * @param speed
    */
 
-        public void setMotorSpeed(float speed)
+        public void setMotorSpeed(double speed)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
@@ -375,7 +375,7 @@ namespace org.jbox2d.dynamics.joints
    * @return
    */
 
-        public float getMotorSpeed()
+        public double getMotorSpeed()
         {
             return m_motorSpeed;
         }
@@ -386,7 +386,7 @@ namespace org.jbox2d.dynamics.joints
    * @param force
    */
 
-        public void setMaxMotorForce(float force)
+        public void setMaxMotorForce(double force)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
@@ -400,17 +400,17 @@ namespace org.jbox2d.dynamics.joints
    * @return
    */
 
-        public float getMotorForce(float inv_dt)
+        public double getMotorForce(double inv_dt)
         {
             return m_motorImpulse*inv_dt;
         }
 
-        public float getMaxMotorForce()
+        public double getMaxMotorForce()
         {
             return m_maxMotorForce;
         }
 
-        public float getReferenceAngle()
+        public double getReferenceAngle()
         {
             return m_referenceAngle;
         }
@@ -433,14 +433,14 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -457,8 +457,8 @@ namespace org.jbox2d.dynamics.joints
             Rot.mulToOutUnsafe(qB, d.set(m_localAnchorB).subLocal(m_localCenterB), rB);
             d.set(cB).subLocal(cA).addLocal(rB).subLocal(rA);
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             // Compute motor Jacobian and effective mass.
             {
@@ -482,17 +482,17 @@ namespace org.jbox2d.dynamics.joints
                 m_s1 = Vec2.cross(temp, m_perp);
                 m_s2 = Vec2.cross(rB, m_perp);
 
-                float k11 = mA + mB + iA*m_s1*m_s1 + iB*m_s2*m_s2;
-                float k12 = iA*m_s1 + iB*m_s2;
-                float k13 = iA*m_s1*m_a1 + iB*m_s2*m_a2;
-                float k22 = iA + iB;
+                double k11 = mA + mB + iA*m_s1*m_s1 + iB*m_s2*m_s2;
+                double k12 = iA*m_s1 + iB*m_s2;
+                double k13 = iA*m_s1*m_a1 + iB*m_s2*m_a2;
+                double k22 = iA + iB;
                 if (k22 == 0.0f)
                 {
                     // For bodies with fixed rotation.
                     k22 = 1.0f;
                 }
-                float k23 = iA*m_a1 + iB*m_a2;
-                float k33 = mA + mB + iA*m_a1*m_a1 + iB*m_a2*m_a2;
+                double k23 = iA*m_a1 + iB*m_a2;
+                double k33 = mA + mB + iA*m_a1*m_a1 + iB*m_a2*m_a2;
 
                 m_K.ex.set(k11, k12, k13);
                 m_K.ey.set(k12, k22, k23);
@@ -502,7 +502,7 @@ namespace org.jbox2d.dynamics.joints
             // Compute motor and limit terms.
             if (m_enableLimit)
             {
-                float jointTranslation = Vec2.dot(m_axis, d);
+                double jointTranslation = Vec2.dot(m_axis, d);
                 if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0f*Settings.linearSlop)
                 {
                     m_limitState = LimitState.EQUAL;
@@ -550,8 +550,8 @@ namespace org.jbox2d.dynamics.joints
                 temp.set(m_axis).mulLocal(m_motorImpulse + m_impulse.z);
                 P.set(m_perp).mulLocal(m_impulse.x).addLocal(temp);
 
-                float LA = m_impulse.x*m_s1 + m_impulse.y + (m_motorImpulse + m_impulse.z)*m_a1;
-                float LB = m_impulse.x*m_s2 + m_impulse.y + (m_motorImpulse + m_impulse.z)*m_a2;
+                double LA = m_impulse.x*m_s1 + m_impulse.y + (m_motorImpulse + m_impulse.z)*m_a1;
+                double LB = m_impulse.x*m_s2 + m_impulse.y + (m_motorImpulse + m_impulse.z)*m_a2;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -582,12 +582,12 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             Vec2 temp = pool.popVec2();
 
@@ -595,17 +595,17 @@ namespace org.jbox2d.dynamics.joints
             if (m_enableMotor && m_limitState != LimitState.EQUAL)
             {
                 temp.set(vB).subLocal(vA);
-                float Cdot = Vec2.dot(m_axis, temp) + m_a2*wB - m_a1*wA;
-                float impulse = m_motorMass*(m_motorSpeed - Cdot);
-                float oldImpulse = m_motorImpulse;
-                float maxImpulse = data.step.dt*m_maxMotorForce;
+                double Cdot = Vec2.dot(m_axis, temp) + m_a2*wB - m_a1*wA;
+                double impulse = m_motorMass*(m_motorSpeed - Cdot);
+                double oldImpulse = m_motorImpulse;
+                double maxImpulse = data.step.dt*m_maxMotorForce;
                 m_motorImpulse = MathUtils.clamp(m_motorImpulse + impulse, -maxImpulse, maxImpulse);
                 impulse = m_motorImpulse - oldImpulse;
 
                 Vec2 P = pool.popVec2();
                 P.set(m_axis).mulLocal(impulse);
-                float LA = impulse*m_a1;
-                float LB = impulse*m_a2;
+                double LA = impulse*m_a1;
+                double LB = impulse*m_a2;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -627,7 +627,7 @@ namespace org.jbox2d.dynamics.joints
             if (m_enableLimit && m_limitState != LimitState.INACTIVE)
             {
                 // Solve prismatic and limit constraint in block form.
-                float Cdot2;
+                double Cdot2;
                 temp.set(vB).subLocal(vA);
                 Cdot2 = Vec2.dot(m_axis, temp) + m_a2*wB - m_a1*wA;
 
@@ -670,8 +670,8 @@ namespace org.jbox2d.dynamics.joints
                 temp.set(m_axis).mulLocal(df.z);
                 P.set(m_perp).mulLocal(df.x).addLocal(temp);
 
-                float LA = df.x*m_s1 + df.y + df.z*m_a1;
-                float LB = df.x*m_s2 + df.y + df.z*m_a2;
+                double LA = df.x*m_s1 + df.y + df.z*m_a1;
+                double LB = df.x*m_s2 + df.y + df.z*m_a2;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -696,8 +696,8 @@ namespace org.jbox2d.dynamics.joints
 
                 Vec2 P = pool.popVec2();
                 P.set(m_perp).mulLocal(df.x);
-                float LA = df.x*m_s1 + df.y;
-                float LB = df.x*m_s2 + df.y;
+                double LA = df.x*m_s1 + df.y;
+                double LB = df.x*m_s2 + df.y;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -734,15 +734,15 @@ namespace org.jbox2d.dynamics.joints
             Vec3 impulse = pool.popVec3();
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             qA.set(aA);
             qB.set(aB);
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             // Compute fresh Jacobians
             Rot.mulToOutUnsafe(qA, temp.set(m_localAnchorA).subLocal(m_localCenterA), rA);
@@ -750,24 +750,24 @@ namespace org.jbox2d.dynamics.joints
             d.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);
 
             Rot.mulToOutUnsafe(qA, m_localXAxisA, axis);
-            float a1 = Vec2.cross(temp.set(d).addLocal(rA), axis);
-            float a2 = Vec2.cross(rB, axis);
+            double a1 = Vec2.cross(temp.set(d).addLocal(rA), axis);
+            double a2 = Vec2.cross(rB, axis);
             Rot.mulToOutUnsafe(qA, m_localYAxisA, perp);
 
-            float s1 = Vec2.cross(temp.set(d).addLocal(rA), perp);
-            float s2 = Vec2.cross(rB, perp);
+            double s1 = Vec2.cross(temp.set(d).addLocal(rA), perp);
+            double s2 = Vec2.cross(rB, perp);
 
             C1.x = Vec2.dot(perp, d);
             C1.y = aB - aA - m_referenceAngle;
 
-            float linearError = MathUtils.abs(C1.x);
-            float angularError = MathUtils.abs(C1.y);
+            double linearError = MathUtils.abs(C1.x);
+            double angularError = MathUtils.abs(C1.y);
 
             bool active = false;
-            float C2 = 0.0f;
+            double C2 = 0.0f;
             if (m_enableLimit)
             {
-                float translation = Vec2.dot(axis, d);
+                double translation = Vec2.dot(axis, d);
                 if (MathUtils.abs(m_upperTranslation - m_lowerTranslation) < 2.0f*Settings.linearSlop)
                 {
                     // Prevent large angular corrections
@@ -799,17 +799,17 @@ namespace org.jbox2d.dynamics.joints
 
             if (active)
             {
-                float k11 = mA + mB + iA*s1*s1 + iB*s2*s2;
-                float k12 = iA*s1 + iB*s2;
-                float k13 = iA*s1*a1 + iB*s2*a2;
-                float k22 = iA + iB;
+                double k11 = mA + mB + iA*s1*s1 + iB*s2*s2;
+                double k12 = iA*s1 + iB*s2;
+                double k13 = iA*s1*a1 + iB*s2*a2;
+                double k22 = iA + iB;
                 if (k22 == 0.0f)
                 {
                     // For fixed rotation
                     k22 = 1.0f;
                 }
-                float k23 = iA*a1 + iB*a2;
-                float k33 = mA + mB + iA*a1*a1 + iB*a2*a2;
+                double k23 = iA*a1 + iB*a2;
+                double k33 = mA + mB + iA*a1*a1 + iB*a2*a2;
 
                 Mat33 K = pool.popMat33();
                 K.ex.set(k11, k12, k13);
@@ -827,9 +827,9 @@ namespace org.jbox2d.dynamics.joints
             }
             else
             {
-                float k11 = mA + mB + iA*s1*s1 + iB*s2*s2;
-                float k12 = iA*s1 + iB*s2;
-                float k22 = iA + iB;
+                double k11 = mA + mB + iA*s1*s1 + iB*s2*s2;
+                double k12 = iA*s1 + iB*s2;
+                double k22 = iA + iB;
                 if (k22 == 0.0f)
                 {
                     k22 = 1.0f;
@@ -850,10 +850,10 @@ namespace org.jbox2d.dynamics.joints
                 pool.pushMat22(1);
             }
 
-            float Px = impulse.x*perp.x + impulse.z*axis.x;
-            float Py = impulse.x*perp.y + impulse.z*axis.y;
-            float LA = impulse.x*s1 + impulse.y + impulse.z*a1;
-            float LB = impulse.x*s2 + impulse.y + impulse.z*a2;
+            double Px = impulse.x*perp.x + impulse.z*axis.x;
+            double Py = impulse.x*perp.y + impulse.z*axis.y;
+            double LA = impulse.x*s1 + impulse.y + impulse.z*a1;
+            double LB = impulse.x*s2 + impulse.y + impulse.z*a2;
 
             cA.x -= mA*Px;
             cA.y -= mA*Py;

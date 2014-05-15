@@ -134,8 +134,8 @@ namespace org.jbox2d.collision.broadphase
             upperBound.y = aabb.upperBound.y + Settings.aabbExtension;
 
             // Predict AABB displacement.
-            float dx = displacement.x*Settings.aabbMultiplier;
-            float dy = displacement.y*Settings.aabbMultiplier;
+            double dx = displacement.x*Settings.aabbMultiplier;
+            double dy = displacement.y*Settings.aabbMultiplier;
             if (dx < 0.0f)
             {
                 lowerBound.x += dx;
@@ -208,13 +208,13 @@ namespace org.jbox2d.collision.broadphase
         {
             Vec2 p1 = input.p1;
             Vec2 p2 = input.p2;
-            float p1x = p1.x, p2x = p2.x, p1y = p1.y, p2y = p2.y;
-            float vx, vy;
-            float rx, ry;
-            float absVx, absVy;
-            float cx, cy;
-            float hx, hy;
-            float tempx, tempy;
+            double p1x = p1.x, p2x = p2.x, p1y = p1.y, p2y = p2.y;
+            double vx, vy;
+            double rx, ry;
+            double absVx, absVy;
+            double cx, cy;
+            double hx, hy;
+            double tempx, tempy;
             r.x = p2x - p1x;
             r.y = p2y - p1y;
             r.normalize();
@@ -230,7 +230,7 @@ namespace org.jbox2d.collision.broadphase
             // Separating axis for segment (Gino, p80).
             // |dot(v, p1 - c)| > dot(|v|, h)
 
-            float maxFraction = input.maxFraction;
+            double maxFraction = input.maxFraction;
 
             // Build a bounding box for the segment.
             AABB segAABB = aabb;
@@ -273,7 +273,7 @@ namespace org.jbox2d.collision.broadphase
                 hy = (nodeAABB.upperBound.y - nodeAABB.lowerBound.y)*.5f;
                 tempx = p1x - cx;
                 tempy = p1y - cy;
-                float separation = MathUtils.abs(vx*tempx + vy*tempy) - (absVx*hx + absVy*hy);
+                double separation = MathUtils.abs(vx*tempx + vy*tempy) - (absVx*hx + absVy*hy);
                 if (separation > 0.0f)
                 {
                     continue;
@@ -287,7 +287,7 @@ namespace org.jbox2d.collision.broadphase
                     subInput.p2.y = p2y;
                     subInput.maxFraction = maxFraction;
 
-                    float value = callback.raycastCallback(subInput, node.id);
+                    double value = callback.raycastCallback(subInput, node.id);
 
                     if (value == 0.0f)
                     {
@@ -356,7 +356,7 @@ namespace org.jbox2d.collision.broadphase
         }
 
 
-        public float getAreaRatio()
+        public double getAreaRatio()
         {
             if (m_root == null)
             {
@@ -364,9 +364,9 @@ namespace org.jbox2d.collision.broadphase
             }
 
             DynamicTreeNode root = m_root;
-            float rootArea = root.aabb.getPerimeter();
+            double rootArea = root.aabb.getPerimeter();
 
-            float totalArea = 0.0f;
+            double totalArea = 0.0f;
             for (int i = 0; i < m_nodeCapacity; ++i)
             {
                 DynamicTreeNode node = m_nodes[i];
@@ -460,7 +460,7 @@ namespace org.jbox2d.collision.broadphase
             var b = new AABB();
             while (count > 1)
             {
-                float minCost = float.MaxValue;
+                double minCost = double.MaxValue;
                 int iMin = -1, jMin = -1;
                 for (int i = 0; i < count; ++i)
                 {
@@ -470,7 +470,7 @@ namespace org.jbox2d.collision.broadphase
                     {
                         AABB aabbj = m_nodes[nodes[j]].aabb;
                         b.combine(aabbi, aabbj);
-                        float cost = b.getPerimeter();
+                        double cost = b.getPerimeter();
                         if (cost < minCost)
                         {
                             iMin = i;
@@ -570,19 +570,19 @@ namespace org.jbox2d.collision.broadphase
                 DynamicTreeNode child1 = node.child1;
                 DynamicTreeNode child2 = node.child2;
 
-                float area = node.aabb.getPerimeter();
+                double area = node.aabb.getPerimeter();
 
                 combinedAABB.combine(node.aabb, leafAABB);
-                float combinedArea = combinedAABB.getPerimeter();
+                double combinedArea = combinedAABB.getPerimeter();
 
                 // Cost of creating a new parent for this node and the new leaf
-                float cost = 2.0f*combinedArea;
+                double cost = 2.0f*combinedArea;
 
                 // Minimum cost of pushing the leaf further down the tree
-                float inheritanceCost = 2.0f*(combinedArea - area);
+                double inheritanceCost = 2.0f*(combinedArea - area);
 
                 // Cost of descending into child1
-                float cost1;
+                double cost1;
                 if (child1.isLeaf())
                 {
                     combinedAABB.combine(leafAABB, child1.aabb);
@@ -591,13 +591,13 @@ namespace org.jbox2d.collision.broadphase
                 else
                 {
                     combinedAABB.combine(leafAABB, child1.aabb);
-                    float oldArea = child1.aabb.getPerimeter();
-                    float newArea = combinedAABB.getPerimeter();
+                    double oldArea = child1.aabb.getPerimeter();
+                    double newArea = combinedAABB.getPerimeter();
                     cost1 = (newArea - oldArea) + inheritanceCost;
                 }
 
                 // Cost of descending into child2
-                float cost2;
+                double cost2;
                 if (child2.isLeaf())
                 {
                     combinedAABB.combine(leafAABB, child2.aabb);
@@ -606,8 +606,8 @@ namespace org.jbox2d.collision.broadphase
                 else
                 {
                     combinedAABB.combine(leafAABB, child2.aabb);
-                    float oldArea = child2.aabb.getPerimeter();
-                    float newArea = combinedAABB.getPerimeter();
+                    double oldArea = child2.aabb.getPerimeter();
+                    double newArea = combinedAABB.getPerimeter();
                     cost2 = newArea - oldArea + inheritanceCost;
                 }
 

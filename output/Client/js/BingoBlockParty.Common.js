@@ -478,7 +478,7 @@
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
 			fixDef.friction = 1;
-			fixDef.restitution = 0.600000023841858;
+			fixDef.restitution = 0.6;
 			var bodyDef = new org.jbox2d.dynamics.BodyDef();
 			bodyDef.type = 0;
 			bodyDef.position.x = this.pixelToMeter(x) + this.pixelToMeter(width) / 2;
@@ -495,7 +495,7 @@
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
 			fixDef.friction = 1;
-			fixDef.restitution = 0.600000023841858;
+			fixDef.restitution = 0.6;
 			var bodyDef = new org.jbox2d.dynamics.BodyDef();
 			bodyDef.type = 0;
 			bodyDef.position.x = this.pixelToMeter(x) + this.pixelToMeter(width) / 2;
@@ -513,7 +513,7 @@
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
 			fixDef.friction = 1;
-			fixDef.restitution = 0.600000023841858;
+			fixDef.restitution = 0.6;
 			var bodyDef = new org.jbox2d.dynamics.BodyDef();
 			bodyDef.type = 0;
 			bodyDef.position.x = this.pixelToMeter(x);
@@ -533,7 +533,7 @@
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
 			fixDef.friction = 1;
-			fixDef.restitution = 0.600000023841858;
+			fixDef.restitution = 0.6;
 			var bodyDef = new org.jbox2d.dynamics.BodyDef();
 			bodyDef.type = 0;
 			bodyDef.position.x = this.pixelToMeter(x);
@@ -554,7 +554,7 @@
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
 			fixDef.friction = 1;
-			fixDef.restitution = 0.600000023841858;
+			fixDef.restitution = 0.6;
 			var bodyDef = new org.jbox2d.dynamics.BodyDef();
 			bodyDef.type = 2;
 			bodyDef.position.x = this.pixelToMeter(x + offvx);
@@ -581,7 +581,7 @@
 		},
 		tick: function() {
 			ss.clear(this.get_collisions());
-			this.get_world().step(0.0166666675359011, 10, 10);
+			this.get_world().step(0.0166, 10, 10);
 			this.get_world().clearForces();
 			for (var i = 0; i < this.get_collisions().length; i++) {
 				var collision = this.get_collisions()[i];

@@ -43,6 +43,6 @@ namespace org.jbox2d.callbacks
 	 * @param nodeId
 	 * @return the fraction to the node
 	 */
-        float raycastCallback(RayCastInput input, int nodeId);
+        double raycastCallback(RayCastInput input, int nodeId);
     }
 }

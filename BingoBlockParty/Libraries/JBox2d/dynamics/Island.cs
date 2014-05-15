@@ -241,16 +241,16 @@ namespace org.jbox2d.dynamics
         public void solve(Profile profile, TimeStep step, Vec2 gravity, bool allowSleep)
         {
             // System.out.println("Solving Island");
-            float h = step.dt;
+            double h = step.dt;
 
             // Integrate velocities and apply damping. Initialize the body state.
             for (int i = 0; i < m_bodyCount; ++i)
             {
                 Body b = m_bodies[i];
                 Vec2 c = b.m_sweep.c;
-                float a = b.m_sweep.a;
+                double a = b.m_sweep.a;
                 Vec2 v = b.m_linearVelocity;
-                float w = b.m_angularVelocity;
+                double w = b.m_angularVelocity;
 
                 // Store positions for continuous collision.
                 b.m_sweep.c0.set(b.m_sweep.c);
@@ -272,7 +272,7 @@ namespace org.jbox2d.dynamics
                     // v2 = exp(-c * dt) * v1
                     // Taylor expansion:
                     // v2 = (1.0f - c * dt) * v1
-                    float a1 = MathUtils.clamp(1.0f - h * b.m_linearDamping, 0.0f, 1.0f);
+                    double a1 = MathUtils.clamp(1.0f - h * b.m_linearDamping, 0.0f, 1.0f);
                     v.x *= a1;
                     v.y *= a1;
                     w *= MathUtils.clamp(1.0f - h * b.m_angularDamping, 0.0f, 1.0f);
@@ -338,26 +338,26 @@ namespace org.jbox2d.dynamics
             for (int i = 0; i < m_bodyCount; ++i)
             {
                 Vec2 c = m_positions[i].c;
-                float a = m_positions[i].a;
+                double a = m_positions[i].a;
                 Vec2 v = m_velocities[i].v;
-                float w = m_velocities[i].w;
+                double w = m_velocities[i].w;
 
                 // Check for large velocities
-                float translationx = v.x * h;
-                float translationy = v.y * h;
+                double translationx = v.x * h;
+                double translationy = v.y * h;
 
                 if (translationx * translationx + translationy * translationy > Settings.maxTranslationSquared)
                 {
-                    float ratio = Settings.maxTranslation
+                    double ratio = Settings.maxTranslation
                                   / MathUtils.sqrt(translationx * translationx + translationy * translationy);
                     v.x *= ratio;
                     v.y *= ratio;
                 }
 
-                float rotation = h * w;
+                double rotation = h * w;
                 if (rotation * rotation > Settings.maxRotationSquared)
                 {
-                    float ratio = Settings.maxRotation / MathUtils.abs(rotation);
+                    double ratio = Settings.maxRotation / MathUtils.abs(rotation);
                     w *= ratio;
                 }
 
@@ -411,10 +411,10 @@ namespace org.jbox2d.dynamics
 
             if (allowSleep)
             {
-                float minSleepTime = float.MaxValue;
+                double minSleepTime = double.MaxValue;
 
-                float linTolSqr = Settings.linearSleepTolerance * Settings.linearSleepTolerance;
-                float angTolSqr = Settings.angularSleepTolerance * Settings.angularSleepTolerance;
+                double linTolSqr = Settings.linearSleepTolerance * Settings.linearSleepTolerance;
+                double angTolSqr = Settings.angularSleepTolerance * Settings.angularSleepTolerance;
 
                 for (int i = 0; i < m_bodyCount; ++i)
                 {
@@ -531,30 +531,30 @@ namespace org.jbox2d.dynamics
             // Don't store the TOI contact forces for warm starting
             // because they can be quite large.
 
-            float h = subStep.dt;
+            double h = subStep.dt;
 
             // Integrate positions
             for (int i = 0; i < m_bodyCount; ++i)
             {
                 Vec2 c = m_positions[i].c;
-                float a = m_positions[i].a;
+                double a = m_positions[i].a;
                 Vec2 v = m_velocities[i].v;
-                float w = m_velocities[i].w;
+                double w = m_velocities[i].w;
 
                 // Check for large velocities
-                float translationx = v.x * h;
-                float translationy = v.y * h;
+                double translationx = v.x * h;
+                double translationy = v.y * h;
                 if (translationx * translationx + translationy * translationy > Settings.maxTranslationSquared)
                 {
-                    float ratio = Settings.maxTranslation
+                    double ratio = Settings.maxTranslation
                                   / MathUtils.sqrt(translationx * translationx + translationy * translationy);
                     v.mulLocal(ratio);
                 }
 
-                float rotation = h * w;
+                double rotation = h * w;
                 if (rotation * rotation > Settings.maxRotationSquared)
                 {
-                    float ratio = Settings.maxRotation / MathUtils.abs(rotation);
+                    double ratio = Settings.maxRotation / MathUtils.abs(rotation);
                     w *= ratio;
                 }
 

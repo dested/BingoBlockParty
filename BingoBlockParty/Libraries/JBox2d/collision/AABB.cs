@@ -92,12 +92,12 @@ namespace org.jbox2d.collision
 
         public bool isValid()
         {
-            float dx = upperBound.x - lowerBound.x;
+            double dx = upperBound.x - lowerBound.x;
             if (dx < 0f)
             {
                 return false;
             }
-            float dy = upperBound.y - lowerBound.y;
+            double dy = upperBound.y - lowerBound.y;
             if (dy < 0)
             {
                 return false;
@@ -176,7 +176,7 @@ namespace org.jbox2d.collision
    * @return
    */
 
-        public float getPerimeter()
+        public double getPerimeter()
         {
             return 2.0f*(upperBound.x - lowerBound.x + upperBound.y - lowerBound.y);
         }
@@ -237,8 +237,8 @@ namespace org.jbox2d.collision
         public bool raycast(RayCastOutput output, RayCastInput input,
             IWorldPool argPool)
         {
-            float tmin = -float.MaxValue;
-            float tmax = float.MaxValue;
+            double tmin = -double.MaxValue;
+            double tmax = double.MaxValue;
 
             Vec2 p = argPool.popVec2();
             Vec2 d = argPool.popVec2();
@@ -261,16 +261,16 @@ namespace org.jbox2d.collision
             }
             else
             {
-                float inv_d = 1.0f/d.x;
-                float t1 = (lowerBound.x - p.x)*inv_d;
-                float t2 = (upperBound.x - p.x)*inv_d;
+                double inv_d = 1.0f/d.x;
+                double t1 = (lowerBound.x - p.x)*inv_d;
+                double t2 = (upperBound.x - p.x)*inv_d;
 
                 // Sign of the normal vector.
-                float s = -1.0f;
+                double s = -1.0f;
 
                 if (t1 > t2)
                 {
-                    float temp = t1;
+                    double temp = t1;
                     t1 = t2;
                     t2 = temp;
                     s = 1.0f;
@@ -305,16 +305,16 @@ namespace org.jbox2d.collision
             }
             else
             {
-                float inv_d = 1.0f/d.y;
-                float t1 = (lowerBound.y - p.y)*inv_d;
-                float t2 = (upperBound.y - p.y)*inv_d;
+                double inv_d = 1.0f/d.y;
+                double t1 = (lowerBound.y - p.y)*inv_d;
+                double t2 = (upperBound.y - p.y)*inv_d;
 
                 // Sign of the normal vector.
-                float s = -1.0f;
+                double s = -1.0f;
 
                 if (t1 > t2)
                 {
-                    float temp = t1;
+                    double temp = t1;
                     t1 = t2;
                     t2 = temp;
                     s = 1.0f;

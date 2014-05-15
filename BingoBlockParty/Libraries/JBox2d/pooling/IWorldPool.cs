@@ -63,7 +63,7 @@ namespace org.jbox2d.pooling
         Collision getCollision();
         TimeOfImpact getTimeOfImpact();
         Distance getDistance();
-        float[] getFloatArray(int argLength);
+        double[] getDoubleArray(int argLength);
         int[] getIntArray(int argLength);
         Vec2[] getVec2Array(int argLength);
     }

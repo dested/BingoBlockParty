@@ -67,34 +67,34 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_localYAxisA = new Vec2();
         private readonly Vec2 rA = new Vec2();
         private readonly Vec2 rB = new Vec2();
-        private float m_bias;
-        private float m_dampingRatio;
+        private double m_bias;
+        private double m_dampingRatio;
 
         private bool m_enableMotor;
-        private float m_frequencyHz;
-        private float m_gamma;
-        private float m_impulse;
+        private double m_frequencyHz;
+        private double m_gamma;
+        private double m_impulse;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
-        private float m_mass;
-        private float m_maxMotorTorque;
-        private float m_motorImpulse;
-        private float m_motorMass;
-        private float m_motorSpeed;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
+        private double m_mass;
+        private double m_maxMotorTorque;
+        private double m_motorImpulse;
+        private double m_motorMass;
+        private double m_motorSpeed;
 
-        private float m_sAx;
-        private float m_sAy;
-        private float m_sBx;
-        private float m_sBy;
-        private float m_springImpulse;
+        private double m_sAx;
+        private double m_sAy;
+        private double m_sBx;
+        private double m_sBy;
+        private double m_springImpulse;
 
-        private float m_springMass;
+        private double m_springMass;
 
         public WheelJoint(IWorldPool argPool, WheelJointDef def) : base(argPool, def)
         {
@@ -138,7 +138,7 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             Vec2 temp = pool.popVec2();
             temp.set(m_ay).mulLocal(m_impulse);
@@ -147,12 +147,12 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return inv_dt*m_motorImpulse;
         }
 
-        public float getJointTranslation()
+        public double getJointTranslation()
         {
             Body b1 = m_bodyA;
             Body b2 = m_bodyB;
@@ -165,7 +165,7 @@ namespace org.jbox2d.dynamics.joints
             p2.subLocal(p1);
             b1.getWorldVectorToOut(m_localXAxisA, axis);
 
-            float translation = Vec2.dot(p2, axis);
+            double translation = Vec2.dot(p2, axis);
             pool.pushVec2(3);
             return translation;
         }
@@ -177,7 +177,7 @@ namespace org.jbox2d.dynamics.joints
             return m_localXAxisA;
         }
 
-        public float getJointSpeed()
+        public double getJointSpeed()
         {
             return m_bodyA.m_angularVelocity - m_bodyB.m_angularVelocity;
         }
@@ -194,51 +194,51 @@ namespace org.jbox2d.dynamics.joints
             m_enableMotor = flag;
         }
 
-        public void setMotorSpeed(float speed)
+        public void setMotorSpeed(double speed)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
             m_motorSpeed = speed;
         }
 
-        public float getMotorSpeed()
+        public double getMotorSpeed()
         {
             return m_motorSpeed;
         }
 
-        public float getMaxMotorTorque()
+        public double getMaxMotorTorque()
         {
             return m_maxMotorTorque;
         }
 
-        public void setMaxMotorTorque(float torque)
+        public void setMaxMotorTorque(double torque)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
             m_maxMotorTorque = torque;
         }
 
-        public float getMotorTorque(float inv_dt)
+        public double getMotorTorque(double inv_dt)
         {
             return m_motorImpulse*inv_dt;
         }
 
-        public void setSpringFrequencyHz(float hz)
+        public void setSpringFrequencyHz(double hz)
         {
             m_frequencyHz = hz;
         }
 
-        public float getSpringFrequencyHz()
+        public double getSpringFrequencyHz()
         {
             return m_frequencyHz;
         }
 
-        public void setSpringDampingRatio(float ratio)
+        public void setSpringDampingRatio(double ratio)
         {
             m_dampingRatio = ratio;
         }
 
-        public float getSpringDampingRatio()
+        public double getSpringDampingRatio()
         {
             return m_dampingRatio;
         }
@@ -257,18 +257,18 @@ namespace org.jbox2d.dynamics.joints
             m_invIA = m_bodyA.m_invI;
             m_invIB = m_bodyB.m_invI;
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -306,25 +306,25 @@ namespace org.jbox2d.dynamics.joints
                 m_sAx = Vec2.cross(temp.set(d2).addLocal(rA), m_ax);
                 m_sBx = Vec2.cross(rB, m_ax);
 
-                float invMass = mA + mB + iA*m_sAx*m_sAx + iB*m_sBx*m_sBx;
+                double invMass = mA + mB + iA*m_sAx*m_sAx + iB*m_sBx*m_sBx;
 
                 if (invMass > 0.0f)
                 {
                     m_springMass = 1.0f/invMass;
 
-                    float C = Vec2.dot(d2, m_ax);
+                    double C = Vec2.dot(d2, m_ax);
 
                     // Frequency
-                    float omega = 2.0f*MathUtils.PI*m_frequencyHz;
+                    double omega = 2.0f*MathUtils.PI*m_frequencyHz;
 
                     // Damping coefficient
-                    float d = 2.0f*m_springMass*m_dampingRatio*omega;
+                    double d = 2.0f*m_springMass*m_dampingRatio*omega;
 
                     // Spring stiffness
-                    float k = m_springMass*omega*omega;
+                    double k = m_springMass*omega*omega;
 
                     // magic formulas
-                    float h = data.step.dt;
+                    double h = data.step.dt;
                     m_gamma = h*(d + h*k);
                     if (m_gamma > 0.0f)
                     {
@@ -370,8 +370,8 @@ namespace org.jbox2d.dynamics.joints
 
                 P.x = m_impulse*m_ay.x + m_springImpulse*m_ax.x;
                 P.y = m_impulse*m_ay.y + m_springImpulse*m_ax.y;
-                float LA = m_impulse*m_sAy + m_springImpulse*m_sAx + m_motorImpulse;
-                float LB = m_impulse*m_sBy + m_springImpulse*m_sBx + m_motorImpulse;
+                double LA = m_impulse*m_sAy + m_springImpulse*m_sAx + m_motorImpulse;
+                double LB = m_impulse*m_sBy + m_springImpulse*m_sBx + m_motorImpulse;
 
                 vA.x -= m_invMassA*P.x;
                 vA.y -= m_invMassA*P.y;
@@ -400,27 +400,27 @@ namespace org.jbox2d.dynamics.joints
 
         public override void solveVelocityConstraints(SolverData data)
         {
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Vec2 temp = pool.popVec2();
             Vec2 P = pool.popVec2();
 
             // Solve spring constraint
             {
-                float Cdot = Vec2.dot(m_ax, temp.set(vB).subLocal(vA)) + m_sBx*wB - m_sAx*wA;
-                float impulse = -m_springMass*(Cdot + m_bias + m_gamma*m_springImpulse);
+                double Cdot = Vec2.dot(m_ax, temp.set(vB).subLocal(vA)) + m_sBx*wB - m_sAx*wA;
+                double impulse = -m_springMass*(Cdot + m_bias + m_gamma*m_springImpulse);
                 m_springImpulse += impulse;
 
                 P.x = impulse*m_ax.x;
                 P.y = impulse*m_ax.y;
-                float LA = impulse*m_sAx;
-                float LB = impulse*m_sBx;
+                double LA = impulse*m_sAx;
+                double LB = impulse*m_sBx;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -433,11 +433,11 @@ namespace org.jbox2d.dynamics.joints
 
             // Solve rotational motor constraint
             {
-                float Cdot = wB - wA - m_motorSpeed;
-                float impulse = -m_motorMass*Cdot;
+                double Cdot = wB - wA - m_motorSpeed;
+                double impulse = -m_motorMass*Cdot;
 
-                float oldImpulse = m_motorImpulse;
-                float maxImpulse = data.step.dt*m_maxMotorTorque;
+                double oldImpulse = m_motorImpulse;
+                double maxImpulse = data.step.dt*m_maxMotorTorque;
                 m_motorImpulse = MathUtils.clamp(m_motorImpulse + impulse, -maxImpulse, maxImpulse);
                 impulse = m_motorImpulse - oldImpulse;
 
@@ -447,14 +447,14 @@ namespace org.jbox2d.dynamics.joints
 
             // Solve point to line constraint
             {
-                float Cdot = Vec2.dot(m_ay, temp.set(vB).subLocal(vA)) + m_sBy*wB - m_sAy*wA;
-                float impulse = -m_mass*Cdot;
+                double Cdot = Vec2.dot(m_ay, temp.set(vB).subLocal(vA)) + m_sBy*wB - m_sAy*wA;
+                double impulse = -m_mass*Cdot;
                 m_impulse += impulse;
 
                 P.x = impulse*m_ay.x;
                 P.y = impulse*m_ay.y;
-                float LA = impulse*m_sAy;
-                float LB = impulse*m_sBy;
+                double LA = impulse*m_sAy;
+                double LB = impulse*m_sBy;
 
                 vA.x -= mA*P.x;
                 vA.y -= mA*P.y;
@@ -476,9 +476,9 @@ namespace org.jbox2d.dynamics.joints
         public override bool solvePositionConstraints(SolverData data)
         {
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -494,14 +494,14 @@ namespace org.jbox2d.dynamics.joints
             Vec2 ay = pool.popVec2();
             Rot.mulToOut(qA, m_localYAxisA, ay);
 
-            float sAy = Vec2.cross(temp.set(d2).addLocal(rA), ay);
-            float sBy = Vec2.cross(rB, ay);
+            double sAy = Vec2.cross(temp.set(d2).addLocal(rA), ay);
+            double sBy = Vec2.cross(rB, ay);
 
-            float C = Vec2.dot(d2, ay);
+            double C = Vec2.dot(d2, ay);
 
-            float k = m_invMassA + m_invMassB + m_invIA*m_sAy*m_sAy + m_invIB*m_sBy*m_sBy;
+            double k = m_invMassA + m_invMassB + m_invIA*m_sAy*m_sAy + m_invIB*m_sBy*m_sBy;
 
-            float impulse;
+            double impulse;
             if (k != 0.0f)
             {
                 impulse = -C/k;
@@ -514,8 +514,8 @@ namespace org.jbox2d.dynamics.joints
             Vec2 P = pool.popVec2();
             P.x = impulse*ay.x;
             P.y = impulse*ay.y;
-            float LA = impulse*sAy;
-            float LB = impulse*sBy;
+            double LA = impulse*sAy;
+            double LB = impulse*sBy;
 
             cA.x -= m_invMassA*P.x;
             cA.y -= m_invMassA*P.y;

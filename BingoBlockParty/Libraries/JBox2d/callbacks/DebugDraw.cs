@@ -117,7 +117,7 @@ namespace org.jbox2d.callbacks
             }
         }
 
-        public abstract void drawPoint(Vec2 argPoint, float argRadiusOnScreen, Color3f argColor);
+        public abstract void drawPoint(Vec2 argPoint, double argRadiusOnScreen, Color3f argColor);
 
         /**
 	 * Draw a solid closed polygon provided in CCW order.
@@ -133,7 +133,7 @@ namespace org.jbox2d.callbacks
 	 * @param radius
 	 * @param color
 	 */
-        public abstract void drawCircle(Vec2 center, float radius, Color3f color);
+        public abstract void drawCircle(Vec2 center, double radius, Color3f color);
 
         /**
 	 * Draw a solid circle.
@@ -142,7 +142,7 @@ namespace org.jbox2d.callbacks
 	 * @param axis
 	 * @param color
 	 */
-        public abstract void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color);
+        public abstract void drawSolidCircle(Vec2 center, double radius, Vec2 axis, Color3f color);
 
         /**
 	 * Draw a line segment.
@@ -165,7 +165,7 @@ namespace org.jbox2d.callbacks
 	 * @param s
 	 * @param color
 	 */
-        public abstract void drawString(float x, float y, string s, Color3f color);
+        public abstract void drawString(double x, double y, string s, Color3f color);
 
         public void drawString(Vec2 pos, string s, Color3f color)
         {
@@ -181,10 +181,10 @@ namespace org.jbox2d.callbacks
 	 * @param x
 	 * @param y
 	 * @param scale
-	 * @see IViewportTransform#setCamera(float, float, float)
+	 * @see IViewportTransform#setCamera(double, double, double)
 	 */
 
-        public void setCamera(float x, float y, float scale)
+        public void setCamera(double x, double y, double scale)
         {
             viewportTransform.setCamera(x, y, scale);
         }
@@ -220,7 +220,7 @@ namespace org.jbox2d.callbacks
 	 * @param argScreen
 	 */
 
-        public void getWorldToScreenToOut(float worldX, float worldY, Vec2 argScreen)
+        public void getWorldToScreenToOut(double worldX, double worldY, Vec2 argScreen)
         {
             argScreen.set(worldX, worldY);
             viewportTransform.getWorldToScreen(argScreen, argScreen);
@@ -246,7 +246,7 @@ namespace org.jbox2d.callbacks
 	 * @param worldY
 	 */
 
-        public Vec2 getWorldToScreen(float worldX, float worldY)
+        public Vec2 getWorldToScreen(double worldX, double worldY)
         {
             var argScreen = new Vec2(worldX, worldY);
             viewportTransform.getWorldToScreen(argScreen, argScreen);
@@ -261,7 +261,7 @@ namespace org.jbox2d.callbacks
 	 * @param argWorld
 	 */
 
-        public void getScreenToWorldToOut(float screenX, float screenY, Vec2 argWorld)
+        public void getScreenToWorldToOut(double screenX, double screenY, Vec2 argWorld)
         {
             argWorld.set(screenX, screenY);
             viewportTransform.getScreenToWorld(argWorld, argWorld);
@@ -287,7 +287,7 @@ namespace org.jbox2d.callbacks
 	 * @param screenY
 	 */
 
-        public Vec2 getScreenToWorld(float screenX, float screenY)
+        public Vec2 getScreenToWorld(double screenX, double screenY)
         {
             var screen = new Vec2(screenX, screenY);
             viewportTransform.getScreenToWorld(screen, screen);

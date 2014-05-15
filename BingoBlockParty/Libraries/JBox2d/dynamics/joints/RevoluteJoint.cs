@@ -69,18 +69,18 @@ namespace org.jbox2d.dynamics.joints
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
         private LimitState m_limitState;
-        private float m_lowerAngle;
-        private float m_maxMotorTorque;
-        private float m_motorImpulse;
-        private float m_motorMass; // effective mass for motor/limit angular constraint.
-        private float m_motorSpeed;
-        public float m_referenceAngle;
-        private float m_upperAngle;
+        private double m_lowerAngle;
+        private double m_maxMotorTorque;
+        private double m_motorImpulse;
+        private double m_motorMass; // effective mass for motor/limit angular constraint.
+        private double m_motorSpeed;
+        public double m_referenceAngle;
+        private double m_upperAngle;
 
         public RevoluteJoint(IWorldPool argWorld, RevoluteJointDef def)
             : base(argWorld, def)
@@ -113,14 +113,14 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             // Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             // Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
             Vec2 temp = pool.popVec2();
@@ -141,8 +141,8 @@ namespace org.jbox2d.dynamics.joints
             // [ -r1y*iA*r1x-r2y*iB*r2x, mA+r1x^2*iA+mB+r2x^2*iB, r1x*iA+r2x*iB]
             // [ -r1y*iA-r2y*iB, r1x*iA+r2x*iB, iA+iB]
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             bool fixedRotation = (iA + iB == 0.0f);
 
@@ -169,7 +169,7 @@ namespace org.jbox2d.dynamics.joints
 
             if (m_enableLimit && fixedRotation == false)
             {
-                float jointAngle = aB - aA - m_referenceAngle;
+                double jointAngle = aB - aA - m_referenceAngle;
                 if (MathUtils.abs(m_upperAngle - m_lowerAngle) < 2.0f*Settings.angularSlop)
                 {
                     m_limitState = LimitState.EQUAL;
@@ -239,22 +239,22 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
-            float mA = m_invMassA, mB = m_invMassB;
-            float iA = m_invIA, iB = m_invIB;
+            double mA = m_invMassA, mB = m_invMassB;
+            double iA = m_invIA, iB = m_invIB;
 
             bool fixedRotation = (iA + iB == 0.0f);
 
             // Solve motor constraint.
             if (m_enableMotor && m_limitState != LimitState.EQUAL && fixedRotation == false)
             {
-                float Cdot = wB - wA - m_motorSpeed;
-                float impulse = -m_motorMass*Cdot;
-                float oldImpulse = m_motorImpulse;
-                float maxImpulse = data.step.dt*m_maxMotorTorque;
+                double Cdot = wB - wA - m_motorSpeed;
+                double impulse = -m_motorMass*Cdot;
+                double oldImpulse = m_motorImpulse;
+                double maxImpulse = data.step.dt*m_maxMotorTorque;
                 m_motorImpulse = MathUtils.clamp(m_motorImpulse + impulse, -maxImpulse, maxImpulse);
                 impulse = m_motorImpulse - oldImpulse;
 
@@ -273,7 +273,7 @@ namespace org.jbox2d.dynamics.joints
                 Vec2.crossToOutUnsafe(wA, m_rA, temp);
                 Vec2.crossToOutUnsafe(wB, m_rB, Cdot1);
                 Cdot1.addLocal(vB).subLocal(vA).subLocal(temp);
-                float Cdot2 = wB - wA;
+                double Cdot2 = wB - wA;
                 Cdot.set(Cdot1.x, Cdot1.y, Cdot2);
 
                 Vec3 impulse = pool.popVec3();
@@ -286,7 +286,7 @@ namespace org.jbox2d.dynamics.joints
                 }
                 else if (m_limitState == LimitState.AT_LOWER)
                 {
-                    float newImpulse = m_impulse.z + impulse.z;
+                    double newImpulse = m_impulse.z + impulse.z;
                     if (newImpulse < 0.0f)
                     {
                         Vec2 rhs = pool.popVec2();
@@ -307,7 +307,7 @@ namespace org.jbox2d.dynamics.joints
                 }
                 else if (m_limitState == LimitState.AT_UPPER)
                 {
-                    float newImpulse = m_impulse.z + impulse.z;
+                    double newImpulse = m_impulse.z + impulse.z;
                     if (newImpulse > 0.0f)
                     {
                         Vec2 rhs = pool.popVec2();
@@ -380,28 +380,28 @@ namespace org.jbox2d.dynamics.joints
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             qA.set(aA);
             qB.set(aB);
 
-            float angularError = 0.0f;
-            float positionError = 0.0f;
+            double angularError = 0.0f;
+            double positionError = 0.0f;
 
             bool fixedRotation = (m_invIA + m_invIB == 0.0f);
 
             // Solve angular limit constraint.
             if (m_enableLimit && m_limitState != LimitState.INACTIVE && fixedRotation == false)
             {
-                float angle = aB - aA - m_referenceAngle;
-                float limitImpulse = 0.0f;
+                double angle = aB - aA - m_referenceAngle;
+                double limitImpulse = 0.0f;
 
                 if (m_limitState == LimitState.EQUAL)
                 {
                     // Prevent large angular corrections
-                    float C =
+                    double C =
                         MathUtils.clamp(angle - m_lowerAngle, -Settings.maxAngularCorrection,
                             Settings.maxAngularCorrection);
                     limitImpulse = -m_motorMass*C;
@@ -409,7 +409,7 @@ namespace org.jbox2d.dynamics.joints
                 }
                 else if (m_limitState == LimitState.AT_LOWER)
                 {
-                    float C = angle - m_lowerAngle;
+                    double C = angle - m_lowerAngle;
                     angularError = -C;
 
                     // Prevent large angular corrections and allow some slop.
@@ -418,7 +418,7 @@ namespace org.jbox2d.dynamics.joints
                 }
                 else if (m_limitState == LimitState.AT_UPPER)
                 {
-                    float C = angle - m_upperAngle;
+                    double C = angle - m_upperAngle;
                     angularError = C;
 
                     // Prevent large angular corrections and allow some slop.
@@ -444,8 +444,8 @@ namespace org.jbox2d.dynamics.joints
                 C.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);
                 positionError = C.length();
 
-                float mA = m_invMassA, mB = m_invMassB;
-                float iA = m_invIA, iB = m_invIB;
+                double mA = m_invMassA, mB = m_invMassB;
+                double iA = m_invIA, iB = m_invIB;
 
                 Mat22 K = pool.popMat22();
                 K.ex.x = mA + mB + iA*rA.y*rA.y + iB*rB.y*rB.y;
@@ -486,7 +486,7 @@ namespace org.jbox2d.dynamics.joints
             return m_localAnchorB;
         }
 
-        public float getReferenceAngle()
+        public double getReferenceAngle()
         {
             return m_referenceAngle;
         }
@@ -504,25 +504,25 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.set(m_impulse.x, m_impulse.y).mulLocal(inv_dt);
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return inv_dt*m_impulse.z;
         }
 
-        public float getJointAngle()
+        public double getJointAngle()
         {
             Body b1 = m_bodyA;
             Body b2 = m_bodyB;
             return b2.m_sweep.a - b1.m_sweep.a - m_referenceAngle;
         }
 
-        public float getJointSpeed()
+        public double getJointSpeed()
         {
             Body b1 = m_bodyA;
             Body b2 = m_bodyB;
@@ -541,31 +541,31 @@ namespace org.jbox2d.dynamics.joints
             m_enableMotor = flag;
         }
 
-        public float getMotorTorque(float inv_dt)
+        public double getMotorTorque(double inv_dt)
         {
             return m_motorImpulse*inv_dt;
         }
 
-        public void setMotorSpeed(float speed)
+        public void setMotorSpeed(double speed)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
             m_motorSpeed = speed;
         }
 
-        public void setMaxMotorTorque(float torque)
+        public void setMaxMotorTorque(double torque)
         {
             m_bodyA.setAwake(true);
             m_bodyB.setAwake(true);
             m_maxMotorTorque = torque;
         }
 
-        public float getMotorSpeed()
+        public double getMotorSpeed()
         {
             return m_motorSpeed;
         }
 
-        public float getMaxMotorTorque()
+        public double getMaxMotorTorque()
         {
             return m_maxMotorTorque;
         }
@@ -586,17 +586,17 @@ namespace org.jbox2d.dynamics.joints
             }
         }
 
-        public float getLowerLimit()
+        public double getLowerLimit()
         {
             return m_lowerAngle;
         }
 
-        public float getUpperLimit()
+        public double getUpperLimit()
         {
             return m_upperAngle;
         }
 
-        public void setLimits(float lower, float upper)
+        public void setLimits(double lower, double upper)
         {
             if (lower != m_lowerAngle || upper != m_upperAngle)
             {

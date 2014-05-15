@@ -73,9 +73,9 @@ namespace org.jbox2d.dynamics.joints
         /**
 	 * The damping ratio. 0 = no damping, 1 = critical damping.
 	 */
-        public float dampingRatio;
-        public float frequencyHz;
-        public float length;
+        public double dampingRatio;
+        public double frequencyHz;
+        public double length;
 
         public DistanceJointDef()
         {

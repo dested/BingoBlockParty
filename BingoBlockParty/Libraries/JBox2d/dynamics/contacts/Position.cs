@@ -30,6 +30,6 @@ namespace org.jbox2d.dynamics.contacts
     public class Position
     {
         public readonly Vec2 c = new Vec2();
-        public float a;
+        public double a;
     }
 }

@@ -54,28 +54,28 @@ namespace org.jbox2d.dynamics
         public readonly Transform m_xf = new Transform();
         private readonly MassData pmd = new MassData();
         private readonly Transform pxf = new Transform();
-        public float m_I;
-        public float m_angularDamping;
-        public float m_angularVelocity = 0;
+        public double m_I;
+        public double m_angularDamping;
+        public double m_angularVelocity = 0;
 
         public ContactEdge m_contactList;
         public int m_fixtureCount;
         public Fixture m_fixtureList;
         public int m_flags;
-        public float m_gravityScale;
+        public double m_gravityScale;
 
-        public float m_invI;
-        public float m_invMass;
+        public double m_invI;
+        public double m_invMass;
         public int m_islandIndex;
         public JointEdge m_jointList;
 
-        public float m_linearDamping;
-        public float m_mass;
+        public double m_linearDamping;
+        public double m_mass;
         public Body m_next;
         public Body m_prev;
 
-        public float m_sleepTime;
-        public float m_torque = 0;
+        public double m_sleepTime;
+        public double m_torque = 0;
         public BodyType m_type;
 
         public object m_userData;
@@ -213,7 +213,7 @@ namespace org.jbox2d.dynamics
    * @warning This function is locked during callbacks.
    */
 
-        public Fixture createFixture(Shape shape, float density)
+        public Fixture createFixture(Shape shape, double density)
         {
             fixDef.shape = shape;
             fixDef.density = density;
@@ -309,7 +309,7 @@ namespace org.jbox2d.dynamics
    * @param angle the world rotation in radians.
    */
 
-        public void setTransform(Vec2 position, float angle)
+        public void setTransform(Vec2 position, double angle)
         {
             if (m_world.isLocked())
             {
@@ -363,7 +363,7 @@ namespace org.jbox2d.dynamics
    * @return the current world rotation angle in radians.
    */
 
-        public float getAngle()
+        public double getAngle()
         {
             return m_sweep.a;
         }
@@ -425,7 +425,7 @@ namespace org.jbox2d.dynamics
    * @param omega the new angular velocity in radians/second.
    */
 
-        public void setAngularVelocity(float w)
+        public void setAngularVelocity(double w)
         {
             if (m_type == BodyType.STATIC)
             {
@@ -446,7 +446,7 @@ namespace org.jbox2d.dynamics
    * @return the angular velocity in radians/second.
    */
 
-        public float getAngularVelocity()
+        public double getAngularVelocity()
         {
             return m_angularVelocity;
         }
@@ -457,7 +457,7 @@ namespace org.jbox2d.dynamics
    * @return
    */
 
-        public float getGravityScale()
+        public double getGravityScale()
         {
             return m_gravityScale;
         }
@@ -468,7 +468,7 @@ namespace org.jbox2d.dynamics
    * @param gravityScale
    */
 
-        public void setGravityScale(float gravityScale)
+        public void setGravityScale(double gravityScale)
         {
             m_gravityScale = gravityScale;
         }
@@ -533,7 +533,7 @@ namespace org.jbox2d.dynamics
    * @param torque about the z-axis (out of the screen), usually in N-m.
    */
 
-        public void applyTorque(float torque)
+        public void applyTorque(double torque)
         {
             if (m_type != BodyType.DYNAMIC)
             {
@@ -589,7 +589,7 @@ namespace org.jbox2d.dynamics
    * @param impulse the angular impulse in units of kg*m*m/s
    */
 
-        public void applyAngularImpulse(float impulse)
+        public void applyAngularImpulse(double impulse)
         {
             if (m_type != BodyType.DYNAMIC)
             {
@@ -609,7 +609,7 @@ namespace org.jbox2d.dynamics
    * @return the mass, usually in kilograms (kg).
    */
 
-        public float getMass()
+        public double getMass()
         {
             return m_mass;
         }
@@ -620,7 +620,7 @@ namespace org.jbox2d.dynamics
    * @return the rotational inertia, usually in kg-m^2.
    */
 
-        public float getInertia()
+        public double getInertia()
         {
             return m_I
                    + m_mass
@@ -924,28 +924,28 @@ namespace org.jbox2d.dynamics
 
         /** Get the linear damping of the body. */
 
-        public float getLinearDamping()
+        public double getLinearDamping()
         {
             return m_linearDamping;
         }
 
         /** Set the linear damping of the body. */
 
-        public void setLinearDamping(float linearDamping)
+        public void setLinearDamping(double linearDamping)
         {
             m_linearDamping = linearDamping;
         }
 
         /** Get the angular damping of the body. */
 
-        public float getAngularDamping()
+        public double getAngularDamping()
         {
             return m_angularDamping;
         }
 
         /** Set the angular damping of the body. */
 
-        public void setAngularDamping(float angularDamping)
+        public void setAngularDamping(double angularDamping)
         {
             m_angularDamping = angularDamping;
         }
@@ -1329,7 +1329,7 @@ namespace org.jbox2d.dynamics
             return true;
         }
 
-        public void advance(float t)
+        public void advance(double t)
         {
             // Advance to the new safe time. This doesn't sync the broad-phase.
             m_sweep.advance(t);

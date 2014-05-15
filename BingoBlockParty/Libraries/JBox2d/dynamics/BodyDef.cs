@@ -48,7 +48,7 @@ namespace org.jbox2d.dynamics
 	 */
         public bool active;
         public bool allowSleep;
-        public float angle;
+        public double angle;
 
         /**
 	 * The linear velocity of the body in world co-ordinates.
@@ -59,8 +59,8 @@ namespace org.jbox2d.dynamics
 	 * can be larger than 1.0f but the damping effect becomes sensitive to the
 	 * time step when the damping parameter is large.
 	 */
-        public float angularDamping;
-        public float angularVelocity;
+        public double angularDamping;
+        public double angularVelocity;
 
         /**
 	 * Set this flag to false if this body should never fall asleep. Note that
@@ -93,8 +93,8 @@ namespace org.jbox2d.dynamics
         /**
 	 * Experimental: scales the inertia tensor.
 	 */
-        public float gravityScale;
-        public float linearDamping;
+        public double gravityScale;
+        public double linearDamping;
         public Vec2 linearVelocity;
         public Vec2 position;
         public BodyType type;

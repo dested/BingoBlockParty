@@ -33,7 +33,7 @@ namespace org.jbox2d.common
     {
         private static readonly long serialVersionUID = 1L;
 
-        public float x, y;
+        public double x, y;
 
 
         public Vec2()
@@ -41,7 +41,7 @@ namespace org.jbox2d.common
         {
         }
 
-        public Vec2(float x, float y)
+        public Vec2(double x, double y)
         {
             this.x = x;
             this.y = y;
@@ -62,7 +62,7 @@ namespace org.jbox2d.common
 
         /** Set the vector component-wise. */
 
-        public Vec2 set(float x, float y)
+        public Vec2 set(double x, double y)
         {
             this.x = x;
             this.y = y;
@@ -95,7 +95,7 @@ namespace org.jbox2d.common
 
         /** Return this vector multiplied by a scalar; does not alter this vector. */
 
-        public Vec2 mul(float a)
+        public Vec2 mul(double a)
         {
             return new Vec2(x * a, y * a);
         }
@@ -127,7 +127,7 @@ namespace org.jbox2d.common
 
         /** Adds values to this vector and returns result - alters this vector. */
 
-        public Vec2 addLocal(float x, float y)
+        public Vec2 addLocal(double x, double y)
         {
             this.x += x;
             this.y += y;
@@ -145,7 +145,7 @@ namespace org.jbox2d.common
 
         /** Multiply this vector by a number and return result - alters this vector. */
 
-        public Vec2 mulLocal(float a)
+        public Vec2 mulLocal(double a)
         {
             x *= a;
             y *= a;
@@ -169,43 +169,43 @@ namespace org.jbox2d.common
 
         /** Return the length of this vector. */
 
-        public float length()
+        public double length()
         {
             return MathUtils.sqrt(x * x + y * y);
         }
 
         /** Return the squared length of this vector. */
 
-        public float lengthSquared()
+        public double lengthSquared()
         {
             return (x * x + y * y);
         }
 
         /** Normalize this vector and return the length before normalization. Alters this vector. */
 
-        public float normalize()
+        public double normalize()
         {
-            float _length = length();
+            double _length = length();
             if (_length < Settings.EPSILON)
             {
                 return 0f;
             }
 
-            float invLength = 1.0f / _length;
+            double invLength = 1.0f / _length;
             x *= invLength;
             y *= invLength;
             return _length;
         }
 
-        /** True if the vector represents a pair of valid, non-infinite floating point numbers. */
+        /** True if the vector represents a pair of valid, non-infinite doubleing point numbers. */
 
         public bool isValid()
         {
-            var valid = !float.IsNaN(x) && !float.IsNaN(y)
+            var valid = !double.IsNaN(x) && !double.IsNaN(y)
 #if WEB
-                        && float.IsFinite(x) && float.IsFinite(y);
+                        && double.IsFinite(x) && double.IsFinite(y);
 #else
-                        && !float.IsInfinity(x) && !float.IsInfinity(y);
+                        && !double.IsInfinity(x) && !double.IsInfinity(y);
 #endif
 
             return valid;
@@ -253,47 +253,47 @@ namespace org.jbox2d.common
             out_.y = MathUtils.abs(a.y);
         }
 
-        public static float dot(Vec2 a, Vec2 b)
+        public static double dot(Vec2 a, Vec2 b)
         {
             return a.x * b.x + a.y * b.y;
         }
 
-        public static float cross(Vec2 a, Vec2 b)
+        public static double cross(Vec2 a, Vec2 b)
         {
             return a.x * b.y - a.y * b.x;
         }
 
-        public static Vec2 cross(Vec2 a, float s)
+        public static Vec2 cross(Vec2 a, double s)
         {
             return new Vec2(s * a.y, -s * a.x);
         }
 
-        public static void crossToOut(Vec2 a, float s, Vec2 out_)
+        public static void crossToOut(Vec2 a, double s, Vec2 out_)
         {
-            float tempy = -s * a.x;
+            double tempy = -s * a.x;
             out_.x = s * a.y;
             out_.y = tempy;
         }
 
-        public static void crossToOutUnsafe(Vec2 a, float s, Vec2 out_)
+        public static void crossToOutUnsafe(Vec2 a, double s, Vec2 out_)
         {
             out_.x = s * a.y;
             out_.y = -s * a.x;
         }
 
-        public static Vec2 cross(float s, Vec2 a)
+        public static Vec2 cross(double s, Vec2 a)
         {
             return new Vec2(-s * a.y, s * a.x);
         }
 
-        public static void crossToOut(float s, Vec2 a, Vec2 out_)
+        public static void crossToOut(double s, Vec2 a, Vec2 out_)
         {
-            float tempY = s * a.x;
+            double tempY = s * a.x;
             out_.x = -s * a.y;
             out_.y = tempY;
         }
 
-        public static void crossToOutUnsafe(float s, Vec2 a, Vec2 out_)
+        public static void crossToOutUnsafe(double s, Vec2 a, Vec2 out_)
         {
             out_.x = -s * a.y;
             out_.y = s * a.x;
@@ -352,8 +352,8 @@ namespace org.jbox2d.common
             if (obj == null) return false;
             if (GetType() != obj.GetType()) return false;
             var other = (Vec2)obj;
-            if (!NumberHelper.CompareFloats(x, other.x)) return false;
-            if (!NumberHelper.CompareFloats(y, other.y)) return false;
+            if (!NumberHelper.CompareDoubles(x, other.x)) return false;
+            if (!NumberHelper.CompareDoubles(y, other.y)) return false;
             return true;
         }
     }

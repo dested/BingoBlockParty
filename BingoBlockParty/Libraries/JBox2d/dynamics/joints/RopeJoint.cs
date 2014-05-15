@@ -23,18 +23,18 @@ namespace org.jbox2d.dynamics.joints
         private readonly Vec2 m_rA = new Vec2();
         private readonly Vec2 m_rB = new Vec2();
         private readonly Vec2 m_u = new Vec2();
-        private float m_impulse;
+        private double m_impulse;
 
         // Solver temp
         private int m_indexA;
         private int m_indexB;
-        private float m_invIA;
-        private float m_invIB;
-        private float m_invMassA;
-        private float m_invMassB;
-        private float m_length;
-        private float m_mass;
-        private float m_maxLength;
+        private double m_invIA;
+        private double m_invIB;
+        private double m_invMassA;
+        private double m_invMassB;
+        private double m_length;
+        private double m_mass;
+        private double m_maxLength;
         private LimitState m_state;
 
         public RopeJoint(IWorldPool worldPool, RopeJointDef def)
@@ -64,14 +64,14 @@ namespace org.jbox2d.dynamics.joints
             m_invIB = m_bodyB.m_invI;
 
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
 
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -88,7 +88,7 @@ namespace org.jbox2d.dynamics.joints
 
             m_length = m_u.length();
 
-            float C = m_length - m_maxLength;
+            double C = m_length - m_maxLength;
             if (C > 0.0f)
             {
                 m_state = LimitState.AT_UPPER;
@@ -111,9 +111,9 @@ namespace org.jbox2d.dynamics.joints
             }
 
             // Compute effective mass.
-            float crA = Vec2.cross(m_rA, m_u);
-            float crB = Vec2.cross(m_rB, m_u);
-            float invMass = m_invMassA + m_invIA*crA*crA + m_invMassB + m_invIB*crB*crB;
+            double crA = Vec2.cross(m_rA, m_u);
+            double crB = Vec2.cross(m_rB, m_u);
+            double invMass = m_invMassA + m_invIA*crA*crA + m_invMassB + m_invIB*crB*crB;
 
             m_mass = invMass != 0.0f ? 1.0f/invMass : 0.0f;
 
@@ -122,8 +122,8 @@ namespace org.jbox2d.dynamics.joints
                 // Scale the impulse to support a variable time step.
                 m_impulse *= data.step.dtRatio;
 
-                float Px = m_impulse*m_u.x;
-                float Py = m_impulse*m_u.y;
+                double Px = m_impulse*m_u.x;
+                double Py = m_impulse*m_u.y;
                 vA.x -= m_invMassA*Px;
                 vA.y -= m_invMassA*Py;
                 wA -= m_invIA*(m_rA.x*Py - m_rA.y*Px);
@@ -150,9 +150,9 @@ namespace org.jbox2d.dynamics.joints
         public override void solveVelocityConstraints(SolverData data)
         {
             Vec2 vA = data.velocities[m_indexA].v;
-            float wA = data.velocities[m_indexA].w;
+            double wA = data.velocities[m_indexA].w;
             Vec2 vB = data.velocities[m_indexB].v;
-            float wB = data.velocities[m_indexB].w;
+            double wB = data.velocities[m_indexB].w;
 
             // Cdot = dot(u, v + cross(w, r))
             Vec2 vpA = pool.popVec2();
@@ -164,8 +164,8 @@ namespace org.jbox2d.dynamics.joints
             Vec2.crossToOutUnsafe(wB, m_rB, vpB);
             vpB.addLocal(vB);
 
-            float C = m_length - m_maxLength;
-            float Cdot = Vec2.dot(m_u, temp.set(vpB).subLocal(vpA));
+            double C = m_length - m_maxLength;
+            double Cdot = Vec2.dot(m_u, temp.set(vpB).subLocal(vpA));
 
             // Predictive constraint.
             if (C < 0.0f)
@@ -173,13 +173,13 @@ namespace org.jbox2d.dynamics.joints
                 Cdot += data.step.inv_dt*C;
             }
 
-            float impulse = -m_mass*Cdot;
-            float oldImpulse = m_impulse;
+            double impulse = -m_mass*Cdot;
+            double oldImpulse = m_impulse;
             m_impulse = MathUtils.min(0.0f, m_impulse + impulse);
             impulse = m_impulse - oldImpulse;
 
-            float Px = impulse*m_u.x;
-            float Py = impulse*m_u.y;
+            double Px = impulse*m_u.x;
+            double Py = impulse*m_u.y;
             vA.x -= m_invMassA*Px;
             vA.y -= m_invMassA*Py;
             wA -= m_invIA*(m_rA.x*Py - m_rA.y*Px);
@@ -199,9 +199,9 @@ namespace org.jbox2d.dynamics.joints
         public override bool solvePositionConstraints(SolverData data)
         {
             Vec2 cA = data.positions[m_indexA].c;
-            float aA = data.positions[m_indexA].a;
+            double aA = data.positions[m_indexA].a;
             Vec2 cB = data.positions[m_indexB].c;
-            float aB = data.positions[m_indexB].a;
+            double aB = data.positions[m_indexB].a;
 
             Rot qA = pool.popRot();
             Rot qB = pool.popRot();
@@ -218,14 +218,14 @@ namespace org.jbox2d.dynamics.joints
             Rot.mulToOutUnsafe(qB, temp.set(m_localAnchorB).subLocal(m_localCenterB), rB);
             u.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);
 
-            float length = u.normalize();
-            float C = length - m_maxLength;
+            double length = u.normalize();
+            double C = length - m_maxLength;
 
             C = MathUtils.clamp(C, 0.0f, Settings.maxLinearCorrection);
 
-            float impulse = -m_mass*C;
-            float Px = impulse*u.x;
-            float Py = impulse*u.y;
+            double impulse = -m_mass*C;
+            double Px = impulse*u.x;
+            double Py = impulse*u.y;
 
             cA.x -= m_invMassA*Px;
             cA.y -= m_invMassA*Py;
@@ -258,13 +258,13 @@ namespace org.jbox2d.dynamics.joints
         }
 
 
-        public override void getReactionForce(float inv_dt, Vec2 argOut)
+        public override void getReactionForce(double inv_dt, Vec2 argOut)
         {
             argOut.set(m_u).mulLocal(inv_dt).mulLocal(m_impulse);
         }
 
 
-        public override float getReactionTorque(float inv_dt)
+        public override double getReactionTorque(double inv_dt)
         {
             return 0f;
         }
@@ -279,12 +279,12 @@ namespace org.jbox2d.dynamics.joints
             return m_localAnchorB;
         }
 
-        public float getMaxLength()
+        public double getMaxLength()
         {
             return m_maxLength;
         }
 
-        public void setMaxLength(float maxLength)
+        public void setMaxLength(double maxLength)
         {
             m_maxLength = maxLength;
         }

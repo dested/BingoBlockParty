@@ -43,7 +43,7 @@ namespace org.jbox2d.collision
         public readonly Vec2 w = new Vec2(); // wB - wA
         public readonly Vec2 wA = new Vec2(); // support point in shapeA
         public readonly Vec2 wB = new Vec2(); // support point in shapeB
-        public float a; // barycentric coordinate for closest point
+        public double a; // barycentric coordinate for closest point
         public int indexA; // wA index
         public int indexB; // wB index
 
@@ -66,7 +66,7 @@ namespace org.jbox2d.collision
         /** vertices on shape B */
         public readonly int[] indexB = new int[3];
         public int count;
-        public float metric;
+        public double metric;
 
         public SimplexCache()
         {
@@ -135,8 +135,8 @@ namespace org.jbox2d.collision
             // old metric then flush the simplex.
             if (m_count > 1)
             {
-                float metric1 = cache.metric;
-                float metric2 = getMetric();
+                double metric1 = cache.metric;
+                double metric2 = getMetric();
                 if (metric2 < 0.5f*metric1 || 2.0f*metric1 < metric2 || metric2 < Settings.EPSILON)
                 {
                     // Reset the simplex.
@@ -182,7 +182,7 @@ namespace org.jbox2d.collision
                     e12.set(m_v2.w).subLocal(m_v1.w);
                     // use out_ for a temp variable real quick
                     out_.set(m_v1.w).negateLocal();
-                    float sgn = Vec2.cross(e12, out_);
+                    double sgn = Vec2.cross(e12, out_);
 
                     if (sgn > 0f)
                     {
@@ -271,7 +271,7 @@ namespace org.jbox2d.collision
         }
 
         // djm pooled, from above
-        public float getMetric()
+        public double getMetric()
         {
             switch (m_count)
             {
@@ -330,7 +330,7 @@ namespace org.jbox2d.collision
             e12.set(w2).subLocal(w1);
 
             // w1 region
-            float d12_2 = -Vec2.dot(w1, e12);
+            double d12_2 = -Vec2.dot(w1, e12);
             if (d12_2 <= 0.0f)
             {
                 // a2 <= 0, so we clamp it to 0
@@ -340,7 +340,7 @@ namespace org.jbox2d.collision
             }
 
             // w2 region
-            float d12_1 = Vec2.dot(w2, e12);
+            double d12_1 = Vec2.dot(w2, e12);
             if (d12_1 <= 0.0f)
             {
                 // a1 <= 0, so we clamp it to 0
@@ -351,7 +351,7 @@ namespace org.jbox2d.collision
             }
 
             // Must be in e12 region.
-            float inv_d12 = 1.0f/(d12_1 + d12_2);
+            double inv_d12 = 1.0f/(d12_1 + d12_2);
             m_v1.a = d12_1*inv_d12;
             m_v2.a = d12_2*inv_d12;
             m_count = 2;
@@ -379,37 +379,37 @@ namespace org.jbox2d.collision
             // [w1.e12 w2.e12][a2] = [0]
             // a3 = 0
             e12.set(w2).subLocal(w1);
-            float w1e12 = Vec2.dot(w1, e12);
-            float w2e12 = Vec2.dot(w2, e12);
-            float d12_1 = w2e12;
-            float d12_2 = -w1e12;
+            double w1e12 = Vec2.dot(w1, e12);
+            double w2e12 = Vec2.dot(w2, e12);
+            double d12_1 = w2e12;
+            double d12_2 = -w1e12;
 
             // Edge13
             // [1 1 ][a1] = [1]
             // [w1.e13 w3.e13][a3] = [0]
             // a2 = 0
             e13.set(w3).subLocal(w1);
-            float w1e13 = Vec2.dot(w1, e13);
-            float w3e13 = Vec2.dot(w3, e13);
-            float d13_1 = w3e13;
-            float d13_2 = -w1e13;
+            double w1e13 = Vec2.dot(w1, e13);
+            double w3e13 = Vec2.dot(w3, e13);
+            double d13_1 = w3e13;
+            double d13_2 = -w1e13;
 
             // Edge23
             // [1 1 ][a2] = [1]
             // [w2.e23 w3.e23][a3] = [0]
             // a1 = 0
             e23.set(w3).subLocal(w2);
-            float w2e23 = Vec2.dot(w2, e23);
-            float w3e23 = Vec2.dot(w3, e23);
-            float d23_1 = w3e23;
-            float d23_2 = -w2e23;
+            double w2e23 = Vec2.dot(w2, e23);
+            double w3e23 = Vec2.dot(w3, e23);
+            double d23_1 = w3e23;
+            double d23_2 = -w2e23;
 
             // Triangle123
-            float n123 = Vec2.cross(e12, e13);
+            double n123 = Vec2.cross(e12, e13);
 
-            float d123_1 = n123*Vec2.cross(w2, w3);
-            float d123_2 = n123*Vec2.cross(w3, w1);
-            float d123_3 = n123*Vec2.cross(w1, w2);
+            double d123_1 = n123*Vec2.cross(w2, w3);
+            double d123_2 = n123*Vec2.cross(w3, w1);
+            double d123_3 = n123*Vec2.cross(w1, w2);
 
             // w1 region
             if (d12_2 <= 0.0f && d13_2 <= 0.0f)
@@ -422,7 +422,7 @@ namespace org.jbox2d.collision
             // e12
             if (d12_1 > 0.0f && d12_2 > 0.0f && d123_3 <= 0.0f)
             {
-                float inv_d12 = 1.0f/(d12_1 + d12_2);
+                double inv_d12 = 1.0f/(d12_1 + d12_2);
                 m_v1.a = d12_1*inv_d12;
                 m_v2.a = d12_2*inv_d12;
                 m_count = 2;
@@ -432,7 +432,7 @@ namespace org.jbox2d.collision
             // e13
             if (d13_1 > 0.0f && d13_2 > 0.0f && d123_2 <= 0.0f)
             {
-                float inv_d13 = 1.0f/(d13_1 + d13_2);
+                double inv_d13 = 1.0f/(d13_1 + d13_2);
                 m_v1.a = d13_1*inv_d13;
                 m_v3.a = d13_2*inv_d13;
                 m_count = 2;
@@ -461,7 +461,7 @@ namespace org.jbox2d.collision
             // e23
             if (d23_1 > 0.0f && d23_2 > 0.0f && d123_1 <= 0.0f)
             {
-                float inv_d23 = 1.0f/(d23_1 + d23_2);
+                double inv_d23 = 1.0f/(d23_1 + d23_2);
                 m_v2.a = d23_1*inv_d23;
                 m_v3.a = d23_2*inv_d23;
                 m_count = 2;
@@ -470,7 +470,7 @@ namespace org.jbox2d.collision
             }
 
             // Must be in triangle123
-            float inv_d123 = 1.0f/(d123_1 + d123_2 + d123_3);
+            double inv_d123 = 1.0f/(d123_1 + d123_2 + d123_3);
             m_v1.a = d123_1*inv_d123;
             m_v2.a = d123_2*inv_d123;
             m_v3.a = d123_3*inv_d123;
@@ -483,7 +483,7 @@ namespace org.jbox2d.collision
         public readonly Vec2[] m_buffer;
         public readonly Vec2[] m_vertices;
         public int m_count;
-        public float m_radius;
+        public double m_radius;
 
         public DistanceProxy()
         {
@@ -560,10 +560,10 @@ namespace org.jbox2d.collision
         public int getSupport(Vec2 d)
         {
             int bestIndex = 0;
-            float bestValue = Vec2.dot(m_vertices[0], d);
+            double bestValue = Vec2.dot(m_vertices[0], d);
             for (int i = 1; i < m_count; i++)
             {
-                float value = Vec2.dot(m_vertices[i], d);
+                double value = Vec2.dot(m_vertices[i], d);
                 if (value > bestValue)
                 {
                     bestIndex = i;
@@ -584,10 +584,10 @@ namespace org.jbox2d.collision
         public Vec2 getSupportVertex(Vec2 d)
         {
             int bestIndex = 0;
-            float bestValue = Vec2.dot(m_vertices[0], d);
+            double bestValue = Vec2.dot(m_vertices[0], d);
             for (int i = 1; i < m_count; i++)
             {
-                float value = Vec2.dot(m_vertices[i], d);
+                double value = Vec2.dot(m_vertices[i], d);
                 if (value > bestValue)
                 {
                     bestIndex = i;
@@ -687,8 +687,8 @@ namespace org.jbox2d.collision
             int saveCount = 0;
 
             simplex.getClosestPoint(closestPoint);
-            float distanceSqr1 = closestPoint.lengthSquared();
-            float distanceSqr2 = distanceSqr1;
+            double distanceSqr1 = closestPoint.lengthSquared();
+            double distanceSqr2 = distanceSqr1;
 
             // Main iteration loop
             int iter = 0;
@@ -803,8 +803,8 @@ namespace org.jbox2d.collision
             // Apply radii if requested.
             if (input.useRadii)
             {
-                float rA = proxyA.m_radius;
-                float rB = proxyB.m_radius;
+                double rA = proxyA.m_radius;
+                double rB = proxyB.m_radius;
 
                 if (output.distance > rA + rB && output.distance > Settings.EPSILON)
                 {

@@ -30,6 +30,6 @@ namespace org.jbox2d.dynamics.contacts
     public class Velocity
     {
         public readonly Vec2 v = new Vec2();
-        public float w;
+        public double w;
     }
 }

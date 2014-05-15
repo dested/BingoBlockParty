@@ -145,10 +145,10 @@ namespace org.jbox2d.collision.shapes
 
             // Find the right most point on the hull
             int i0 = 0;
-            float x0 = ps[0].x;
+            double x0 = ps[0].x;
             for (int i = 1; i < num; ++i)
             {
-                float x = ps[i].x;
+                double x = ps[i].x;
                 if (x > x0 || (x == x0 && ps[i].y < ps[i0].y))
                 {
                     i0 = i;
@@ -178,7 +178,7 @@ namespace org.jbox2d.collision.shapes
 
                     Vec2 r = pool1.set(ps[ie]).subLocal(ps[hull[m]]);
                     Vec2 v = pool2.set(ps[j]).subLocal(ps[hull[m]]);
-                    float c = Vec2.cross(r, v);
+                    double c = Vec2.cross(r, v);
                     if (c < 0.0f)
                     {
                         ie = j;
@@ -235,7 +235,7 @@ namespace org.jbox2d.collision.shapes
    * @param hy the half-height.
    */
 
-        public void setAsBox(float hx, float hy)
+        public void setAsBox(double hx, double hy)
         {
             m_count = 4;
             m_vertices[0].set(-hx, -hy);
@@ -258,7 +258,7 @@ namespace org.jbox2d.collision.shapes
    * @param angle the rotation of the box in local coordinates.
    */
 
-        public void setAsBox(float hx, float hy, Vec2 center, float angle)
+        public void setAsBox(double hx, double hy, Vec2 center, double angle)
         {
             m_count = 4;
             m_vertices[0].set(-hx, -hy);
@@ -291,13 +291,13 @@ namespace org.jbox2d.collision.shapes
 
         public override bool testPoint(Transform xf, Vec2 p)
         {
-            float tempx, tempy;
+            double tempx, tempy;
             Rot xfq = xf.q;
 
             tempx = p.x - xf.p.x;
             tempy = p.y - xf.p.y;
-            float pLocalx = xfq.c*tempx + xfq.s*tempy;
-            float pLocaly = -xfq.s*tempx + xfq.c*tempy;
+            double pLocalx = xfq.c*tempx + xfq.s*tempy;
+            double pLocaly = -xfq.s*tempx + xfq.c*tempy;
 
             if (m_debug)
             {
@@ -316,7 +316,7 @@ namespace org.jbox2d.collision.shapes
                 Vec2 normal = m_normals[i];
                 tempx = pLocalx - vertex.x;
                 tempy = pLocaly - vertex.y;
-                float dot = normal.x*tempx + normal.y*tempy;
+                double dot = normal.x*tempx + normal.y*tempy;
                 if (dot > 0.0f)
                 {
                     return false;
@@ -334,7 +334,7 @@ namespace org.jbox2d.collision.shapes
             Vec2 v1 = m_vertices[0];
             Rot xfq = xf.q;
             Vec2 xfp = xf.p;
-            float vx, vy;
+            double vx, vy;
             lower.x = (xfq.c*v1.x - xfq.s*v1.y) + xfp.x;
             lower.y = (xfq.s*v1.x + xfq.c*v1.y) + xfp.y;
             upper.x = lower.x;
@@ -387,23 +387,23 @@ namespace org.jbox2d.collision.shapes
         {
             Rot xfq = xf.q;
             Vec2 xfp = xf.p;
-            float tempx, tempy;
+            double tempx, tempy;
             // b2Vec2 p1 = b2MulT(xf.q, input.p1 - xf.p);
             // b2Vec2 p2 = b2MulT(xf.q, input.p2 - xf.p);
             tempx = input.p1.x - xfp.x;
             tempy = input.p1.y - xfp.y;
-            float p1x = xfq.c*tempx + xfq.s*tempy;
-            float p1y = -xfq.s*tempx + xfq.c*tempy;
+            double p1x = xfq.c*tempx + xfq.s*tempy;
+            double p1y = -xfq.s*tempx + xfq.c*tempy;
 
             tempx = input.p2.x - xfp.x;
             tempy = input.p2.y - xfp.y;
-            float p2x = xfq.c*tempx + xfq.s*tempy;
-            float p2y = -xfq.s*tempx + xfq.c*tempy;
+            double p2x = xfq.c*tempx + xfq.s*tempy;
+            double p2y = -xfq.s*tempx + xfq.c*tempy;
 
-            float dx = p2x - p1x;
-            float dy = p2y - p1y;
+            double dx = p2x - p1x;
+            double dy = p2y - p1y;
 
-            float lower = 0, upper = input.maxFraction;
+            double lower = 0, upper = input.maxFraction;
 
             int index = -1;
 
@@ -414,10 +414,10 @@ namespace org.jbox2d.collision.shapes
                 // p = p1 + a * d
                 // dot(normal, p - v) = 0
                 // dot(normal, p1 - v) + a * dot(normal, d) = 0
-                float tempxn = vertex.x - p1x;
-                float tempyn = vertex.y - p1y;
-                float numerator = normal.x*tempxn + normal.y*tempyn;
-                float denominator = normal.x*dx + normal.y*dy;
+                double tempxn = vertex.x - p1x;
+                double tempyn = vertex.y - p1y;
+                double numerator = normal.x*tempxn + normal.y*tempyn;
+                double denominator = normal.x*dx + normal.y*dy;
 
                 if (denominator == 0.0f)
                 {
@@ -470,7 +470,7 @@ namespace org.jbox2d.collision.shapes
         public void computeCentroidToOut(Vec2[] vs, int count, Vec2 out_)
         {
             out_.set(0.0f, 0.0f);
-            float area = 0.0f;
+            double area = 0.0f;
 
             // pRef is the reference point for forming triangles.
             // It's location doesn't change the result (except for rounding error).
@@ -480,7 +480,7 @@ namespace org.jbox2d.collision.shapes
             Vec2 e1 = pool2;
             Vec2 e2 = pool3;
 
-            float inv3 = 1.0f/3.0f;
+            double inv3 = 1.0f/3.0f;
 
             for (int i = 0; i < count; ++i)
             {
@@ -492,9 +492,9 @@ namespace org.jbox2d.collision.shapes
                 e1.set(p2).subLocal(p1);
                 e2.set(p3).subLocal(p1);
 
-                float D = Vec2.cross(e1, e2);
+                double D = Vec2.cross(e1, e2);
 
-                float triangleArea = 0.5f*D;
+                double triangleArea = 0.5f*D;
                 area += triangleArea;
 
                 // Area weighted centroid
@@ -506,7 +506,7 @@ namespace org.jbox2d.collision.shapes
             out_.mulLocal(1.0f/area);
         }
 
-        public override void computeMass(MassData massData, float density)
+        public override void computeMass(MassData massData, double density)
         {
             // Polygon mass, centroid, and inertia.
             // Let rho be the polygon density in mass per unit area.
@@ -535,8 +535,8 @@ namespace org.jbox2d.collision.shapes
 
             Vec2 center = pool1;
             center.setZero();
-            float area = 0.0f;
-            float I = 0.0f;
+            double area = 0.0f;
+            double I = 0.0f;
 
             // pRef is the reference point for forming triangles.
             // It's location doesn't change the result (except for rounding error).
@@ -549,7 +549,7 @@ namespace org.jbox2d.collision.shapes
             }
             s.mulLocal(1.0f/m_count);
 
-            float k_inv3 = 1.0f/3.0f;
+            double k_inv3 = 1.0f/3.0f;
 
             Vec2 e1 = pool3;
             Vec2 e2 = pool4;
@@ -560,20 +560,20 @@ namespace org.jbox2d.collision.shapes
                 e1.set(m_vertices[i]).subLocal(s);
                 e2.set(s).negateLocal().addLocal(i + 1 < m_count ? m_vertices[i + 1] : m_vertices[0]);
 
-                float D = Vec2.cross(e1, e2);
+                double D = Vec2.cross(e1, e2);
 
-                float triangleArea = 0.5f*D;
+                double triangleArea = 0.5f*D;
                 area += triangleArea;
 
                 // Area weighted centroid
                 center.x += triangleArea*k_inv3*(e1.x + e2.x);
                 center.y += triangleArea*k_inv3*(e1.y + e2.y);
 
-                float ex1 = e1.x, ey1 = e1.y;
-                float ex2 = e2.x, ey2 = e2.y;
+                double ex1 = e1.x, ey1 = e1.y;
+                double ex2 = e2.x, ey2 = e2.y;
 
-                float intx2 = ex1*ex1 + ex2*ex1 + ex2*ex2;
-                float inty2 = ey1*ey1 + ey2*ey1 + ey2*ey2;
+                double intx2 = ex1*ex1 + ex2*ex1 + ex2*ex2;
+                double inty2 = ey1*ey1 + ey2*ey1 + ey2*ey2;
 
                 I += (0.25f*k_inv3*D)*(intx2 + inty2);
             }
@@ -615,7 +615,7 @@ namespace org.jbox2d.collision.shapes
                     }
 
                     Vec2 v = pool2.set(m_vertices[j]).subLocal(p);
-                    float c = Vec2.cross(e, v);
+                    double c = Vec2.cross(e, v);
                     if (c < 0.0f)
                     {
                         return false;
