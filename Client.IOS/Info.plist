@@ -28,12 +28,14 @@
 	<key>CFBundleIdentifier</key>
 	<string>ded</string>
 	<key>CFBundleVersion</key>
-	<string></string>
+	<string>1</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
 	<string></string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
 </dict>
 </plist>

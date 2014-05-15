@@ -185,7 +185,7 @@
     <Content Include="Content\images\walkway\walkway-red.png" />
     <Content Include="Default.png" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="Info.plist" />
+    <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\images\people\Thumbs.db" />
