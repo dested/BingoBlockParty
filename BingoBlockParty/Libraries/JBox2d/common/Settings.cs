@@ -38,7 +38,7 @@ namespace org.jbox2d.common
         public static readonly double EPSILON = 1.1920928955078125E-7d;
 
         /** Pi. */
-        public static readonly double PI = (double) Math.PI;
+        public static readonly double PI =   Math.PI;
 
         // JBox2D specific settings
         public static bool FAST_ABS = true;

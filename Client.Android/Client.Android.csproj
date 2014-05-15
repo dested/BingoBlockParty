@@ -61,10 +61,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Engine.Interfaces\bin\Debug\Engine.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Engine.Xna, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Engine.Xna\bin\Debug\Engine.Xna.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="OpenTK" />
@@ -165,6 +161,12 @@
     <AndroidAsset Include="Assets\Content\images\people\MaleBouncer_FrontDesign.png" />
     <AndroidAsset Include="Assets\Content\images\walkway\walkway-red.png" />
     <Content Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Xna\Engine.Xna.csproj">
+      <Project>{b67acd42-254f-4edd-8741-f281c9731fce}</Project>
+      <Name>Engine.Xna</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

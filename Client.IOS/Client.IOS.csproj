@@ -105,15 +105,6 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>monogameios\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Engine.Xna">
-      <HintPath>..\Engine.Xna\bin\IOS\Engine.Xna.dll</HintPath>
-    </Reference>
-    <Reference Include="Client.Interfaces">
-      <HintPath>..\Client.Interfaces\bin\IOS\Client.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Engine.Interfaces">
-      <HintPath>..\Engine.Interfaces\bin\IOS\Engine.Interfaces.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -190,6 +181,20 @@
   <ItemGroup>
     <None Include="Content\images\people\Thumbs.db" />
     <None Include="Content\spriteFont1.xnb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
+      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
+      <Name>Client.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Xna\Engine.Xna.csproj">
+      <Project>{b67acd42-254f-4edd-8741-f281c9731fce}</Project>
+      <Name>Engine.Xna</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>
