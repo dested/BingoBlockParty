@@ -336,7 +336,7 @@
 			this.get_pegsPlane().init();
 			var type = 0;
 			var pegLocs = [];
-			for (var i = 0; i < 16800; i += 50) {
+			for (var i = 0; i < 800; i += 50) {
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(62, 201 + i, 0));
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(101, 178 + i, 0));
 				ss.add(pegLocs, new $BingoBlockParty_Common_BallGame_Models_PegData(145, 173 + i, 0));
