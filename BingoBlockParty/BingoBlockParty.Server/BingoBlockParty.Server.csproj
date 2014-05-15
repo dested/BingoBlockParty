@@ -37,6 +37,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IOS|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +48,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
-      <Project>{1f5a2302-7e31-4fa2-8ca7-2a2d66e083c4}</Project>
+      <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common</Name>
     </ProjectReference>
   </ItemGroup>

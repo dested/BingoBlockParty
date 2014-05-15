@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client.IOS/Game.cs">
+    <Files>
+      <File FileName="Client.IOS/Game.cs" Line="3" Column="14" />
+      <File FileName="BingoBlockParty/BingoBlockParty.Common/BallGame/GameModel.cs" Line="1" Column="1" />
+      <File FileName="BingoBlockParty/BingoBlockParty.Client/BallGame/ClientGameBoard.cs" Line="1" Column="1" />
+      <File FileName="BingoBlockParty/BingoBlockParty.Client/Game.cs" Line="1" Column="1" />
+      <File FileName="Engine.Xna/Resolution.cs" Line="1" Column="1" />
+      <File FileName="Engine.Xna/XnaClient.cs" Line="1" Column="1" />
+      <File FileName="Client.IOS/Info.plist" />
+      <File FileName="Client.IOS/Main.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

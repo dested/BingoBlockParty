@@ -37,6 +37,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IOS|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +48,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -76,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
       <Name>Engine.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\JBox2d\JBox2d.csproj">

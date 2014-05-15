@@ -37,6 +37,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IOS|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -46,15 +48,13 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Users\Dested12\AppData\Local\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\Lidgren.Network.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Users\Dested12\AppData\Local\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,6 +63,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral" />
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\Library\Application Support\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\MonoGame.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resolution.cs" />
@@ -75,13 +79,13 @@
       <Project>{E53A0131-9C6C-4335-A05A-2AE0B0F4E37B}</Project>
       <Name>BingoBlockParty.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
-      <Name>Client.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
       <Name>Engine.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
+      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
+      <Name>Client.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

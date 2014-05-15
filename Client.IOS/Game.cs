@@ -52,8 +52,10 @@ namespace Client.IOS
 
             client = new XnaClient();
             renderer = new XnaRenderer(GraphicsDevice, Content);
-            client.Init(renderer);
-		}
+			client.LoadImages(renderer);
+
+			client.Init(renderer);
+								}
          
 
 		/// <summary>

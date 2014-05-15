@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E96FF281-68D0-4A77-82CA-48480EAE2CFE}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
@@ -81,6 +79,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IOS|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +90,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -99,6 +102,18 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK-1.0" />
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\Library\Application Support\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Engine.Xna">
+      <HintPath>..\Engine.Xna\bin\IOS\Engine.Xna.dll</HintPath>
+    </Reference>
+    <Reference Include="Client.Interfaces">
+      <HintPath>..\Client.Interfaces\bin\IOS\Client.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Engine.Interfaces">
+      <HintPath>..\Engine.Interfaces\bin\IOS\Engine.Interfaces.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

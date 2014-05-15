@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;XNA</DefineConstants>
@@ -37,6 +37,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IOS|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +48,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -77,17 +81,17 @@
     <Compile Include="Utils\ClientSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
-      <Name>Client.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
       <Name>Engine.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\BingoBlockParty.Common\BingoBlockParty.Common.csproj">
       <Project>{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}</Project>
       <Name>BingoBlockParty.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Client.Interfaces\Client.Interfaces.csproj">
+      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
+      <Name>Client.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
