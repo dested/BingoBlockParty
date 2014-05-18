@@ -61,7 +61,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
                     break;
                 case TouchType.TouchMove:
                     if (MovingCannon)
-                    { 
+                    {
                         var angle = (int)((Math.Atan2(y - this.GameBoard.GameModel.CannonLocation.Y, x - this.GameBoard.GameModel.CannonLocation.X) * 180 / Math.PI) - 90);
                         this.RotateCannon(angle);
                     }
@@ -93,68 +93,68 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
         public void Render(ILayer context)
         {
-            
-                    var cannonLocation = this.GameBoard.GameModel.CannonLocation;
 
-                    var cannonImage = this.CannonAsset;
+            var cannonLocation = this.GameBoard.GameModel.CannonLocation;
 
-
-                    context.Save();
-                    context.Translate(cannonLocation.X - cannonImage.Width / 2, cannonLocation.Y);
+            var cannonImage = this.CannonAsset;
 
 
-                    context.DrawImage(cannonImage, 0, 0,  (this.GameBoard.GameModel.CannonAngle * Math.PI / 180), cannonImage.Width / 2, 0);
-              
-                    context.Restore();
+            context.Save();
+            context.Translate(cannonLocation.X - cannonImage.Width / 2, cannonLocation.Y);
 
 
-/*
-                    if (this.GameBoard.GameModel.showPeople) {
-                        this.ticking += 2;
+            context.DrawImage(cannonImage, 0, 0, (this.GameBoard.GameModel.CannonAngle * Math.PI / 180), cannonImage.Width / 2, 0);
 
-                        context.Save();
-
-                        var person = assetLoader.getAsset('female.blonde.front');
-
-                        context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
-
-                        context.Translate(person.Width / 2, person.Height / 2);
+            context.Restore();
 
 
-                        if (this.ticking % 20 < 10) {
-                            context.Rotate(.07);
-                            context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                        } else {
-                            context.Rotate(-.07);
-                            context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                        }
+            /*
+                                if (this.GameBoard.GameModel.showPeople) {
+                                    this.ticking += 2;
 
-                        context.Restore();
+                                    context.Save();
 
+                                    var person = assetLoader.getAsset('female.blonde.front');
 
-                        context.Save();
+                                    context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
 
-                        var person = assetLoader.getAsset('male.hat.front');
-
-                        context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
-
-                        context.Translate(person.Width / 2, person.Height / 2);
+                                    context.Translate(person.Width / 2, person.Height / 2);
 
 
-                        if (this.ticking % 20 < 10) {
-                            context.Rotate(.07);
-                            context.scale(-1, 1);
-                            context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                        } else {
-                            context.Rotate(-.07);
-                            context.scale(-1, 1);
-                            context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                        }
+                                    if (this.ticking % 20 < 10) {
+                                        context.Rotate(.07);
+                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+                                    } else {
+                                        context.Rotate(-.07);
+                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+                                    }
 
-                        context.Restore();
-                    }
-*/
+                                    context.Restore();
+
+
+                                    context.Save();
+
+                                    var person = assetLoader.getAsset('male.hat.front');
+
+                                    context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
+
+                                    context.Translate(person.Width / 2, person.Height / 2);
+
+
+                                    if (this.ticking % 20 < 10) {
+                                        context.Rotate(.07);
+                                        context.scale(-1, 1);
+                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+                                    } else {
+                                        context.Rotate(-.07);
+                                        context.scale(-1, 1);
+                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+                                    }
+
+                                    context.Restore();
+                                }
+            */
 
         }
-     }
+    }
 }

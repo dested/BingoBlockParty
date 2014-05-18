@@ -544,93 +544,93 @@
 			context.drawImage$2(cannonImage, 0, 0, this.get_gameBoard().get_gameModel().get_cannonAngle() * Math.PI / 180, ss.Int32.div(cannonImage.get_width(), 2), 0);
 			context.restore();
 			//
-			//                    if (this.GameBoard.GameModel.showPeople) {
+			//                                if (this.GameBoard.GameModel.showPeople) {
 			//
-			//                    this.ticking += 2;
+			//                                this.ticking += 2;
 			//
-			//                    
+			//                                
 			//
-			//                    context.Save();
+			//                                context.Save();
 			//
-			//                    
+			//                                
 			//
-			//                    var person = assetLoader.getAsset('female.blonde.front');
+			//                                var person = assetLoader.getAsset('female.blonde.front');
 			//
-			//                    
+			//                                
 			//
-			//                    context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
+			//                                context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
 			//
-			//                    
+			//                                
 			//
-			//                    context.Translate(person.Width / 2, person.Height / 2);
+			//                                context.Translate(person.Width / 2, person.Height / 2);
 			//
-			//                    
+			//                                
 			//
-			//                    
+			//                                
 			//
-			//                    if (this.ticking % 20 < 10) {
+			//                                if (this.ticking % 20 < 10) {
 			//
-			//                    context.Rotate(.07);
+			//                                context.Rotate(.07);
 			//
-			//                    context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
 			//
-			//                    } else {
+			//                                } else {
 			//
-			//                    context.Rotate(-.07);
+			//                                context.Rotate(-.07);
 			//
-			//                    context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
 			//
-			//                    }
+			//                                }
 			//
-			//                    
+			//                                
 			//
-			//                    context.Restore();
+			//                                context.Restore();
 			//
-			//                    
+			//                                
 			//
-			//                    
+			//                                
 			//
-			//                    context.Save();
+			//                                context.Save();
 			//
-			//                    
+			//                                
 			//
-			//                    var person = assetLoader.getAsset('male.hat.front');
+			//                                var person = assetLoader.getAsset('male.hat.front');
 			//
-			//                    
+			//                                
 			//
-			//                    context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
+			//                                context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
 			//
-			//                    
+			//                                
 			//
-			//                    context.Translate(person.Width / 2, person.Height / 2);
+			//                                context.Translate(person.Width / 2, person.Height / 2);
 			//
-			//                    
+			//                                
 			//
-			//                    
+			//                                
 			//
-			//                    if (this.ticking % 20 < 10) {
+			//                                if (this.ticking % 20 < 10) {
 			//
-			//                    context.Rotate(.07);
+			//                                context.Rotate(.07);
 			//
-			//                    context.scale(-1, 1);
+			//                                context.scale(-1, 1);
 			//
-			//                    context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
 			//
-			//                    } else {
+			//                                } else {
 			//
-			//                    context.Rotate(-.07);
+			//                                context.Rotate(-.07);
 			//
-			//                    context.scale(-1, 1);
+			//                                context.scale(-1, 1);
 			//
-			//                    context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
+			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
 			//
-			//                    }
+			//                                }
 			//
-			//                    
+			//                                
 			//
-			//                    context.Restore();
+			//                                context.Restore();
 			//
-			//                    }
+			//                                }
 		}
 	}, BingoBlockParty.Common.BallGame.Pieces.Cannon);
 	ss.initClass($BingoBlockParty_Client_BallGame_Pieces_ClientCannonBall, {

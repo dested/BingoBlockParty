@@ -199,7 +199,7 @@ namespace BingoBlockParty.Common.BallGame
             var vx =  Math.Cos((angle) * Math.PI / 180) * velocity;
             var vy =  Math.Sin((angle) * Math.PI / 180) * velocity;
 
-            var offvx =  Math.Cos((angle) * Math.PI / 180) * 9d * 16d;
+            var offvx =  Math.Cos((angle) * Math.PI / 180) * 4d * 16d;
             var offvy =  Math.Sin((angle) * Math.PI / 180) * 3d * 16d;
 
 

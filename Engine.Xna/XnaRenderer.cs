@@ -231,7 +231,7 @@ namespace Engine.Xna
             var xnaImage = (XnaImage)image;
 
 
-            Vector2 location = new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y);
+            Vector2 location = new Vector2(xnaContextSettings.Left + x + centerX, xnaContextSettings.Top + y + centerY);
             Rectangle sourceRectangle = new Rectangle(0, 0, image.Width, image.Height);
             Vector2 origin = new Vector2(centerX, centerY);
 

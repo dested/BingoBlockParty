@@ -39,8 +39,6 @@ namespace BingoBlockParty.Common.BallGame.Pieces
 
             if (other is Chute)
             {
-                var format = sb.ToString();
-                Console.WriteLine(format); 
                 this.GameBoard.PegPhysicsManager.DestroyBody(this.Body);
                 this.BallDead = true;
                 other.Trigger();
@@ -52,11 +50,9 @@ namespace BingoBlockParty.Common.BallGame.Pieces
         {
         }
 
-        public StringBuilder sb = new StringBuilder();
 
         public virtual void Tick()
         {
-            sb.AppendLine(Body.Position.X + ", " + Body.Position.Y);
             if (!Body.Awake)
             {
                 BallDead = true;

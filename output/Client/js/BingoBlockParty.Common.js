@@ -149,7 +149,6 @@
 		this.$1$VelocityField = 0;
 		this.$1$BallDeadField = false;
 		this.$1$BodyField = null;
-		this.sb = new ss.StringBuilder();
 		this.set_gameBoard(gameBoard);
 		this.set_x(x);
 		this.set_y(y);
@@ -549,7 +548,7 @@
 		createCannonBall: function(x, y, angle, velocity, cannonBall) {
 			var vx = Math.cos(angle * Math.PI / 180) * velocity;
 			var vy = Math.sin(angle * Math.PI / 180) * velocity;
-			var offvx = Math.cos(angle * Math.PI / 180) * 9 * 16;
+			var offvx = Math.cos(angle * Math.PI / 180) * 4 * 16;
 			var offvy = Math.sin(angle * Math.PI / 180) * 3 * 16;
 			var fixDef = new org.jbox2d.dynamics.FixtureDef();
 			fixDef.density = 1;
@@ -714,8 +713,6 @@
 				other.trigger();
 			}
 			if (ss.isInstanceOfType(other, $BingoBlockParty_Common_BallGame_Pieces_Chute)) {
-				var format = this.sb.toString();
-				console.log(format);
 				this.get_gameBoard().get_pegPhysicsManager().destroyBody(this.get_body());
 				this.set_ballDead(true);
 				other.trigger();
@@ -725,7 +722,6 @@
 		trigger: function() {
 		},
 		tick: function() {
-			this.sb.appendLine(this.get_body().get_position().get_x() + ', ' + this.get_body().get_position().get_y());
 			if (!this.get_body().get_awake()) {
 				this.set_ballDead(true);
 				this.get_gameBoard().get_pegPhysicsManager().destroyBody(this.get_body());

@@ -28,7 +28,7 @@ namespace Client.Windows
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            IsMouseVisible = true;
             TouchPanel.EnableMouseTouchPoint = true;
 
         }
