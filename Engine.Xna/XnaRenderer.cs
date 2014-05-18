@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 using Engine.Interfaces;
 using Microsoft.Xna.Framework;
@@ -111,7 +110,12 @@ namespace Engine.Xna
         }
         public void CreateImage(string imageName, string imagePath, Point center = null)
         {
-            var texture2D = content.Load<Texture2D>(imagePath);
+            var assetName = imagePath;
+
+#if WINDOWS_PHONE || WINDOWS
+            assetName = assetName.Replace(".png", "");
+#endif
+            var texture2D = content.Load<Texture2D>(assetName);
             textures.Add(imageName, new XnaImage(texture2D, center));
         }
     }
@@ -166,7 +170,6 @@ namespace Engine.Xna
             settingsStack = new List<XnaContextSettings>();
 
             settingsStack.Add(new XnaContextSettings());
-
 
         }
 
@@ -247,6 +250,19 @@ namespace Engine.Xna
         public double MeasureString(string text)
         {
             return 0;
+        }
+    }
+
+    public static class EnumerableExtensions
+    {
+        public static T Last<T>(this IEnumerable<T>  items)
+        {
+            T last=default(T);
+            foreach (var item in items)
+            {
+                last = item;
+            }
+            return last;
         }
     }
 }

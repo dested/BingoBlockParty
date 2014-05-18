@@ -27,7 +27,7 @@ namespace Client.Android
             graphics = new GraphicsDeviceManager(this);
 //            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
-             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitUpsideDown;
+             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
 
 //             Resolution.SetVirtualResolution(430 * 2, 557 * 2);
 //             Resolution.SetResolution(430 , 557 , false);
