@@ -4,6 +4,7 @@ using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
 using BingoBlockParty.Common.BallGame.Pieces;
 using BingoBlockParty.Common.BallGame.Planes;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Planes
@@ -27,8 +28,8 @@ namespace BingoBlockParty.Client.BallGame.Planes
         public override void Init()
         {
             base.Init();
-            BackPlane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().CanvasWidth, GameBoard.GameModel.Client().CanvasHeight);
-            FrontPlane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().CanvasWidth, GameBoard.GameModel.Client().CanvasHeight);
+            BackPlane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().GameBoardLayout);
+            FrontPlane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().GameBoardLayout);
             BumpersAsset = GameBoard.Client().Renderer.GetImage("chuteBumpers");
             BucketsAsset = GameBoard.Client().Renderer.GetImage("chuteBuckets");
         }

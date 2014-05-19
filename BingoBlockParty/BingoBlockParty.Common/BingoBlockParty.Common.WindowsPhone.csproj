@@ -100,13 +100,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces</Name>
+    <ProjectReference Include="..\..\Engine\Engine.WindowsPhone.csproj">
+      <Project>{F0050DFA-E76B-4228-BC1C-2B071169F374}</Project>
+      <Name>Engine.WindowsPhone</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\JBox2d\JBox2d.csproj">
-      <Project>{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}</Project>
-      <Name>JBox2d</Name>
+    <ProjectReference Include="..\Libraries\JBox2d\JBox2d.WindowsPhone.csproj">
+      <Project>{0D041E52-F91D-4DF3-BD4B-AA78EA219021}</Project>
+      <Name>JBox2d.WindowsPhone</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

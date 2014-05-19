@@ -58,9 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.Saltarelle.csproj">
+    <ProjectReference Include="..\..\Engine\Engine.Saltarelle.csproj">
       <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
-      <Name>Engine.Interfaces.Saltarelle</Name>
+      <Name>Engine.Saltarelle</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\JBox2d\JBox2d.Saltarelle.csproj">
       <Project>{b7e61384-5dfa-4d28-bc90-e59d6e38e0f4}</Project>

@@ -61,13 +61,9 @@
       <Project>{bfb21318-ed16-4f16-b464-27e3a4aa0734}</Project>
       <Name>BingoBlockParty.Client.Saltarelle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.Saltarelle.csproj">
-      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
-      <Name>Client.Interfaces.Saltarelle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.Saltarelle.csproj">
+    <ProjectReference Include="..\Engine\Engine.Saltarelle.csproj">
       <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces.Saltarelle</Name>
+      <Name>Engine.Saltarelle</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />

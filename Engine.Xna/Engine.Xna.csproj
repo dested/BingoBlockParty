@@ -148,18 +148,21 @@
       <HintPath>..\..\..\Users\Dested12\AppData\Local\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\Library\Application Support\XamarinStudio-4.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.0.1\assemblies\iOS\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Resolution.cs" />
     <Compile Include="XnaClient.cs" />
+    <Compile Include="XnaContextSettings.cs" />
+    <Compile Include="XnaImage.cs" />
+    <Compile Include="XnaImageCache.cs" />
+    <Compile Include="XnaLayer.cs" />
+    <Compile Include="XnaLayout.cs" />
+    <Compile Include="XnaLayoutManager.cs" />
     <Compile Include="XnaRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,13 +171,9 @@
       <Project>{E53A0131-9C6C-4335-A05A-2AE0B0F4E37B}</Project>
       <Name>BingoBlockParty.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
-      <Name>Client.Interfaces</Name>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

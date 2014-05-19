@@ -1,7 +1,7 @@
 ﻿using System;
 using BingoBlockParty.Common.BallGame.Models;
 using BingoBlockParty.Common.BallGame.Planes;
-using Engine.Interfaces;
+using Engine;
 
 namespace BingoBlockParty.Common.BallGame.Pieces
 {

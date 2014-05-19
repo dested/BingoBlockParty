@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Remoting.Channels;
 using Android.OS;
-using Client.Interfaces;
+using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Java.IO;
@@ -27,8 +27,10 @@ namespace Client.Android
             graphics = new GraphicsDeviceManager(this);
 //            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
-             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
-
+            graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
+            TouchPanel.EnableMouseGestures = true;
+            TouchPanel.EnabledGestures=GestureType.Flick;
+            
 //             Resolution.SetVirtualResolution(430 * 2, 557 * 2);
 //             Resolution.SetResolution(430 , 557 , false);
         }
@@ -61,10 +63,11 @@ namespace Client.Android
             */
 
             client = new XnaClient();
-            renderer = new XnaRenderer(GraphicsDevice, Content);
+
+            renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-            client.Init(renderer);
+            client.Init(renderer,true);
 
         }
 
@@ -79,6 +82,34 @@ namespace Client.Android
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 Exit();
+            }
+
+            while (TouchPanel.IsGestureAvailable)
+            {
+                var gest = TouchPanel.ReadGesture();
+                switch (gest.GestureType)
+                {
+                    case GestureType.Flick:
+                        const int tolerance = 4000;
+                        if (gest.Delta.X > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Left);
+                        }
+                        if (gest.Delta.X < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Right);
+                        }
+                        if (gest.Delta.Y > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Up);
+                        }
+                        if (gest.Delta.Y < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Down);
+                            
+                        }
+                        break;
+                }
             }
 
 

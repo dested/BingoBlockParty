@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Client.Interfaces;
+
 using Engine.Interfaces;
 
 namespace Engine.Web
@@ -47,9 +47,9 @@ namespace Engine.Web
             Document.Body.AppendChild(clickManager);
         }
 
-        public ILayer CreateLayer(int width, int height)
+        public ILayer CreateLayer(int width, int height, ILayout layout)
         {
-            return new WebLayer(this, width, height);
+            return new WebLayer(this, width, height,layout);
         }
 
         public void AddLayer(ILayer layer)
@@ -106,13 +106,16 @@ namespace Engine.Web
         private readonly WebRenderer renderer;
         private readonly int width;
         private readonly int height;
+        private readonly ILayout _layout;
+
         [IntrinsicProperty]
         public CanvasInformation CanvasInformation { get; set; }
-        public WebLayer(WebRenderer renderer, int width, int height)
+        public WebLayer(WebRenderer renderer, int width, int height, ILayout layout)
         {
             this.renderer = renderer;
             this.width = width;
             this.height = height;
+            _layout = layout;
             CanvasInformation = CanvasInformation.Create(width, height);
         }
 
@@ -178,6 +181,14 @@ namespace Engine.Web
         {
             return CanvasInformation.Context.MeasureText(text).Width;
 
+        }
+
+        public void DrawRectangle(Color color, int x, int y, int width, int height)
+        {
+            CanvasInformation.Context.Save();
+            CanvasInformation.Context.FillStyle = string.Format("rgba({0},{1},{2},{3})", color.R, color.G, color.B, color.A/255f);
+            CanvasInformation.Context.FillRect(x,y,width,height);
+            CanvasInformation.Context.Restore();
         }
     }
 

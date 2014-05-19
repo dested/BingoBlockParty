@@ -169,9 +169,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces</Name>
+    <ProjectReference Include="..\..\Engine\Engine.csproj">
+      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
+      <Name>Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\JBox2d\JBox2d.csproj">
       <Project>{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}</Project>

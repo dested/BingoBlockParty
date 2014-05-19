@@ -1,6 +1,7 @@
 using System;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame.Models;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Planes
@@ -24,7 +25,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
             this.GameBoard = gameBoard;
 
 
-            this.JackpotOverlayPosition = new Point(this.GameBoard.GameModel.Client().CanvasWidth / 2, 0);
+            this.JackpotOverlayPosition = new Point(this.GameBoard.GameModel.Client().GameBoardLayout.Width / 2, 0);
             this.CoinBoxOverlayPosition = new Point(70, 0);
             this.PullBoxOverlayPosition = new Point(351, 0);
         }
@@ -35,7 +36,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
         {
 
 
-            this.Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().CanvasWidth, GameBoard.GameModel.Client().CanvasHeight);
+            this.Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.GameModel.Client().GameBoardLayout);
 
             this.JackpotOverlay = GameBoard.Client().Renderer.GetImage("jackpotOverlay");
             this.CoinBoxOverlay = GameBoard.Client().Renderer.GetImage("coinBoxOverlay");

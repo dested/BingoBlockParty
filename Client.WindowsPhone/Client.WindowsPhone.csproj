@@ -318,17 +318,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.csproj">
-      <Project>{6E38A943-1210-4C66-B537-3209284AA38C}</Project>
-      <Name>Client.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.csproj">
-      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
-      <Name>Engine.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine.Xna\Engine.Xna.WindowsPhone.csproj">
       <Project>{78B04237-5CF5-4759-B397-0CFC709182E5}</Project>
       <Name>Engine.Xna.WindowsPhone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.WindowsPhone.csproj">
+      <Project>{F0050DFA-E76B-4228-BC1C-2B071169F374}</Project>
+      <Name>Engine.WindowsPhone</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

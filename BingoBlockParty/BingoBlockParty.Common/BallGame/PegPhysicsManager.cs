@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using BingoBlockParty.Common.BallGame.Models;
-using Engine.Interfaces;
+using Engine;
 using org.jbox2d.callbacks;
 using org.jbox2d.collision.shapes;
 using org.jbox2d.common;

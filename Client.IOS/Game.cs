@@ -1,6 +1,6 @@
 
 using System;
-using Client.Interfaces;
+using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
@@ -31,8 +31,14 @@ namespace Client.IOS
 
 			graphics = new GraphicsDeviceManager(this);
 			
-			Content.RootDirectory = "Content"; 
-		}
+			Content.RootDirectory = "Content";
+            TouchPanel.EnableMouseGestures = true;
+            TouchPanel.EnabledGestures = GestureType.Flick;
+
+            graphics.SupportedOrientations=DisplayOrientation.Portrait;
+            graphics.ApplyChanges();
+
+        }
 
 		/// <summary>
 		/// Overridden from the base Game.Initialize. Once the GraphicsDevice is setup,
@@ -51,10 +57,11 @@ namespace Client.IOS
 		{
 
             client = new XnaClient();
-            renderer = new XnaRenderer(GraphicsDevice, Content);
-			client.LoadImages(renderer);
 
-			client.Init(renderer);
+            renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
+            client.LoadImages(renderer);
+
+            client.Init(renderer, true);
 								}
          
 
@@ -65,10 +72,39 @@ namespace Client.IOS
         	/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-            
+
+            while (TouchPanel.IsGestureAvailable)
+            {
+                var gest = TouchPanel.ReadGesture();
+                switch (gest.GestureType)
+                {
+                    case GestureType.Flick:
+                        const int tolerance = 4000;
+                        if (gest.Delta.X > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Left);
+                        }
+                        if (gest.Delta.X < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Right);
+                        }
+                        if (gest.Delta.Y > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Up);
+                        }
+                        if (gest.Delta.Y < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Down);
+
+                        }
+                        break;
+                }
+            }
+
+
             TouchCollection touchCollection = TouchPanel.GetState();
 
-            
+
             for (int index = 0; index < touchCollection.Count; index++)
             {
                 var touch = touchCollection[index];
@@ -76,20 +112,20 @@ namespace Client.IOS
                 switch (touch.State)
                 {
                     case TouchLocationState.Moved:
-                        client.TouchEvent(TouchType.TouchMove,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Pressed:
-                        client.TouchEvent(TouchType.TouchDown,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Released:
-                        client.TouchEvent(TouchType.TouchUp,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchUp, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                 }
             }
 
-		    client.Tick(gameTime.TotalGameTime);
-			// TODO: Add your update logic here			
-			base.Update(gameTime);
+            client.Tick(gameTime.TotalGameTime);
+
+            base.Update(gameTime);
 		}
 
 		/// <summary>

@@ -63,17 +63,13 @@
       <Project>{bfb21318-ed16-4f16-b464-27e3a4aa0734}</Project>
       <Name>BingoBlockParty.Client.Saltarelle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client.Interfaces\Client.Interfaces.Saltarelle.csproj">
-      <Project>{6e38a943-1210-4c66-b537-3209284aa38c}</Project>
-      <Name>Client.Interfaces.Saltarelle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.Interfaces\Engine.Interfaces.Saltarelle.csproj">
-      <Project>{f1134712-9412-4e28-a9c0-6e13669d010d}</Project>
-      <Name>Engine.Interfaces.Saltarelle</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine.Web\Engine.Web.csproj">
       <Project>{11A1E696-F9A8-4D06-91CA-105A78D16E8E}</Project>
       <Name>Engine.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.Saltarelle.csproj">
+      <Project>{F1134712-9412-4E28-A9C0-6E13669D010D}</Project>
+      <Name>Engine.Saltarelle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

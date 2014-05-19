@@ -5,6 +5,7 @@ using BingoBlockParty.Common.BallGame;
 using BingoBlockParty.Common.BallGame.Models;
 using BingoBlockParty.Common.BallGame.Pieces;
 using BingoBlockParty.Common.BallGame.Planes;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Planes
@@ -21,7 +22,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
         public override void Init()
         {
             base.Init();
-            Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().CanvasWidth, GameBoard.GameModel.Client().CanvasHeight);
+            Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.GameModel.Client().GameBoardLayout);
         }
 
         public override Cannon CreateCannon(CannonPlane cannonPlane)

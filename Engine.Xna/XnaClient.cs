@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Client.Interfaces;
+using System.Diagnostics;
 using Engine.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 namespace Engine.Xna
 {
@@ -11,6 +13,7 @@ namespace Engine.Xna
 
         public IGame Game { get; set; }
         public XnaRenderer Renderer { get; set; }
+        public ILayoutManager LayoutManager { get; set; }
 
         public XnaClient()
         {
@@ -19,23 +22,45 @@ namespace Engine.Xna
 
         public void LoadImages(IRenderer renderer)
         {
-            Game.LoadImages(renderer);
+            Game.LoadAssets(renderer);
         }
 
-        public void Init(IRenderer renderer)
+        public void Init(IRenderer renderer, bool oneLayoutAtATime)
         {
             Renderer = (XnaRenderer)renderer;
-            Game.Init(renderer);
+
+            
+            LayoutManager = new XnaLayoutManager(Renderer);
+            LayoutManager.OneLayoutAtATime = oneLayoutAtATime;
+            Game.InitLayouts(renderer, LayoutManager);
+/*
+            var size = LayoutManager.GetLayoutSize();
+
+            Renderer.graphics.PreferredBackBufferWidth = size.Width;
+            Renderer.graphics.PreferredBackBufferHeight = size.Height;*/
+
+
         }
 
 
         public void Draw(TimeSpan elapsedGameTime)
         {
 
-            Renderer.graphicsDevice.Clear(Color.Black);
+            var size = LayoutManager.GetLayoutSize();
+            if (Renderer.graphics.PreferredBackBufferWidth != size.Width ||
+                Renderer.graphics.PreferredBackBufferHeight != size.Height)
+            {
+//                Renderer.graphics.PreferredBackBufferWidth = size.Width;
+//                Renderer.graphics.PreferredBackBufferHeight = size.Height;
+//                Renderer.graphicsDevice.Viewport = new Viewport(0, 0, size.Width, size.Height);
+//                Renderer.graphics.ApplyChanges();
+            }
 
+            Renderer.graphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
             Renderer.BeginRender();
-            Game.Draw(elapsedGameTime);
+            Game.BeforeDraw();
+            LayoutManager.Draw(elapsedGameTime);
+            Game.AfterDraw();
             Renderer.EndRender();
 
         }
@@ -44,9 +69,7 @@ namespace Engine.Xna
         {
             var matrix = Renderer.GetScaleMatrix();
 
-
-
-            Game.TouchEvent(touchType, (int)(x / matrix.Right.Length()), (int)(y / matrix.Down.Length()));
+            LayoutManager.TouchEvent(touchType, (int)(x / matrix.Right.Length()), (int)(y / matrix.Down.Length()));
         }
 
 
@@ -66,7 +89,7 @@ namespace Engine.Xna
 
             for (int i = timeouts.Count - 1; i >= 0; i--)
             {
-                if (timeouts[i].Item2 <elapsedGameTime)
+                if (timeouts[i].Item2 < elapsedGameTime)
                 {
                     timeouts[i].Item1();
                     timeouts.RemoveAt(i);
@@ -74,7 +97,10 @@ namespace Engine.Xna
             }
 
             Renderer.ClearScaleMatrix();
-            Game.Tick(elapsedGameTime);
+
+            Game.BeforeTick();
+            LayoutManager.Tick(elapsedGameTime);
+            Game.AfterTick();
         }
     }
 }

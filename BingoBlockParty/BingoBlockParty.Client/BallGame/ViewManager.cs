@@ -1,6 +1,6 @@
 ﻿using System;
 using BingoBlockParty.Client.Utils;
-using BingoBlockParty.Common.BallGame.Models;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame
@@ -18,8 +18,8 @@ namespace BingoBlockParty.Client.BallGame
         public ViewManager(ClientGameBoard gameBoard)
         {
             GameBoard = gameBoard;
-            ViewWidth = gameBoard.GameModel.Client().CanvasWidth;
-            ViewHeight = gameBoard.GameModel.Client().CanvasHeight;
+            ViewWidth = gameBoard.GameModel.Client().GameBoardLayout.Width;
+            ViewHeight = gameBoard.GameModel.Client().GameBoardLayout.Height;
             PaddingBox = new Size(100, 100);
         }
 

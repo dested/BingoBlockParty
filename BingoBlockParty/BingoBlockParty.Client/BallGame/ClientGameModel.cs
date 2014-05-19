@@ -2,18 +2,19 @@
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
 
+using Engine;
+using Engine.Interfaces;
+
 namespace BingoBlockParty.Client.BallGame
 {
     public class ClientGameModel : GameModel
     {
-        public int CanvasWidth { get; set; }
-        public int CanvasHeight { get; set; }
+        public ILayout GameBoardLayout { get; set; }
 
-        public ClientGameModel(int boardWidth, int boardHeight,int canvasWidth,int canvasHeight)
+        public ClientGameModel(int boardWidth, int boardHeight, ILayout gameBoardLayout)
             : base(boardWidth, boardHeight)
         {
-            CanvasWidth = canvasWidth;
-            CanvasHeight = canvasHeight;
+            GameBoardLayout = gameBoardLayout;
         }
 
         public TouchManager TouchManager { get; set; }

@@ -1,6 +1,7 @@
 ﻿using BingoBlockParty.Client.BallGame.Pieces;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame.Models;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Planes
@@ -18,7 +19,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public void Init()
         {
-            Plane = GameBoard.Renderer.CreateLayer(GameBoard.GameModel.Client().CanvasWidth, GameBoard.GameModel.Client().CanvasHeight);
+            Plane = GameBoard.Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().GameBoardLayout);
         }
 
         public void RoundOver(RoundOverState state)

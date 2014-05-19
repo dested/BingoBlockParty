@@ -5,7 +5,8 @@ using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
 using BingoBlockParty.Common.BallGame.Pieces;
 using BingoBlockParty.Common.BallGame.Planes;
-using Client.Interfaces;
+
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame.Pieces

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Client.Interfaces;
+using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.GamerServices; 
 
 namespace Client.Windows
 {
@@ -55,10 +55,11 @@ namespace Client.Windows
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             client = new XnaClient();
-            renderer = new XnaRenderer(GraphicsDevice, Content);
+            
+            renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-            client.Init(renderer);
+            client.Init(renderer,false);
 
             // TODO: use this.Content to load your game content here
         }
@@ -82,8 +83,24 @@ namespace Client.Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-          
-            
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                client.LayoutManager.ChangeLayout(Direction.Left);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                client.LayoutManager.ChangeLayout(Direction.Right);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                client.LayoutManager.ChangeLayout(Direction.Up);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                client.LayoutManager.ChangeLayout(Direction.Down);
+            }
 
             MouseState mouseState = Mouse.GetState();
             if (mouseX != mouseState.X || mouseY != mouseState.Y)
@@ -92,6 +109,8 @@ namespace Client.Windows
                 mouseY = mouseState.Y;
                 client.TouchEvent(TouchType.TouchMove, (int)mouseState.X, (int)mouseState.Y);
             }
+
+            
 
             switch (mouseState.LeftButton)
             {
@@ -109,7 +128,6 @@ namespace Client.Windows
             }
 
             TouchCollection touchCollection = TouchPanel.GetState();
-
             foreach (var touch in touchCollection)
             {
                 switch (touch.State)
@@ -137,7 +155,7 @@ namespace Client.Windows
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
 
             client.Draw(gameTime.TotalGameTime);
 

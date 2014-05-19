@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using BingoBlockParty.Common.BallGame.Models;
-using Engine.Interfaces;
+using Engine;
 
 namespace BingoBlockParty.Common.BallGame
 {

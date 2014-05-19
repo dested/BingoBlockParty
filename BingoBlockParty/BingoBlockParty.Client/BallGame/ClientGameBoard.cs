@@ -4,26 +4,27 @@ using BingoBlockParty.Client.BallGame.Planes;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
 using BingoBlockParty.Common.BallGame.Models;
+
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client.BallGame
 {
-    public class ClientGameBoard : GameBoard
+    public class ClientGameBoard : GameBoard,ILayoutView
     {
         public IRenderer Renderer { get; set; }
-        private readonly Game game;
-        private readonly int canvasWidth;
-        private readonly int canvasHeight;
+        public ILayout GameBoardLayout { get; set; }
+        private readonly Game game; 
 
         public ClientBackgroundPlane BackgroundPlane { get; set; }
 
-        public ClientGameBoard(Game game, int boardWidth, int boardHeight, IRenderer renderer, int canvasWidth, int canvasHeight)
+        public ClientGameBoard(Game game, int boardWidth, int boardHeight, IRenderer renderer,ILayout gameBoardLayout)
             : base(boardWidth, boardHeight)
         {
             Renderer = renderer;
+            GameBoardLayout = gameBoardLayout;
             this.game = game;
-            this.canvasWidth = canvasWidth;
-            this.canvasHeight = canvasHeight;
+
         }
 
         public override void CreateObjects()
@@ -31,7 +32,7 @@ namespace BingoBlockParty.Client.BallGame
 
             this.BackgroundPlane = new ClientBackgroundPlane(this);
 
-            this.GameModel = new ClientGameModel(boardWidth, boardHeight, canvasWidth, canvasHeight);
+            this.GameModel = new ClientGameModel(boardWidth, boardHeight, GameBoardLayout);
             this.PegsPlane = new ClientPegsPlane(this);
             this.CannonBallPlane = new ClientCannonBallPlane(this);
             this.CannonPlane = new ClientCannonPlane(this);
@@ -42,7 +43,7 @@ namespace BingoBlockParty.Client.BallGame
 
             this.ViewManager = new ViewManager(this);
 
-            this.GameModel.Client().TouchManager = new TouchManager(this);
+            this.GameModel.Client().TouchManager = new TouchManager();
         }
 
         public ViewManager ViewManager { get; set; }
@@ -103,11 +104,16 @@ namespace BingoBlockParty.Client.BallGame
 
         public override void Tick(TimeSpan elapsedGameTime)
         {
-
             base.Tick(elapsedGameTime);
             BackgroundPlane.Tick();
             OverlaysPlane.Tick();
         }
+
+        public ITouchManager TouchManager
+        {
+            get { return this.GameModel.Client().TouchManager; }
+        }
+
         public void Render(TimeSpan elapsedGameTime)
         {
             PegPhysicsManager.Client().Render();

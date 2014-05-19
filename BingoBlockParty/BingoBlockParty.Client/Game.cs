@@ -4,35 +4,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BingoBlockParty.Client.BallGame;
+using BingoBlockParty.Client.BingoGame;
+using BingoBlockParty.Client.InfoArea;
+using BingoBlockParty.Client.PeopleArea;
 using BingoBlockParty.Client.Utils;
-using Client.Interfaces;
+using Engine;
 using Engine.Interfaces;
 
 namespace BingoBlockParty.Client
 {
     public class Game : IGame
     {
-
         public Game(IClient client)
         {
             Client = client;
         }
 
         public IClient Client { get; private set; }
+        public ILayout GameBoardLayout { get; set; }
+        public ILayout InfoAreaLayout { get; set; }
+        public ILayout BingoBoardLayout { get; set; }
+        public ILayout PeopleAreaLayout { get; set; }
+        public ILayoutManager LayoutManager { get; set; }
 
-        public void Init(IRenderer renderer)
+        public void InitLayouts(IRenderer renderer, ILayoutManager layoutManager)
         {
+            LayoutManager = layoutManager;
 
-            var boardWidth = 430;
-            var boardHeight = 557;
-            GameBoard = new ClientGameBoard(this, boardWidth, (int)(boardHeight * 2.7), renderer, boardWidth, boardHeight);
+            GameBoardLayout = LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
+            BingoBoardLayout = LayoutManager.CreateLayout(332, 557);
+            InfoAreaLayout = LayoutManager.CreateLayout(259, 708);
+            PeopleAreaLayout = LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            
+            GameBoardLayout.LeftOf(InfoAreaLayout).RightOf(BingoBoardLayout);
 
-            GameBoard.Init();
+            PeopleAreaLayout.Below(BingoBoardLayout).Below(GameBoardLayout);
 
+            GameBoardLayout.LayoutView = new ClientGameBoard(this, GameBoardLayout.Width, 1280, renderer, GameBoardLayout);
+            BingoBoardLayout.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout);
+            InfoAreaLayout.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout);
+            PeopleAreaLayout.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout);
+
+
+            foreach (var layout in LayoutManager.Layouts)
+            {
+                layout.LayoutView.Init();
+            }
 
         }
 
-        public void LoadImages(IRenderer renderer)
+
+        public void BeforeDraw( )
+        {
+        }
+        public void AfterDraw( )
+        {
+        }
+
+
+        public void BeforeTick( )
+        {
+        }
+        public void AfterTick( )
+        {
+        }
+
+
+
+
+
+
+        public void LoadAssets(IRenderer renderer)
         {
             renderer.CreateImage("board", "images/gameBoards/board1.png");
 
@@ -84,21 +126,6 @@ namespace BingoBlockParty.Client
             renderer.CreateImage("male.hat.front", "images/people/male2_FrontDesign.png");
         }
 
-        public ClientGameBoard GameBoard { get; set; }
-
-        public void TouchEvent(TouchType touchType, int x, int y)
-        {
-            GameBoard.GameModel.Client().TouchManager.ProcessTouchEvent(touchType, x, y);
-        }
-
-        public void Tick(TimeSpan elapsedGameTime)
-        {
-            GameBoard.Tick(elapsedGameTime);
-        }
-
-        public void Draw(TimeSpan elapsedGameTime)
-        {
-            GameBoard.Render(elapsedGameTime);
-        }
     }
+
 }

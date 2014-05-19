@@ -1,10 +1,11 @@
-﻿using Client.Interfaces;
+﻿using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Client.WindowsPhone
 {
@@ -22,6 +23,8 @@ namespace Client.WindowsPhone
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            TouchPanel.EnableMouseGestures = true;
+            TouchPanel.EnabledGestures = GestureType.Flick;
         }
 
         /// <summary>
@@ -46,10 +49,10 @@ namespace Client.WindowsPhone
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             client = new XnaClient();
-            renderer = new XnaRenderer(GraphicsDevice, Content);
+            renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-            client.Init(renderer);
+            client.Init(renderer,true);
             // TODO: use this.Content to load your game content here
         }
 
@@ -72,7 +75,34 @@ namespace Client.WindowsPhone
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-             
+            while (TouchPanel.IsGestureAvailable)
+            {
+                var gest = TouchPanel.ReadGesture();
+                switch (gest.GestureType)
+                {
+                    case GestureType.Flick:
+                        const int tolerance = 300;
+                        if (gest.Delta.X > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Left);
+                        }
+                        if (gest.Delta.X < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Right);
+                        }
+                        if (gest.Delta.Y > tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Up);
+                        }
+                        if (gest.Delta.Y < -tolerance)
+                        {
+                            client.LayoutManager.ChangeLayout(Direction.Down);
+
+                        }
+                        break;
+                }
+            }
+
             TouchCollection touchCollection = TouchPanel.GetState();
 
             foreach (var touch in touchCollection)
