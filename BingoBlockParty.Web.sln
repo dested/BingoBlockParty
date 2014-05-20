@@ -17,6 +17,48 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Client.Web"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Common.Web", "BingoBlockParty\BingoBlockParty.Common\ProjectFiles\BingoBlockParty.Common.Web\BingoBlockParty.Common.Web.csproj", "{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{AAE31407-2B50-432C-AF54-DAB1D30DFCEF}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "gulp", "gulp\", "{B45C7C79-AC26-49B2-ACB9-5EC051DE2F07}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/gulp"
+		Debug.AspNetCompiler.PhysicalPath = "gulp\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\gulp\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/gulp"
+		Release.AspNetCompiler.PhysicalPath = "gulp\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\gulp\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "57238"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "output", "output\", "{F19E0F35-CF4A-4A55-956E-705C2620EE4C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/output"
+		Debug.AspNetCompiler.PhysicalPath = "output\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\output\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/output"
+		Release.AspNetCompiler.PhysicalPath = "output\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\output\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "57253"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +89,12 @@ Global
 		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45C7C79-AC26-49B2-ACB9-5EC051DE2F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45C7C79-AC26-49B2-ACB9-5EC051DE2F07}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45C7C79-AC26-49B2-ACB9-5EC051DE2F07}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F19E0F35-CF4A-4A55-956E-705C2620EE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19E0F35-CF4A-4A55-956E-705C2620EE4C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19E0F35-CF4A-4A55-956E-705C2620EE4C}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +104,7 @@ Global
 		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3} = {9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}
 		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853} = {9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}
 		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3} = {C3DF2467-EF05-463A-8246-DB921DA9DE4D}
+		{B45C7C79-AC26-49B2-ACB9-5EC051DE2F07} = {AAE31407-2B50-432C-AF54-DAB1D30DFCEF}
+		{F19E0F35-CF4A-4A55-956E-705C2620EE4C} = {AAE31407-2B50-432C-AF54-DAB1D30DFCEF}
 	EndGlobalSection
 EndGlobal

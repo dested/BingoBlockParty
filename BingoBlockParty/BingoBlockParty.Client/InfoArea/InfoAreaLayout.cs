@@ -45,7 +45,16 @@ namespace BingoBlockParty.Client.InfoArea
 
         public void Destroy()
         {
-             
+
+        }
+        public void InitLayoutView()
+        {
+            Init();
+        }
+
+        public void TickLayoutView(TimeSpan elapsedGameTime)
+        {
+            Tick(elapsedGameTime);
         }
     }
 }

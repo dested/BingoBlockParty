@@ -5,10 +5,29 @@
 	var $Client_Web_$Program = function() {
 		this.$renderer = null;
 		this.$client = null;
-		this.$client = new Engine.Web.WebClient();
-		this.$renderer = new Engine.Web.WebRenderer(this.$client, ss.mkdel(this, this.$finishedLoadingImages));
+		this.$client = new Engine.Html5.Web.WebClient();
+		this.$renderer = new Engine.Html5.Web.WebRenderer(this.$client, ss.mkdel(this, this.$finishedLoadingImages));
 		this.$client.loadImages(this.$renderer);
 		console.log('hi');
+		var index = 0;
+		document.onkeypress = ss.mkdel(this, function(e) {
+			index = ((index === 0) ? 1 : 0);
+			var i = 0;
+			var $t1 = ss.getEnumerator(this.$client.get_screenManager().get_screens());
+			try {
+				while ($t1.moveNext()) {
+					var screen = $t1.current();
+					if (i === index) {
+						this.$client.get_screenManager().changeScreen(screen);
+						break;
+					}
+					i++;
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+		});
 	};
 	$Client_Web_$Program.__typeName = 'Client.Web.$Program';
 	$Client_Web_$Program.$main = function() {
@@ -16,7 +35,7 @@
 	};
 	ss.initClass($Client_Web_$Program, {
 		$finishedLoadingImages: function() {
-			this.$client.init(this.$renderer);
+			this.$client.init(this.$renderer, false);
 			window.setInterval(ss.mkdel(this, function() {
 				this.$client.tick(new ss.TimeSpan(0));
 			}), 16);

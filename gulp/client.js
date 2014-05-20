@@ -7,14 +7,13 @@ var clean = require('gulp-clean');
 var insert = require('gulp-insert');
 var watch = require('gulp-watch');
 
-var codePaths = ['BingoBlockParty/BingoBlockParty.Client/bin/Web/**/*.js',
-    'BingoBlockParty/BingoBlockParty.Common/bin/Web/**/*.js',
-    'Client.Interfaces/bin/Web/**/*.js',
-    'Engine.Interfaces/bin/Web/**/*.js',
-    'Client.Web/bin/Web/**/*.js',
-    'Engine.Web/bin/Web/**/*.js'
+var codePaths = ['BingoBlockParty/BingoBlockParty.Client/ProjectFiles/BingoBlockParty.Client.Web/bin/Debug/**/*.js',
+    'BingoBlockParty/BingoBlockParty.Common/ProjectFiles/BingoBlockParty.Common.Web/bin/Debug/**/*.js',
+    'Engine.Html5/bin/Debug/**/*.js',
+    'Client/Client.Web/bin/Debug/**/*.js',
+    'Engine/ProjectFiles/Engine.Web/bin/Debug/**/*.js'
 ];
-var libPaths = ['packages/Saltarelle.Runtime.2.3.1/mscorlib.js', 'BingoBlockParty/Libraries/JBox2d/bin/Web/**/*.js'];
+var libPaths = ['packages/Saltarelle.Runtime.2.3.1/mscorlib.js', 'BingoBlockParty/Libraries/JBox2d/ProjectFiles/JBox2d.Web/bin/Debug/**/*.js'];
 
 var assetPaths = ['Client.Web/Assets/Content/images/**/*.*'];
 

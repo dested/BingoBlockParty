@@ -880,6 +880,14 @@
 	};
 	global.org.jbox2d.common.Color3f = $org_jbox2d_common_Color3f;
 	////////////////////////////////////////////////////////////////////////////////
+	// org.jbox2d.common.Console
+	var $org_jbox2d_common_Console = function() {
+	};
+	$org_jbox2d_common_Console.__typeName = 'org.jbox2d.common.Console';
+	$org_jbox2d_common_Console.writeLine = function(s) {
+	};
+	global.org.jbox2d.common.Console = $org_jbox2d_common_Console;
+	////////////////////////////////////////////////////////////////////////////////
 	// org.jbox2d.common.IViewportTransform
 	var $org_jbox2d_common_IViewportTransform = function() {
 	};
@@ -7069,12 +7077,12 @@
 			var pLocalx = xfq.c * tempx + xfq.s * tempy;
 			var pLocaly = -xfq.s * tempx + xfq.c * tempy;
 			if ($org_jbox2d_collision_shapes_PolygonShape.$m_debug) {
-				console.log('--testPoint debug--');
-				console.log('Vertices: ');
+				$org_jbox2d_common_Console.writeLine('--testPoint debug--');
+				$org_jbox2d_common_Console.writeLine('Vertices: ');
 				for (var i = 0; i < this.m_count; ++i) {
-					console.log(this.m_vertices[i].toString());
+					$org_jbox2d_common_Console.writeLine(this.m_vertices[i].toString());
 				}
-				console.log('pLocal: ' + pLocalx + ', ' + pLocaly);
+				$org_jbox2d_common_Console.writeLine('pLocal: ' + pLocalx + ', ' + pLocaly);
 			}
 			for (var i1 = 0; i1 < this.m_count; ++i1) {
 				var vertex = this.m_vertices[i1];
@@ -7326,6 +7334,7 @@
 		}
 	});
 	$org_jbox2d_common_Color3f.$ctor1.prototype = $org_jbox2d_common_Color3f.prototype;
+	ss.initClass($org_jbox2d_common_Console, {});
 	ss.initInterface($org_jbox2d_common_IViewportTransform, { isYFlip: null, setYFlip: null, getExtents: null, setExtents: null, setExtents$1: null, getCenter: null, setCenter: null, setCenter$1: null, setCamera: null, getWorldVectorToScreen: null, getScreenVectorToWorld: null, getWorldToScreen: null, getScreenToWorld: null });
 	ss.initClass($org_jbox2d_common_Mat22, {
 		toString: function() {

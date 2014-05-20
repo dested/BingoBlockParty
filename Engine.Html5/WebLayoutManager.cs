@@ -1,43 +1,45 @@
 using System;
 using System.Collections.Generic;
+using System.Html;
 using Engine.Interfaces;
-using Microsoft.Xna.Framework;
 
-
-namespace Engine.Xna
+namespace Engine.Html5.Web
 {
-    public class XnaLayoutManager : ILayoutManager
+    public class WebLayoutManager : ILayoutManager
     {
-        public XnaRenderer Renderer { get; set; }
+        public WebRenderer Renderer { get; set; }
+
+        public DivElement Element { get; set; }
 
 
-
-        public XnaLayoutManager(XnaRenderer renderer)
+        public WebLayoutManager(WebRenderer renderer)
         {
             Renderer = renderer;
-            XnaLayouts = new List<XnaLayout>();
+            WebLayouts = new List<WebLayout>();
+            Element = (DivElement)Document.CreateElement("div");
 
         }
 
         public ILayout CreateLayout(int width, int height)
         {
-            var xnaLayout = new XnaLayout(this, width, height);
-            XnaLayouts.Add(xnaLayout);
+            var xnaLayout = new WebLayout(this, width, height);
+            WebLayouts.Add(xnaLayout);
+            Element.AppendChild(xnaLayout.Element);
             return xnaLayout;
         }
 
 
-        protected List<XnaLayout> XnaLayouts { get; set; }
+        protected List<WebLayout> WebLayouts { get; set; }
 
-        public IEnumerable<ILayout> Layouts { get { return XnaLayouts; } }
+        public IEnumerable<ILayout> Layouts { get { return WebLayouts; } }
 
         public bool OneLayoutAtATime { get; set; }
 
-        public XnaLayout CurrentLayout
+        public WebLayout CurrentLayout
         {
             get
             {
-                foreach (var xnaLayout in XnaLayouts)
+                foreach (var xnaLayout in WebLayouts)
                 {
                     if (xnaLayout.Active)
                     {
@@ -64,7 +66,7 @@ namespace Engine.Xna
             }
             else
             {
-                foreach (var xnaLayout in XnaLayouts)
+                foreach (var xnaLayout in WebLayouts)
                 {
 
                     xnaLayout.LayoutView.Render(elapsedGameTime);
@@ -77,7 +79,7 @@ namespace Engine.Xna
             {
                 CurrentLayout.LayoutView.TickLayoutView(elapsedGameTime);
 
-                foreach (var xnaLayout in XnaLayouts)
+                foreach (var xnaLayout in WebLayouts)
                 {
                     if (xnaLayout.AlwaysTick && CurrentLayout != xnaLayout)
                         xnaLayout.LayoutView.TickLayoutView(elapsedGameTime);
@@ -86,7 +88,7 @@ namespace Engine.Xna
             }
             else
             {
-                foreach (var xnaLayout in XnaLayouts)
+                foreach (var xnaLayout in WebLayouts)
                 {
                     xnaLayout.LayoutView.TickLayoutView(elapsedGameTime);
                 }
@@ -154,22 +156,8 @@ namespace Engine.Xna
         public void ChangeLayout(ILayout changeTo)
         {
             changeTo.Active = true;
-            Renderer.graphics.SupportedOrientations = SupportedOrientations(changeTo);
-            Renderer.graphics.ApplyChanges();
         }
 
-        private static DisplayOrientation SupportedOrientations(ILayout changeTo)
-        {
-            switch (changeTo.ScreenOrientation)
-            {
-                case ScreenOrientation.Vertical:
-                    return DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
-                case ScreenOrientation.Horizontal:
-                    return DisplayOrientation.LandscapeRight | DisplayOrientation.LandscapeLeft;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
 
 
         public void TouchEvent(TouchType touchType, int x, int y)
@@ -180,7 +168,7 @@ namespace Engine.Xna
             }
             else
             {
-                foreach (var xnaLayout in XnaLayouts)
+                foreach (var xnaLayout in WebLayouts)
                 {
                     var rectangle = xnaLayout.LayoutPosition.Location;
                     if (rectangle.IsInside(new Point(x, y)))

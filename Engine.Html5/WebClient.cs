@@ -1,12 +1,13 @@
 using System;
-using System.Html;
-using System.Runtime.CompilerServices;
 using Engine.Interfaces;
 
-namespace Engine.Web
+namespace Engine.Html5.Web
 {
     public class WebClient : IClient
     {
+        public IScreenManager ScreenManager { get; set; }
+
+
         public IGame Game { get; set; }
         public WebRenderer Renderer { get; set; }
 
@@ -14,27 +15,35 @@ namespace Engine.Web
         {
             Game = new BingoBlockParty.Client.Game(this);
         }
-
-        public void Init(IRenderer renderer)
+        public void Init(IRenderer renderer, bool oneLayoutAtATime)
         {
 
-            Renderer = (WebRenderer) renderer;
-            Game.Init(Renderer);
+            Renderer = (WebRenderer)renderer;
+            ScreenManager = new WebScreenManager(Renderer, oneLayoutAtATime);
+            Game.InitScreens(renderer, ScreenManager);
+
         }
+
+
 
         public void Draw(TimeSpan elapsedGameTime)
         {
-            Game.Draw(elapsedGameTime);
+            Game.BeforeDraw();
+            ScreenManager.Draw(elapsedGameTime);
+            Game.AfterDraw();
         }
 
         public void TouchEvent(TouchType touchType, int x, int y)
         {
-            Game.TouchEvent(touchType, x, y);
+            ScreenManager.TouchEvent(touchType, x, y);
         }
 
         public void Tick(TimeSpan elapsedGameTime)
         {
-            Game.Tick(elapsedGameTime);
+            Game.BeforeTick();
+
+            ScreenManager.Tick(elapsedGameTime);
+            Game.AfterTick();
         }
 
         public void Timeout(Action callback, int ms)
@@ -44,21 +53,7 @@ namespace Engine.Web
 
         public void LoadImages(IRenderer renderer)
         {
-            Game.LoadImages(renderer);
+            Game.LoadAssets(renderer);
         }
     }
-    public class Window
-    {
-        [InlineCode("window.setTimeout({action},{timeout});")]
-        public static void SetTimeout(Action action, int timeout)
-        {
-
-        }
-        [InlineCode("window.setInterval({action},{timeout});")]
-        public static void SetInterval(Action action, int timeout)
-        {
-
-        }
-    }
-
 }

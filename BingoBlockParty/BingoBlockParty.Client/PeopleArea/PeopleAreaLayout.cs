@@ -38,6 +38,7 @@ namespace BingoBlockParty.Client.PeopleArea
         public ITouchManager TouchManager { get; private set; }
         public void Render(TimeSpan elapsedGameTime)
         {
+            mainLayer.Clear();
             mainLayer.Save();
             mainLayer.DrawRectangle(new Color(11, 19, 255), 0, 61, _width, _height-61);
             mainLayer.DrawRectangle(new Color(11, 200, 255,80), 0, 0, _width, 61);
@@ -46,7 +47,16 @@ namespace BingoBlockParty.Client.PeopleArea
 
         public void Destroy()
         {
-             
+
+        }
+        public void InitLayoutView()
+        {
+            Init();
+        }
+
+        public void TickLayoutView(TimeSpan elapsedGameTime)
+        {
+            Tick(elapsedGameTime);
         }
     }
 }

@@ -1,171 +1,342 @@
 ﻿(function() {
 	'use strict';
 	global.Engine = global.Engine || {};
-	global.Engine.Web = global.Engine.Web || {};
+	global.Engine.Interfaces = global.Engine.Interfaces || {};
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.CanvasInformation
-	var $Engine_Web_CanvasInformation = function(context, domCanvas) {
-		this.context = null;
-		this.canvas = null;
-		this.context = context;
-		this.canvas = domCanvas;
+	// Engine.Color
+	var $Engine_Color = function(r, g, b, a) {
+		this.$1$RField = 0;
+		this.$1$GField = 0;
+		this.$1$BField = 0;
+		this.$1$AField = 0;
+		this.set_r(r);
+		this.set_g(g);
+		this.set_b(b);
+		this.set_a(a);
 	};
-	$Engine_Web_CanvasInformation.__typeName = 'Engine.Web.CanvasInformation';
-	$Engine_Web_CanvasInformation.get_blackPixel = function() {
-		if (ss.isNullOrUndefined($Engine_Web_CanvasInformation.$blackPixel)) {
-			var m = $Engine_Web_CanvasInformation.create(0, 0);
-			m.context.fillStyle = 'black';
-			m.context.fillRect(0, 0, 1, 1);
-			$Engine_Web_CanvasInformation.$blackPixel = m.canvas;
-		}
-		return $Engine_Web_CanvasInformation.$blackPixel;
-	};
-	$Engine_Web_CanvasInformation.create = function(w, h) {
-		var $t1 = document.createElement('canvas');
-		var canvas = ss.cast($t1, ss.isValue($t1) && (ss.isInstanceOfType($t1, Element) && $t1.tagName === 'CANVAS'));
-		return $Engine_Web_CanvasInformation.create$1(canvas, w, h);
-	};
-	$Engine_Web_CanvasInformation.create$1 = function(canvas, w, h) {
-		if (w === 0) {
-			w = 1;
-		}
-		if (h === 0) {
-			h = 1;
-		}
-		canvas.width = w;
-		canvas.height = h;
-		var ctx = ss.cast(canvas.getContext('2d'), CanvasRenderingContext2D);
-		return new $Engine_Web_CanvasInformation(ctx, canvas);
-	};
-	global.Engine.Web.CanvasInformation = $Engine_Web_CanvasInformation;
+	$Engine_Color.__typeName = 'Engine.Color';
+	global.Engine.Color = $Engine_Color;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.WebClient
-	var $Engine_Web_WebClient = function() {
-		this.$1$GameField = null;
-		this.$1$RendererField = null;
-		this.set_game(new BingoBlockParty.Client.Game(this));
+	// Engine.LayoutPosition
+	var $Engine_LayoutPosition = function(size) {
+		this.$1$SizeField = null;
+		this.$1$OffsetField = null;
+		this.$1$LeftField = null;
+		this.$1$RightField = null;
+		this.$1$TopField = null;
+		this.$1$BottomField = null;
+		this.set_offset(new $Engine_Point(0, 0));
+		this.set_size(size);
 	};
-	$Engine_Web_WebClient.__typeName = 'Engine.Web.WebClient';
-	global.Engine.Web.WebClient = $Engine_Web_WebClient;
+	$Engine_LayoutPosition.__typeName = 'Engine.LayoutPosition';
+	global.Engine.LayoutPosition = $Engine_LayoutPosition;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.WebImage
-	var $Engine_Web_WebImage = function(imagePath, center, ready) {
-		this.image = null;
-		this.$1$CenterField = null;
+	// Engine.Point
+	var $Engine_Point = function(x, y) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.set_x(x);
+		this.set_y(y);
+	};
+	$Engine_Point.__typeName = 'Engine.Point';
+	global.Engine.Point = $Engine_Point;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.PointF
+	var $Engine_PointF = function(x, y) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.set_x(x);
+		this.set_y(y);
+	};
+	$Engine_PointF.__typeName = 'Engine.PointF';
+	global.Engine.PointF = $Engine_PointF;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Rectangle
+	var $Engine_Rectangle = function() {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
 		this.$1$WidthField = 0;
 		this.$1$HeightField = 0;
-		var image = new Image();
-		image.src = imagePath;
-		this.image = image;
-		image.onload = ss.mkdel(this, function(e) {
-			this.set_width(image.width);
-			this.set_height(image.height);
-			this.set_center(center || new Engine.Interfaces.Point(ss.Int32.div(image.width, 2), ss.Int32.div(image.height, 2)));
-			ready();
-		});
 	};
-	$Engine_Web_WebImage.__typeName = 'Engine.Web.WebImage';
-	global.Engine.Web.WebImage = $Engine_Web_WebImage;
+	$Engine_Rectangle.__typeName = 'Engine.Rectangle';
+	$Engine_Rectangle.$ctor4 = function(x, y, width, height) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.set_x(x);
+		this.set_y(y);
+		this.set_width(width);
+		this.set_height(height);
+	};
+	$Engine_Rectangle.$ctor3 = function(x, y, size) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.set_x(x);
+		this.set_y(y);
+		this.set_width(size.get_width());
+		this.set_height(size.get_height());
+	};
+	$Engine_Rectangle.$ctor2 = function(position, width, height) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.set_x(position.get_x());
+		this.set_y(position.get_y());
+		this.set_width(width);
+		this.set_height(height);
+	};
+	$Engine_Rectangle.$ctor1 = function(position, size) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.set_x(position.get_x());
+		this.set_y(position.get_y());
+		this.set_width(size.get_width());
+		this.set_height(size.get_height());
+	};
+	global.Engine.Rectangle = $Engine_Rectangle;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.WebImageCache
-	var $Engine_Web_WebImageCache = function() {
-		this.$textures = null;
-		this.$textures = {};
+	// Engine.ScreenOrientation
+	var $Engine_ScreenOrientation = function() {
 	};
-	$Engine_Web_WebImageCache.__typeName = 'Engine.Web.WebImageCache';
-	global.Engine.Web.WebImageCache = $Engine_Web_WebImageCache;
+	$Engine_ScreenOrientation.__typeName = 'Engine.ScreenOrientation';
+	global.Engine.ScreenOrientation = $Engine_ScreenOrientation;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.WebLayer
-	var $Engine_Web_WebLayer = function(renderer, width, height) {
-		this.$renderer = null;
-		this.$width = 0;
-		this.$height = 0;
-		this.canvasInformation = null;
-		this.$renderer = renderer;
-		this.$width = width;
-		this.$height = height;
-		this.canvasInformation = $Engine_Web_CanvasInformation.create(width, height);
+	// Engine.Size
+	var $Engine_Size = function() {
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
 	};
-	$Engine_Web_WebLayer.__typeName = 'Engine.Web.WebLayer';
-	global.Engine.Web.WebLayer = $Engine_Web_WebLayer;
+	$Engine_Size.__typeName = 'Engine.Size';
+	$Engine_Size.$ctor1 = function(width, height) {
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.set_width(width);
+		this.set_height(height);
+	};
+	global.Engine.Size = $Engine_Size;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.WebRenderer
-	var $Engine_Web_WebRenderer = function(client, loaded) {
-		this.$_client = null;
-		this.$_loaded = null;
-		this.$imageCache = null;
-		this.$layers = null;
-		this.$numberOfImages = 0;
-		this.$numberOfImagesLoaded = 0;
-		this.$clickManager = null;
-		this.$_client = client;
-		this.$_loaded = loaded;
-		this.$layers = [];
-		this.$imageCache = new $Engine_Web_WebImageCache();
-		var $t1 = document.createElement('div');
-		this.$clickManager = ss.cast($t1, ss.isValue($t1) && (ss.isInstanceOfType($t1, Element) && $t1.tagName === 'DIV'));
-		this.$clickManager.className = 'clickManager';
-		this.$clickManager.style.width = '1000px';
-		this.$clickManager.style.height = '1000px';
-		this.$clickManager.onmousedown = function(e) {
-			client.touchEvent(1, ss.unbox(ss.cast(e.pageX - e.target.offsetLeft, ss.Int32)), ss.unbox(ss.cast(e.pageY - e.target.offsetTop, ss.Int32)));
-		};
-		this.$clickManager.onmousemove = function(e1) {
-			client.touchEvent(2, ss.unbox(ss.cast(e1.pageX - e1.target.offsetLeft, ss.Int32)), ss.unbox(ss.cast(e1.pageY - e1.target.offsetTop, ss.Int32)));
-		};
-		this.$clickManager.onmouseup = function(e2) {
-			client.touchEvent(0, ss.unbox(ss.cast(e2.pageX - e2.target.offsetLeft, ss.Int32)), ss.unbox(ss.cast(e2.pageY - e2.target.offsetTop, ss.Int32)));
-		};
-		document.body.appendChild(this.$clickManager);
+	// Engine.TouchManager
+	var $Engine_TouchManager = function() {
+		this.$1$touchRectsField = null;
+		this.set_touchRects([]);
 	};
-	$Engine_Web_WebRenderer.__typeName = 'Engine.Web.WebRenderer';
-	global.Engine.Web.WebRenderer = $Engine_Web_WebRenderer;
+	$Engine_TouchManager.__typeName = 'Engine.TouchManager';
+	global.Engine.TouchManager = $Engine_TouchManager;
 	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Web.Window
-	var $Engine_Web_Window = function() {
+	// Engine.TouchRect
+	var $Engine_TouchRect = function(x, y, width, height, eventToTrigger) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.$1$EventToTriggerField = null;
+		this.set_x(x);
+		this.set_y(y);
+		this.set_width(width);
+		this.set_height(height);
+		this.set_eventToTrigger(eventToTrigger);
 	};
-	$Engine_Web_Window.__typeName = 'Engine.Web.Window';
-	global.Engine.Web.Window = $Engine_Web_Window;
-	ss.initClass($Engine_Web_CanvasInformation, {});
-	ss.initClass($Engine_Web_WebClient, {
-		get_game: function() {
-			return this.$1$GameField;
+	$Engine_TouchRect.__typeName = 'Engine.TouchRect';
+	global.Engine.TouchRect = $Engine_TouchRect;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.TouchType
+	var $Engine_TouchType = function() {
+	};
+	$Engine_TouchType.__typeName = 'Engine.TouchType';
+	global.Engine.TouchType = $Engine_TouchType;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.Direction
+	var $Engine_Interfaces_Direction = function() {
+	};
+	$Engine_Interfaces_Direction.__typeName = 'Engine.Interfaces.Direction';
+	global.Engine.Interfaces.Direction = $Engine_Interfaces_Direction;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IClient
+	var $Engine_Interfaces_IClient = function() {
+	};
+	$Engine_Interfaces_IClient.__typeName = 'Engine.Interfaces.IClient';
+	global.Engine.Interfaces.IClient = $Engine_Interfaces_IClient;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IGame
+	var $Engine_Interfaces_IGame = function() {
+	};
+	$Engine_Interfaces_IGame.__typeName = 'Engine.Interfaces.IGame';
+	global.Engine.Interfaces.IGame = $Engine_Interfaces_IGame;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IImage
+	var $Engine_Interfaces_IImage = function() {
+	};
+	$Engine_Interfaces_IImage.__typeName = 'Engine.Interfaces.IImage';
+	global.Engine.Interfaces.IImage = $Engine_Interfaces_IImage;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.ILayer
+	var $Engine_Interfaces_ILayer = function() {
+	};
+	$Engine_Interfaces_ILayer.__typeName = 'Engine.Interfaces.ILayer';
+	global.Engine.Interfaces.ILayer = $Engine_Interfaces_ILayer;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.ILayout
+	var $Engine_Interfaces_ILayout = function() {
+	};
+	$Engine_Interfaces_ILayout.__typeName = 'Engine.Interfaces.ILayout';
+	global.Engine.Interfaces.ILayout = $Engine_Interfaces_ILayout;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.ILayoutManager
+	var $Engine_Interfaces_ILayoutManager = function() {
+	};
+	$Engine_Interfaces_ILayoutManager.__typeName = 'Engine.Interfaces.ILayoutManager';
+	global.Engine.Interfaces.ILayoutManager = $Engine_Interfaces_ILayoutManager;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.ILayoutView
+	var $Engine_Interfaces_ILayoutView = function() {
+	};
+	$Engine_Interfaces_ILayoutView.__typeName = 'Engine.Interfaces.ILayoutView';
+	global.Engine.Interfaces.ILayoutView = $Engine_Interfaces_ILayoutView;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IRenderer
+	var $Engine_Interfaces_IRenderer = function() {
+	};
+	$Engine_Interfaces_IRenderer.__typeName = 'Engine.Interfaces.IRenderer';
+	global.Engine.Interfaces.IRenderer = $Engine_Interfaces_IRenderer;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IScreen
+	var $Engine_Interfaces_IScreen = function() {
+	};
+	$Engine_Interfaces_IScreen.__typeName = 'Engine.Interfaces.IScreen';
+	global.Engine.Interfaces.IScreen = $Engine_Interfaces_IScreen;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IScreenManager
+	var $Engine_Interfaces_IScreenManager = function() {
+	};
+	$Engine_Interfaces_IScreenManager.__typeName = 'Engine.Interfaces.IScreenManager';
+	global.Engine.Interfaces.IScreenManager = $Engine_Interfaces_IScreenManager;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.IScreenView
+	var $Engine_Interfaces_IScreenView = function() {
+	};
+	$Engine_Interfaces_IScreenView.__typeName = 'Engine.Interfaces.IScreenView';
+	global.Engine.Interfaces.IScreenView = $Engine_Interfaces_IScreenView;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.ITouchManager
+	var $Engine_Interfaces_ITouchManager = function() {
+	};
+	$Engine_Interfaces_ITouchManager.__typeName = 'Engine.Interfaces.ITouchManager';
+	global.Engine.Interfaces.ITouchManager = $Engine_Interfaces_ITouchManager;
+	ss.initClass($Engine_Color, {
+		get_r: function() {
+			return this.$1$RField;
 		},
-		set_game: function(value) {
-			this.$1$GameField = value;
+		set_r: function(value) {
+			this.$1$RField = value;
 		},
-		get_renderer: function() {
-			return this.$1$RendererField;
+		get_g: function() {
+			return this.$1$GField;
 		},
-		set_renderer: function(value) {
-			this.$1$RendererField = value;
+		set_g: function(value) {
+			this.$1$GField = value;
 		},
-		init: function(renderer) {
-			this.set_renderer(ss.cast(renderer, $Engine_Web_WebRenderer));
-			this.get_game().init(this.get_renderer());
+		get_b: function() {
+			return this.$1$BField;
 		},
-		draw: function(elapsedGameTime) {
-			this.get_game().draw(elapsedGameTime);
+		set_b: function(value) {
+			this.$1$BField = value;
 		},
-		touchEvent: function(touchType, x, y) {
-			this.get_game().touchEvent(touchType, x, y);
+		get_a: function() {
+			return this.$1$AField;
 		},
-		tick: function(elapsedGameTime) {
-			this.get_game().tick(elapsedGameTime);
-		},
-		timeout: function(callback, ms) {
-			window.setTimeout(callback, ms);
-		},
-		loadImages: function(renderer) {
-			this.get_game().loadImages(renderer);
+		set_a: function(value) {
+			this.$1$AField = value;
 		}
-	}, null, [Client.Interfaces.IClient]);
-	ss.initClass($Engine_Web_WebImage, {
-		get_center: function() {
-			return this.$1$CenterField;
+	});
+	ss.initClass($Engine_LayoutPosition, {
+		get_size: function() {
+			return this.$1$SizeField;
 		},
-		set_center: function(value) {
-			this.$1$CenterField = value;
+		set_size: function(value) {
+			this.$1$SizeField = value;
+		},
+		get_offset: function() {
+			return this.$1$OffsetField;
+		},
+		set_offset: function(value) {
+			this.$1$OffsetField = value;
+		},
+		get_left: function() {
+			return this.$1$LeftField;
+		},
+		set_left: function(value) {
+			this.$1$LeftField = value;
+		},
+		get_right: function() {
+			return this.$1$RightField;
+		},
+		set_right: function(value) {
+			this.$1$RightField = value;
+		},
+		get_top: function() {
+			return this.$1$TopField;
+		},
+		set_top: function(value) {
+			this.$1$TopField = value;
+		},
+		get_bottom: function() {
+			return this.$1$BottomField;
+		},
+		set_bottom: function(value) {
+			this.$1$BottomField = value;
+		},
+		get_location: function() {
+			var x = (ss.isValue(this.get_left()) ? (this.get_left().get_layoutPosition().get_location().get_x() + this.get_left().get_layoutPosition().get_location().get_width()) : 0) + this.get_offset().get_x();
+			var y = (ss.isValue(this.get_top()) ? (this.get_top().get_layoutPosition().get_location().get_y() + this.get_top().get_layoutPosition().get_location().get_height()) : 0) + this.get_offset().get_y();
+			return new $Engine_Rectangle.$ctor3(x, y, this.get_size());
+		}
+	});
+	ss.initClass($Engine_Point, {
+		get_x: function() {
+			return this.$1$XField;
+		},
+		set_x: function(value) {
+			this.$1$XField = value;
+		},
+		get_y: function() {
+			return this.$1$YField;
+		},
+		set_y: function(value) {
+			this.$1$YField = value;
+		}
+	});
+	ss.initClass($Engine_PointF, {
+		get_x: function() {
+			return this.$1$XField;
+		},
+		set_x: function(value) {
+			this.$1$XField = value;
+		},
+		get_y: function() {
+			return this.$1$YField;
+		},
+		set_y: function(value) {
+			this.$1$YField = value;
+		}
+	});
+	ss.initClass($Engine_Rectangle, {
+		get_x: function() {
+			return this.$1$XField;
+		},
+		set_x: function(value) {
+			this.$1$XField = value;
+		},
+		get_y: function() {
+			return this.$1$YField;
+		},
+		set_y: function(value) {
+			this.$1$YField = value;
 		},
 		get_width: function() {
 			return this.$1$WidthField;
@@ -178,89 +349,115 @@
 		},
 		set_height: function(value) {
 			this.$1$HeightField = value;
-		}
-	}, null, [Engine.Interfaces.IImage]);
-	ss.initClass($Engine_Web_WebImageCache, {
-		getImage: function(imageName) {
-			return this.$textures[imageName];
 		},
-		createImage: function(imageName, imagePath, center, ready) {
-			this.$textures[imageName] = new $Engine_Web_WebImage(imagePath, center, ready);
+		isInside: function(point) {
+			return this.get_x() < point.get_x() && this.get_y() < point.get_y() && this.get_x() + this.get_width() > point.get_x() && this.get_y() + this.get_height() > point.get_y();
 		}
 	});
-	ss.initClass($Engine_Web_WebLayer, {
-		begin: function() {
-			//not needed for web
+	$Engine_Rectangle.$ctor4.prototype = $Engine_Rectangle.$ctor3.prototype = $Engine_Rectangle.$ctor2.prototype = $Engine_Rectangle.$ctor1.prototype = $Engine_Rectangle.prototype;
+	ss.initEnum($Engine_ScreenOrientation, { vertical: 0, horizontal: 1 });
+	ss.initClass($Engine_Size, {
+		get_width: function() {
+			return this.$1$WidthField;
 		},
-		end: function() {
-			//not needed for web
+		set_width: function(value) {
+			this.$1$WidthField = value;
 		},
-		save: function() {
-			this.canvasInformation.context.save();
+		get_height: function() {
+			return this.$1$HeightField;
 		},
-		restore: function() {
-			this.canvasInformation.context.restore();
-		},
-		translate: function(x, y) {
-			this.canvasInformation.context.translate(x, y);
-		},
-		drawImage: function(image, x, y) {
-			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Web_WebImage).image, x, y);
-		},
-		drawImage$1: function(image, x, y, width, height) {
-			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Web_WebImage).image, x, y, width, height);
-		},
-		drawImage$2: function(image, x, y, angle, centerX, centerY) {
-			this.save();
-			this.canvasInformation.context.translate(centerX, centerY);
-			this.canvasInformation.context.rotate(angle);
-			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Web_WebImage).image, x - centerX, y - centerY);
-			this.restore();
-		},
-		drawString: function(text, x, y) {
-			this.canvasInformation.context.fillText(text, x, y);
-		},
-		clear: function() {
-			this.canvasInformation.context.clearRect(0, 0, this.$width, this.$height);
-		},
-		measureString: function(text) {
-			return this.canvasInformation.context.measureText(text).width;
+		set_height: function(value) {
+			this.$1$HeightField = value;
 		}
-	}, null, [Engine.Interfaces.ILayer]);
-	ss.initClass($Engine_Web_WebRenderer, {
-		createLayer: function(width, height) {
-			return new $Engine_Web_WebLayer(this, width, height);
+	});
+	$Engine_Size.$ctor1.prototype = $Engine_Size.prototype;
+	ss.initInterface($Engine_Interfaces_ITouchManager, { init: null, pushClickRect: null, processTouchEvent: null });
+	ss.initClass($Engine_TouchManager, {
+		get_touchRects: function() {
+			return this.$1$touchRectsField;
 		},
-		addLayer: function(layer) {
-			document.body.insertBefore(ss.cast(layer, $Engine_Web_WebLayer).canvasInformation.canvas, this.$clickManager);
-			ss.add(this.$layers, ss.cast(layer, $Engine_Web_WebLayer));
+		set_touchRects: function(value) {
+			this.$1$touchRectsField = value;
 		},
-		getImage: function(imageName) {
-			return this.$imageCache.getImage(imageName);
+		init: function() {
 		},
-		createImage: function(imageName, imagePath, center) {
-			this.$numberOfImages++;
-			this.$imageCache.createImage(imageName, imagePath, center, ss.mkdel(this, this.$imagesReady));
+		pushClickRect: function(touchRect) {
+			ss.add(this.get_touchRects(), touchRect);
 		},
-		$imagesReady: function() {
-			this.$numberOfImagesLoaded++;
-			if (this.$numberOfImagesLoaded === this.$numberOfImages) {
-				this.$_loaded();
-			}
-		},
-		beginRender: function() {
-			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
-				var xnaLayer = this.$layers[$t1];
-				xnaLayer.begin();
-			}
-		},
-		endRender: function() {
-			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
-				var xnaLayer = this.$layers[$t1];
-				xnaLayer.end();
+		processTouchEvent: function(touchType, x, y) {
+			switch (touchType) {
+				case 0: {
+					var $t1 = this.get_touchRects();
+					for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+						var clickRect = $t1[$t2];
+						clickRect.get_eventToTrigger()(touchType, clickRect, x - clickRect.get_x(), y - clickRect.get_y(), clickRect.collides(x, y));
+						//ignore result for mouseup
+					}
+					break;
+				}
+				case 1:
+				case 2: {
+					var $t3 = this.get_touchRects();
+					for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+						var clickRect1 = $t3[$t4];
+						if (!clickRect1.collides(x, y)) {
+							continue;
+						}
+						if (clickRect1.get_eventToTrigger()(touchType, clickRect1, x - clickRect1.get_x(), y - clickRect1.get_y(), true)) {
+							break;
+						}
+					}
+					break;
+				}
 			}
 		}
-	}, null, [Engine.Interfaces.IRenderer]);
-	ss.initClass($Engine_Web_Window, {});
-	$Engine_Web_CanvasInformation.$blackPixel = null;
+	}, null, [$Engine_Interfaces_ITouchManager]);
+	ss.initClass($Engine_TouchRect, {
+		get_x: function() {
+			return this.$1$XField;
+		},
+		set_x: function(value) {
+			this.$1$XField = value;
+		},
+		get_y: function() {
+			return this.$1$YField;
+		},
+		set_y: function(value) {
+			this.$1$YField = value;
+		},
+		get_width: function() {
+			return this.$1$WidthField;
+		},
+		set_width: function(value) {
+			this.$1$WidthField = value;
+		},
+		get_height: function() {
+			return this.$1$HeightField;
+		},
+		set_height: function(value) {
+			this.$1$HeightField = value;
+		},
+		get_eventToTrigger: function() {
+			return this.$1$EventToTriggerField;
+		},
+		set_eventToTrigger: function(value) {
+			this.$1$EventToTriggerField = value;
+		},
+		collides: function(x, y) {
+			return this.get_x() < x && this.get_x() + this.get_width() > x && this.get_y() < y && this.get_y() + this.get_height() > y;
+		}
+	});
+	ss.initEnum($Engine_TouchType, { touchUp: 0, touchDown: 1, touchMove: 2 });
+	ss.initEnum($Engine_Interfaces_Direction, { left: 0, right: 1, up: 2, down: 3 });
+	ss.initInterface($Engine_Interfaces_IClient, { get_game: null, set_game: null, get_screenManager: null, set_screenManager: null, loadImages: null, init: null, draw: null, touchEvent: null, tick: null, timeout: null });
+	ss.initInterface($Engine_Interfaces_IGame, { initScreens: null, loadAssets: null, get_client: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null });
+	ss.initInterface($Engine_Interfaces_IImage, { get_center: null, set_center: null, get_width: null, set_width: null, get_height: null, set_height: null });
+	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, drawImage: null, drawImage$1: null, drawImage$2: null, drawString: null, clear: null, measureString: null, drawRectangle: null });
+	ss.initInterface($Engine_Interfaces_ILayout, { get_layoutView: null, set_layoutView: null, get_layoutManager: null, set_layoutManager: null, get_layoutPosition: null, set_layoutPosition: null, get_width: null, set_width: null, get_height: null, set_height: null, get_active: null, set_active: null, get_alwaysTick: null, set_alwaysTick: null, get_screenOrientation: null, set_screenOrientation: null, offset: null, leftOf: null, rightOf: null, above: null, below: null, makeActive: null, forceTick: null, setScreenOrientation: null });
+	ss.initInterface($Engine_Interfaces_ILayoutManager, { createLayout: null, get_layouts: null, get_oneLayoutAtATime: null, set_oneLayoutAtATime: null, init: null, draw: null, touchEvent: null, tick: null, getLayoutSize: null, changeLayout: null, changeLayout$1: null });
+	ss.initInterface($Engine_Interfaces_ILayoutView, { initLayoutView: null, tickLayoutView: null, get_touchManager: null, render: null, destroy: null });
+	ss.initInterface($Engine_Interfaces_IRenderer, { createLayer: null, addLayer: null, getImage: null, createImage: null, beginRender: null, endRender: null });
+	ss.initInterface($Engine_Interfaces_IScreen, { get_layoutManager: null, set_layoutManager: null, init: null, draw: null, touchEvent: null, tick: null, destroy: null });
+	ss.initInterface($Engine_Interfaces_IScreenManager, { get_currentScreen: null, set_currentScreen: null, createScreen: null, get_screens: null, draw: null, touchEvent: null, tick: null, getScreenSize: null, changeScreen: null, timeout: null, init: null });
+	ss.initInterface($Engine_Interfaces_IScreenView, { get_layoutView: null, set_layoutView: null, get_width: null, set_width: null, get_height: null, set_height: null });
 })();

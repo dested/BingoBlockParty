@@ -31,9 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CanvasInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebClient.cs" />
+    <Compile Include="WebImage.cs" />
+    <Compile Include="WebImageCache.cs" />
+    <Compile Include="WebLayer.cs" />
+    <Compile Include="WebLayout.cs" />
+    <Compile Include="WebLayoutManager.cs" />
     <Compile Include="WebRenderer.cs" />
+    <Compile Include="WebScreen.cs" />
+    <Compile Include="WebScreenManager.cs" />
+    <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

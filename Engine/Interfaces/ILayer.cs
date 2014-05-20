@@ -2,6 +2,7 @@
 {
     public interface ILayer
     {
+          ILayout Layout { get; set; }
         void Save();
         void Restore();
         void Translate(int x, int y);

@@ -11,14 +11,14 @@ namespace Engine.Xna
         private readonly SpriteBatch currentSpriteBatch;
         private readonly int width;
         private readonly int height;
-        private readonly ILayout _layout;
+        public ILayout Layout { get; set; }
 
         public XnaLayer(XnaRenderer renderer, int width, int height, ILayout layout)
         {
             this.renderer = renderer;
             this.width = width;
             this.height = height;
-            _layout = layout;
+            Layout = layout;
 
 
             currentSpriteBatch = new SpriteBatch(renderer.graphicsDevice);
@@ -35,17 +35,17 @@ namespace Engine.Xna
             var scaleMatrix = renderer.GetScaleMatrix();
 
             var settings = CurrentSettings();
-            if (_layout.LayoutManager.OneLayoutAtATime)
+            if (Layout.LayoutManager.OneLayoutAtATime)
             {
                 settings.Left = 0;
                 settings.Top = 0;
             }
             else
             {
-                settings.Left = _layout.LayoutPosition.Location.X;
-                settings.Top = _layout.LayoutPosition.Location.Y;
+                settings.Left = Layout.LayoutPosition.Location.X;
+                settings.Top = Layout.LayoutPosition.Location.Y;
             }
-            
+
             //            Resolution.getTransformationMatrix()
 
             currentSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, scaleMatrix);
@@ -127,7 +127,7 @@ namespace Engine.Xna
 
             Texture2D rect = new Texture2D(renderer.graphicsDevice, width, height);
 
-            var xnaColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B,color.A);
+            var xnaColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
 
 
             Microsoft.Xna.Framework.Color[] data = new Microsoft.Xna.Framework.Color[width * height];

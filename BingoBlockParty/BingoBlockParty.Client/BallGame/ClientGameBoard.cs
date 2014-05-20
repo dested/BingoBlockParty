@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using BingoBlockParty.Client.BallGame.Planes;
 using BingoBlockParty.Client.Utils;
 using BingoBlockParty.Common.BallGame;
@@ -49,7 +50,7 @@ namespace BingoBlockParty.Client.BallGame
         public ViewManager ViewManager { get; set; }
 
         public ClientOverlaysPlane OverlaysPlane { get; set; }
- 
+        
         public override void Init()
         {
             CreateObjects();
@@ -108,6 +109,7 @@ namespace BingoBlockParty.Client.BallGame
             OverlaysPlane.Tick();
         }
 
+
         public ITouchManager TouchManager
         {
             get { return this.GameModel.Client().TouchManager; }
@@ -126,7 +128,16 @@ namespace BingoBlockParty.Client.BallGame
 
         public void Destroy()
         {
-             
+
+        }
+        public void InitLayoutView()
+        {
+            Init();
+        }
+
+        public void TickLayoutView(TimeSpan elapsedGameTime)
+        {
+            Tick(elapsedGameTime);
         }
     }
 }

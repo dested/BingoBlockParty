@@ -19,7 +19,7 @@ namespace Engine.Xna
         {
             foreach (var layout in LayoutManager.Layouts)
             {
-                layout.LayoutView.Init();
+                layout.LayoutView.InitLayoutView();
 
             }
         }

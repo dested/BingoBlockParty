@@ -58,7 +58,7 @@
 		this.set_boardWidth(boardWidth);
 		this.set_boardHeight(boardHeight);
 		this.set_pegs([]);
-		this.set_cannonLocation(new Engine.Interfaces.Point(ss.Int32.div(this.get_boardWidth(), 2), 0));
+		this.set_cannonLocation(new Engine.Point(ss.Int32.div(this.get_boardWidth(), 2), 0));
 		this.set_cannonAngle(0);
 		this.set_jackpotScore(0);
 		this.set_numberOfCoins(2567);
@@ -594,7 +594,7 @@
 		},
 		get_position: function() {
 			var position = this.get_body().getPosition();
-			return new Engine.Interfaces.PointF(position.x, position.y);
+			return new Engine.PointF(position.x, position.y);
 		},
 		get_rotation: function() {
 			return this.get_body().getAngle();
@@ -987,8 +987,8 @@
 			this.$1$ChutesField = value;
 		},
 		init: function() {
-			this.set_bumpersSize(new Engine.Interfaces.Size(434, 65));
-			this.set_bucketsSize(new Engine.Interfaces.Size(399, 47));
+			this.set_bumpersSize(new Engine.Size.$ctor1(434, 65));
+			this.set_bucketsSize(new Engine.Size.$ctor1(399, 47));
 			var chuteLocations = [];
 			var roundBumperOffset = 14;
 			var bucketWidth = 55;
@@ -997,7 +997,7 @@
 			var halfBumperWidth = 18;
 			for (var i = 0; i < 5; i++) {
 				var x = halfBumperWidth + i * (bucketWidth + bumperWidth);
-				ss.add(chuteLocations, new Engine.Interfaces.Point(x, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bucketsSize().get_height()));
+				ss.add(chuteLocations, new Engine.Point(x, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bucketsSize().get_height()));
 			}
 			var wallLocations = [];
 			var $t1 = new $BingoBlockParty_$Common_BallGame_Planes_ChutesPlane$wallLocation();
