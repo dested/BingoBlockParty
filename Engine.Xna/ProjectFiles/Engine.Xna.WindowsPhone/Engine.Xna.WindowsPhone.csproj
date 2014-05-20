@@ -37,11 +37,6 @@
     <Compile Include="..\..\*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsPhone\x86\MonoGame.Framework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\BingoBlockParty\BingoBlockParty.Client\ProjectFiles\BingoBlockParty.Client.WindowsPhone\BingoBlockParty.Client.WindowsPhone.csproj">
       <Project>{dfd442b7-ffad-4887-80e9-b1fff7314057}</Project>
       <Name>BingoBlockParty.Client.WindowsPhone</Name>
@@ -50,6 +45,11 @@
       <Project>{8d1cf882-28e3-40f0-a6c7-9c6089d101ae}</Project>
       <Name>Engine.WindowsPhone</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\..\references\WindowsPhone\x86\MonoGame.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

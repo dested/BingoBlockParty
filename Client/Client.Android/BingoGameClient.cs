@@ -84,6 +84,9 @@ namespace Client.Android
                 Exit();
             }
 
+            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+
+
             while (TouchPanel.IsGestureAvailable)
             {
                 var gest = TouchPanel.ReadGesture();
@@ -93,19 +96,19 @@ namespace Client.Android
                         const int tolerance = 4000;
                         if (gest.Delta.X > tolerance)
                         {
-                            client.LayoutManager.ChangeLayout(Direction.Left);
+                            layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)
                         {
-                            client.LayoutManager.ChangeLayout(Direction.Right);
+                            layoutManager.ChangeLayout(Direction.Right);
                         }
                         if (gest.Delta.Y > tolerance)
                         {
-                            client.LayoutManager.ChangeLayout(Direction.Up);
+                            layoutManager.ChangeLayout(Direction.Up);
                         }
                         if (gest.Delta.Y < -tolerance)
                         {
-                            client.LayoutManager.ChangeLayout(Direction.Down);
+                            layoutManager.ChangeLayout(Direction.Down);
                             
                         }
                         break;

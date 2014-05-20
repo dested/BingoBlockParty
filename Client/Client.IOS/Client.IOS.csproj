@@ -103,7 +103,7 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>monogameios\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\references\IOS\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
   </ItemGroup>
@@ -177,7 +177,6 @@
     <Content Include="Content\images\walkway\walkway-red.png" />
     <Content Include="Default.png" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="monogameios\MonoGame.Framework.dll" />
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>

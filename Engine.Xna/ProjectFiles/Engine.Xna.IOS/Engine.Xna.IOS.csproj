@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\Client\Client.IOS\monogameios\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\..\references\IOS\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -12,8 +12,9 @@ namespace Engine.Xna
 
 
 
-        public XnaLayoutManager(XnaRenderer renderer)
+        public XnaLayoutManager(XnaRenderer renderer,bool oneLayoutAtATime)
         {
+            OneLayoutAtATime = oneLayoutAtATime;
             Renderer = renderer;
             XnaLayouts = new List<XnaLayout>();
 

@@ -10,7 +10,7 @@ namespace Engine.Xna
         public XnaScreen(XnaScreenManager xnaScreenManager )
         {
             _xnaScreenManager = xnaScreenManager;
-            LayoutManager = new XnaLayoutManager(xnaScreenManager.Renderer);
+            LayoutManager = new XnaLayoutManager(xnaScreenManager.Renderer, xnaScreenManager.OneLayoutAtATime);
 
         }
 
