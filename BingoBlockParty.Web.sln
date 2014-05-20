@@ -1,134 +1,60 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Web", "Client.Web\Client.Web.csproj", "{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Web", "Client\Client.Web\Client.Web.csproj", "{BE8EFC12-61BF-4410-8B0E-BCB537EC6D0E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BingoBlockParty", "BingoBlockParty", "{240AF6A7-EF18-4448-B961-DEE8F58F5772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Web", "Engine\ProjectFiles\Engine.Web\Engine.Web.csproj", "{A4F21D8B-3A95-44B0-8053-69C92B2ADE53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Client.Saltarelle", "BingoBlockParty\BingoBlockParty.Client\BingoBlockParty.Client.Saltarelle.csproj", "{BFB21318-ED16-4F16-B464-27E3A4AA0734}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Html5.Web", "Engine.Html5\Engine.Html5.Web.csproj", "{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Common.Saltarelle", "BingoBlockParty\BingoBlockParty.Common\BingoBlockParty.Common.Saltarelle.csproj", "{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BingoBlockParty", "BingoBlockParty", "{9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Server.Saltarelle", "BingoBlockParty\BingoBlockParty.Server\BingoBlockParty.Server.Saltarelle.csproj", "{D55B9882-05F2-441A-8DC2-7D9FD358E005}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C3DF2467-EF05-463A-8246-DB921DA9DE4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Web", "Engine.Web\Engine.Web.csproj", "{11A1E696-F9A8-4D06-91CA-105A78D16E8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JBox2d.Web", "BingoBlockParty\Libraries\JBox2d\ProjectFiles\JBox2d.Web\JBox2d.Web.csproj", "{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "gulp", "http://localhost:55563", "{484D3B7B-B01B-4DDD-A092-390A6FD7F8A1}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_55563"
-		Debug.AspNetCompiler.PhysicalPath = "gulp\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55563\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_55563"
-		Release.AspNetCompiler.PhysicalPath = "gulp\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55563\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "gulp\"
-		DefaultWebSiteLanguage = "Visual Basic"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Client.Web", "BingoBlockParty\BingoBlockParty.Client\ProjectFiles\BingoBlockParty.Client.Web\BingoBlockParty.Client.Web.csproj", "{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "output", "http://localhost:55641", "{F9FB728C-90FD-4AEC-8BA9-FD0C29791765}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_55641"
-		Debug.AspNetCompiler.PhysicalPath = "output\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55641\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_55641"
-		Release.AspNetCompiler.PhysicalPath = "output\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55641\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "output\"
-		DefaultWebSiteLanguage = "Visual Basic"
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8DC0FC4E-FD35-40D0-8626-8F328DCB4AE0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JBox2d.Saltarelle", "BingoBlockParty\Libraries\JBox2d\JBox2d.Saltarelle.csproj", "{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Saltarelle", "Engine\Engine.Saltarelle.csproj", "{F1134712-9412-4E28-A9C0-6E13669D010D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoBlockParty.Common.Web", "BingoBlockParty\BingoBlockParty.Common\ProjectFiles\BingoBlockParty.Common.Web\BingoBlockParty.Common.Web.csproj", "{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Web|Any CPU = Web|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{1CBAA29F-67C1-471D-BA2F-6F0119CE5688}.Web|Any CPU.Build.0 = Web|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734}.Web|Any CPU.Build.0 = Web|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4}.Web|Any CPU.Build.0 = Web|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005}.Web|Any CPU.Build.0 = Web|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{11A1E696-F9A8-4D06-91CA-105A78D16E8E}.Web|Any CPU.Build.0 = Web|Any CPU
-		{484D3B7B-B01B-4DDD-A092-390A6FD7F8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{484D3B7B-B01B-4DDD-A092-390A6FD7F8A1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{484D3B7B-B01B-4DDD-A092-390A6FD7F8A1}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{484D3B7B-B01B-4DDD-A092-390A6FD7F8A1}.Web|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9FB728C-90FD-4AEC-8BA9-FD0C29791765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9FB728C-90FD-4AEC-8BA9-FD0C29791765}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9FB728C-90FD-4AEC-8BA9-FD0C29791765}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{F9FB728C-90FD-4AEC-8BA9-FD0C29791765}.Web|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4}.Web|Any CPU.Build.0 = Web|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Web|Any CPU.ActiveCfg = Web|Any CPU
-		{F1134712-9412-4E28-A9C0-6E13669D010D}.Web|Any CPU.Build.0 = Web|Any CPU
+		{BE8EFC12-61BF-4410-8B0E-BCB537EC6D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8EFC12-61BF-4410-8B0E-BCB537EC6D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8EFC12-61BF-4410-8B0E-BCB537EC6D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8EFC12-61BF-4410-8B0E-BCB537EC6D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F21D8B-3A95-44B0-8053-69C92B2ADE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F21D8B-3A95-44B0-8053-69C92B2ADE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F21D8B-3A95-44B0-8053-69C92B2ADE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F21D8B-3A95-44B0-8053-69C92B2ADE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BFB21318-ED16-4F16-B464-27E3A4AA0734} = {240AF6A7-EF18-4448-B961-DEE8F58F5772}
-		{1F5A2302-7E31-4FA2-8CA7-2A2D66E083C4} = {240AF6A7-EF18-4448-B961-DEE8F58F5772}
-		{D55B9882-05F2-441A-8DC2-7D9FD358E005} = {240AF6A7-EF18-4448-B961-DEE8F58F5772}
-		{8DC0FC4E-FD35-40D0-8626-8F328DCB4AE0} = {240AF6A7-EF18-4448-B961-DEE8F58F5772}
-		{B7E61384-5DFA-4D28-BC90-E59D6E38E0F4} = {8DC0FC4E-FD35-40D0-8626-8F328DCB4AE0}
+		{C3DF2467-EF05-463A-8246-DB921DA9DE4D} = {9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}
+		{9BABFF5C-DCA7-42AB-A185-FB27D72AEFB3} = {9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}
+		{F71ADCB2-0780-4505-84D7-9F8CCC2FE853} = {9FCAB1B4-DCFE-4B79-9F90-7949D3F8CE12}
+		{9BABFF5C-DCA7-42AA-A185-FB27D72AEFB3} = {C3DF2467-EF05-463A-8246-DB921DA9DE4D}
 	EndGlobalSection
 EndGlobal

@@ -26,6 +26,7 @@
 using System;
 using org.jbox2d.common;
 using org.jbox2d.pooling.arrays;
+using Console = org.jbox2d.common.Console;
 
 /**
  * A convex polygon shape. Polygons have a maximum number of vertices equal to _maxPolygonVertices.
@@ -655,4 +656,5 @@ namespace org.jbox2d.collision.shapes
             return out_;
         }
     }
+
 }
