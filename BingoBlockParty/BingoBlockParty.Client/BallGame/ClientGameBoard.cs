@@ -71,7 +71,6 @@ namespace BingoBlockParty.Client.BallGame
             {
                 //            Renderer.AddLayer(PegPhysicsManager.Plane);
             }
-            //ballGameBoard.appendChild(this.gameModel.clickManager.element);
         }
 
         public override void RoundOver()
@@ -124,7 +123,10 @@ namespace BingoBlockParty.Client.BallGame
             OverlaysPlane.Render();
             CannonBallPlane.Client().Render();
         }
-        
-       
+
+        public void Destroy()
+        {
+             
+        }
     }
 }

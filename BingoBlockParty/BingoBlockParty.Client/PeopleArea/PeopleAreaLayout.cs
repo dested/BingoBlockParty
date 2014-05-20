@@ -43,5 +43,10 @@ namespace BingoBlockParty.Client.PeopleArea
             mainLayer.DrawRectangle(new Color(11, 200, 255,80), 0, 0, _width, 61);
             mainLayer.Restore();
         }
+
+        public void Destroy()
+        {
+             
+        }
     }
 }

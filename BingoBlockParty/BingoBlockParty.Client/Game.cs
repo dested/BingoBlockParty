@@ -25,16 +25,18 @@ namespace BingoBlockParty.Client
         public ILayout InfoAreaLayout { get; set; }
         public ILayout BingoBoardLayout { get; set; }
         public ILayout PeopleAreaLayout { get; set; }
-        public ILayoutManager LayoutManager { get; set; }
+        public IScreenManager ScreenManager { get; set; }
 
-        public void InitLayouts(IRenderer renderer, ILayoutManager layoutManager)
+        public void InitScreens(IRenderer renderer, IScreenManager screenManager)
         {
-            LayoutManager = layoutManager;
+            ScreenManager = screenManager;
 
-            GameBoardLayout = LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
-            BingoBoardLayout = LayoutManager.CreateLayout(332, 557);
-            InfoAreaLayout = LayoutManager.CreateLayout(259, 708);
-            PeopleAreaLayout = LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            var gameScreen=screenManager.CreateScreen();
+
+            GameBoardLayout = gameScreen.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
+            BingoBoardLayout = gameScreen.LayoutManager.CreateLayout(332, 557);
+            InfoAreaLayout = gameScreen.LayoutManager.CreateLayout(259, 708);
+            PeopleAreaLayout = gameScreen.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
             
             GameBoardLayout.LeftOf(InfoAreaLayout).RightOf(BingoBoardLayout);
 
@@ -46,10 +48,27 @@ namespace BingoBlockParty.Client
             PeopleAreaLayout.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout);
 
 
-            foreach (var layout in LayoutManager.Layouts)
-            {
-                layout.LayoutView.Init();
-            }
+
+
+                 var gameScreen2 = screenManager.CreateScreen();
+
+                 var GameBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
+                 var BingoBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(332, 557);
+                 var InfoAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(259, 708);
+                 var PeopleAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+
+
+                 BingoBoardLayout2.LeftOf(InfoAreaLayout2).RightOf(GameBoardLayout2);
+
+                 PeopleAreaLayout2.Below(BingoBoardLayout2).Below(GameBoardLayout2);
+
+                 GameBoardLayout2.LayoutView = new ClientGameBoard(this, GameBoardLayout2.Width, 1280, renderer, GameBoardLayout2);
+                 BingoBoardLayout2.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout2);
+                 InfoAreaLayout2.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2);
+                 PeopleAreaLayout2.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2);
+
+
+            screenManager.ChangeScreen(gameScreen);
 
         }
 

@@ -48,6 +48,14 @@ namespace Engine.Xna
             }
         }
 
+        public void Init()
+        {
+            foreach (var layout in Layouts)
+            {
+                layout.LayoutView.Init();
+            }
+        }
+
         public void Draw(TimeSpan elapsedGameTime)
         {
             if (OneLayoutAtATime)

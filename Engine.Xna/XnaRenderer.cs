@@ -41,7 +41,7 @@ namespace Engine.Xna
         {
             if (scaleMatrix.HasValue == false)
             {
-                var screenSize = Client.LayoutManager.GetLayoutSize();
+                var screenSize = Client.ScreenManager.CurrentScreen.LayoutManager.GetLayoutSize();
 
                 var gameWorldSize = new Vector2(screenSize.Width, screenSize.Height);
                 var vp = graphicsDevice.Viewport;

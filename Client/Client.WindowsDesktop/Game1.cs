@@ -78,7 +78,7 @@ namespace Client.Windows
         private int mouseX;
         private int mouseY;
         private bool mouseIsDown;
-
+        private int currentIndex = 0;
         protected override void Update(GameTime gameTime)
         {
 
@@ -87,21 +87,33 @@ namespace Client.Windows
 
 
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                currentIndex = currentIndex == 0 ? 1 : 0;
+                var screen = client.ScreenManager.Screens.ElementAt(currentIndex);
+                client.ScreenManager.ChangeScreen(screen);
+            }
+
+
+            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                client.LayoutManager.ChangeLayout(Direction.Left);
+                layoutManager.ChangeLayout(Direction.Left);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                client.LayoutManager.ChangeLayout(Direction.Right);
+                layoutManager.ChangeLayout(Direction.Right);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                client.LayoutManager.ChangeLayout(Direction.Up);
+                layoutManager.ChangeLayout(Direction.Up);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                client.LayoutManager.ChangeLayout(Direction.Down);
+                layoutManager.ChangeLayout(Direction.Down);
             }
 
             MouseState mouseState = Mouse.GetState();

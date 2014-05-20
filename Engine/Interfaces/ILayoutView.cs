@@ -9,5 +9,6 @@ namespace Engine.Interfaces
         ITouchManager TouchManager { get; }
 
         void Render(TimeSpan elapsedGameTime);
+        void Destroy();
     }
 }

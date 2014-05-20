@@ -42,5 +42,10 @@ namespace BingoBlockParty.Client.InfoArea
             mainLayer.Restore();
 
         }
+
+        public void Destroy()
+        {
+             
+        }
     }
 }

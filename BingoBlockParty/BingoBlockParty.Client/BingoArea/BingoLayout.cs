@@ -44,6 +44,11 @@ namespace BingoBlockParty.Client.BingoGame
             mainLayer.DrawRectangle(new Color(125,19,148), 0, 0, _width, _height);
             mainLayer.Restore();
         }
+
+        public void Destroy()
+        {
+             
+        }
     }
 
 }

@@ -2,7 +2,7 @@
 {
     public interface IGame
     {
-        void InitLayouts(IRenderer renderer, ILayoutManager layoutManager);
+        void InitScreens(IRenderer renderer, IScreenManager screenManager);
         void LoadAssets(IRenderer renderer);
         IClient Client { get; }
 

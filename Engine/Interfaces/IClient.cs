@@ -5,7 +5,7 @@ namespace Engine.Interfaces
     public interface IClient
     {
         IGame Game { get; set; }
-        ILayoutManager LayoutManager { get; set; }
+        IScreenManager ScreenManager { get; set; }
         void LoadImages(IRenderer renderer);
         void Init(IRenderer renderer, bool oneLayoutAtATime);
         void Draw(TimeSpan elapsedGameTime);
