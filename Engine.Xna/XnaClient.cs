@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Engine.Interfaces;
+using Engine.Xna.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +15,7 @@ namespace Engine.Xna
         public IGame Game { get; set; }
         public XnaRenderer Renderer { get; set; }
         public IScreenManager ScreenManager { get; set; }
+        public ISocketManager SocketManager { get; set; }
 
         public XnaClient()
         {
@@ -32,6 +34,9 @@ namespace Engine.Xna
 
             ScreenManager = new XnaScreenManager(Renderer, oneLayoutAtATime);
             Game.InitScreens(renderer, ScreenManager);
+            SocketManager = new XnaSocketManager();
+            Game.InitSocketManager(SocketManager);
+
 /*
             var size = LayoutManager.GetLayoutSize();
 
@@ -40,6 +45,7 @@ namespace Engine.Xna
 
 
         }
+
 
 
         public void Draw(TimeSpan elapsedGameTime)

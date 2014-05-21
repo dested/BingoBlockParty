@@ -2,7 +2,34 @@
 	'use strict';
 	global.Engine = global.Engine || {};
 	global.Engine.Html5 = global.Engine.Html5 || {};
+	global.Engine.Html5.Network = global.Engine.Html5.Network || {};
 	global.Engine.Html5.Web = global.Engine.Html5.Web || {};
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Network.SocketError
+	var $Engine_Html5_Network_$SocketError = function(exception, message) {
+		this.$1$ExceptionField = null;
+		this.$1$MessageField = null;
+		this.set_exception(exception);
+		this.set_message(message);
+	};
+	$Engine_Html5_Network_$SocketError.__typeName = 'Engine.Html5.Network.$SocketError';
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Network.WebSocket
+	var $Engine_Html5_Network_WebSocket = function(url) {
+		this.$1$ClientField = null;
+		this.$1$OnErrorField = null;
+		this.$1$OnCloseField = null;
+		this.$1$OnConnectField = null;
+		this.set_client(io.connect(url));
+	};
+	$Engine_Html5_Network_WebSocket.__typeName = 'Engine.Html5.Network.WebSocket';
+	global.Engine.Html5.Network.WebSocket = $Engine_Html5_Network_WebSocket;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Network.WebSocketManager
+	var $Engine_Html5_Network_WebSocketManager = function() {
+	};
+	$Engine_Html5_Network_WebSocketManager.__typeName = 'Engine.Html5.Network.WebSocketManager';
+	global.Engine.Html5.Network.WebSocketManager = $Engine_Html5_Network_WebSocketManager;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.CanvasInformation
 	var $Engine_Html5_Web_CanvasInformation = function(context, domCanvas) {
@@ -43,6 +70,7 @@
 	// Engine.Html5.Web.WebClient
 	var $Engine_Html5_Web_WebClient = function() {
 		this.$1$ScreenManagerField = null;
+		this.$1$SocketManagerField = null;
 		this.$1$GameField = null;
 		this.$1$RendererField = null;
 		this.set_game(new BingoBlockParty.Client.Game(this));
@@ -191,6 +219,83 @@
 	};
 	$Engine_Html5_Web_Window.__typeName = 'Engine.Html5.Web.Window';
 	global.Engine.Html5.Web.Window = $Engine_Html5_Web_Window;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Xna.Network.SocketError
+	var $Engine_Xna_Network_$SocketError = function(exception, message) {
+		this.$1$ExceptionField = null;
+		this.$1$MessageField = null;
+		this.set_exception(exception);
+		this.set_message(message);
+	};
+	$Engine_Xna_Network_$SocketError.__typeName = 'Engine.Xna.Network.$SocketError';
+	ss.initClass($Engine_Html5_Network_$SocketError, {
+		get_exception: function() {
+			return this.$1$ExceptionField;
+		},
+		set_exception: function(value) {
+			this.$1$ExceptionField = value;
+		},
+		get_message: function() {
+			return this.$1$MessageField;
+		},
+		set_message: function(value) {
+			this.$1$MessageField = value;
+		}
+	}, null, [Engine.ISocketError]);
+	ss.initClass($Engine_Html5_Network_WebSocket, {
+		get_client: function() {
+			return this.$1$ClientField;
+		},
+		set_client: function(value) {
+			this.$1$ClientField = value;
+		},
+		get_onError: function() {
+			return this.$1$OnErrorField;
+		},
+		set_onError: function(value) {
+			this.$1$OnErrorField = value;
+		},
+		get_onClose: function() {
+			return this.$1$OnCloseField;
+		},
+		set_onClose: function(value) {
+			this.$1$OnCloseField = value;
+		},
+		get_onConnect: function() {
+			return this.$1$OnConnectField;
+		},
+		set_onConnect: function(value) {
+			this.$1$OnConnectField = value;
+		},
+		connect: function() {
+			this.get_client().on('disconnect', ss.mkdel(this, this.$socketConnectionClosed));
+			this.get_client().on('error', ss.mkdel(this, this.$socketError));
+			this.get_client().on('connect', ss.mkdel(this, function() {
+				this.get_onConnect()();
+			}));
+		},
+		on: function(T) {
+			return function(eventName, callback) {
+				this.get_client().on(eventName, function(data) {
+					callback(data);
+				});
+			};
+		},
+		emit: function(eventName, payload) {
+			this.get_client().emit(eventName, payload);
+		},
+		$socketConnectionClosed: function() {
+			this.get_onClose()();
+		},
+		$socketError: function(message) {
+			this.get_onError()(new $Engine_Html5_Network_$SocketError(new ss.Exception(message), message));
+		}
+	}, null, [Engine.ISocket]);
+	ss.initClass($Engine_Html5_Network_WebSocketManager, {
+		create: function(url) {
+			return new $Engine_Html5_Network_WebSocket(url);
+		}
+	}, null, [Engine.ISocketManager]);
 	ss.initClass($Engine_Html5_Web_CanvasInformation, {});
 	ss.initClass($Engine_Html5_Web_WebClient, {
 		get_screenManager: function() {
@@ -198,6 +303,12 @@
 		},
 		set_screenManager: function(value) {
 			this.$1$ScreenManagerField = value;
+		},
+		get_socketManager: function() {
+			return this.$1$SocketManagerField;
+		},
+		set_socketManager: function(value) {
+			this.$1$SocketManagerField = value;
 		},
 		get_game: function() {
 			return this.$1$GameField;
@@ -215,6 +326,8 @@
 			this.set_renderer(ss.cast(renderer, $Engine_Html5_Web_WebRenderer));
 			this.set_screenManager(new $Engine_Html5_Web_WebScreenManager(this.get_renderer(), oneLayoutAtATime));
 			this.get_game().initScreens(renderer, this.get_screenManager());
+			this.set_socketManager(new $Engine_Html5_Network_WebSocketManager());
+			this.get_game().initSocketManager(this.get_socketManager());
 		},
 		draw: function(elapsedGameTime) {
 			this.get_game().beforeDraw();
@@ -778,5 +891,19 @@
 		}
 	}, null, [Engine.Interfaces.IScreenManager]);
 	ss.initClass($Engine_Html5_Web_Window, {});
+	ss.initClass($Engine_Xna_Network_$SocketError, {
+		get_exception: function() {
+			return this.$1$ExceptionField;
+		},
+		set_exception: function(value) {
+			this.$1$ExceptionField = value;
+		},
+		get_message: function() {
+			return this.$1$MessageField;
+		},
+		set_message: function(value) {
+			this.$1$MessageField = value;
+		}
+	}, null, [Engine.ISocketError]);
 	$Engine_Html5_Web_CanvasInformation.$blackPixel = null;
 })();

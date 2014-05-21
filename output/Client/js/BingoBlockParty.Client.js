@@ -18,10 +18,18 @@
 		this.$1$BingoBoardLayoutField = null;
 		this.$1$PeopleAreaLayoutField = null;
 		this.$1$ScreenManagerField = null;
+		this.$1$SocketField = null;
 		this.set_client(client);
 	};
 	$BingoBlockParty_Client_Game.__typeName = 'BingoBlockParty.Client.Game';
 	global.BingoBlockParty.Client.Game = $BingoBlockParty_Client_Game;
+	////////////////////////////////////////////////////////////////////////////////
+	// BingoBlockParty.Client.Game.Boo
+	var $BingoBlockParty_Client_Game$Boo = function() {
+		this.$1$FooField = null;
+	};
+	$BingoBlockParty_Client_Game$Boo.__typeName = 'BingoBlockParty.Client.Game$Boo';
+	global.BingoBlockParty.Client.Game$Boo = $BingoBlockParty_Client_Game$Boo;
 	////////////////////////////////////////////////////////////////////////////////
 	// BingoBlockParty.Client.BallGame.ClientGameBoard
 	var $BingoBlockParty_Client_BallGame_ClientGameBoard = function(game, boardWidth, boardHeight, renderer, gameBoardLayout) {
@@ -307,6 +315,12 @@
 		set_screenManager: function(value) {
 			this.$1$ScreenManagerField = value;
 		},
+		get_socket: function() {
+			return this.$1$SocketField;
+		},
+		set_socket: function(value) {
+			this.$1$SocketField = value;
+		},
 		initScreens: function(renderer, screenManager) {
 			this.set_screenManager(screenManager);
 			var gameScreen = screenManager.createScreen();
@@ -332,6 +346,19 @@
 			InfoAreaLayout2.set_layoutView(new $BingoBlockParty_Client_InfoArea_InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2));
 			PeopleAreaLayout2.set_layoutView(new $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2));
 			screenManager.changeScreen(gameScreen);
+		},
+		initSocketManager: function(socketManager) {
+			this.set_socket(socketManager.create('http://192.168.1.3:3000/'));
+			this.get_socket().set_onConnect(ss.mkdel(this, function() {
+				this.get_socket().emit('shoes2', { Fuck: 'Yopu' });
+			}));
+			var $t1 = this.get_socket();
+			$t1.on($BingoBlockParty_Client_Game$Boo).call($t1, 'shoes', function(a) {
+			});
+			var $t2 = this.get_socket();
+			$t2.on($BingoBlockParty_Client_Game$Boo).call($t2, 'shoes3', function(a1) {
+			});
+			this.get_socket().connect();
 		},
 		beforeDraw: function() {
 		},
@@ -378,6 +405,14 @@
 			renderer.createImage('male.hat.front', 'images/people/male2_FrontDesign.png', null);
 		}
 	}, null, [Engine.Interfaces.IGame]);
+	ss.initClass($BingoBlockParty_Client_Game$Boo, {
+		get_foo: function() {
+			return this.$1$FooField;
+		},
+		set_foo: function(value) {
+			this.$1$FooField = value;
+		}
+	});
 	ss.initClass($BingoBlockParty_Client_BallGame_ClientGameBoard, {
 		get_renderer: function() {
 			return this.$2$RendererField;
@@ -439,7 +474,6 @@
 			}
 		},
 		roundOver: function() {
-			BingoBlockParty.Common.BallGame.GameBoard.prototype.roundOver.call(this);
 			this.get_pegPhysicsManager().roundOver(0);
 			this.get_backgroundPlane().roundOver(0);
 			this.get_cannonPlane().roundOver(0);

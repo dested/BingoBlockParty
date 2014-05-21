@@ -6,6 +6,7 @@ namespace Engine.Interfaces
     {
         IGame Game { get; set; }
         IScreenManager ScreenManager { get; set; }
+        ISocketManager SocketManager { get; set; }
         void LoadImages(IRenderer renderer);
         void Init(IRenderer renderer, bool oneLayoutAtATime);
         void Draw(TimeSpan elapsedGameTime);

@@ -39,7 +39,9 @@
     <Compile Include="..\..\*.cs" />
     <Compile Include="..\..\Interfaces\*.cs">
       <Link>Interfaces\%(Filename)%(Extension)</Link>
-    </Compile>
+        </Compile> <Compile Include="..\..\Network\*.cs" >
+      <Link>Network\%(Filename)%(Extension)</Link>
+    </Compile> 
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

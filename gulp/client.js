@@ -48,7 +48,7 @@ gulp.task('client.express', function () {
     var express = require('express');
     var http = require('http');
     var app = express();
-    app.set('port', 3000);
+    app.set('port', 4000);
     app.use(express.static('output/Client'));
 
 

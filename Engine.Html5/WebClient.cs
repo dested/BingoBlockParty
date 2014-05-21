@@ -1,4 +1,5 @@
 using System;
+using Engine.Html5.Network;
 using Engine.Interfaces;
 
 namespace Engine.Html5.Web
@@ -6,6 +7,7 @@ namespace Engine.Html5.Web
     public class WebClient : IClient
     {
         public IScreenManager ScreenManager { get; set; }
+        public ISocketManager SocketManager { get; set; }
 
 
         public IGame Game { get; set; }
@@ -22,6 +24,8 @@ namespace Engine.Html5.Web
             ScreenManager = new WebScreenManager(Renderer, oneLayoutAtATime);
             Game.InitScreens(renderer, ScreenManager);
 
+            SocketManager = new WebSocketManager();
+            Game.InitSocketManager(SocketManager);
         }
 
 

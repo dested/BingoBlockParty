@@ -17,6 +17,24 @@
 	$Engine_Color.__typeName = 'Engine.Color';
 	global.Engine.Color = $Engine_Color;
 	////////////////////////////////////////////////////////////////////////////////
+	// Engine.ISocket
+	var $Engine_ISocket = function() {
+	};
+	$Engine_ISocket.__typeName = 'Engine.ISocket';
+	global.Engine.ISocket = $Engine_ISocket;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.ISocketError
+	var $Engine_ISocketError = function() {
+	};
+	$Engine_ISocketError.__typeName = 'Engine.ISocketError';
+	global.Engine.ISocketError = $Engine_ISocketError;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.ISocketManager
+	var $Engine_ISocketManager = function() {
+	};
+	$Engine_ISocketManager.__typeName = 'Engine.ISocketManager';
+	global.Engine.ISocketManager = $Engine_ISocketManager;
+	////////////////////////////////////////////////////////////////////////////////
 	// Engine.LayoutPosition
 	var $Engine_LayoutPosition = function(size) {
 		this.$1$SizeField = null;
@@ -254,6 +272,9 @@
 			this.$1$AField = value;
 		}
 	});
+	ss.initInterface($Engine_ISocket, { get_onError: null, set_onError: null, get_onClose: null, set_onClose: null, get_onConnect: null, set_onConnect: null, connect: null, on: null, emit: null });
+	ss.initInterface($Engine_ISocketError, { get_exception: null, set_exception: null, get_message: null, set_message: null });
+	ss.initInterface($Engine_ISocketManager, { create: null });
 	ss.initClass($Engine_LayoutPosition, {
 		get_size: function() {
 			return this.$1$SizeField;
@@ -449,8 +470,8 @@
 	});
 	ss.initEnum($Engine_TouchType, { touchUp: 0, touchDown: 1, touchMove: 2 });
 	ss.initEnum($Engine_Interfaces_Direction, { left: 0, right: 1, up: 2, down: 3 });
-	ss.initInterface($Engine_Interfaces_IClient, { get_game: null, set_game: null, get_screenManager: null, set_screenManager: null, loadImages: null, init: null, draw: null, touchEvent: null, tick: null, timeout: null });
-	ss.initInterface($Engine_Interfaces_IGame, { initScreens: null, loadAssets: null, get_client: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null });
+	ss.initInterface($Engine_Interfaces_IClient, { get_game: null, set_game: null, get_screenManager: null, set_screenManager: null, get_socketManager: null, set_socketManager: null, loadImages: null, init: null, draw: null, touchEvent: null, tick: null, timeout: null });
+	ss.initInterface($Engine_Interfaces_IGame, { get_client: null, initScreens: null, initSocketManager: null, loadAssets: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null });
 	ss.initInterface($Engine_Interfaces_IImage, { get_center: null, set_center: null, get_width: null, set_width: null, get_height: null, set_height: null });
 	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, drawImage: null, drawImage$1: null, drawImage$2: null, drawString: null, clear: null, measureString: null, drawRectangle: null });
 	ss.initInterface($Engine_Interfaces_ILayout, { get_layoutView: null, set_layoutView: null, get_layoutManager: null, set_layoutManager: null, get_layoutPosition: null, set_layoutPosition: null, get_width: null, set_width: null, get_height: null, set_height: null, get_active: null, set_active: null, get_alwaysTick: null, set_alwaysTick: null, get_screenOrientation: null, set_screenOrientation: null, offset: null, leftOf: null, rightOf: null, above: null, below: null, makeActive: null, forceTick: null, setScreenOrientation: null });

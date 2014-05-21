@@ -35,6 +35,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\*.cs" />
+    <Compile Include="..\..\Network\*.cs">
+      <Link>Network\%(Filename)%(Extension)</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BingoBlockParty\BingoBlockParty.Client\ProjectFiles\BingoBlockParty.Client.WindowsPhone\BingoBlockParty.Client.WindowsPhone.csproj">
@@ -49,6 +52,9 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\references\WindowsPhone\x86\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SocketIOClient">
+      <HintPath>..\..\..\references\winphone sockets\SocketIOClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

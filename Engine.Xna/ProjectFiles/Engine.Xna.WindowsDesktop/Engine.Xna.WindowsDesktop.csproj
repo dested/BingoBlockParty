@@ -41,6 +41,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\*.cs" />
+    <Compile Include="..\..\Network\*.cs">
+      <Link>Network\%(Filename)%(Extension)</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -64,6 +67,10 @@
     <ProjectReference Include="..\..\..\Engine\ProjectFiles\Engine.WindowsDesktop\Engine.WindowsDesktop.csproj">
       <Project>{b2e49378-b372-41f8-86de-41a92fedfb2f}</Project>
       <Name>Engine.WindowsDesktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Network\SocketEngine\ProjectFiles\SocketEngine.WindowsDesktop\SocketEngine.WindowsDesktop.csproj">
+      <Project>{633EC5A0-D4A0-4BB7-9058-4B9CD3C81727}</Project>
+      <Name>SocketEngine.WindowsDesktop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{7D0752CE-FA5D-493C-BBF7-E429190ECAA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engine.Html5.Web</RootNamespace>
-    <AssemblyName>Engine.Html5.Web</AssemblyName>
+    <RootNamespace>Engine.Html5</RootNamespace>
+    <AssemblyName>Engine.Html5</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoStdLib>True</NoStdLib>
@@ -32,7 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CanvasInformation.cs" />
+    <Compile Include="Network\SocketError.cs" />
+    <Compile Include="Network\WebSocket.cs" />
+    <Compile Include="Network\WebSocketManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SocketIO.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="WebImage.cs" />
     <Compile Include="WebImageCache.cs" />

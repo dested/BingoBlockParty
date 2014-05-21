@@ -2,15 +2,17 @@
 {
     public interface IGame
     {
-        void InitScreens(IRenderer renderer, IScreenManager screenManager);
-        void LoadAssets(IRenderer renderer);
         IClient Client { get; }
-
+        void InitScreens(IRenderer renderer, IScreenManager screenManager);
+        void InitSocketManager(ISocketManager socketManager);
+        void LoadAssets(IRenderer renderer);
 
         void BeforeTick();
         void AfterTick();
 
         void BeforeDraw();
-        void AfterDraw();
+        void AfterDraw(); 
+
+
     }
 }

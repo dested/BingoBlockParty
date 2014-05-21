@@ -26,18 +26,19 @@ namespace BingoBlockParty.Client
         public ILayout BingoBoardLayout { get; set; }
         public ILayout PeopleAreaLayout { get; set; }
         public IScreenManager ScreenManager { get; set; }
+        public ISocket Socket { get; set; }
 
         public void InitScreens(IRenderer renderer, IScreenManager screenManager)
         {
             ScreenManager = screenManager;
 
-            var gameScreen=screenManager.CreateScreen();
+            var gameScreen = screenManager.CreateScreen();
 
             GameBoardLayout = gameScreen.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
             BingoBoardLayout = gameScreen.LayoutManager.CreateLayout(332, 557);
             InfoAreaLayout = gameScreen.LayoutManager.CreateLayout(259, 708);
             PeopleAreaLayout = gameScreen.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
-            
+
             GameBoardLayout.LeftOf(InfoAreaLayout).RightOf(BingoBoardLayout);
 
             PeopleAreaLayout.Below(BingoBoardLayout).Below(GameBoardLayout);
@@ -50,48 +51,63 @@ namespace BingoBlockParty.Client
 
 
 
-                 var gameScreen2 = screenManager.CreateScreen();
+            var gameScreen2 = screenManager.CreateScreen();
 
-                 var GameBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
-                 var BingoBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(332, 557);
-                 var InfoAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(259, 708);
-                 var PeopleAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            var GameBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
+            var BingoBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(332, 557);
+            var InfoAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(259, 708);
+            var PeopleAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
 
 
-                 BingoBoardLayout2.LeftOf(InfoAreaLayout2).RightOf(GameBoardLayout2);
+            BingoBoardLayout2.LeftOf(InfoAreaLayout2).RightOf(GameBoardLayout2);
 
-                 PeopleAreaLayout2.Below(BingoBoardLayout2).Below(GameBoardLayout2);
+            PeopleAreaLayout2.Below(BingoBoardLayout2).Below(GameBoardLayout2);
 
-                 GameBoardLayout2.LayoutView = new ClientGameBoard(this, GameBoardLayout2.Width, 1280, renderer, GameBoardLayout2);
-                 BingoBoardLayout2.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout2);
-                 InfoAreaLayout2.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2);
-                 PeopleAreaLayout2.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2);
+            GameBoardLayout2.LayoutView = new ClientGameBoard(this, GameBoardLayout2.Width, 1280, renderer, GameBoardLayout2);
+            BingoBoardLayout2.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout2);
+            InfoAreaLayout2.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2);
+            PeopleAreaLayout2.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2);
 
 
             screenManager.ChangeScreen(gameScreen);
 
         }
 
+        public void InitSocketManager(ISocketManager socketManager)
+        {
+            Socket = socketManager.Create("http://192.168.1.3:3000/");
+            Socket.OnConnect = () =>
+            {
+                Socket.Emit("shoes2", new { Fuck = "Yopu" });
+            };
+            Socket.On<Boo>("shoes", a =>
+            {
+            });
+            Socket.On<Boo>("shoes3", a =>
+            {
+            });
 
-        public void BeforeDraw( )
+            Socket.Connect();
+        }
+
+        public class Boo
+        {
+            public string Foo { get; set; }
+        }
+
+
+        public void BeforeDraw()
         {
         }
-        public void AfterDraw( )
+        public void AfterDraw()
         {
         }
-
-
-        public void BeforeTick( )
+        public void BeforeTick()
         {
         }
-        public void AfterTick( )
+        public void AfterTick()
         {
         }
-
-
-
-
-
 
         public void LoadAssets(IRenderer renderer)
         {
