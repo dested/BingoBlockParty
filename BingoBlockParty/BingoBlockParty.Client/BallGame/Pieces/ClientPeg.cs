@@ -119,7 +119,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 
                 var bonusText = "+$" + this.Bonus.ToString();
                 var size = context.MeasureString(bonusText);
-                context.DrawString(bonusText, (int)-size / 2, -fontSize / 2);
+                context.DrawString("lobby.font", bonusText, (int)-size / 2, -fontSize / 2);
 
 
                 context.Restore();

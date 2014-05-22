@@ -8,7 +8,7 @@ namespace Engine.Interfaces
         void InitLayoutView();
         void TickLayoutView(TimeSpan elapsedGameTime);
         ITouchManager TouchManager { get; }
-
+        ILayout Layout { get; set; }
         void Render(TimeSpan elapsedGameTime);
         void Destroy();
     }

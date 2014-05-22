@@ -16,6 +16,14 @@ namespace Engine
             Height = height;
             EventToTrigger = eventToTrigger;
         }
+        public TouchRect(Rectangle rect, TouchTrigger eventToTrigger)
+        {
+            X = rect.X;
+            Y = rect.Y;
+            Width = rect.Width;
+            Height = rect.Height;
+            EventToTrigger = eventToTrigger;
+        }
 
         public bool Collides(int x, int y)
         {

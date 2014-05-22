@@ -6,6 +6,7 @@
         void AddLayer(ILayer layer);
         IImage GetImage(string imageName);
         void CreateImage(string imageName, string imagePath, Point center = null);
+        void CreateFont(string fontName, string fontPath);
 
 
         void BeginRender();

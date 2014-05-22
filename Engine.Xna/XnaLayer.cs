@@ -22,7 +22,7 @@ namespace Engine.Xna
 
 
             currentSpriteBatch = new SpriteBatch(renderer.graphicsDevice);
-
+            
             settingsStack = new List<XnaContextSettings>();
 
             settingsStack.Add(new XnaContextSettings());
@@ -86,6 +86,13 @@ namespace Engine.Xna
             var xnaImage = (XnaImage)image;
             currentSpriteBatch.Draw(xnaImage.Texture, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
         }
+        public void DrawImage(IImage image, int x, int y,bool center)
+        {
+
+            XnaContextSettings xnaContextSettings = CurrentSettings();
+            var xnaImage = (XnaImage)image;
+            currentSpriteBatch.Draw(xnaImage.Texture, new Vector2(xnaContextSettings.Left + x - xnaImage.Center.X, xnaContextSettings.Top + y - xnaImage.Center.Y), WHITE);
+        }
 
         public void DrawImage(IImage image, int x, int y, int width, int height)
         {
@@ -108,8 +115,14 @@ namespace Engine.Xna
 
         }
 
-        public void DrawString(string text, int x, int y)
+        public void DrawString(string fontName, string text, int x, int y)
         {
+            XnaContextSettings xnaContextSettings = CurrentSettings();
+            var font = renderer.GetFont(fontName);
+            if (font == null) return;
+            
+            currentSpriteBatch.DrawString(font, text, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top+y),
+                new Microsoft.Xna.Framework.Color(255, 255, 255), 0, new Vector2(0,0), 1.0f, SpriteEffects.None, 1);
         }
 
         public void Clear()

@@ -19,7 +19,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public void Init()
         {
-            Plane = GameBoard.Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().GameBoardLayout);
+            Plane = GameBoard.Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().Layout);
         }
 
         public void RoundOver(RoundOverState state)

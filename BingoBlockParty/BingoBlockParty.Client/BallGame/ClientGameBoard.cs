@@ -14,7 +14,7 @@ namespace BingoBlockParty.Client.BallGame
     public class ClientGameBoard : GameBoard, ILayoutView
     {
         public IRenderer Renderer { get; set; }
-        public ILayout GameBoardLayout { get; set; }
+        public ILayout Layout { get; set; }
         private readonly Game game;
 
         public ClientBackgroundPlane BackgroundPlane { get; set; }
@@ -23,7 +23,7 @@ namespace BingoBlockParty.Client.BallGame
             : base(boardWidth, boardHeight)
         {
             Renderer = renderer;
-            GameBoardLayout = gameBoardLayout;
+            Layout = gameBoardLayout;
             this.game = game;
 
         }
@@ -32,7 +32,7 @@ namespace BingoBlockParty.Client.BallGame
         {
             this.BackgroundPlane = new ClientBackgroundPlane(this);
 
-            this.GameModel = new ClientGameModel(boardWidth, boardHeight, GameBoardLayout);
+            this.GameModel = new ClientGameModel(boardWidth, boardHeight, Layout);
             this.PegsPlane = new ClientPegsPlane(this);
             this.CannonBallPlane = new ClientCannonBallPlane(this);
             this.CannonPlane = new ClientCannonPlane(this);

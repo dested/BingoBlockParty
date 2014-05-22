@@ -1,6 +1,9 @@
 using System;
 using System.Runtime.Remoting.Channels;
+using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Views.InputMethods;
 using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
@@ -96,6 +99,14 @@ namespace Client.Android
                         const int tolerance = 4000;
                         if (gest.Delta.X > tolerance)
                         {
+                            InputMethodManager imm = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+                            imm.ShowSoftInput(this.Window, ShowFlags.Forced, new ResultReceiver(new Handler(
+                                (message) =>
+                                {
+                                    
+                                })));
+            
+
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)
@@ -150,6 +161,7 @@ namespace Client.Android
         {
 //            Resolution.BeginDraw();
 
+            
             client.Draw(gameTime.TotalGameTime);
 
             base.Draw(gameTime);

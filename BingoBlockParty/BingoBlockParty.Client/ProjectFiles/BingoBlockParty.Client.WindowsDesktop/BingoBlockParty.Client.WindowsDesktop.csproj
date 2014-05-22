@@ -55,6 +55,10 @@
     <Compile Include="..\..\Utils\**\*.cs">
       <Link>Utils\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Compile>
+
+    <Compile Include="..\..\LobbyArea\**\*.cs">
+      <Link>LobbyArea\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile> 
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

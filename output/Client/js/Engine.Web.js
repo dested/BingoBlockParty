@@ -148,7 +148,20 @@
 	global.Engine.TouchManager = $Engine_TouchManager;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.TouchRect
-	var $Engine_TouchRect = function(x, y, width, height, eventToTrigger) {
+	var $Engine_TouchRect = function(rect, eventToTrigger) {
+		this.$1$XField = 0;
+		this.$1$YField = 0;
+		this.$1$WidthField = 0;
+		this.$1$HeightField = 0;
+		this.$1$EventToTriggerField = null;
+		this.set_x(rect.get_x());
+		this.set_y(rect.get_y());
+		this.set_width(rect.get_width());
+		this.set_height(rect.get_height());
+		this.set_eventToTrigger(eventToTrigger);
+	};
+	$Engine_TouchRect.__typeName = 'Engine.TouchRect';
+	$Engine_TouchRect.$ctor1 = function(x, y, width, height, eventToTrigger) {
 		this.$1$XField = 0;
 		this.$1$YField = 0;
 		this.$1$WidthField = 0;
@@ -160,7 +173,6 @@
 		this.set_height(height);
 		this.set_eventToTrigger(eventToTrigger);
 	};
-	$Engine_TouchRect.__typeName = 'Engine.TouchRect';
 	global.Engine.TouchRect = $Engine_TouchRect;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.TouchType
@@ -468,16 +480,17 @@
 			return this.get_x() < x && this.get_x() + this.get_width() > x && this.get_y() < y && this.get_y() + this.get_height() > y;
 		}
 	});
+	$Engine_TouchRect.$ctor1.prototype = $Engine_TouchRect.prototype;
 	ss.initEnum($Engine_TouchType, { touchUp: 0, touchDown: 1, touchMove: 2 });
 	ss.initEnum($Engine_Interfaces_Direction, { left: 0, right: 1, up: 2, down: 3 });
 	ss.initInterface($Engine_Interfaces_IClient, { get_game: null, set_game: null, get_screenManager: null, set_screenManager: null, get_socketManager: null, set_socketManager: null, loadImages: null, init: null, draw: null, touchEvent: null, tick: null, timeout: null });
-	ss.initInterface($Engine_Interfaces_IGame, { get_client: null, initScreens: null, initSocketManager: null, loadAssets: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null });
+	ss.initInterface($Engine_Interfaces_IGame, { get_client: null, initScreens: null, initSocketManager: null, loadAssets: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null, loadFonts: null });
 	ss.initInterface($Engine_Interfaces_IImage, { get_center: null, set_center: null, get_width: null, set_width: null, get_height: null, set_height: null });
-	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, drawImage: null, drawImage$1: null, drawImage$2: null, drawString: null, clear: null, measureString: null, drawRectangle: null });
+	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, drawImage: null, drawImage$1: null, drawImage$2: null, drawImage$3: null, drawString: null, clear: null, measureString: null, drawRectangle: null });
 	ss.initInterface($Engine_Interfaces_ILayout, { get_layoutView: null, set_layoutView: null, get_layoutManager: null, set_layoutManager: null, get_layoutPosition: null, set_layoutPosition: null, get_width: null, set_width: null, get_height: null, set_height: null, get_active: null, set_active: null, get_alwaysTick: null, set_alwaysTick: null, get_screenOrientation: null, set_screenOrientation: null, offset: null, leftOf: null, rightOf: null, above: null, below: null, makeActive: null, forceTick: null, setScreenOrientation: null });
 	ss.initInterface($Engine_Interfaces_ILayoutManager, { createLayout: null, get_layouts: null, get_oneLayoutAtATime: null, set_oneLayoutAtATime: null, init: null, draw: null, touchEvent: null, tick: null, getLayoutSize: null, changeLayout: null, changeLayout$1: null });
 	ss.initInterface($Engine_Interfaces_ILayoutView, { initLayoutView: null, tickLayoutView: null, get_touchManager: null, render: null, destroy: null });
-	ss.initInterface($Engine_Interfaces_IRenderer, { createLayer: null, addLayer: null, getImage: null, createImage: null, beginRender: null, endRender: null });
+	ss.initInterface($Engine_Interfaces_IRenderer, { createLayer: null, addLayer: null, getImage: null, createImage: null, createFont: null, beginRender: null, endRender: null });
 	ss.initInterface($Engine_Interfaces_IScreen, { get_layoutManager: null, set_layoutManager: null, init: null, draw: null, touchEvent: null, tick: null, destroy: null });
 	ss.initInterface($Engine_Interfaces_IScreenManager, { get_currentScreen: null, set_currentScreen: null, createScreen: null, get_screens: null, draw: null, touchEvent: null, tick: null, getScreenSize: null, changeScreen: null, timeout: null, init: null });
 	ss.initInterface($Engine_Interfaces_IScreenView, { get_layoutView: null, set_layoutView: null, get_width: null, set_width: null, get_height: null, set_height: null });

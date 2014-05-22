@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BingoBlockParty.Client.BallGame;
 using BingoBlockParty.Client.BingoGame;
 using BingoBlockParty.Client.InfoArea;
+using BingoBlockParty.Client.LobbyArea;
 using BingoBlockParty.Client.PeopleArea;
 using BingoBlockParty.Client.Utils;
 using Engine;
@@ -25,6 +26,8 @@ namespace BingoBlockParty.Client
         public ILayout InfoAreaLayout { get; set; }
         public ILayout BingoBoardLayout { get; set; }
         public ILayout PeopleAreaLayout { get; set; }
+
+        public ILayout LobbyListLayout { get; set; }
         public IScreenManager ScreenManager { get; set; }
         public ISocket Socket { get; set; }
 
@@ -51,30 +54,20 @@ namespace BingoBlockParty.Client
 
 
 
-            var gameScreen2 = screenManager.CreateScreen();
+            var lobbyScreen = screenManager.CreateScreen();
 
-            var GameBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
-            var BingoBoardLayout2 = gameScreen2.LayoutManager.CreateLayout(332, 557);
-            var InfoAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(259, 708);
-            var PeopleAreaLayout2 = gameScreen2.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            LobbyListLayout = lobbyScreen.LayoutManager.CreateLayout(766, 584).MakeActive();
+            LobbyListLayout.LayoutView = new LobbyLayout(this, 766, 584, renderer, LobbyListLayout);
 
 
-            BingoBoardLayout2.LeftOf(InfoAreaLayout2).RightOf(GameBoardLayout2);
-
-            PeopleAreaLayout2.Below(BingoBoardLayout2).Below(GameBoardLayout2);
-
-            GameBoardLayout2.LayoutView = new ClientGameBoard(this, GameBoardLayout2.Width, 1280, renderer, GameBoardLayout2);
-            BingoBoardLayout2.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout2);
-            InfoAreaLayout2.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2);
-            PeopleAreaLayout2.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2);
-
-
-            screenManager.ChangeScreen(gameScreen);
+            screenManager.ChangeScreen(lobbyScreen);
 
         }
 
+
         public void InitSocketManager(ISocketManager socketManager)
         {
+/*
             Socket = socketManager.Create("http://192.168.1.3:3000/");
             Socket.OnConnect = () =>
             {
@@ -88,6 +81,7 @@ namespace BingoBlockParty.Client
             });
 
             Socket.Connect();
+*/
         }
 
         public class Boo
@@ -101,7 +95,10 @@ namespace BingoBlockParty.Client
         }
         public void AfterDraw()
         {
-        }
+        } 
+
+
+
         public void BeforeTick()
         {
         }
@@ -111,6 +108,32 @@ namespace BingoBlockParty.Client
 
         public void LoadAssets(IRenderer renderer)
         {
+
+
+            renderer.CreateImage("lobby.allRooms", "images/lobby/allRooms.png");
+            renderer.CreateImage("lobby.createNewRoomText", "images/lobby/createNewRoomText.png");
+            renderer.CreateImage("lobby.dollarSign", "images/lobby/dollarSign.png");
+            renderer.CreateImage("lobby.emptyStar", "images/lobby/emptyStar.png");
+            renderer.CreateImage("lobby.eyeBall", "images/lobby/eyeBall.png");
+            renderer.CreateImage("lobby.favoritesStar", "images/lobby/favoritesStar.png");
+            renderer.CreateImage("lobby.favoritesText", "images/lobby/favoritesText.png");
+            renderer.CreateImage("lobby.featuredText", "images/lobby/featuredText.png");
+            renderer.CreateImage("lobby.floor", "images/lobby/floor.png");
+            renderer.CreateImage("lobby.joinText", "images/lobby/joinText.png");
+            renderer.CreateImage("lobby.lobby", "images/lobby/lobby.png");
+            renderer.CreateImage("lobby.orangeButton", "images/lobby/orangeButton.png");
+            renderer.CreateImage("lobby.plus", "images/lobby/plus.png");
+            renderer.CreateImage("lobby.profile", "images/lobby/profile.png");
+            renderer.CreateImage("lobby.purpleButton", "images/lobby/purpleButton.png");
+            renderer.CreateImage("lobby.scrollBar", "images/lobby/scrollBar.png");
+            renderer.CreateImage("lobby.scrollButton", "images/lobby/scrollButton.png");
+            renderer.CreateImage("lobby.selectedButton", "images/lobby/selectedButton.png");
+            renderer.CreateImage("lobby.thinBackground", "images/lobby/thinBackground.png");
+            renderer.CreateImage("lobby.wideBackground", "images/lobby/wideBackground.png");
+
+
+
+
             renderer.CreateImage("board", "images/gameBoards/board1.png");
 
             renderer.CreateImage("walkway.red", "images/walkway/walkway-red.png");
@@ -155,12 +178,21 @@ namespace BingoBlockParty.Client
 
             renderer.CreateImage("jackpotOverlay", "images/overlays/jackpot_shooter_overlay.png");
             renderer.CreateImage("coinBoxOverlay", "images/overlays/coin_box.png");
+            renderer.CreateImage("silverCoinBoxOverlay", "images/overlays/silver_coin_box.png");
             renderer.CreateImage("pullBoxOverlay", "images/overlays/pulls_button.png");
 
             renderer.CreateImage("female.blonde.front", "images/people/Female1_FrontDesign.png");
             renderer.CreateImage("male.hat.front", "images/people/male2_FrontDesign.png");
+
+
         }
 
+        public void LoadFonts(IRenderer renderer)
+        {
+            renderer.CreateFont("lobby.font", "spriteFont1");
+        }
+
+      
     }
 
-}
+ }

@@ -123,7 +123,7 @@ namespace BingoBlockParty.Client.BallGame.Pieces
 */
             var bonusText = this.ChuteNumber.ToString();
             var size = context.MeasureString(bonusText);
-            context.DrawString(bonusText, (int)-size / 2, 8);
+            context.DrawString("lobby.font", bonusText, (int)-size / 2, 8);
 
             context.Restore();
 

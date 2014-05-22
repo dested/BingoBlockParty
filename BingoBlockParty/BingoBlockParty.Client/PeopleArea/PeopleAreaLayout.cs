@@ -12,7 +12,8 @@ namespace BingoBlockParty.Client.PeopleArea
         private readonly int _width;
         private readonly int _height;
         private readonly IRenderer _renderer;
-        private readonly ILayout _peopleAreaLayout;
+        public ILayout Layout { get; set; }
+
         private ILayer mainLayer;
 
         public PeopleAreaLayout(Game game, int width, int height, IRenderer renderer, ILayout peopleAreaLayout)
@@ -21,12 +22,12 @@ namespace BingoBlockParty.Client.PeopleArea
             _width = width;
             _height = height;
             _renderer = renderer;
-            _peopleAreaLayout = peopleAreaLayout;
+            Layout = peopleAreaLayout;
         }
 
         public void Init()
         {
-            mainLayer = _renderer.CreateLayer(_width, _height, _peopleAreaLayout);
+            mainLayer = _renderer.CreateLayer(_width, _height, Layout);
             _renderer.AddLayer(mainLayer);
             TouchManager = new TouchManager();
         }

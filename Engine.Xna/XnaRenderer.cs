@@ -11,9 +11,9 @@ namespace Engine.Xna
     {
         public IClient Client { get; set; }
         protected internal readonly GraphicsDevice graphicsDevice;
-        protected readonly ContentManager content;
+        public readonly ContentManager content;
          protected internal readonly GraphicsDeviceManager graphics;
-        private readonly XnaImageCache imageCache;
+        private readonly XnaAssetCache assetCache;
         private List<XnaLayer> layers;
 
 
@@ -24,7 +24,7 @@ namespace Engine.Xna
             this.content = content;
             this.graphics = graphics;
 
-            this.imageCache = new XnaImageCache(content);
+            this.assetCache = new XnaAssetCache(content);
             layers = new List<XnaLayer>();
 
         }
@@ -75,11 +75,21 @@ namespace Engine.Xna
 
         public IImage GetImage(string imageName)
         {
-            return imageCache.GetImage(imageName);
+            return assetCache.GetImage(imageName);
+        }
+        public SpriteFont GetFont(string fontName)
+        {
+            return assetCache.GetFont(fontName);
         }
         public void CreateImage(string imageName, string imagePath, Point center = null)
         {
-            imageCache.CreateImage(imageName, imagePath, center);
+            assetCache.CreateImage(imageName, imagePath, center);
+        }
+
+        public void CreateFont(string fontName, string fontPath)
+        {
+            assetCache.CreateFont(fontName,fontPath);
+
         }
 
         public void BeginRender()

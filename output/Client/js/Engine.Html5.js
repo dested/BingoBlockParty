@@ -402,17 +402,20 @@
 		drawImage: function(image, x, y) {
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x, y);
 		},
-		drawImage$1: function(image, x, y, width, height) {
+		drawImage$1: function(image, x, y, center) {
+			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x - image.get_center().get_x(), y - image.get_center().get_y());
+		},
+		drawImage$2: function(image, x, y, width, height) {
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x, y, width, height);
 		},
-		drawImage$2: function(image, x, y, angle, centerX, centerY) {
+		drawImage$3: function(image, x, y, angle, centerX, centerY) {
 			this.save();
 			this.canvasInformation.context.translate(centerX, centerY);
 			this.canvasInformation.context.rotate(angle);
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x - centerX, y - centerY);
 			this.restore();
 		},
-		drawString: function(text, x, y) {
+		drawString: function(fontName, text, x, y) {
 			this.canvasInformation.context.fillText(text, x, y);
 		},
 		clear: function() {
@@ -730,6 +733,8 @@
 		createImage: function(imageName, imagePath, center) {
 			this.$numberOfImages++;
 			this.$imageCache.createImage(imageName, imagePath, center, ss.mkdel(this, this.$imagesReady));
+		},
+		createFont: function(fontName, fontPath) {
 		},
 		$imagesReady: function() {
 			this.$numberOfImagesLoaded++;

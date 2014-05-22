@@ -54,6 +54,11 @@ namespace Engine.Html5.Web
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x, y);
         }
 
+        public void DrawImage(IImage image, int x, int y, bool center)
+        {
+            CanvasInformation.Context.DrawImage(((WebImage)image).Image, x - image.Center.X, y - image.Center.Y);
+        }
+
         public void DrawImage(IImage image, int x, int y, int width, int height)
         {
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x, y, width, height);
@@ -69,10 +74,11 @@ namespace Engine.Html5.Web
             Restore();
         }
 
-        public void DrawString(string text, int x, int y)
+        public void DrawString(string fontName, string text, int x, int y)
         {
             CanvasInformation.Context.FillText(text, x, y);
         }
+ 
 
         public void Clear()
         {

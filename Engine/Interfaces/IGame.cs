@@ -11,8 +11,8 @@
         void AfterTick();
 
         void BeforeDraw();
-        void AfterDraw(); 
+        void AfterDraw();
 
-
+        void LoadFonts(IRenderer renderer);
     }
 }

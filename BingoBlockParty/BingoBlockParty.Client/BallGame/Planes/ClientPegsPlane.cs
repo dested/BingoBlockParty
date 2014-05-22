@@ -27,7 +27,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
         public override void Init()
         {
             base.Init();
-            Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height,GameBoard.Client().GameBoardLayout);
+            Plane = GameBoard.Client().Renderer.CreateLayer(GameBoard.GameModel.Client().GameBoardLayout.Width, GameBoard.GameModel.Client().GameBoardLayout.Height, GameBoard.Client().Layout);
 
         }
 

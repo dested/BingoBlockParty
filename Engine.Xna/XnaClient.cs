@@ -25,6 +25,7 @@ namespace Engine.Xna
         public void LoadImages(IRenderer renderer)
         {
             Game.LoadAssets(renderer);
+            Game.LoadFonts(renderer);
         }
 
         public void Init(IRenderer renderer, bool oneLayoutAtATime)
@@ -71,6 +72,12 @@ namespace Engine.Xna
         public void Timeout(Action callback, int ms)
         {
             ScreenManager.Timeout(callback, ms);
+        }
+
+        public void ShowKeyboard()
+        {
+
+
         }
 
         public void Tick(TimeSpan elapsedGameTime)

@@ -7,6 +7,7 @@
 	global.BingoBlockParty.Client.BallGame.Planes = global.BingoBlockParty.Client.BallGame.Planes || {};
 	global.BingoBlockParty.Client.BingoGame = global.BingoBlockParty.Client.BingoGame || {};
 	global.BingoBlockParty.Client.InfoArea = global.BingoBlockParty.Client.InfoArea || {};
+	global.BingoBlockParty.Client.LobbyArea = global.BingoBlockParty.Client.LobbyArea || {};
 	global.BingoBlockParty.Client.PeopleArea = global.BingoBlockParty.Client.PeopleArea || {};
 	global.BingoBlockParty.Client.Utils = global.BingoBlockParty.Client.Utils || {};
 	////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,7 @@
 		this.$1$InfoAreaLayoutField = null;
 		this.$1$BingoBoardLayoutField = null;
 		this.$1$PeopleAreaLayoutField = null;
+		this.$1$LobbyListLayoutField = null;
 		this.$1$ScreenManagerField = null;
 		this.$1$SocketField = null;
 		this.set_client(client);
@@ -222,6 +224,76 @@
 	$BingoBlockParty_Client_InfoArea_InfoAreaLayout.__typeName = 'BingoBlockParty.Client.InfoArea.InfoAreaLayout';
 	global.BingoBlockParty.Client.InfoArea.InfoAreaLayout = $BingoBlockParty_Client_InfoArea_InfoAreaLayout;
 	////////////////////////////////////////////////////////////////////////////////
+	// BingoBlockParty.Client.LobbyArea.LobbyRoom
+	var $BingoBlockParty_Client_LobbyArea_$LobbyRoom = function() {
+		this.$1$NameField = null;
+	};
+	$BingoBlockParty_Client_LobbyArea_$LobbyRoom.__typeName = 'BingoBlockParty.Client.LobbyArea.$LobbyRoom';
+	////////////////////////////////////////////////////////////////////////////////
+	// BingoBlockParty.Client.LobbyArea.HeaderButtonTop
+	var $BingoBlockParty_Client_LobbyArea_HeaderButtonTop = function() {
+	};
+	$BingoBlockParty_Client_LobbyArea_HeaderButtonTop.__typeName = 'BingoBlockParty.Client.LobbyArea.HeaderButtonTop';
+	global.BingoBlockParty.Client.LobbyArea.HeaderButtonTop = $BingoBlockParty_Client_LobbyArea_HeaderButtonTop;
+	////////////////////////////////////////////////////////////////////////////////
+	// BingoBlockParty.Client.LobbyArea.LobbyLayout
+	var $BingoBlockParty_Client_LobbyArea_LobbyLayout = function(game, width, height, renderer, lobbyBoardLayout) {
+		this.$_game = null;
+		this.$_width = 0;
+		this.$_height = 0;
+		this.$_lobbyBoardLayout = null;
+		this.$1$RendererField = null;
+		this.$1$SelectedHeaderButtonField = 0;
+		this.$1$TouchManagerField = null;
+		this.$mainLayer = null;
+		this.$1$NumberOfRoomsVisibleField = 0;
+		this.$1$RoomButtonSizeField = null;
+		this.$1$RoomsPositionField = null;
+		this.$1$PlusOverlayField = null;
+		this.$1$OrangeButtonOverlayField = null;
+		this.$1$CreateRoomTextOverlayField = null;
+		this.$1$SelectedOverlayField = null;
+		this.$1$AllRoomsOverlayField = null;
+		this.$1$FeaturedOverlayField = null;
+		this.$1$FavoritesOverlayField = null;
+		this.$1$EyeOverlayField = null;
+		this.$1$DollarOverlayField = null;
+		this.$1$StarOverlayField = null;
+		this.$1$LobbyOverlayField = null;
+		this.$1$ProfileOverlayField = null;
+		this.$1$GoldCoinOverlayField = null;
+		this.$1$SilverCoinOverlayField = null;
+		this.$1$LobbyBackgroundField = null;
+		this.$1$ScrollBarButtonOverlayField = null;
+		this.$1$ScrollBarOverlayField = null;
+		this.$1$GoldCoinOverlayPositionField = null;
+		this.$1$SilverCoinOverlayPositionField = null;
+		this.$1$ProfileOverlayPositionField = null;
+		this.$1$LobbyOverlayPositionField = null;
+		this.$1$LobbyBackgroundPositionField = null;
+		this.$1$FavoritesButtonPositionField = null;
+		this.$1$FeaturedButtonPositionField = null;
+		this.$1$AllRoomsButtonPositionField = null;
+		this.$1$CreateRoomPositionField = null;
+		this.$1$ButtonIconOffsetField = null;
+		this.$1$ButtonTextOffsetField = null;
+		this.$1$CreateRoomTextOffsetField = null;
+		this.$1$CreateRoomIconOffsetField = null;
+		this.$1$RoomButtonColorField = null;
+		this.$1$AlternateRoomButtonColorField = null;
+		this.$1$ScrollBarPositionField = null;
+		this.$1$RoomsField = null;
+		this.$1$TopRoomIndexField = 0;
+		this.$c = 0;
+		this.$_game = game;
+		this.$_width = width;
+		this.$_height = height;
+		this.$_lobbyBoardLayout = lobbyBoardLayout;
+		this.set_renderer(renderer);
+	};
+	$BingoBlockParty_Client_LobbyArea_LobbyLayout.__typeName = 'BingoBlockParty.Client.LobbyArea.LobbyLayout';
+	global.BingoBlockParty.Client.LobbyArea.LobbyLayout = $BingoBlockParty_Client_LobbyArea_LobbyLayout;
+	////////////////////////////////////////////////////////////////////////////////
 	// BingoBlockParty.Client.PeopleArea.PeopleAreaLayout
 	var $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout = function(game, width, height, renderer, peopleAreaLayout) {
 		this.$_game = null;
@@ -309,6 +381,12 @@
 		set_peopleAreaLayout: function(value) {
 			this.$1$PeopleAreaLayoutField = value;
 		},
+		get_lobbyListLayout: function() {
+			return this.$1$LobbyListLayoutField;
+		},
+		set_lobbyListLayout: function(value) {
+			this.$1$LobbyListLayoutField = value;
+		},
 		get_screenManager: function() {
 			return this.$1$ScreenManagerField;
 		},
@@ -334,18 +412,10 @@
 			this.get_bingoBoardLayout().set_layoutView(new $BingoBlockParty_Client_BingoGame_BingoLayout(this, 332, 557, renderer, this.get_bingoBoardLayout()));
 			this.get_infoAreaLayout().set_layoutView(new $BingoBlockParty_Client_InfoArea_InfoAreaLayout(this, 259, 708, renderer, this.get_infoAreaLayout()));
 			this.get_peopleAreaLayout().set_layoutView(new $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout(this, 762, 212, renderer, this.get_peopleAreaLayout()));
-			var gameScreen2 = screenManager.createScreen();
-			var GameBoardLayout2 = gameScreen2.get_layoutManager().createLayout(430, 557).makeActive().forceTick();
-			var BingoBoardLayout2 = gameScreen2.get_layoutManager().createLayout(332, 557);
-			var InfoAreaLayout2 = gameScreen2.get_layoutManager().createLayout(259, 708);
-			var PeopleAreaLayout2 = gameScreen2.get_layoutManager().createLayout(762, 212).setScreenOrientation(1).offset(0, -61);
-			BingoBoardLayout2.leftOf(InfoAreaLayout2).rightOf(GameBoardLayout2);
-			PeopleAreaLayout2.below(BingoBoardLayout2).below(GameBoardLayout2);
-			GameBoardLayout2.set_layoutView(new $BingoBlockParty_Client_BallGame_ClientGameBoard(this, GameBoardLayout2.get_width(), 1280, renderer, GameBoardLayout2));
-			BingoBoardLayout2.set_layoutView(new $BingoBlockParty_Client_BingoGame_BingoLayout(this, 332, 557, renderer, BingoBoardLayout2));
-			InfoAreaLayout2.set_layoutView(new $BingoBlockParty_Client_InfoArea_InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout2));
-			PeopleAreaLayout2.set_layoutView(new $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout2));
-			screenManager.changeScreen(gameScreen);
+			var lobbyScreen = screenManager.createScreen();
+			this.set_lobbyListLayout(lobbyScreen.get_layoutManager().createLayout(766, 584).makeActive());
+			this.get_lobbyListLayout().set_layoutView(new $BingoBlockParty_Client_LobbyArea_LobbyLayout(this, 766, 584, renderer, this.get_lobbyListLayout()));
+			screenManager.changeScreen(lobbyScreen);
 		},
 		initSocketManager: function(socketManager) {
 			this.set_socket(socketManager.create('http://192.168.1.3:3000/'));
@@ -369,6 +439,26 @@
 		afterTick: function() {
 		},
 		loadAssets: function(renderer) {
+			renderer.createImage('lobby.allRooms', 'images/lobby/allRooms.png', null);
+			renderer.createImage('lobby.createNewRoomText', 'images/lobby/createNewRoomText.png', null);
+			renderer.createImage('lobby.dollarSign', 'images/lobby/dollarSign.png', null);
+			renderer.createImage('lobby.emptyStar', 'images/lobby/emptyStar.png', null);
+			renderer.createImage('lobby.eyeBall', 'images/lobby/eyeBall.png', null);
+			renderer.createImage('lobby.favoritesStar', 'images/lobby/favoritesStar.png', null);
+			renderer.createImage('lobby.favoritesText', 'images/lobby/favoritesText.png', null);
+			renderer.createImage('lobby.featuredText', 'images/lobby/featuredText.png', null);
+			renderer.createImage('lobby.floor', 'images/lobby/floor.png', null);
+			renderer.createImage('lobby.joinText', 'images/lobby/joinText.png', null);
+			renderer.createImage('lobby.lobby', 'images/lobby/lobby.png', null);
+			renderer.createImage('lobby.orangeButton', 'images/lobby/orangeButton.png', null);
+			renderer.createImage('lobby.plus', 'images/lobby/plus.png', null);
+			renderer.createImage('lobby.profile', 'images/lobby/profile.png', null);
+			renderer.createImage('lobby.purpleButton', 'images/lobby/purpleButton.png', null);
+			renderer.createImage('lobby.scrollBar', 'images/lobby/scrollBar.png', null);
+			renderer.createImage('lobby.scrollButton', 'images/lobby/scrollButton.png', null);
+			renderer.createImage('lobby.selectedButton', 'images/lobby/selectedButton.png', null);
+			renderer.createImage('lobby.thinBackground', 'images/lobby/thinBackground.png', null);
+			renderer.createImage('lobby.wideBackground', 'images/lobby/wideBackground.png', null);
 			renderer.createImage('board', 'images/gameBoards/board1.png', null);
 			renderer.createImage('walkway.red', 'images/walkway/walkway-red.png', null);
 			renderer.createImage('peg.white', 'images/pegs/white_peg.png', new Engine.Point(13, 9));
@@ -400,9 +490,13 @@
 			renderer.createImage('chuteBlueBucketLit', 'images/chutes/blue_bucket_lit.png', null);
 			renderer.createImage('jackpotOverlay', 'images/overlays/jackpot_shooter_overlay.png', null);
 			renderer.createImage('coinBoxOverlay', 'images/overlays/coin_box.png', null);
+			renderer.createImage('silverCoinBoxOverlay', 'images/overlays/silver_coin_box.png', null);
 			renderer.createImage('pullBoxOverlay', 'images/overlays/pulls_button.png', null);
 			renderer.createImage('female.blonde.front', 'images/people/Female1_FrontDesign.png', null);
 			renderer.createImage('male.hat.front', 'images/people/male2_FrontDesign.png', null);
+		},
+		loadFonts: function(renderer) {
+			renderer.createFont('lobby.font', 'spriteFont1');
 		}
 	}, null, [Engine.Interfaces.IGame]);
 	ss.initClass($BingoBlockParty_Client_Game$Boo, {
@@ -607,8 +701,8 @@
 			BingoBlockParty.Common.BallGame.Pieces.Cannon.prototype.init.call(this);
 			this.set_cannonAsset($BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().getImage('cannon'));
 			var cannonButton = this.get_gameBoard().get_gameModel().get_cannonLocation();
-			$BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_touchManager().pushClickRect(new Engine.TouchRect(cannonButton.get_x() - this.get_cannonAsset().get_width() * 2, cannonButton.get_y(), this.get_cannonAsset().get_width() * 4, this.get_cannonAsset().get_height(), ss.mkdel(this, this.shootBall)));
-			$BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_touchManager().pushClickRect(new Engine.TouchRect(0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight(), ss.mkdel(this, this.rotateClick)));
+			$BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_touchManager().pushClickRect(new Engine.TouchRect.$ctor1(cannonButton.get_x() - this.get_cannonAsset().get_width() * 2, cannonButton.get_y(), this.get_cannonAsset().get_width() * 4, this.get_cannonAsset().get_height(), ss.mkdel(this, this.shootBall)));
+			$BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_touchManager().pushClickRect(new Engine.TouchRect.$ctor1(0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight(), ss.mkdel(this, this.rotateClick)));
 		},
 		get_cannonAsset: function() {
 			return this.$2$CannonAssetField;
@@ -659,7 +753,7 @@
 			var cannonImage = this.get_cannonAsset();
 			context.save();
 			context.translate(cannonLocation.get_x() - ss.Int32.div(cannonImage.get_width(), 2), cannonLocation.get_y());
-			context.drawImage$2(cannonImage, 0, 0, this.get_gameBoard().get_gameModel().get_cannonAngle() * Math.PI / 180, ss.Int32.div(cannonImage.get_width(), 2), 0);
+			context.drawImage$3(cannonImage, 0, 0, this.get_gameBoard().get_gameModel().get_cannonAngle() * Math.PI / 180, ss.Int32.div(cannonImage.get_width(), 2), 0);
 			context.restore();
 			//
 			//                                if (this.GameBoard.GameModel.showPeople) {
@@ -769,7 +863,7 @@
 			context.save();
 			context.translate(ss.Int32.trunc(x), ss.Int32.trunc(y));
 			context.translate(ss.Int32.div(-cannonBall.get_width(), 2), ss.Int32.div(-cannonBall.get_height(), 2));
-			context.drawImage$2(cannonBall, 0, 0, this.get_body().get_rotation(), ss.Int32.div(cannonBall.get_width(), 2), ss.Int32.div(cannonBall.get_height(), 2));
+			context.drawImage$3(cannonBall, 0, 0, this.get_body().get_rotation(), ss.Int32.div(cannonBall.get_width(), 2), ss.Int32.div(cannonBall.get_height(), 2));
 			context.drawImage(cannonBallShine, 0, 0);
 			context.restore();
 		}
@@ -866,7 +960,7 @@
 			//context.ShadowBlur = 5;
 			var bonusText = this.get_chuteNumber().toString();
 			var size = context.measureString(bonusText);
-			context.drawString(bonusText, ss.Int32.div(ss.Int32.trunc(-size), 2), 8);
+			context.drawString('lobby.font', bonusText, ss.Int32.div(ss.Int32.trunc(-size), 2), 8);
 			context.restore();
 		}
 	}, BingoBlockParty.Common.BallGame.Pieces.Chute, [BingoBlockParty.Common.BallGame.ICollider]);
@@ -971,7 +1065,7 @@
 				//                context.ShadowBlur = 5;
 				var bonusText = '+$' + this.get_bonus().toString();
 				var size = context.measureString(bonusText);
-				context.drawString(bonusText, ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
+				context.drawString('lobby.font', bonusText, ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
 				context.restore();
 				if (this.get_ticking() === 0) {
 					this.set_drawText(false);
@@ -1003,7 +1097,7 @@
 			var context = this.get_plane();
 			context.save();
 			this.get_gameBoard().get_viewManager().translateContext(context);
-			context.drawImage$1(this.get_gameBoard().get_renderer().getImage('board'), 0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight());
+			context.drawImage$2(this.get_gameBoard().get_renderer().getImage('board'), 0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight());
 			context.restore();
 		}
 	}, null, [BingoBlockParty.Common.BallGame.Models.IPlane]);
@@ -1215,7 +1309,7 @@
 			//
 			//                        context.Font = "bold " + fontSize + "px Arial";
 			var size = context.measureString(this.get_gameBoard().get_gameModel().get_jackpotScore().toString());
-			context.drawString(this.get_gameBoard().get_gameModel().get_jackpotScore().toString(), ss.Int32.trunc(-size / 2), ss.Int32.div(-fontSize, 2));
+			context.drawString('lobby.font', this.get_gameBoard().get_gameModel().get_jackpotScore().toString(), ss.Int32.trunc(-size / 2), ss.Int32.div(-fontSize, 2));
 			context.restore();
 		},
 		$renderCoinBox: function(context) {
@@ -1233,7 +1327,7 @@
 			//
 			//                        context.Font = "bold " + fontSize + "px Arial";
 			var size = context.measureString(this.get_gameBoard().get_gameModel().get_numberOfCoins().toString());
-			context.drawString(this.get_gameBoard().get_gameModel().get_numberOfCoins().toString(), ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
+			context.drawString('lobby.font', this.get_gameBoard().get_gameModel().get_numberOfCoins().toString(), ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
 			context.restore();
 		},
 		$renderPullBox: function(context) {
@@ -1251,7 +1345,7 @@
 			//
 			//                        context.Font = "bold " + fontSize + "px Arial";
 			var size = context.measureString(this.get_gameBoard().get_gameModel().get_numberOfPulls().toString());
-			context.drawString(this.get_gameBoard().get_gameModel().get_numberOfPulls().toString(), ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
+			context.drawString('lobby.font', this.get_gameBoard().get_gameModel().get_numberOfPulls().toString(), ss.Int32.div(ss.Int32.trunc(-size), 2), ss.Int32.div(-fontSize, 2));
 			context.restore();
 		}
 	}, null, [BingoBlockParty.Common.BallGame.Models.IPlane]);
@@ -1341,6 +1435,510 @@
 		},
 		tickLayoutView: function(elapsedGameTime) {
 			this.tick(elapsedGameTime);
+		}
+	}, null, [Engine.Interfaces.ILayoutView]);
+	ss.initClass($BingoBlockParty_Client_LobbyArea_$LobbyRoom, {
+		get_$name: function() {
+			return this.$1$NameField;
+		},
+		set_$name: function(value) {
+			this.$1$NameField = value;
+		}
+	});
+	ss.initEnum($BingoBlockParty_Client_LobbyArea_HeaderButtonTop, { allRooms: 0, featured: 1, favorites: 2 });
+	ss.initClass($BingoBlockParty_Client_LobbyArea_LobbyLayout, {
+		get_renderer: function() {
+			return this.$1$RendererField;
+		},
+		set_renderer: function(value) {
+			this.$1$RendererField = value;
+		},
+		get_selectedHeaderButton: function() {
+			return this.$1$SelectedHeaderButtonField;
+		},
+		set_selectedHeaderButton: function(value) {
+			this.$1$SelectedHeaderButtonField = value;
+		},
+		get_touchManager: function() {
+			return this.$1$TouchManagerField;
+		},
+		set_touchManager: function(value) {
+			this.$1$TouchManagerField = value;
+		},
+		init: function() {
+			this.$mainLayer = this.get_renderer().createLayer(this.$_width, this.$_height, this.$_lobbyBoardLayout);
+			this.get_renderer().addLayer(this.$mainLayer);
+			this.set_touchManager(new Engine.TouchManager());
+			this.set_lobbyOverlay(this.get_renderer().getImage('lobby.lobby'));
+			this.set_profileOverlay(this.get_renderer().getImage('lobby.profile'));
+			this.set_goldCoinOverlay(this.get_renderer().getImage('coinBoxOverlay'));
+			this.set_silverCoinOverlay(this.get_renderer().getImage('silverCoinBoxOverlay'));
+			this.set_lobbyBackground(this.get_renderer().getImage('lobby.wideBackground'));
+			this.set_allRoomsOverlay(this.get_renderer().getImage('lobby.allRooms'));
+			this.set_featuredOverlay(this.get_renderer().getImage('lobby.featuredText'));
+			this.set_favoritesOverlay(this.get_renderer().getImage('lobby.favoritesText'));
+			this.set_eyeOverlay(this.get_renderer().getImage('lobby.eyeBall'));
+			this.set_dollarOverlay(this.get_renderer().getImage('lobby.dollarSign'));
+			this.set_starOverlay(this.get_renderer().getImage('lobby.favoritesStar'));
+			this.set_selectedOverlay(this.get_renderer().getImage('lobby.selectedButton'));
+			this.set_createRoomTextOverlay(this.get_renderer().getImage('lobby.createNewRoomText'));
+			this.set_orangeButtonOverlay(this.get_renderer().getImage('lobby.orangeButton'));
+			this.set_plusOverlay(this.get_renderer().getImage('lobby.plus'));
+			this.set_scrollBarOverlay(this.get_renderer().getImage('lobby.scrollBar'));
+			this.set_scrollBarButtonOverlay(this.get_renderer().getImage('lobby.scrollButton'));
+			this.set_lobbyOverlayPosition(new Engine.Point(45, 14));
+			this.set_profileOverlayPosition(new Engine.Point(192, 9));
+			this.set_goldCoinOverlayPosition(new Engine.Point(349, 3));
+			this.set_silverCoinOverlayPosition(new Engine.Point(610, 3));
+			this.set_lobbyBackgroundPosition(new Engine.Point(11, 45));
+			this.set_allRoomsButtonPosition(new Engine.Point(30, 55));
+			this.set_featuredButtonPosition(new Engine.Point(205, 55));
+			this.set_favoritesButtonPosition(new Engine.Point(380, 55));
+			this.set_buttonIconOffset(new Engine.Point(25, 25));
+			this.set_buttonTextOffset(new Engine.Point(100, 25));
+			this.set_createRoomPosition(new Engine.Point(565, 55));
+			this.set_createRoomIconOffset(new Engine.Point(25, 25));
+			this.set_createRoomTextOffset(new Engine.Point(100, 25));
+			this.set_roomsPosition(new Engine.Point(12, 110));
+			this.set_roomButtonColor(new Engine.Color(230, 230, 230, 255));
+			this.set_alternateRoomButtonColor(new Engine.Color(191, 191, 191, 255));
+			this.set_scrollBarPosition(new Engine.Point(this.get_lobbyOverlayPosition().get_x() + this.get_lobbyBackground().get_width() - this.get_scrollBarButtonOverlay().get_center().get_x() - 50, this.get_roomsPosition().get_y()));
+			this.set_roomButtonSize(new Engine.Size.$ctor1(745, 90));
+			this.set_numberOfRoomsVisible(5);
+			this.$createTouches();
+			var $t1 = [];
+			var $t2 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t2.set_$name('Room Name 1');
+			ss.add($t1, $t2);
+			null;
+			var $t3 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t3.set_$name('Room Name 2');
+			ss.add($t1, $t3);
+			null;
+			var $t4 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t4.set_$name('Room Name 3');
+			ss.add($t1, $t4);
+			null;
+			var $t5 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t5.set_$name('Room Name 4');
+			ss.add($t1, $t5);
+			null;
+			var $t6 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t6.set_$name('Room Name 5');
+			ss.add($t1, $t6);
+			null;
+			var $t7 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t7.set_$name('Room Name 6');
+			ss.add($t1, $t7);
+			null;
+			var $t8 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t8.set_$name('Room Name 7');
+			ss.add($t1, $t8);
+			null;
+			var $t9 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t9.set_$name('Room Name 8');
+			ss.add($t1, $t9);
+			null;
+			var $t10 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t10.set_$name('Room Name 9');
+			ss.add($t1, $t10);
+			null;
+			var $t11 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t11.set_$name('Room Name 10');
+			ss.add($t1, $t11);
+			null;
+			var $t12 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t12.set_$name('Room Name 11');
+			ss.add($t1, $t12);
+			null;
+			var $t13 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t13.set_$name('Room Name 12');
+			ss.add($t1, $t13);
+			null;
+			var $t14 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t14.set_$name('Room Name 13');
+			ss.add($t1, $t14);
+			null;
+			var $t15 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t15.set_$name('Room Name 14');
+			ss.add($t1, $t15);
+			null;
+			var $t16 = new $BingoBlockParty_Client_LobbyArea_$LobbyRoom();
+			$t16.set_$name('Room Name 15');
+			ss.add($t1, $t16);
+			null;
+			this.set_$rooms($t1);
+		},
+		$createTouches: function() {
+			this.get_touchManager().pushClickRect(new Engine.TouchRect(new Engine.Rectangle.$ctor2(this.get_allRoomsButtonPosition(), this.get_selectedOverlay().get_width(), this.get_selectedOverlay().get_height()), ss.mkdel(this, function(eventType, touchBox, x, y, collide) {
+				switch (eventType) {
+					case 0: {
+						if (collide) {
+							this.set_selectedHeaderButton(0);
+						}
+						break;
+					}
+				}
+				return false;
+			})));
+			this.get_touchManager().pushClickRect(new Engine.TouchRect(new Engine.Rectangle.$ctor2(this.get_featuredButtonPosition(), this.get_selectedOverlay().get_width(), this.get_selectedOverlay().get_height()), ss.mkdel(this, function(eventType1, touchBox1, x1, y1, collide1) {
+				switch (eventType1) {
+					case 0: {
+						if (collide1) {
+							this.set_selectedHeaderButton(1);
+						}
+						break;
+					}
+				}
+				return false;
+			})));
+			this.get_touchManager().pushClickRect(new Engine.TouchRect(new Engine.Rectangle.$ctor2(this.get_favoritesButtonPosition(), this.get_selectedOverlay().get_width(), this.get_selectedOverlay().get_height()), ss.mkdel(this, function(eventType2, touchBox2, x2, y2, collide2) {
+				switch (eventType2) {
+					case 0: {
+						if (collide2) {
+							this.set_selectedHeaderButton(2);
+						}
+						break;
+					}
+				}
+				return false;
+			})));
+			this.get_touchManager().pushClickRect(new Engine.TouchRect(new Engine.Rectangle.$ctor2(this.get_createRoomPosition(), this.get_orangeButtonOverlay().get_width(), this.get_orangeButtonOverlay().get_height()), ss.mkdel(this, function(eventType3, touchBox3, x3, y3, collide3) {
+				switch (eventType3) {
+					case 0: {
+						if (collide3) {
+							this.set_selectedHeaderButton(1);
+						}
+						break;
+					}
+				}
+				return false;
+			})));
+		},
+		get_numberOfRoomsVisible: function() {
+			return this.$1$NumberOfRoomsVisibleField;
+		},
+		set_numberOfRoomsVisible: function(value) {
+			this.$1$NumberOfRoomsVisibleField = value;
+		},
+		get_roomButtonSize: function() {
+			return this.$1$RoomButtonSizeField;
+		},
+		set_roomButtonSize: function(value) {
+			this.$1$RoomButtonSizeField = value;
+		},
+		get_roomsPosition: function() {
+			return this.$1$RoomsPositionField;
+		},
+		set_roomsPosition: function(value) {
+			this.$1$RoomsPositionField = value;
+		},
+		get_plusOverlay: function() {
+			return this.$1$PlusOverlayField;
+		},
+		set_plusOverlay: function(value) {
+			this.$1$PlusOverlayField = value;
+		},
+		get_orangeButtonOverlay: function() {
+			return this.$1$OrangeButtonOverlayField;
+		},
+		set_orangeButtonOverlay: function(value) {
+			this.$1$OrangeButtonOverlayField = value;
+		},
+		get_createRoomTextOverlay: function() {
+			return this.$1$CreateRoomTextOverlayField;
+		},
+		set_createRoomTextOverlay: function(value) {
+			this.$1$CreateRoomTextOverlayField = value;
+		},
+		get_selectedOverlay: function() {
+			return this.$1$SelectedOverlayField;
+		},
+		set_selectedOverlay: function(value) {
+			this.$1$SelectedOverlayField = value;
+		},
+		get_allRoomsOverlay: function() {
+			return this.$1$AllRoomsOverlayField;
+		},
+		set_allRoomsOverlay: function(value) {
+			this.$1$AllRoomsOverlayField = value;
+		},
+		get_featuredOverlay: function() {
+			return this.$1$FeaturedOverlayField;
+		},
+		set_featuredOverlay: function(value) {
+			this.$1$FeaturedOverlayField = value;
+		},
+		get_favoritesOverlay: function() {
+			return this.$1$FavoritesOverlayField;
+		},
+		set_favoritesOverlay: function(value) {
+			this.$1$FavoritesOverlayField = value;
+		},
+		get_eyeOverlay: function() {
+			return this.$1$EyeOverlayField;
+		},
+		set_eyeOverlay: function(value) {
+			this.$1$EyeOverlayField = value;
+		},
+		get_dollarOverlay: function() {
+			return this.$1$DollarOverlayField;
+		},
+		set_dollarOverlay: function(value) {
+			this.$1$DollarOverlayField = value;
+		},
+		get_starOverlay: function() {
+			return this.$1$StarOverlayField;
+		},
+		set_starOverlay: function(value) {
+			this.$1$StarOverlayField = value;
+		},
+		get_lobbyOverlay: function() {
+			return this.$1$LobbyOverlayField;
+		},
+		set_lobbyOverlay: function(value) {
+			this.$1$LobbyOverlayField = value;
+		},
+		get_profileOverlay: function() {
+			return this.$1$ProfileOverlayField;
+		},
+		set_profileOverlay: function(value) {
+			this.$1$ProfileOverlayField = value;
+		},
+		get_goldCoinOverlay: function() {
+			return this.$1$GoldCoinOverlayField;
+		},
+		set_goldCoinOverlay: function(value) {
+			this.$1$GoldCoinOverlayField = value;
+		},
+		get_silverCoinOverlay: function() {
+			return this.$1$SilverCoinOverlayField;
+		},
+		set_silverCoinOverlay: function(value) {
+			this.$1$SilverCoinOverlayField = value;
+		},
+		get_lobbyBackground: function() {
+			return this.$1$LobbyBackgroundField;
+		},
+		set_lobbyBackground: function(value) {
+			this.$1$LobbyBackgroundField = value;
+		},
+		get_scrollBarButtonOverlay: function() {
+			return this.$1$ScrollBarButtonOverlayField;
+		},
+		set_scrollBarButtonOverlay: function(value) {
+			this.$1$ScrollBarButtonOverlayField = value;
+		},
+		get_scrollBarOverlay: function() {
+			return this.$1$ScrollBarOverlayField;
+		},
+		set_scrollBarOverlay: function(value) {
+			this.$1$ScrollBarOverlayField = value;
+		},
+		get_goldCoinOverlayPosition: function() {
+			return this.$1$GoldCoinOverlayPositionField;
+		},
+		set_goldCoinOverlayPosition: function(value) {
+			this.$1$GoldCoinOverlayPositionField = value;
+		},
+		get_silverCoinOverlayPosition: function() {
+			return this.$1$SilverCoinOverlayPositionField;
+		},
+		set_silverCoinOverlayPosition: function(value) {
+			this.$1$SilverCoinOverlayPositionField = value;
+		},
+		get_profileOverlayPosition: function() {
+			return this.$1$ProfileOverlayPositionField;
+		},
+		set_profileOverlayPosition: function(value) {
+			this.$1$ProfileOverlayPositionField = value;
+		},
+		get_lobbyOverlayPosition: function() {
+			return this.$1$LobbyOverlayPositionField;
+		},
+		set_lobbyOverlayPosition: function(value) {
+			this.$1$LobbyOverlayPositionField = value;
+		},
+		get_lobbyBackgroundPosition: function() {
+			return this.$1$LobbyBackgroundPositionField;
+		},
+		set_lobbyBackgroundPosition: function(value) {
+			this.$1$LobbyBackgroundPositionField = value;
+		},
+		get_favoritesButtonPosition: function() {
+			return this.$1$FavoritesButtonPositionField;
+		},
+		set_favoritesButtonPosition: function(value) {
+			this.$1$FavoritesButtonPositionField = value;
+		},
+		get_featuredButtonPosition: function() {
+			return this.$1$FeaturedButtonPositionField;
+		},
+		set_featuredButtonPosition: function(value) {
+			this.$1$FeaturedButtonPositionField = value;
+		},
+		get_allRoomsButtonPosition: function() {
+			return this.$1$AllRoomsButtonPositionField;
+		},
+		set_allRoomsButtonPosition: function(value) {
+			this.$1$AllRoomsButtonPositionField = value;
+		},
+		get_createRoomPosition: function() {
+			return this.$1$CreateRoomPositionField;
+		},
+		set_createRoomPosition: function(value) {
+			this.$1$CreateRoomPositionField = value;
+		},
+		get_buttonIconOffset: function() {
+			return this.$1$ButtonIconOffsetField;
+		},
+		set_buttonIconOffset: function(value) {
+			this.$1$ButtonIconOffsetField = value;
+		},
+		get_buttonTextOffset: function() {
+			return this.$1$ButtonTextOffsetField;
+		},
+		set_buttonTextOffset: function(value) {
+			this.$1$ButtonTextOffsetField = value;
+		},
+		get_createRoomTextOffset: function() {
+			return this.$1$CreateRoomTextOffsetField;
+		},
+		set_createRoomTextOffset: function(value) {
+			this.$1$CreateRoomTextOffsetField = value;
+		},
+		get_createRoomIconOffset: function() {
+			return this.$1$CreateRoomIconOffsetField;
+		},
+		set_createRoomIconOffset: function(value) {
+			this.$1$CreateRoomIconOffsetField = value;
+		},
+		get_roomButtonColor: function() {
+			return this.$1$RoomButtonColorField;
+		},
+		set_roomButtonColor: function(value) {
+			this.$1$RoomButtonColorField = value;
+		},
+		get_alternateRoomButtonColor: function() {
+			return this.$1$AlternateRoomButtonColorField;
+		},
+		set_alternateRoomButtonColor: function(value) {
+			this.$1$AlternateRoomButtonColorField = value;
+		},
+		get_scrollBarPosition: function() {
+			return this.$1$ScrollBarPositionField;
+		},
+		set_scrollBarPosition: function(value) {
+			this.$1$ScrollBarPositionField = value;
+		},
+		tick: function(elapsedGameTime) {
+		},
+		render: function(elapsedGameTime) {
+			this.$mainLayer.save();
+			this.$mainLayer.drawRectangle(new Engine.Color(0, 0, 0, 255), 0, 0, this.$_width, this.$_height);
+			this.$mainLayer.drawImage(this.get_lobbyOverlay(), this.get_lobbyOverlayPosition().get_x(), this.get_lobbyOverlayPosition().get_y());
+			this.$mainLayer.drawImage(this.get_profileOverlay(), this.get_profileOverlayPosition().get_x(), this.get_profileOverlayPosition().get_y());
+			this.$mainLayer.drawImage(this.get_goldCoinOverlay(), this.get_goldCoinOverlayPosition().get_x(), this.get_goldCoinOverlayPosition().get_y());
+			this.$mainLayer.drawImage(this.get_silverCoinOverlay(), this.get_silverCoinOverlayPosition().get_x(), this.get_silverCoinOverlayPosition().get_y());
+			this.$mainLayer.drawImage(this.get_lobbyBackground(), this.get_lobbyBackgroundPosition().get_x(), this.get_lobbyBackgroundPosition().get_y());
+			this.$headerButtonGroup(this.$mainLayer, 0, this.get_selectedHeaderButton() === 0);
+			this.$headerButtonGroup(this.$mainLayer, 1, this.get_selectedHeaderButton() === 1);
+			this.$headerButtonGroup(this.$mainLayer, 2, this.get_selectedHeaderButton() === 2);
+			this.$createRoomButtonGroup(this.$mainLayer);
+			this.$rooms(this.$mainLayer, this.get_roomButtonSize().get_width(), this.get_roomButtonSize().get_height());
+			this.$mainLayer.drawImage(this.get_scrollBarOverlay(), this.get_scrollBarPosition().get_x(), this.get_scrollBarPosition().get_y());
+			this.$mainLayer.drawImage(this.get_scrollBarButtonOverlay(), this.get_scrollBarPosition().get_x() + 4, this.get_scrollBarPosition().get_y() + this.get_scrollBarButtonPosition());
+			this.$mainLayer.restore();
+		},
+		get_$rooms: function() {
+			return this.$1$RoomsField;
+		},
+		set_$rooms: function(value) {
+			this.$1$RoomsField = value;
+		},
+		get_topRoomIndex: function() {
+			return this.$1$TopRoomIndexField;
+		},
+		set_topRoomIndex: function(value) {
+			this.$1$TopRoomIndexField = value;
+		},
+		get_scrollBarButtonPosition: function() {
+			if (this.$c++ % 20 === 0) {
+				var i = this.get_$rooms().length + 1 - this.get_numberOfRoomsVisible();
+				if (i > 0) {
+					this.set_topRoomIndex(this.get_topRoomIndex() + 1);
+					this.set_topRoomIndex(this.get_topRoomIndex() % i);
+				}
+			}
+			var height = this.get_scrollBarOverlay().get_height() - this.get_scrollBarButtonOverlay().get_height();
+			return ss.Int32.div(height, this.get_$rooms().length - this.get_numberOfRoomsVisible()) * this.get_topRoomIndex();
+		},
+		destroy: function() {
+		},
+		initLayoutView: function() {
+			this.init();
+		},
+		tickLayoutView: function(elapsedGameTime) {
+			this.tick(elapsedGameTime);
+		},
+		$headerButtonGroup: function(layer, buttonType, selected) {
+			var buttonLoc;
+			var icon;
+			var text;
+			switch (buttonType) {
+				case 0: {
+					buttonLoc = this.get_allRoomsButtonPosition();
+					icon = this.get_eyeOverlay();
+					text = this.get_allRoomsOverlay();
+					break;
+				}
+				case 1: {
+					buttonLoc = this.get_featuredButtonPosition();
+					icon = this.get_dollarOverlay();
+					text = this.get_featuredOverlay();
+					break;
+				}
+				case 2: {
+					buttonLoc = this.get_favoritesButtonPosition();
+					icon = this.get_starOverlay();
+					text = this.get_favoritesOverlay();
+					break;
+				}
+				default: {
+					throw new ss.ArgumentOutOfRangeException('buttonType');
+				}
+			}
+			layer.save();
+			layer.translate(buttonLoc.get_x(), buttonLoc.get_y());
+			if (selected) {
+				layer.drawImage(this.get_selectedOverlay(), 0, 0);
+			}
+			layer.drawImage$1(icon, this.get_buttonIconOffset().get_x(), this.get_buttonIconOffset().get_y(), true);
+			layer.drawImage$1(text, this.get_buttonTextOffset().get_x(), this.get_buttonTextOffset().get_y(), true);
+			layer.restore();
+		},
+		$createRoomButtonGroup: function(layer) {
+			layer.save();
+			layer.translate(this.get_createRoomPosition().get_x(), this.get_createRoomPosition().get_y());
+			layer.drawImage(this.get_orangeButtonOverlay(), 0, 0);
+			layer.drawImage$1(this.get_plusOverlay(), this.get_createRoomIconOffset().get_x(), this.get_createRoomIconOffset().get_y(), true);
+			layer.drawImage$1(this.get_createRoomTextOverlay(), this.get_createRoomTextOffset().get_x(), this.get_createRoomTextOffset().get_y(), true);
+			layer.restore();
+		},
+		$rooms: function(layer, buttonWidth, buttonHeight) {
+			layer.save();
+			layer.translate(this.get_roomsPosition().get_x(), this.get_roomsPosition().get_y());
+			for (var i = 0; i < this.get_numberOfRoomsVisible(); i++) {
+				layer.save();
+				layer.translate(0, buttonHeight * i);
+				layer.drawRectangle(((i % 2 === 0) ? this.get_roomButtonColor() : this.get_alternateRoomButtonColor()), 0, 0, buttonWidth, buttonHeight);
+				if (i + this.get_topRoomIndex() < this.get_$rooms().length) {
+					var currentRoom = this.get_$rooms()[i + this.get_topRoomIndex()];
+					layer.drawString('lobby.font', 'Hello ' + currentRoom.get_$name(), 50, 50);
+				}
+				layer.restore();
+			}
+			layer.restore();
 		}
 	}, null, [Engine.Interfaces.ILayoutView]);
 	ss.initClass($BingoBlockParty_Client_PeopleArea_PeopleAreaLayout, {

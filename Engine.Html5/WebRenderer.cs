@@ -67,6 +67,11 @@ namespace Engine.Html5.Web
             imageCache.CreateImage(imageName, imagePath, center, imagesReady);
         }
 
+        public void CreateFont(string fontName, string fontPath)
+        {
+             
+        }
+
         private void imagesReady()
         {
             numberOfImagesLoaded++;

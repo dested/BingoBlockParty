@@ -164,6 +164,28 @@
     <AndroidAsset Include="Assets\Content\images\people\MaleBouncer_BackDesign.png" />
     <AndroidAsset Include="Assets\Content\images\people\MaleBouncer_FrontDesign.png" />
     <AndroidAsset Include="Assets\Content\images\walkway\walkway-red.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\allRooms.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\createNewRoomText.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\dollarSign.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\emptyStar.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\eyeBall.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\favoritesStar.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\favoritesText.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\featuredText.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\floor.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\hoverButton.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\joinText.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\lobby.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\orangeButton.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\plus.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\profile.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\purpleButton.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\scrollBar.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\scrollButton.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\selectedButton.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\thinBackground.png" />
+    <AndroidAsset Include="Assets\Content\images\lobby\wideBackground.png" />
+    <AndroidAsset Include="Assets\Content\images\overlays\silver_coin_box.png" />
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -174,10 +196,6 @@
     <ProjectReference Include="..\..\Engine\ProjectFiles\Engine.Android\Engine.Android.csproj">
       <Project>{7ca4de5b-a584-4fe6-87b7-adb80f2fb5eb}</Project>
       <Name>Engine.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Network\SocketEngine\ProjectFiles\SocketEngine.Android\SocketEngine.Android.csproj">
-      <Project>{6f96c438-3ed5-401b-ac1b-34699fe14f51}</Project>
-      <Name>SocketEngine.Android</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

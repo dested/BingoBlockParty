@@ -13,6 +13,8 @@ namespace Engine.Interfaces
         void TouchEvent(TouchType touchType, int x, int y);
         void Tick(TimeSpan elapsedGameTime);
         void Timeout(Action callback, int ms);
-
+        
+        void ShowKeyboard();
+        
     }
 }

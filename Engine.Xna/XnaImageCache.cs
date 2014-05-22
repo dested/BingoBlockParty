@@ -4,22 +4,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Engine.Xna
 {
-    public class XnaImageCache
+    public class XnaAssetCache
     {
         private readonly ContentManager content;
         private readonly Dictionary<string, XnaImage> textures;
+        private readonly Dictionary<string, SpriteFont> fonts;
 
-        public XnaImageCache(ContentManager content)
+        public XnaAssetCache(ContentManager content)
         {
             this.content = content;
             textures = new Dictionary<string, XnaImage>();
-
+            fonts=new Dictionary<string, SpriteFont>();
         }
 
         public XnaImage GetImage(string imageName)
         {
             return textures[imageName];
         }
+        public SpriteFont GetFont(string fontName)
+        {
+            return fonts[fontName];
+        }
+
         public void CreateImage(string imageName, string imagePath, Point center = null)
         {
             var assetName = imagePath;
@@ -29,6 +35,11 @@ namespace Engine.Xna
 #endif
             var texture2D = content.Load<Texture2D>(assetName);
             textures.Add(imageName, new XnaImage(texture2D, center));
+        }
+        public void CreateFont(string fontName, string fontPath)
+        {
+            var font = content.Load<SpriteFont>(fontPath);
+            fonts.Add(fontName, font);
         }
     }
 }

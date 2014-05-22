@@ -3,6 +3,8 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
+using Android.Widget;
 using droid=Android;
 
 namespace Client.Android
@@ -22,6 +24,9 @@ namespace Client.Android
             base.OnCreate(bundle);
             BingoGameClient.Activity = this;
             var g = new BingoGameClient();
+            EditText tx = new EditText(this);
+            tx.Visibility=ViewStates.Gone;
+
             SetContentView(g.Window);
             g.Run();
         }
