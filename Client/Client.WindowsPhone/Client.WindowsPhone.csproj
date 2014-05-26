@@ -95,16 +95,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-
     <Content Include="..\..\Content\assets\xnb\**\*.xnb">
       <Link>Content\images\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content> 
+    </Content>
     <Content Include="..\..\Content\fonts\**\*.xnb">
       <Link>Content\fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content> 
-
+    </Content>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>

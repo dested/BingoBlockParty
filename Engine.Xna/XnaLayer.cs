@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Engine.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ namespace Engine.Xna
         private readonly int width;
         private readonly int height;
         public ILayout Layout { get; set; }
-
+        private XnaShapeCache shapeCache;
         public XnaLayer(XnaRenderer renderer, int width, int height, ILayout layout)
         {
             this.renderer = renderer;
@@ -26,6 +27,7 @@ namespace Engine.Xna
             settingsStack = new List<XnaContextSettings>();
 
             settingsStack.Add(new XnaContextSettings());
+            shapeCache = new XnaShapeCache(renderer.graphicsDevice);
 
         }
 
@@ -137,19 +139,48 @@ namespace Engine.Xna
         public void DrawRectangle(Color color, int x, int y, int width, int height)
         {
             XnaContextSettings xnaContextSettings = CurrentSettings();
+            currentSpriteBatch.Draw(shapeCache.GetShape(color,width,height), new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
+        }
 
-            Texture2D rect = new Texture2D(renderer.graphicsDevice, width, height);
+    }
 
+    public class XnaShapeCache
+    {
+        private readonly GraphicsDevice _graphicDevice;
+
+        public XnaShapeCache(GraphicsDevice graphicDevice)
+        {
+            _graphicDevice = graphicDevice;
+        }
+
+        private Dictionary<string, Texture2D> caches = new Dictionary<string, Texture2D>();
+
+        public Texture2D GetShape(Color color, int width, int height)
+        {
+            string m = getKey(color,width,height);
+            Texture2D texture;
+            if (caches.TryGetValue(m, out texture))
+            {
+                return texture;
+            }
+
+            Texture2D rect = new Texture2D(_graphicDevice, width, height);
             var xnaColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
-
-
             Microsoft.Xna.Framework.Color[] data = new Microsoft.Xna.Framework.Color[width * height];
             for (int i = 0; i < data.Length; ++i) data[i] = xnaColor;
             rect.SetData(data);
 
-            currentSpriteBatch.Draw(rect, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
 
 
+
+            caches.Add(m, rect);
+            return rect;
         }
+
+        private string getKey(Color color, int width, int height)
+        {
+
+            return string.Format("{0}-{1}-{2}-{3}-{4}-{5}", color.R, color.G, color.B, color.A, width, height);
+        } 
     }
 }

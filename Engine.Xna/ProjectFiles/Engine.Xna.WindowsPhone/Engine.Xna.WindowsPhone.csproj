@@ -54,7 +54,7 @@
       <HintPath>..\..\..\references\WindowsPhone\ARM\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="SocketIOClient">
-      <HintPath>..\..\..\references\winphone sockets\SocketIOClient.dll</HintPath>
+      <HintPath>..\..\..\references\winphone sockets\arm\SocketIOClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

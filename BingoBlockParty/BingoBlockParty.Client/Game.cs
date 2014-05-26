@@ -67,7 +67,6 @@ namespace BingoBlockParty.Client
 
         public void InitSocketManager(ISocketManager socketManager)
         {
-/*
             Socket = socketManager.Create("http://192.168.1.3:3000/");
             Socket.OnConnect = () =>
             {
@@ -81,7 +80,6 @@ namespace BingoBlockParty.Client
             });
 
             Socket.Connect();
-*/
         }
 
         public class Boo
