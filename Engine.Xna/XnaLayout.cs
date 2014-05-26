@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Engine.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
-using SocketEngine.WebSocket.Command;
 
 namespace Engine.Xna
 {

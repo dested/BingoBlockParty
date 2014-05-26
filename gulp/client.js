@@ -16,7 +16,7 @@ var codePaths = ['BingoBlockParty/BingoBlockParty.Client/ProjectFiles/BingoBlock
 ];
 var libPaths = ['packages/Saltarelle.Runtime.2.3.1/mscorlib.js', 'BingoBlockParty/Libraries/JBox2d/ProjectFiles/JBox2d.Web/bin/Debug/**/*.js'];
 
-var assetPaths = ['Client/Client.Web/Assets/Content/images/**/*.*'];
+var assetPaths = ['Content/assets/png/**/*.*'];
 
 
 

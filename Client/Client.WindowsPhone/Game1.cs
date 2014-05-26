@@ -55,9 +55,9 @@ namespace Client.WindowsPhone
             client.LoadImages(renderer);
 
 
-            client.Init(renderer,new XnaClientSettings(){OneLayoutAtATime=true,GetKeyboardInput = () =>
+            client.Init(renderer,new XnaClientSettings(){OneLayoutAtATime=true,GetKeyboardInput = (callback) =>
             {
-                return "";
+                callback("");
             }});
             // TODO: use this.Content to load your game content here
         }

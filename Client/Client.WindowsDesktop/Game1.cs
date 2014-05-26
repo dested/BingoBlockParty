@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices; 
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Client.Windows
 {
@@ -22,7 +22,7 @@ namespace Client.Windows
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
         private IClient client;
-        private IRenderer renderer; 
+        private IRenderer renderer;
 
         public Game1()
             : base()
@@ -58,11 +58,18 @@ namespace Client.Windows
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             client = new XnaClient();
-            
+
             renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-            client.Init(renderer,false);
+            client.Init(renderer, new XnaClientSettings()
+            {
+                GetKeyboardInput = (callback) =>
+                    {
+                        callback("");
+                    },
+                OneLayoutAtATime = false
+            });
 
             // TODO: use this.Content to load your game content here
         }
@@ -80,7 +87,7 @@ namespace Client.Windows
         private int mouseY;
         private bool mouseIsDown;
         private int currentIndex = 0;
-        protected   override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -102,8 +109,6 @@ namespace Client.Windows
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                var text =   Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
-                var resxt = text.Result;
                 layoutManager.ChangeLayout(Direction.Left);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
@@ -127,7 +132,7 @@ namespace Client.Windows
                 client.TouchEvent(TouchType.TouchMove, (int)mouseState.X, (int)mouseState.Y);
             }
 
-            
+
 
             switch (mouseState.LeftButton)
             {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
+using Engine.Xna.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.GamerServices;
@@ -17,63 +18,79 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Client.IOS
 {
-	/// <summary>
-	/// Default Project Template
-	/// </summary>
-	public class BingoGameClient : Game
-	{
+    /// <summary>
+    /// Default Project Template
+    /// </summary>
+    public class BingoGameClient : Game
+    {
 
         GraphicsDeviceManager graphics;
         private IClient client;
-        private IRenderer renderer; 
-         
+        private IRenderer renderer;
+
 
         public BingoGameClient()
-        { 
+        {
 
-			graphics = new GraphicsDeviceManager(this);
-			
-			Content.RootDirectory = "Content";
+            graphics = new GraphicsDeviceManager(this);
+
+            Content.RootDirectory = "Content";
             TouchPanel.EnableMouseGestures = true;
             TouchPanel.EnabledGestures = GestureType.Flick;
 
-            graphics.SupportedOrientations=DisplayOrientation.Portrait;
+            graphics.SupportedOrientations = DisplayOrientation.Portrait;
             graphics.ApplyChanges();
 
         }
 
-		/// <summary>
-		/// Overridden from the base Game.Initialize. Once the GraphicsDevice is setup,
-		/// we'll use the viewport to initialize some values.
-		/// </summary>
-		protected override void Initialize()
-		{
-			base.Initialize();
-		}
+        /// <summary>
+        /// Overridden from the base Game.Initialize. Once the GraphicsDevice is setup,
+        /// we'll use the viewport to initialize some values.
+        /// </summary>
+        protected override void Initialize()
+        {
+            base.Initialize();
+        }
 
 
-		/// <summary>
-		/// Load your graphics content.
-		/// </summary>
-		protected override void LoadContent()
-		{
+        /// <summary>
+        /// Load your graphics content.
+        /// </summary>
+        protected override void LoadContent()
+        {
 
             client = new XnaClient();
 
             renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
+            bool opened = false;
 
-            client.Init(renderer, true);
-								}
-         
+            client.Init(renderer, new XnaClientSettings()
+            {
+                OneLayoutAtATime = true,
+                GetKeyboardInput = (callback) =>
+                {
+                    if (opened) return;
+                    opened = true;
+                    Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", (asyncer) =>
+                    {
+                        var endShowKeyboardInput = Guide.EndShowKeyboardInput(asyncer);
+                        opened = false;
+                        callback(endShowKeyboardInput);
+                    }, null);
 
-		/// <summary>
-        	/// Allows the game to run logic such as updating the world,
-        	/// checking for collisions, gathering input, and playing audio.
-        	/// </summary>
-        	/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override async void Update(GameTime gameTime)
-		{
+                }
+            });
+        }
+
+
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override async void Update(GameTime gameTime)
+        {
             var layoutManager = client.ScreenManager.CurrentScreen;
 
             while (TouchPanel.IsGestureAvailable)
@@ -86,7 +103,7 @@ namespace Client.IOS
                         if (gest.Delta.X > tolerance)
                         {
                             var text = await Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
-                            
+
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)
@@ -131,16 +148,16 @@ namespace Client.IOS
             client.Tick(gameTime.TotalGameTime);
 
             base.Update(gameTime);
-		}
+        }
 
-		/// <summary>
-		/// This is called when the game should draw itself. 
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw(GameTime gameTime)
+        /// <summary>
+        /// This is called when the game should draw itself. 
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
         {
             client.Draw(gameTime.TotalGameTime);
-			base.Draw(gameTime);
-		}
-	}
+            base.Draw(gameTime);
+        }
+    }
 }

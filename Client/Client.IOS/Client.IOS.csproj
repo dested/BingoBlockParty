@@ -114,97 +114,18 @@
     <Reference Include="monotouch" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\cannonBalls\ball_inner.png" />
-    <Content Include="Content\images\cannonBalls\ball_noshine.png" />
-    <Content Include="Content\images\cannonBalls\ball_outer.png" />
-    <Content Include="Content\images\cannons\shooter.png" />
-    <Content Include="Content\images\chutes\blue_bucket.png" />
-    <Content Include="Content\images\chutes\blue_bucket_lit.png" />
-    <Content Include="Content\images\chutes\buckets.png" />
-    <Content Include="Content\images\chutes\bumpers.png" />
-    <Content Include="Content\images\chutes\green_bucket.png" />
-    <Content Include="Content\images\chutes\green_bucket_lit.png" />
-    <Content Include="Content\images\chutes\purple_bucket.png" />
-    <Content Include="Content\images\chutes\purple_bucket_lit.png" />
-    <Content Include="Content\images\chutes\red_bucket.png" />
-    <Content Include="Content\images\chutes\red_bucket_lit.png" />
-    <Content Include="Content\images\chutes\yellow_bucket.png" />
-    <Content Include="Content\images\chutes\yellow_bucket_lit.png" />
-    <Content Include="Content\images\gameBoards\board1.png" />
-    <Content Include="Content\images\lobby\allRooms.png" />
-    <Content Include="Content\images\lobby\createNewRoomText.png" />
-    <Content Include="Content\images\lobby\dollarSign.png" />
-    <Content Include="Content\images\lobby\emptyStar.png" />
-    <Content Include="Content\images\lobby\eyeBall.png" />
-    <Content Include="Content\images\lobby\favoritesStar.png" />
-    <Content Include="Content\images\lobby\favoritesText.png" />
-    <Content Include="Content\images\lobby\featuredText.png" />
-    <Content Include="Content\images\lobby\floor.png" />
-    <Content Include="Content\images\lobby\joinText.png" />
-    <Content Include="Content\images\lobby\lobby.png" />
-    <Content Include="Content\images\lobby\orangeButton.png" />
-    <Content Include="Content\images\lobby\plus.png" />
-    <Content Include="Content\images\lobby\profile.png" />
-    <Content Include="Content\images\lobby\purpleButton.png" />
-    <Content Include="Content\images\lobby\scrollBar.png" />
-    <Content Include="Content\images\lobby\scrollButton.png" />
-    <Content Include="Content\images\lobby\selectedButton.png" />
-    <Content Include="Content\images\lobby\thinBackground.png" />
-    <Content Include="Content\images\lobby\wideBackground.png" />
-    <Content Include="Content\images\overlays\coin_box.png" />
-    <Content Include="Content\images\overlays\jackpot_shooter_overlay.png" />
-    <Content Include="Content\images\overlays\pulls_button.png" />
-    <Content Include="Content\images\overlays\silver_coin_box.png" />
-    <Content Include="Content\images\pegs\blue_peg.png" />
-    <Content Include="Content\images\pegs\blue_peg_lit_overlay.png" />
-    <Content Include="Content\images\pegs\green_peg.png" />
-    <Content Include="Content\images\pegs\green_peg_lit_overlay.png" />
-    <Content Include="Content\images\pegs\purple_peg.png" />
-    <Content Include="Content\images\pegs\purple_peg_lit_overlay.png" />
-    <Content Include="Content\images\pegs\red_peg.png" />
-    <Content Include="Content\images\pegs\red_peg_lit_overlay.png" />
-    <Content Include="Content\images\pegs\white_peg.png" />
-    <Content Include="Content\images\pegs\white_peg_lit_overlay.png" />
-    <Content Include="Content\images\pegs\yellow_peg.png" />
-    <Content Include="Content\images\pegs\yellow_peg_lit_overlay.png" />
-    <Content Include="Content\images\people\Female1Cat_BackDesign.png" />
-    <Content Include="Content\images\people\Female1Cat_FrontDesign.png" />
-    <Content Include="Content\images\people\Female1_BackDesign.png" />
-    <Content Include="Content\images\people\Female1_FrontDesign.png" />
-    <Content Include="Content\images\people\Female2Rabbit_BackDesign.png" />
-    <Content Include="Content\images\people\Female2Rabbit_FrontDesign.png" />
-    <Content Include="Content\images\people\Female2_BackDesign.png" />
-    <Content Include="Content\images\people\Female2_FrontDesign.png" />
-    <Content Include="Content\images\people\Female3Bear_BackDesign.png" />
-    <Content Include="Content\images\people\Female3Bear_FrontDesign.png" />
-    <Content Include="Content\images\people\Female3_BackDesign.png" />
-    <Content Include="Content\images\people\Female3_FrontDesign.png" />
-    <Content Include="Content\images\people\FemaleBouncer_BackDesign.png" />
-    <Content Include="Content\images\people\FemaleBouncer_FrontDesign.png" />
-    <Content Include="Content\images\people\male1Frog_BackDesign.png" />
-    <Content Include="Content\images\people\male1Frog_FrontDesign.png" />
-    <Content Include="Content\images\people\male1_BackDesign.png" />
-    <Content Include="Content\images\people\male1_FrontDesign.png" />
-    <Content Include="Content\images\people\male2Dragon_BackDesign.png" />
-    <Content Include="Content\images\people\male2Dragon_FrontDesign.png" />
-    <Content Include="Content\images\people\male2_BackDesign.png" />
-    <Content Include="Content\images\people\male2_FrontDesign.png" />
-    <Content Include="Content\images\people\male3Monkey_BackDesign.png" />
-    <Content Include="Content\images\people\male3Monkey_FrontDesign.png" />
-    <Content Include="Content\images\people\male3_BackDesign.png" />
-    <Content Include="Content\images\people\male3_FrontDesign.png" />
-    <Content Include="Content\images\people\MaleBouncer_BackDesign.png" />
-    <Content Include="Content\images\people\MaleBouncer_FrontDesign.png" />
-    <Content Include="Content\images\walkway\walkway-red.png" />
+    <Content Include="..\..\Content\assets\png\**\*.png">
+      <Link>Content\images\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content> 
+    <Content Include="..\..\Content\fonts\**\*.xnb">
+      <Link>Content\fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content> 
     <Content Include="Default.png" />
     <Content Include="GameThumbnail.png" />
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\images\people\Thumbs.db" />
-    <None Include="Content\spriteFont1.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Content\images\people\Thumbs.db" /> 
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine.Xna\ProjectFiles\Engine.Xna.IOS\Engine.Xna.IOS.csproj">
