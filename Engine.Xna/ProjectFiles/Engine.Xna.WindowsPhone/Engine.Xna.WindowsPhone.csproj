@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\references\WindowsPhone\x86\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\..\references\WindowsPhone\ARM\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="SocketIOClient">
       <HintPath>..\..\..\references\winphone sockets\SocketIOClient.dll</HintPath>

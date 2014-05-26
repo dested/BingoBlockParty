@@ -35,7 +35,7 @@ namespace Engine.Xna
             var scaleMatrix = renderer.GetScaleMatrix();
 
             var settings = CurrentSettings();
-            if (Layout.LayoutManager.OneLayoutAtATime)
+            if (Layout.Screen.OneLayoutAtATime)
             {
                 settings.Left = 0;
                 settings.Top = 0;

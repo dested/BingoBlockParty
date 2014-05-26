@@ -6,18 +6,18 @@ namespace Engine.Xna
 {
     public class XnaScreenManager : IScreenManager
     {
-        public XnaScreenManager(XnaRenderer renderer, bool oneLayoutAtATime)
+        public XnaScreenManager(XnaRenderer renderer,IClient client)
         {
 
             Renderer = renderer;
-            OneLayoutAtATime = oneLayoutAtATime;
+            Client = client;
             XnaScreens = new List<XnaScreen>();
         }
 
         public List<XnaScreen> XnaScreens { get; set; }
 
         public XnaRenderer Renderer { get; set; }
-        public bool OneLayoutAtATime { get; set; }
+        public IClient Client { get; set; }
 
         public IScreen CreateScreen( )
         {
@@ -33,7 +33,7 @@ namespace Engine.Xna
 
 
 
-            var size = CurrentScreen.LayoutManager.GetLayoutSize();
+            var size = CurrentScreen.GetLayoutSize();
             if (Renderer.graphics.PreferredBackBufferWidth != size.Width ||
                 Renderer.graphics.PreferredBackBufferHeight != size.Height)
             {
@@ -45,7 +45,7 @@ namespace Engine.Xna
 
             Renderer.graphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
             Renderer.BeginRender();
-            CurrentScreen.LayoutManager.Draw(elapsedGameTime);
+            CurrentScreen.Draw(elapsedGameTime);
         
             Renderer.EndRender();
 
@@ -53,7 +53,7 @@ namespace Engine.Xna
 
         public void TouchEvent(TouchType touchType, int x, int y)
         {
-            CurrentScreen.LayoutManager.TouchEvent(touchType, x, y);
+            CurrentScreen.TouchEvent(touchType, x, y);
         }
 
         private TimeSpan lastElapsedTime;
@@ -88,7 +88,7 @@ namespace Engine.Xna
 
         public Size GetScreenSize()
         {
-            return CurrentScreen.LayoutManager.GetLayoutSize();
+            return CurrentScreen.GetLayoutSize();
         }
 
         public void ChangeScreen(IScreen screen)

@@ -41,7 +41,7 @@ namespace Engine.Xna
         {
             if (scaleMatrix.HasValue == false)
             {
-                var screenSize = Client.ScreenManager.CurrentScreen.LayoutManager.GetLayoutSize();
+                var screenSize = Client.ScreenManager.CurrentScreen.GetLayoutSize();
 
                 var gameWorldSize = new Vector2(screenSize.Width, screenSize.Height);
                 var vp = graphicsDevice.Viewport;
@@ -79,6 +79,7 @@ namespace Engine.Xna
         }
         public SpriteFont GetFont(string fontName)
         {
+            return null;
             return assetCache.GetFont(fontName);
         }
         public void CreateImage(string imageName, string imagePath, Point center = null)
@@ -88,6 +89,7 @@ namespace Engine.Xna
 
         public void CreateFont(string fontName, string fontPath)
         {
+            return;
             assetCache.CreateFont(fontName,fontPath);
 
         }

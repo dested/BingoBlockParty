@@ -37,10 +37,10 @@ namespace BingoBlockParty.Client
 
             var gameScreen = screenManager.CreateScreen();
 
-            GameBoardLayout = gameScreen.LayoutManager.CreateLayout(430, 557).MakeActive().ForceTick();
-            BingoBoardLayout = gameScreen.LayoutManager.CreateLayout(332, 557);
-            InfoAreaLayout = gameScreen.LayoutManager.CreateLayout(259, 708);
-            PeopleAreaLayout = gameScreen.LayoutManager.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            GameBoardLayout = gameScreen.CreateLayout(430, 557).MakeActive().ForceTick();
+            BingoBoardLayout = gameScreen.CreateLayout(332, 557);
+            InfoAreaLayout = gameScreen.CreateLayout(259, 708);
+            PeopleAreaLayout = gameScreen.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
 
             GameBoardLayout.LeftOf(InfoAreaLayout).RightOf(BingoBoardLayout);
 
@@ -56,7 +56,7 @@ namespace BingoBlockParty.Client
 
             var lobbyScreen = screenManager.CreateScreen();
 
-            LobbyListLayout = lobbyScreen.LayoutManager.CreateLayout(766, 584).MakeActive();
+            LobbyListLayout = lobbyScreen.CreateLayout(766, 584). MakeActive();
             LobbyListLayout.LayoutView = new LobbyLayout(this, 766, 584, renderer, LobbyListLayout);
 
 
@@ -195,4 +195,4 @@ namespace BingoBlockParty.Client
       
     }
 
- }
+}

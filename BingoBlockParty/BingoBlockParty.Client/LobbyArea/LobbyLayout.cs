@@ -94,7 +94,7 @@ namespace BingoBlockParty.Client.LobbyArea
             NumberOfRoomsVisible = 5;
             createTouches();
 
-//            _game.CreateTextBox(new Rectangle(CreateRoomPosition, OrangeButtonOverlay.Width, OrangeButtonOverlay.Height),this);
+            Layout.UIManager.CreateTextBox(new Rectangle(CreateRoomPosition, OrangeButtonOverlay.Width, OrangeButtonOverlay.Height),this);
 
             Rooms=new List<LobbyRoom>()
             {
@@ -104,10 +104,10 @@ namespace BingoBlockParty.Client.LobbyArea
                 new LobbyRoom(){Name = "Room Name 4"}, 
                 new LobbyRoom(){Name = "Room Name 5"}, 
                 new LobbyRoom(){Name = "Room Name 6"}, 
-                new LobbyRoom(){Name = "Room Name07"}, 
+                new LobbyRoom(){Name = "Room Name 7"}, 
                 new LobbyRoom(){Name = "Room Name 8"}, 
                 new LobbyRoom(){Name = "Room Name 9"}, 
-                new LobbyRoom(){Name = "Room Name10"}, 
+                new LobbyRoom(){Name = "Room Name 10"}, 
             };
         }
 

@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 require('./client');
+require('./server');
 var runSequence = require('run-sequence');
 
 
@@ -10,7 +11,8 @@ gulp.task('default', function (callback) {
 
     runSequence(
         [
-            'client' 
+            'client', 
+            'server' 
         ],
         callback);
 });
@@ -27,4 +29,16 @@ gulp.task('client', function (callback) {
         'client.watch',
         'client.express',
         callback);
-}); 
+});
+
+gulp.task('server', function (callback) {
+    process.chdir('../');
+
+    runSequence(
+        [
+            'server.packageScripts',
+            'server.packageLibs'
+        ],
+        'server.watch',
+        callback);
+});

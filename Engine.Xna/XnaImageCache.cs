@@ -29,13 +29,13 @@ namespace Engine.Xna
         public void CreateImage(string imageName, string imagePath, Point center = null)
         {
             var assetName = imagePath;
-
 #if WINDOWS_PHONE || WINDOWS
             assetName = assetName.Replace(".png", "");
 #endif
             var texture2D = content.Load<Texture2D>(assetName);
             textures.Add(imageName, new XnaImage(texture2D, center));
         }
+
         public void CreateFont(string fontName, string fontPath)
         {
             var font = content.Load<SpriteFont>(fontPath);

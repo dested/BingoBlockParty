@@ -42,7 +42,11 @@ namespace Engine
 
         public bool IsInside(Point point)
         {
-            return X < point.X && Y < point.Y && X + Width > point.X && Y + Height > point.Y;
+            return IsInside(point.X,point.Y);
+        }
+        public bool IsInside(int x, int y)
+        {
+            return X < x && Y < y && X + Width > x && Y + Height > y;
         }
     }
 }

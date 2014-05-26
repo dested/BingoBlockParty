@@ -1,7 +1,9 @@
-﻿using Engine;
+﻿using System.Threading.Tasks;
+using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -52,7 +54,11 @@ namespace Client.WindowsPhone
             renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-            client.Init(renderer,true);
+
+            client.Init(renderer,new XnaClientSettings(){OneLayoutAtATime=true,GetKeyboardInput = () =>
+            {
+                return "";
+            }});
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,11 +76,11 @@ namespace Client.WindowsPhone
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+        protected override async void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+            var layoutManager = client.ScreenManager.CurrentScreen;
 
             while (TouchPanel.IsGestureAvailable)
             {
@@ -85,6 +91,7 @@ namespace Client.WindowsPhone
                         const int tolerance = 300;
                         if (gest.Delta.X > tolerance)
                         {
+
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)
@@ -114,6 +121,8 @@ namespace Client.WindowsPhone
                         client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Pressed:
+                        var text = await Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
+
                         client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Released:

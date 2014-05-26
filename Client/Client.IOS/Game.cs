@@ -1,10 +1,12 @@
 
 using System;
+using System.Threading.Tasks;
 using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -70,9 +72,9 @@ namespace Client.IOS
         	/// checking for collisions, gathering input, and playing audio.
         	/// </summary>
         	/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Update(GameTime gameTime)
+		protected override async void Update(GameTime gameTime)
 		{
-            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+            var layoutManager = client.ScreenManager.CurrentScreen;
 
             while (TouchPanel.IsGestureAvailable)
             {
@@ -83,6 +85,8 @@ namespace Client.IOS
                         const int tolerance = 4000;
                         if (gest.Delta.X > tolerance)
                         {
+                            var text = await Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
+                            
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)

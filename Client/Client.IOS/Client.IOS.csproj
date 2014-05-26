@@ -131,9 +131,30 @@
     <Content Include="Content\images\chutes\yellow_bucket.png" />
     <Content Include="Content\images\chutes\yellow_bucket_lit.png" />
     <Content Include="Content\images\gameBoards\board1.png" />
+    <Content Include="Content\images\lobby\allRooms.png" />
+    <Content Include="Content\images\lobby\createNewRoomText.png" />
+    <Content Include="Content\images\lobby\dollarSign.png" />
+    <Content Include="Content\images\lobby\emptyStar.png" />
+    <Content Include="Content\images\lobby\eyeBall.png" />
+    <Content Include="Content\images\lobby\favoritesStar.png" />
+    <Content Include="Content\images\lobby\favoritesText.png" />
+    <Content Include="Content\images\lobby\featuredText.png" />
+    <Content Include="Content\images\lobby\floor.png" />
+    <Content Include="Content\images\lobby\joinText.png" />
+    <Content Include="Content\images\lobby\lobby.png" />
+    <Content Include="Content\images\lobby\orangeButton.png" />
+    <Content Include="Content\images\lobby\plus.png" />
+    <Content Include="Content\images\lobby\profile.png" />
+    <Content Include="Content\images\lobby\purpleButton.png" />
+    <Content Include="Content\images\lobby\scrollBar.png" />
+    <Content Include="Content\images\lobby\scrollButton.png" />
+    <Content Include="Content\images\lobby\selectedButton.png" />
+    <Content Include="Content\images\lobby\thinBackground.png" />
+    <Content Include="Content\images\lobby\wideBackground.png" />
     <Content Include="Content\images\overlays\coin_box.png" />
     <Content Include="Content\images\overlays\jackpot_shooter_overlay.png" />
     <Content Include="Content\images\overlays\pulls_button.png" />
+    <Content Include="Content\images\overlays\silver_coin_box.png" />
     <Content Include="Content\images\pegs\blue_peg.png" />
     <Content Include="Content\images\pegs\blue_peg_lit_overlay.png" />
     <Content Include="Content\images\pegs\green_peg.png" />
@@ -181,7 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\images\people\Thumbs.db" />
-    <None Include="Content\spriteFont1.xnb" />
+    <None Include="Content\spriteFont1.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine.Xna\ProjectFiles\Engine.Xna.IOS\Engine.Xna.IOS.csproj">

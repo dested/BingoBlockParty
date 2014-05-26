@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
@@ -79,7 +80,7 @@ namespace Client.Windows
         private int mouseY;
         private bool mouseIsDown;
         private int currentIndex = 0;
-        protected override void Update(GameTime gameTime)
+        protected   override void Update(GameTime gameTime)
         {
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -95,12 +96,14 @@ namespace Client.Windows
             }
 
 
-            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+            var layoutManager = client.ScreenManager.CurrentScreen;
 
 
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
+                var text =   Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
+                var resxt = text.Result;
                 layoutManager.ChangeLayout(Direction.Left);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))

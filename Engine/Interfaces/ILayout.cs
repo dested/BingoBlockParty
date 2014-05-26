@@ -2,9 +2,10 @@ namespace Engine.Interfaces
 {
     public interface ILayout
     {
+        IUIManager UIManager { get; set; }
         ILayoutView LayoutView { get; set; }
-        ILayoutManager LayoutManager { get; set; }
-        LayoutPosition LayoutPosition { get; set; }
+        IScreen Screen { get; set; }
+LayoutPosition LayoutPosition { get; set; }
         int Width { get; set; }
         int Height { get; set; }
         bool Active { get; set; }
@@ -18,5 +19,6 @@ namespace Engine.Interfaces
         ILayout MakeActive();
         ILayout ForceTick();
         ILayout SetScreenOrientation(ScreenOrientation orientation);
+        void ProcessTouchEvent(TouchType touchType, int x, int y);
     }
 }

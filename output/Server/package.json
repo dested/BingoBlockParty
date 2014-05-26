@@ -1,0 +1,11 @@
+{
+  "name": "BingoBlockParty.Server",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "socket.io": "^0.9.17"
+  }
+}

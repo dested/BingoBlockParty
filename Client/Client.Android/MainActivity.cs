@@ -1,11 +1,15 @@
 
 
+using System.Text;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using droid=Android;
+using Java.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
+using droid = Android;
 
 namespace Client.Android
 {
@@ -24,12 +28,10 @@ namespace Client.Android
             base.OnCreate(bundle);
             BingoGameClient.Activity = this;
             var g = new BingoGameClient();
-            EditText tx = new EditText(this);
-            tx.Visibility=ViewStates.Gone;
-
+//                http://discordgames.com/?p=2029
             SetContentView(g.Window);
             g.Run();
         }
-    }
+     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Engine.Interfaces;
 using Engine.Xna.Network;
 using Microsoft.Xna.Framework;
@@ -9,13 +10,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Engine.Xna
 {
+
     public class XnaClient : IClient
     {
-
         public IGame Game { get; set; }
         public XnaRenderer Renderer { get; set; }
         public IScreenManager ScreenManager { get; set; }
         public ISocketManager SocketManager { get; set; }
+        public IClientSettings ClientSettings { get; set; }
 
         public XnaClient()
         {
@@ -28,18 +30,17 @@ namespace Engine.Xna
             Game.LoadFonts(renderer);
         }
 
-        public void Init(IRenderer renderer, bool oneLayoutAtATime)
+        public void Init(IRenderer renderer, IClientSettings clientSettings)
         {
             Renderer = (XnaRenderer)renderer;
-
-
-            ScreenManager = new XnaScreenManager(Renderer, oneLayoutAtATime);
+            ClientSettings = clientSettings;
+            ScreenManager = new XnaScreenManager(Renderer, this);
             Game.InitScreens(renderer, ScreenManager);
             SocketManager = new XnaSocketManager();
             Game.InitSocketManager(SocketManager);
 
 /*
-            var size = LayoutManager.GetLayoutSize();
+            var size = screen.GetLayoutSize();
 
             Renderer.graphics.PreferredBackBufferWidth = size.Width;
             Renderer.graphics.PreferredBackBufferHeight = size.Height;*/
@@ -88,5 +89,11 @@ namespace Engine.Xna
             Game.AfterTick();
         }
     }
+    public class XnaClientSettings : IClientSettings
+    {
+        public bool OneLayoutAtATime { get; set; }
+        public Action<Action<string>> GetKeyboardInput { get; set; }
+    }
+
 }
 

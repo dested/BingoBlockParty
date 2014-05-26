@@ -1,14 +1,19 @@
 using System;
 using System.Runtime.Remoting.Channels;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.InputMethodServices;
 using Android.OS;
+using Android.Views;
 using Android.Views.InputMethods;
 using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Java.IO;
+using Java.Security.Cert;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -23,19 +28,19 @@ namespace Client.Android
 
         GraphicsDeviceManager graphics;
         private IClient client;
-        private IRenderer renderer; 
+        private IRenderer renderer;
 
         public BingoGameClient()
         {
             graphics = new GraphicsDeviceManager(this);
-//            Resolution.Init(ref graphics);
+            //            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
             TouchPanel.EnableMouseGestures = true;
-            TouchPanel.EnabledGestures=GestureType.Flick;
-            
-//             Resolution.SetVirtualResolution(430 * 2, 557 * 2);
-//             Resolution.SetResolution(430 , 557 , false);
+            TouchPanel.EnabledGestures = GestureType.Flick;
+
+            //             Resolution.SetVirtualResolution(430 * 2, 557 * 2);
+            //             Resolution.SetResolution(430 , 557 , false);
         }
 
         /// <summary>
@@ -69,17 +74,34 @@ namespace Client.Android
 
             renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
-
-            client.Init(renderer,true);
+            bool opened = false;
+            client.Init(renderer, new XnaClientSettings()
+            {
+                GetKeyboardInput =   (callback) =>
+                {
+                    if (opened) return;
+                    opened = true;
+                    Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", (asyncer) =>
+                    {
+                        var endShowKeyboardInput = Guide.EndShowKeyboardInput(asyncer);
+                        opened = false;
+                        callback(endShowKeyboardInput);
+                    }, null);
+                    
+                    
+                },
+                OneLayoutAtATime = true
+            });
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
 
         }
-
+          
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+        protected override async void Update(GameTime gameTime)
         {
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -87,7 +109,8 @@ namespace Client.Android
                 Exit();
             }
 
-            var layoutManager = client.ScreenManager.CurrentScreen.LayoutManager;
+
+            var layoutManager = client.ScreenManager.CurrentScreen;
 
 
             while (TouchPanel.IsGestureAvailable)
@@ -99,14 +122,7 @@ namespace Client.Android
                         const int tolerance = 4000;
                         if (gest.Delta.X > tolerance)
                         {
-                            InputMethodManager imm = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
-                            imm.ShowSoftInput(this.Window, ShowFlags.Forced, new ResultReceiver(new Handler(
-                                (message) =>
-                                {
-                                    
-                                })));
-            
-
+                            
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)
@@ -120,7 +136,7 @@ namespace Client.Android
                         if (gest.Delta.Y < -tolerance)
                         {
                             layoutManager.ChangeLayout(Direction.Down);
-                            
+
                         }
                         break;
                 }
@@ -129,7 +145,7 @@ namespace Client.Android
 
             TouchCollection touchCollection = TouchPanel.GetState();
 
-            
+
             for (int index = 0; index < touchCollection.Count; index++)
             {
                 var touch = touchCollection[index];
@@ -137,13 +153,13 @@ namespace Client.Android
                 switch (touch.State)
                 {
                     case TouchLocationState.Moved:
-                        client.TouchEvent(TouchType.TouchMove,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Pressed:
-                        client.TouchEvent(TouchType.TouchDown,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Released:
-                        client.TouchEvent(TouchType.TouchUp,(int) touch.Position.X,(int)touch.Position.Y);
+                        client.TouchEvent(TouchType.TouchUp, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                 }
             }
@@ -152,19 +168,20 @@ namespace Client.Android
 
             base.Update(gameTime);
         }
-
+         
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-//            Resolution.BeginDraw();
+            //            Resolution.BeginDraw();
 
-            
+
             client.Draw(gameTime.TotalGameTime);
 
             base.Draw(gameTime);
         }
     }
+
 }

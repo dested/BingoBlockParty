@@ -5,6 +5,7 @@ namespace Engine.Interfaces
 {
     public interface IScreenManager
     {
+          IClient Client { get; set; }
         IScreen CurrentScreen { get; set; }
         IScreen CreateScreen( );
         IEnumerable<IScreen> Screens { get; }

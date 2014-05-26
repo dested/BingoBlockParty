@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB0E1BCA-DBF8-46E5-B1B7-C96055DDA672}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BingoBlockParty.Server</RootNamespace>
+    <AssemblyName>BingoBlockParty.Server</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NoStdLib>True</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Libraries\MongoDB\MongoCollection.cs" />
+    <Compile Include="Libraries\MongoDB\MongoConnection.cs" />
+    <Compile Include="Libraries\MongoDB\MongoDB.cs" />
+    <Compile Include="Libraries\MongoDB\MongoDBModule.cs" />
+    <Compile Include="Libraries\MongoDB\MongoServer.cs" />
+    <Compile Include="Libraries\NodeJS\ChildProcess.cs" />
+    <Compile Include="Libraries\NodeJS\EventEmitter.cs" />
+    <Compile Include="Libraries\NodeJS\FileSystemError.cs" />
+    <Compile Include="Libraries\NodeJS\FS.cs" />
+    <Compile Include="Libraries\NodeJS\Global.cs" />
+    <Compile Include="Libraries\NodeJS\Http.cs" />
+    <Compile Include="Libraries\NodeJS\HttpRequest.cs" />
+    <Compile Include="Libraries\NodeJS\HttpResponse.cs" />
+    <Compile Include="Libraries\NodeJS\HttpServer.cs" />
+    <Compile Include="Libraries\NodeJS\NodeModule.cs" />
+    <Compile Include="Libraries\NodeJS\Process.cs" />
+    <Compile Include="Libraries\NodeJS\Util.cs" />
+    <Compile Include="Libraries\Socket.IO\Socket.cs" />
+    <Compile Include="Libraries\Socket.IO\SocketIO.cs" />
+    <Compile Include="Libraries\Socket.IO\SocketIoClient.cs" />
+    <Compile Include="Libraries\Socket.IO\SocketIOConnection.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(SolutionDir)packages\Saltarelle.Runtime.2.3.1\tools\Assemblies\mscorlib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BingoBlockParty.Common\ProjectFiles\BingoBlockParty.Common.Web\BingoBlockParty.Common.Web.csproj">
+      <Project>{f71adcb2-0780-4505-84d7-9f8ccc2fe853}</Project>
+      <Name>BingoBlockParty.Common.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />
+  <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.3.1\tools\Saltarelle.Compiler.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
