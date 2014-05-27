@@ -22,7 +22,7 @@ namespace BingoBlockParty.Common.BallGame
             this.BoardWidth = boardWidth;
             this.BoardHeight = boardHeight;
             this.Pegs = new List<PegData>();
-            this.CannonLocation = new Point(this.BoardWidth / 2,0);
+            this.CannonLocation = new Point(this.BoardWidth / 2,14);
             this.CannonAngle = 0;
             this.JackpotScore = 0;
             this.NumberOfCoins = 2567;

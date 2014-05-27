@@ -122,9 +122,19 @@ namespace Engine.Xna
             XnaContextSettings xnaContextSettings = CurrentSettings();
             var font = renderer.GetFont(fontName);
             if (font == null) return;
-            
-            currentSpriteBatch.DrawString(font, text, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top+y),
-                new Microsoft.Xna.Framework.Color(255, 255, 255), 0, new Vector2(0,0), 1.0f, SpriteEffects.None, 1);
+
+            currentSpriteBatch.DrawString(font, text, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y),
+                WHITE, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 1);
+        }
+
+        public void DrawString(string fontName, string text, int x, int y,Color color)
+        {
+            XnaContextSettings xnaContextSettings = CurrentSettings();
+            var font = renderer.GetFont(fontName);
+            if (font == null) return;
+
+            currentSpriteBatch.DrawString(font, text, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y),
+                new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A), 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 1);
         }
 
         public void Clear()

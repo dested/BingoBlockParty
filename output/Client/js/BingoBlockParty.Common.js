@@ -6,6 +6,8 @@
 	global.BingoBlockParty.Common.BallGame.Models = global.BingoBlockParty.Common.BallGame.Models || {};
 	global.BingoBlockParty.Common.BallGame.Pieces = global.BingoBlockParty.Common.BallGame.Pieces || {};
 	global.BingoBlockParty.Common.BallGame.Planes = global.BingoBlockParty.Common.BallGame.Planes || {};
+	global.OurSonicModels = global.OurSonicModels || {};
+	global.OurSonicModels.Common = global.OurSonicModels.Common || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// BingoBlockParty.Common.BallGame.Planes.ChutesPlane.wallLocation
 	var $BingoBlockParty_$Common_BallGame_Planes_ChutesPlane$wallLocation = function() {
@@ -58,7 +60,7 @@
 		this.set_boardWidth(boardWidth);
 		this.set_boardHeight(boardHeight);
 		this.set_pegs([]);
-		this.set_cannonLocation(new Engine.Point(ss.Int32.div(this.get_boardWidth(), 2), 0));
+		this.set_cannonLocation(new Engine.Point(ss.Int32.div(this.get_boardWidth(), 2), 14));
 		this.set_cannonAngle(0);
 		this.set_jackpotScore(0);
 		this.set_numberOfCoins(2567);
@@ -236,6 +238,202 @@
 	};
 	$BingoBlockParty_Common_BallGame_Planes_PegsPlane.__typeName = 'BingoBlockParty.Common.BallGame.Planes.PegsPlane';
 	global.BingoBlockParty.Common.BallGame.Planes.PegsPlane = $BingoBlockParty_Common_BallGame_Planes_PegsPlane;
+	////////////////////////////////////////////////////////////////////////////////
+	// OurSonicModels.Common.DataObject
+	var $OurSonicModels_Common_DataObject$1 = function(T) {
+		var $type = function(data) {
+			this.Data = ss.getDefaultValue(T);
+			this.Data = data;
+		};
+		ss.registerGenericClassInstance($type, $OurSonicModels_Common_DataObject$1, [T], {}, function() {
+			return null;
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	$OurSonicModels_Common_DataObject$1.__typeName = 'OurSonicModels.Common.DataObject$1';
+	ss.initGenericClass($OurSonicModels_Common_DataObject$1, 1);
+	global.OurSonicModels.Common.DataObject$1 = $OurSonicModels_Common_DataObject$1;
+	////////////////////////////////////////////////////////////////////////////////
+	// OurSonicModels.Common.EnumerableExtensions
+	var $OurSonicModels_Common_EnumerableExtensions = function() {
+	};
+	$OurSonicModels_Common_EnumerableExtensions.__typeName = 'OurSonicModels.Common.EnumerableExtensions';
+	$OurSonicModels_Common_EnumerableExtensions.indexOfFast = function(items, ind) {
+		for (var index = 0; index < items.length; index++) {
+			var item = items[index];
+			if (item === ind) {
+				return index;
+			}
+		}
+		return -1;
+	};
+	$OurSonicModels_Common_EnumerableExtensions.indexOfFast$1 = function(items, ind) {
+		for (var index = 0; index < items.length; index++) {
+			var item = items[index];
+			if (item === ind) {
+				return index;
+			}
+		}
+		return -1;
+	};
+	$OurSonicModels_Common_EnumerableExtensions.where$1 = function(T) {
+		return function(items, clause) {
+			var items2 = [];
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				if (clause(item)) {
+					ss.add(items2, item);
+				}
+			}
+			return Array.prototype.slice.call(items2);
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.first$1 = function(T) {
+		return function(items, clause) {
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				if (clause(item)) {
+					return item;
+				}
+			}
+			return ss.getDefaultValue(T);
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.all$1 = function(T) {
+		return function(items, clause) {
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				if (!clause(item)) {
+					return false;
+				}
+			}
+			return true;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.first = function(T) {
+		return function(items, clause) {
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					if (clause(item)) {
+						return item;
+					}
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return ss.getDefaultValue(T);
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.all = function(T) {
+		return function(items, clause) {
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				if (!clause(item)) {
+					return false;
+				}
+			}
+			return true;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.any = function(T) {
+		return function(items, clause) {
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					if (clause(item)) {
+						return true;
+					}
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return false;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.any$1 = function(T) {
+		return function(items, clause) {
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				if (clause(item)) {
+					return true;
+				}
+			}
+			return false;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.orderBy = function(T) {
+		return function(items, clause) {
+			var j = ss.arrayClone(items);
+			j.sort(function(a, b) {
+				return ss.compare(clause(a), clause(b));
+			});
+			return j;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.orderBy$1 = function(T) {
+		return function(items, clause) {
+			var j = ss.arrayClone(items);
+			j.sort(function(a, b) {
+				return ss.compare(clause(a), clause(b));
+			});
+			return j;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.orderBy$2 = function(T) {
+		return function(items, clause) {
+			var j = ss.arrayClone(items);
+			j.sort(function(a, b) {
+				return ss.compare(clause(a), clause(b));
+			});
+			return j;
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.select$1 = function(T, T2) {
+		return function(items, clause) {
+			var items2 = [];
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				ss.add(items2, clause(item));
+			}
+			return Array.prototype.slice.call(items2);
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.where = function(T) {
+		return function(items, clause) {
+			var items2 = [];
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					if (clause(item)) {
+						ss.add(items2, item);
+					}
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return Array.prototype.slice.call(items2);
+		};
+	};
+	$OurSonicModels_Common_EnumerableExtensions.select = function(T, T2) {
+		return function(items, clause) {
+			var items2 = [];
+			for (var $t1 = 0; $t1 < items.length; $t1++) {
+				var item = items[$t1];
+				ss.add(items2, clause(item));
+			}
+			return Array.prototype.slice.call(items2);
+		};
+	};
+	global.OurSonicModels.Common.EnumerableExtensions = $OurSonicModels_Common_EnumerableExtensions;
 	ss.initClass($BingoBlockParty_$Common_BallGame_Planes_ChutesPlane$wallLocation, {
 		get_$x: function() {
 			return this.$1$XField;
@@ -1089,4 +1287,5 @@
 		tick: function() {
 		}
 	}, null, [$BingoBlockParty_Common_BallGame_Models_IPlane]);
+	ss.initClass($OurSonicModels_Common_EnumerableExtensions, {});
 })();

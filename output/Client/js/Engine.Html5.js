@@ -71,12 +71,21 @@
 	var $Engine_Html5_Web_WebClient = function() {
 		this.$1$ScreenManagerField = null;
 		this.$1$SocketManagerField = null;
+		this.$1$ClientSettingsField = null;
 		this.$1$GameField = null;
 		this.$1$RendererField = null;
 		this.set_game(new BingoBlockParty.Client.Game(this));
 	};
 	$Engine_Html5_Web_WebClient.__typeName = 'Engine.Html5.Web.WebClient';
 	global.Engine.Html5.Web.WebClient = $Engine_Html5_Web_WebClient;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Web.WebClientSettings
+	var $Engine_Html5_Web_WebClientSettings = function() {
+		this.$1$OneLayoutAtATimeField = false;
+		this.$1$GetKeyboardInputField = null;
+	};
+	$Engine_Html5_Web_WebClientSettings.__typeName = 'Engine.Html5.Web.WebClientSettings';
+	global.Engine.Html5.Web.WebClientSettings = $Engine_Html5_Web_WebClientSettings;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebImage
 	var $Engine_Html5_Web_WebImage = function(imagePath, center, ready) {
@@ -122,9 +131,10 @@
 	global.Engine.Html5.Web.WebLayer = $Engine_Html5_Web_WebLayer;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebLayout
-	var $Engine_Html5_Web_WebLayout = function(layoutManager, width, height) {
+	var $Engine_Html5_Web_WebLayout = function(screen, width, height) {
+		this.$1$UIManagerField = null;
 		this.$1$LayoutViewField = null;
-		this.$1$LayoutManagerField = null;
+		this.$1$ScreenField = null;
 		this.$1$LayoutPositionField = null;
 		this.$1$WidthField = 0;
 		this.$1$HeightField = 0;
@@ -132,30 +142,17 @@
 		this.$1$AlwaysTickField = false;
 		this.$1$ElementField = null;
 		this.$active = false;
-		this.set_layoutManager(layoutManager);
+		this.set_screen(screen);
 		this.set_width(width);
 		this.set_height(height);
 		this.set_screenOrientation(0);
 		this.set_layoutPosition(new Engine.LayoutPosition(new Engine.Size.$ctor1(width, height)));
 		var $t1 = document.createElement('div');
 		this.set_element(ss.cast($t1, ss.isValue($t1) && (ss.isInstanceOfType($t1, Element) && $t1.tagName === 'DIV')));
+		this.set_uiManager(new $Engine_Html5_Web_WebUIManager(this));
 	};
 	$Engine_Html5_Web_WebLayout.__typeName = 'Engine.Html5.Web.WebLayout';
 	global.Engine.Html5.Web.WebLayout = $Engine_Html5_Web_WebLayout;
-	////////////////////////////////////////////////////////////////////////////////
-	// Engine.Html5.Web.WebLayoutManager
-	var $Engine_Html5_Web_WebLayoutManager = function(renderer) {
-		this.$1$RendererField = null;
-		this.$1$ElementField = null;
-		this.$1$WebLayoutsField = null;
-		this.$1$OneLayoutAtATimeField = false;
-		this.set_renderer(renderer);
-		this.set_webLayouts([]);
-		var $t1 = document.createElement('div');
-		this.set_element(ss.cast($t1, ss.isValue($t1) && (ss.isInstanceOfType($t1, Element) && $t1.tagName === 'DIV')));
-	};
-	$Engine_Html5_Web_WebLayoutManager.__typeName = 'Engine.Html5.Web.WebLayoutManager';
-	global.Engine.Html5.Web.WebLayoutManager = $Engine_Html5_Web_WebLayoutManager;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebRenderer
 	var $Engine_Html5_Web_WebRenderer = function(client, loaded) {
@@ -191,28 +188,59 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebScreen
 	var $Engine_Html5_Web_WebScreen = function(webScreenManager) {
-		this.$_webScreenManager = null;
-		this.$1$LayoutManagerField = null;
-		this.$_webScreenManager = webScreenManager;
-		this.set_layoutManager(new $Engine_Html5_Web_WebLayoutManager(webScreenManager.get_renderer()));
+		this.$1$ElementField = null;
+		this.$1$WebLayoutsField = null;
+		this.$1$OneLayoutAtATimeField = false;
+		this.$1$ScreenManagerField = null;
+		this.set_screenManager(webScreenManager);
+		this.set_webLayouts([]);
+		var $t1 = document.createElement('div');
+		this.set_element(ss.cast($t1, ss.isValue($t1) && (ss.isInstanceOfType($t1, Element) && $t1.tagName === 'DIV')));
 	};
 	$Engine_Html5_Web_WebScreen.__typeName = 'Engine.Html5.Web.WebScreen';
 	global.Engine.Html5.Web.WebScreen = $Engine_Html5_Web_WebScreen;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebScreenManager
-	var $Engine_Html5_Web_WebScreenManager = function(renderer, oneLayoutAtATime) {
+	var $Engine_Html5_Web_WebScreenManager = function(renderer, client) {
 		this.$1$WebScreensField = null;
 		this.$1$RendererField = null;
+		this.$1$ClientField = null;
 		this.$1$OneLayoutAtATimeField = false;
 		this.$1$CurrentScreenField = null;
 		this.$lastElapsedTime = ss.TimeSpan.getDefaultValue();
 		this.$timeouts = [];
 		this.set_renderer(renderer);
-		this.set_oneLayoutAtATime(oneLayoutAtATime);
+		this.set_client(client);
 		this.set_webScreens([]);
 	};
 	$Engine_Html5_Web_WebScreenManager.__typeName = 'Engine.Html5.Web.WebScreenManager';
 	global.Engine.Html5.Web.WebScreenManager = $Engine_Html5_Web_WebScreenManager;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Web.WebUIManager
+	var $Engine_Html5_Web_WebUIManager = function(webLayout) {
+		this.$1$LayoutField = null;
+		this.$1$TextBoxesField = null;
+		this.set_layout(webLayout);
+		this.set_textBoxes([]);
+	};
+	$Engine_Html5_Web_WebUIManager.__typeName = 'Engine.Html5.Web.WebUIManager';
+	global.Engine.Html5.Web.WebUIManager = $Engine_Html5_Web_WebUIManager;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Web.WebUITextBox
+	var $Engine_Html5_Web_WebUITextBox = function(uiManager, rectangle, layoutView, onTextChange) {
+		this.$1$FocusedField = false;
+		this.$1$UIManagerField = null;
+		this.$1$TextField = null;
+		this.$1$RectangleField = null;
+		this.$1$LayoutViewField = null;
+		this.$1$OnTextChangeField = null;
+		this.set_uiManager(uiManager);
+		this.set_rectangle(rectangle);
+		this.set_layoutView(layoutView);
+		this.set_onTextChange(onTextChange);
+	};
+	$Engine_Html5_Web_WebUITextBox.__typeName = 'Engine.Html5.Web.WebUITextBox';
+	global.Engine.Html5.Web.WebUITextBox = $Engine_Html5_Web_WebUITextBox;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.Window
 	var $Engine_Html5_Web_Window = function() {
@@ -310,6 +338,12 @@
 		set_socketManager: function(value) {
 			this.$1$SocketManagerField = value;
 		},
+		get_clientSettings: function() {
+			return this.$1$ClientSettingsField;
+		},
+		set_clientSettings: function(value) {
+			this.$1$ClientSettingsField = value;
+		},
 		get_game: function() {
 			return this.$1$GameField;
 		},
@@ -322,9 +356,10 @@
 		set_renderer: function(value) {
 			this.$1$RendererField = value;
 		},
-		init: function(renderer, oneLayoutAtATime) {
+		init: function(renderer, clientSettings) {
 			this.set_renderer(ss.cast(renderer, $Engine_Html5_Web_WebRenderer));
-			this.set_screenManager(new $Engine_Html5_Web_WebScreenManager(this.get_renderer(), oneLayoutAtATime));
+			this.set_clientSettings(clientSettings);
+			this.set_screenManager(new $Engine_Html5_Web_WebScreenManager(this.get_renderer(), this));
 			this.get_game().initScreens(renderer, this.get_screenManager());
 			this.set_socketManager(new $Engine_Html5_Network_WebSocketManager());
 			this.get_game().initSocketManager(this.get_socketManager());
@@ -345,10 +380,27 @@
 		timeout: function(callback, ms) {
 			window.setTimeout(callback, ms);
 		},
+		showKeyboard: function() {
+			throw new ss.NotImplementedException();
+		},
 		loadImages: function(renderer) {
 			this.get_game().loadAssets(renderer);
 		}
 	}, null, [Engine.Interfaces.IClient]);
+	ss.initClass($Engine_Html5_Web_WebClientSettings, {
+		get_oneLayoutAtATime: function() {
+			return this.$1$OneLayoutAtATimeField;
+		},
+		set_oneLayoutAtATime: function(value) {
+			this.$1$OneLayoutAtATimeField = value;
+		},
+		get_getKeyboardInput: function() {
+			return this.$1$GetKeyboardInputField;
+		},
+		set_getKeyboardInput: function(value) {
+			this.$1$GetKeyboardInputField = value;
+		}
+	}, null, [Engine.Interfaces.IClientSettings]);
 	ss.initClass($Engine_Html5_Web_WebImage, {
 		get_center: function() {
 			return this.$1$CenterField;
@@ -418,6 +470,12 @@
 		drawString: function(fontName, text, x, y) {
 			this.canvasInformation.context.fillText(text, x, y);
 		},
+		drawString$1: function(fontName, text, x, y, color) {
+			this.canvasInformation.context.save();
+			this.canvasInformation.context.fillStyle = color.toString();
+			this.canvasInformation.context.fillText(text, x, y);
+			this.canvasInformation.context.restore();
+		},
 		clear: function() {
 			this.canvasInformation.context.clearRect(0, 0, this.$width, this.$height);
 		},
@@ -432,17 +490,23 @@
 		}
 	}, null, [Engine.Interfaces.ILayer]);
 	ss.initClass($Engine_Html5_Web_WebLayout, {
+		get_uiManager: function() {
+			return this.$1$UIManagerField;
+		},
+		set_uiManager: function(value) {
+			this.$1$UIManagerField = value;
+		},
 		get_layoutView: function() {
 			return this.$1$LayoutViewField;
 		},
 		set_layoutView: function(value) {
 			this.$1$LayoutViewField = value;
 		},
-		get_layoutManager: function() {
-			return this.$1$LayoutManagerField;
+		get_screen: function() {
+			return this.$1$ScreenField;
 		},
-		set_layoutManager: function(value) {
-			this.$1$LayoutManagerField = value;
+		set_screen: function(value) {
+			this.$1$ScreenField = value;
 		},
 		get_layoutPosition: function() {
 			return this.$1$LayoutPositionField;
@@ -485,8 +549,8 @@
 		},
 		set_active: function(value) {
 			if (value) {
-				if (this.get_layoutManager().get_oneLayoutAtATime()) {
-					var $t1 = ss.getEnumerator(this.get_layoutManager().get_layouts());
+				if (this.get_screen().get_oneLayoutAtATime()) {
+					var $t1 = ss.getEnumerator(this.get_screen().get_layouts());
 					try {
 						while ($t1.moveNext()) {
 							var layout = $t1.current();
@@ -536,7 +600,7 @@
 		},
 		makeActive: function() {
 			this.set_active(true);
-			this.get_layoutManager().changeLayout$1(this);
+			this.get_screen().changeLayout$1(this);
 			return this;
 		},
 		forceTick: function() {
@@ -546,20 +610,90 @@
 		setScreenOrientation: function(orientation) {
 			this.set_screenOrientation(orientation);
 			return this;
+		},
+		processTouchEvent: function(touchType, x, y) {
+			if (this.get_uiManager().processTouchEvent(touchType, x, y)) {
+				return;
+			}
+			this.get_layoutView().get_touchManager().processTouchEvent(touchType, x, y);
 		}
 	}, null, [Engine.Interfaces.ILayout]);
-	ss.initClass($Engine_Html5_Web_WebLayoutManager, {
-		get_renderer: function() {
-			return this.$1$RendererField;
+	ss.initClass($Engine_Html5_Web_WebRenderer, {
+		createLayer: function(width, height, layout) {
+			return new $Engine_Html5_Web_WebLayer(this, width, height, layout);
 		},
-		set_renderer: function(value) {
-			this.$1$RendererField = value;
+		addLayer: function(layer) {
+			var webLayout = ss.cast(layer.get_layout(), $Engine_Html5_Web_WebLayout);
+			webLayout.get_element().appendChild(ss.cast(layer, $Engine_Html5_Web_WebLayer).canvasInformation.canvas);
+			ss.add(this.$layers, ss.cast(layer, $Engine_Html5_Web_WebLayer));
 		},
+		getImage: function(imageName) {
+			return this.$imageCache.getImage(imageName);
+		},
+		get_clickManager: function() {
+			return this.$1$ClickManagerField;
+		},
+		set_clickManager: function(value) {
+			this.$1$ClickManagerField = value;
+		},
+		createImage: function(imageName, imagePath, center) {
+			this.$numberOfImages++;
+			this.$imageCache.createImage(imageName, imagePath, center, ss.mkdel(this, this.$imagesReady));
+		},
+		createFont: function(fontName, fontPath) {
+		},
+		$imagesReady: function() {
+			this.$numberOfImagesLoaded++;
+			if (this.$numberOfImagesLoaded === this.$numberOfImages) {
+				this.$_loaded();
+			}
+		},
+		beginRender: function() {
+			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
+				var xnaLayer = this.$layers[$t1];
+				xnaLayer.begin();
+			}
+		},
+		endRender: function() {
+			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
+				var xnaLayer = this.$layers[$t1];
+				xnaLayer.end();
+			}
+		}
+	}, null, [Engine.Interfaces.IRenderer]);
+	ss.initClass($Engine_Html5_Web_WebScreen, {
 		get_element: function() {
 			return this.$1$ElementField;
 		},
 		set_element: function(value) {
 			this.$1$ElementField = value;
+		},
+		destroy: function() {
+			var divElement = this.get_element();
+			document.body.removeChild(divElement);
+			var $t1 = ss.getEnumerator(this.get_layouts());
+			try {
+				while ($t1.moveNext()) {
+					var layout = $t1.current();
+					var el = layout.get_element();
+					while (ss.isValue(el.firstChild)) {
+						el.removeChild(el.firstChild);
+					}
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			var $t2 = ss.getEnumerator(this.get_layouts());
+			try {
+				while ($t2.moveNext()) {
+					var layout1 = $t2.current();
+					layout1.get_layoutView().destroy();
+				}
+			}
+			finally {
+				$t2.dispose();
+			}
 		},
 		createLayout: function(width, height) {
 			var xnaLayout = new $Engine_Html5_Web_WebLayout(this, width, height);
@@ -582,6 +716,12 @@
 		set_oneLayoutAtATime: function(value) {
 			this.$1$OneLayoutAtATimeField = value;
 		},
+		get_screenManager: function() {
+			return this.$1$ScreenManagerField;
+		},
+		set_screenManager: function(value) {
+			this.$1$ScreenManagerField = value;
+		},
 		get_currentLayout: function() {
 			var $t1 = this.get_webLayouts();
 			for (var $t2 = 0; $t2 < $t1.length; $t2++) {
@@ -593,6 +733,7 @@
 			return null;
 		},
 		init: function() {
+			document.body.insertBefore(this.get_element(), ss.cast(this.get_screenManager(), $Engine_Html5_Web_WebScreenManager).get_renderer().get_clickManager());
 			var $t1 = ss.getEnumerator(this.get_layouts());
 			try {
 				while ($t1.moveNext()) {
@@ -602,6 +743,16 @@
 			}
 			finally {
 				$t1.dispose();
+			}
+			var $t2 = ss.getEnumerator(this.get_layouts());
+			try {
+				while ($t2.moveNext()) {
+					var layout1 = $t2.current();
+					layout1.get_layoutView().initLayoutView();
+				}
+			}
+			finally {
+				$t2.dispose();
 			}
 		},
 		draw: function(elapsedGameTime) {
@@ -711,106 +862,6 @@
 				}
 			}
 		}
-	}, null, [Engine.Interfaces.ILayoutManager]);
-	ss.initClass($Engine_Html5_Web_WebRenderer, {
-		createLayer: function(width, height, layout) {
-			return new $Engine_Html5_Web_WebLayer(this, width, height, layout);
-		},
-		addLayer: function(layer) {
-			var webLayout = ss.cast(layer.get_layout(), $Engine_Html5_Web_WebLayout);
-			webLayout.get_element().appendChild(ss.cast(layer, $Engine_Html5_Web_WebLayer).canvasInformation.canvas);
-			ss.add(this.$layers, ss.cast(layer, $Engine_Html5_Web_WebLayer));
-		},
-		getImage: function(imageName) {
-			return this.$imageCache.getImage(imageName);
-		},
-		get_clickManager: function() {
-			return this.$1$ClickManagerField;
-		},
-		set_clickManager: function(value) {
-			this.$1$ClickManagerField = value;
-		},
-		createImage: function(imageName, imagePath, center) {
-			this.$numberOfImages++;
-			this.$imageCache.createImage(imageName, imagePath, center, ss.mkdel(this, this.$imagesReady));
-		},
-		createFont: function(fontName, fontPath) {
-		},
-		$imagesReady: function() {
-			this.$numberOfImagesLoaded++;
-			if (this.$numberOfImagesLoaded === this.$numberOfImages) {
-				this.$_loaded();
-			}
-		},
-		beginRender: function() {
-			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
-				var xnaLayer = this.$layers[$t1];
-				xnaLayer.begin();
-			}
-		},
-		endRender: function() {
-			for (var $t1 = 0; $t1 < this.$layers.length; $t1++) {
-				var xnaLayer = this.$layers[$t1];
-				xnaLayer.end();
-			}
-		}
-	}, null, [Engine.Interfaces.IRenderer]);
-	ss.initClass($Engine_Html5_Web_WebScreen, {
-		get_layoutManager: function() {
-			return this.$1$LayoutManagerField;
-		},
-		set_layoutManager: function(value) {
-			this.$1$LayoutManagerField = value;
-		},
-		init: function() {
-			document.body.insertBefore(ss.cast(this.get_layoutManager(), $Engine_Html5_Web_WebLayoutManager).get_element(), this.$_webScreenManager.get_renderer().get_clickManager());
-			var $t1 = ss.getEnumerator(this.get_layoutManager().get_layouts());
-			try {
-				while ($t1.moveNext()) {
-					var layout = $t1.current();
-					layout.get_layoutView().initLayoutView();
-				}
-			}
-			finally {
-				$t1.dispose();
-			}
-		},
-		destroy: function() {
-			var divElement = ss.cast(this.get_layoutManager(), $Engine_Html5_Web_WebLayoutManager).get_element();
-			document.body.removeChild(divElement);
-			var $t1 = ss.getEnumerator(this.get_layoutManager().get_layouts());
-			try {
-				while ($t1.moveNext()) {
-					var layout = $t1.current();
-					var el = layout.get_element();
-					while (ss.isValue(el.firstChild)) {
-						el.removeChild(el.firstChild);
-					}
-				}
-			}
-			finally {
-				$t1.dispose();
-			}
-			var $t2 = ss.getEnumerator(this.get_layoutManager().get_layouts());
-			try {
-				while ($t2.moveNext()) {
-					var layout1 = $t2.current();
-					layout1.get_layoutView().destroy();
-				}
-			}
-			finally {
-				$t2.dispose();
-			}
-		},
-		draw: function(elapsedGameTime) {
-			this.get_layoutManager().draw(elapsedGameTime);
-		},
-		touchEvent: function(touchType, x, y) {
-			this.get_layoutManager().touchEvent(touchType, x, y);
-		},
-		tick: function(elapsedGameTime) {
-			this.get_layoutManager().tick(elapsedGameTime);
-		}
 	}, null, [Engine.Interfaces.IScreen]);
 	ss.initClass($Engine_Html5_Web_WebScreenManager, {
 		get_webScreens: function() {
@@ -824,6 +875,12 @@
 		},
 		set_renderer: function(value) {
 			this.$1$RendererField = value;
+		},
+		get_client: function() {
+			return this.$1$ClientField;
+		},
+		set_client: function(value) {
+			this.$1$ClientField = value;
 		},
 		get_oneLayoutAtATime: function() {
 			return this.$1$OneLayoutAtATimeField;
@@ -847,11 +904,11 @@
 		},
 		draw: function(elapsedGameTime) {
 			this.get_renderer().beginRender();
-			this.get_currentScreen().get_layoutManager().draw(elapsedGameTime);
+			this.get_currentScreen().draw(elapsedGameTime);
 			this.get_renderer().endRender();
 		},
 		touchEvent: function(touchType, x, y) {
-			this.get_currentScreen().get_layoutManager().touchEvent(touchType, x, y);
+			this.get_currentScreen().touchEvent(touchType, x, y);
 		},
 		timeout: function(callback, ms) {
 			var cur = new ss.TimeSpan(this.$lastElapsedTime.ticks + (new ss.TimeSpan(((((0 * 24 + 0) * 60 + 0) * 60 + 0) * 1000 + ms) * 10000)).ticks);
@@ -871,14 +928,14 @@
 			this.get_currentScreen().tick(elapsedGameTime);
 		},
 		getScreenSize: function() {
-			return this.get_currentScreen().get_layoutManager().getLayoutSize();
+			return this.get_currentScreen().getLayoutSize();
 		},
 		changeScreen: function(screen) {
 			if (ss.isValue(this.get_currentScreen())) {
 				this.get_currentScreen().destroy();
 			}
 			this.set_currentScreen(screen);
-			var $t1 = ss.getEnumerator(this.get_currentScreen().get_layoutManager().get_layouts());
+			var $t1 = ss.getEnumerator(this.get_currentScreen().get_layouts());
 			try {
 				while ($t1.moveNext()) {
 					var layout = $t1.current();
@@ -895,6 +952,111 @@
 			this.init();
 		}
 	}, null, [Engine.Interfaces.IScreenManager]);
+	ss.initClass($Engine_Html5_Web_WebUIManager, {
+		get_layout: function() {
+			return this.$1$LayoutField;
+		},
+		set_layout: function(value) {
+			this.$1$LayoutField = value;
+		},
+		get_textBoxes: function() {
+			return this.$1$TextBoxesField;
+		},
+		set_textBoxes: function(value) {
+			this.$1$TextBoxesField = value;
+		},
+		processTouchEvent: function(touchType, x, y) {
+			var $t1 = ss.getEnumerator(this.get_layout().get_screen().get_layouts());
+			try {
+				while ($t1.moveNext()) {
+					var layout = $t1.current();
+					layout.get_uiManager().clearFocus();
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			var $t2 = this.get_textBoxes();
+			for (var $t3 = 0; $t3 < $t2.length; $t3++) {
+				var uiTextBox = $t2[$t3];
+				if (uiTextBox.get_rectangle().isInside$1(x, y)) {
+					uiTextBox.focus();
+					return true;
+				}
+			}
+			return false;
+		},
+		createTextBox: function(rectangle, layoutView, onTextChange) {
+			var webUiTextBox = new $Engine_Html5_Web_WebUITextBox(this, rectangle, layoutView, onTextChange);
+			ss.add(this.get_textBoxes(), webUiTextBox);
+			return webUiTextBox;
+		},
+		clearFocus: function() {
+			var $t1 = this.get_textBoxes();
+			for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+				var uiTextBox = $t1[$t2];
+				uiTextBox.blur();
+			}
+		}
+	}, null, [Engine.Interfaces.IUIManager]);
+	ss.initClass($Engine_Html5_Web_WebUITextBox, {
+		get_focused: function() {
+			return this.$1$FocusedField;
+		},
+		set_focused: function(value) {
+			this.$1$FocusedField = value;
+		},
+		get_uiManager: function() {
+			return this.$1$UIManagerField;
+		},
+		set_uiManager: function(value) {
+			this.$1$UIManagerField = value;
+		},
+		get_text: function() {
+			return this.$1$TextField;
+		},
+		set_text: function(value) {
+			this.$1$TextField = value;
+		},
+		get_rectangle: function() {
+			return this.$1$RectangleField;
+		},
+		set_rectangle: function(value) {
+			this.$1$RectangleField = value;
+		},
+		get_layoutView: function() {
+			return this.$1$LayoutViewField;
+		},
+		set_layoutView: function(value) {
+			this.$1$LayoutViewField = value;
+		},
+		get_onTextChange: function() {
+			return this.$1$OnTextChangeField;
+		},
+		set_onTextChange: function(value) {
+			this.$1$OnTextChangeField = value;
+		},
+		focus: function() {
+			this.set_focused(true);
+			this.get_uiManager().get_layout().get_screen().get_screenManager().get_client().get_clientSettings().get_getKeyboardInput()(ss.mkdel(this, function(text) {
+				this.set_text(text);
+			}));
+			//            var content = j.Result;
+		},
+		draw: function() {
+			//
+			//                        Draw text box draw blinking cursor when focused
+			//
+			//                        take in the font u want
+			//
+			//                        on focus if applicable, open up the keyboard and move the whole layout up to y-height-idk10?
+			//
+			//                        Capture all keyboard input, if any textbox is focused, pass it along, update OnTextChange
+		},
+		blur: function() {
+			this.set_focused(false);
+		}
+	}, null, [Engine.Interfaces.IUITextBox]);
 	ss.initClass($Engine_Html5_Web_Window, {});
 	ss.initClass($Engine_Xna_Network_$SocketError, {
 		get_exception: function() {

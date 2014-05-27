@@ -35,7 +35,13 @@
 	};
 	ss.initClass($Client_Web_$Program, {
 		$finishedLoadingImages: function() {
-			this.$client.init(this.$renderer, false);
+			var $t2 = this.$client;
+			var $t3 = this.$renderer;
+			var $t1 = new Engine.Html5.Web.WebClientSettings();
+			$t1.set_oneLayoutAtATime(false);
+			$t1.set_getKeyboardInput(function(callback) {
+			});
+			$t2.init($t3, $t1);
 			window.setInterval(ss.mkdel(this, function() {
 				this.$client.tick(new ss.TimeSpan(0));
 			}), 16);

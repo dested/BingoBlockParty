@@ -121,8 +121,6 @@ namespace Client.WindowsPhone
                         client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Pressed:
-                        var text = await Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
-
                         client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Released:

@@ -42,7 +42,6 @@
     <Compile Include="WebImageCache.cs" />
     <Compile Include="WebLayer.cs" />
     <Compile Include="WebLayout.cs" />
-    <Compile Include="WebLayoutManager.cs" />
     <Compile Include="WebRenderer.cs" />
     <Compile Include="WebScreen.cs" />
     <Compile Include="WebScreenManager.cs" />

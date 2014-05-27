@@ -11,6 +11,7 @@
         void DrawImage(IImage image, int x, int y, int width, int height);
         void DrawImage(IImage image, int x, int y, double angle, int centerX, int centerY);
         void DrawString(string fontName, string text, int x, int y);
+        void DrawString(string fontName, string text, int x, int y,Color color);
         void Clear();
         double MeasureString(string text);
         void  DrawRectangle(Color color, int x, int y, int width, int height);

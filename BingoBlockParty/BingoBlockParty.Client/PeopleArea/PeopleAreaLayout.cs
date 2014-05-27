@@ -42,7 +42,7 @@ namespace BingoBlockParty.Client.PeopleArea
             mainLayer.Clear();
             mainLayer.Save();
             mainLayer.DrawRectangle(new Color(11, 19, 255), 0, 61, _width, _height-61);
-            mainLayer.DrawRectangle(new Color(11, 200, 255,80), 0, 0, _width, 61);
+            mainLayer.DrawRectangle(new Color(11, 200, 255, 80), _width/2, 0, _width / 2, 61);
             mainLayer.Restore();
         }
 

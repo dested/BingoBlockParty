@@ -7,24 +7,21 @@ namespace Engine
         public int Width { get; set; }
         public int Height { get; set; }
         public TouchTrigger EventToTrigger { get; set; }
+        public object State { get; set; }
 
-        public TouchRect(int x, int y, int width, int height, TouchTrigger eventToTrigger)
+        public TouchRect(Rectangle rect, TouchTrigger eventToTrigger, object state = null):this(rect.X,rect.Y,rect.Width,rect.Height,eventToTrigger,state)
+        {
+        }
+
+        public TouchRect(int x, int y, int width, int height, TouchTrigger eventToTrigger, object state = null)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
             EventToTrigger = eventToTrigger;
+            State = state;
         }
-        public TouchRect(Rectangle rect, TouchTrigger eventToTrigger)
-        {
-            X = rect.X;
-            Y = rect.Y;
-            Width = rect.Width;
-            Height = rect.Height;
-            EventToTrigger = eventToTrigger;
-        }
-
         public bool Collides(int x, int y)
         {
             return this.X < x &&

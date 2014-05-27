@@ -6,17 +6,18 @@ namespace Engine.Html5.Web
 {
     public class WebScreenManager : IScreenManager
     {
-        public WebScreenManager(WebRenderer renderer, bool oneLayoutAtATime)
+        public WebScreenManager(WebRenderer renderer, IClient client)
         {
 
             Renderer = renderer;
-            OneLayoutAtATime = oneLayoutAtATime;
+            Client = client;
             WebScreens = new List<WebScreen>();
         }
 
         public List<WebScreen> WebScreens { get; set; }
 
         public WebRenderer Renderer { get; set; }
+        public IClient Client { get; set; }
         public bool OneLayoutAtATime { get; set; }
 
         public IScreen CreateScreen()
@@ -31,7 +32,7 @@ namespace Engine.Html5.Web
         public void Draw(TimeSpan elapsedGameTime)
         {
             Renderer.BeginRender();
-            CurrentScreen.LayoutManager.Draw(elapsedGameTime);
+            CurrentScreen.Draw(elapsedGameTime);
 
             Renderer.EndRender();
 
@@ -39,7 +40,7 @@ namespace Engine.Html5.Web
 
         public void TouchEvent(TouchType touchType, int x, int y)
         {
-            CurrentScreen.LayoutManager.TouchEvent(touchType, x, y);
+            CurrentScreen.TouchEvent(touchType, x, y);
         }
 
         private TimeSpan lastElapsedTime;
@@ -73,7 +74,7 @@ namespace Engine.Html5.Web
 
         public Size GetScreenSize()
         {
-            return CurrentScreen.LayoutManager.GetLayoutSize();
+            return CurrentScreen.GetLayoutSize();
         }
 
         public void ChangeScreen(IScreen screen)
@@ -83,7 +84,7 @@ namespace Engine.Html5.Web
                 CurrentScreen.Destroy();
             }
             CurrentScreen = screen;
-            foreach (WebLayout layout in CurrentScreen.LayoutManager.Layouts)
+            foreach (WebLayout layout in CurrentScreen.Layouts)
             {
                 layout.Element.Style.Position = "absolute";
                 layout.Element.Style.Left = layout.LayoutPosition.Location.X + "px";

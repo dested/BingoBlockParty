@@ -102,8 +102,6 @@ namespace Client.IOS
                         const int tolerance = 4000;
                         if (gest.Delta.X > tolerance)
                         {
-                            var text = await Task<string>.Factory.FromAsync(Guide.BeginShowKeyboardInput(PlayerIndex.One, "", "", "", null, null), Guide.EndShowKeyboardInput);
-
                             layoutManager.ChangeLayout(Direction.Left);
                         }
                         if (gest.Delta.X < -tolerance)

@@ -78,7 +78,15 @@ namespace Engine.Html5.Web
         {
             CanvasInformation.Context.FillText(text, x, y);
         }
- 
+
+        public void DrawString(string fontName, string text, int x, int y, Color color)
+        {
+            CanvasInformation.Context.Save();
+            CanvasInformation.Context.FillStyle=color.ToString();
+            CanvasInformation.Context.FillText(text, x, y);
+            CanvasInformation.Context.Restore();
+        }
+
 
         public void Clear()
         {

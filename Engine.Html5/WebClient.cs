@@ -8,6 +8,7 @@ namespace Engine.Html5.Web
     {
         public IScreenManager ScreenManager { get; set; }
         public ISocketManager SocketManager { get; set; }
+        public IClientSettings ClientSettings { get; set; }
 
 
         public IGame Game { get; set; }
@@ -17,18 +18,19 @@ namespace Engine.Html5.Web
         {
             Game = new BingoBlockParty.Client.Game(this);
         }
-        public void Init(IRenderer renderer, bool oneLayoutAtATime)
+        public void Init(IRenderer renderer, IClientSettings clientSettings)
         {
 
             Renderer = (WebRenderer)renderer;
-            ScreenManager = new WebScreenManager(Renderer, oneLayoutAtATime);
+            ClientSettings = clientSettings;
+            ScreenManager = new WebScreenManager(Renderer, this);
             Game.InitScreens(renderer, ScreenManager);
 
             SocketManager = new WebSocketManager();
             Game.InitSocketManager(SocketManager);
         }
 
-
+         
 
         public void Draw(TimeSpan elapsedGameTime)
         {
@@ -55,9 +57,21 @@ namespace Engine.Html5.Web
             Window.SetTimeout(callback, ms);
         }
 
+        public void ShowKeyboard()
+        {
+            throw new NotImplementedException();
+        }
+
         public void LoadImages(IRenderer renderer)
         {
             Game.LoadAssets(renderer);
         }
     }
+    public class WebClientSettings : IClientSettings
+    {
+        public bool OneLayoutAtATime { get; set; }
+        public Action<Action<string>> GetKeyboardInput { get; set; }
+    }
+
+
 }

@@ -14,5 +14,10 @@ namespace Engine
             B = b;
             A = a;
         }
+
+        public override string ToString()
+        {
+            return string.Format("rgba({0},{1},{2},{3})", R, G, B, A);
+        }
     }
 }

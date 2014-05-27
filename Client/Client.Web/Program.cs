@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Html5.Web;
+using Engine.Interfaces;
 using Window = Engine.Html5.Web.Window;
 
 namespace Client.Web
@@ -42,7 +43,14 @@ namespace Client.Web
 
         private void finishedLoadingImages()
         {
-            client.Init(renderer, false);
+            client.Init(renderer, new WebClientSettings()
+            {
+                OneLayoutAtATime=false,
+                GetKeyboardInput = (callback) =>
+                {
+                    
+                }
+            });
             Window.SetInterval(() => client.Tick(new TimeSpan(0)), 1000 / 60);
             Window.SetInterval(() => client.Draw(new TimeSpan(0)), 1000 / 60);
         }

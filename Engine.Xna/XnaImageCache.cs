@@ -23,6 +23,7 @@ namespace Engine.Xna
         }
         public SpriteFont GetFont(string fontName)
         {
+            return null;
             return fonts[fontName];
         }
 
@@ -38,8 +39,8 @@ namespace Engine.Xna
 
         public void CreateFont(string fontName, string fontPath)
         {
-            var font = content.Load<SpriteFont>(fontPath);
-            fonts.Add(fontName, font);
+//            var font = content.Load<SpriteFont>("fonts/"+fontPath);
+//            fonts.Add(fontName, font);
         }
     }
 }

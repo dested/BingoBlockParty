@@ -60,13 +60,14 @@ namespace BingoBlockParty.Client
             LobbyListLayout.LayoutView = new LobbyLayout(this, 766, 584, renderer, LobbyListLayout);
 
 
-            screenManager.ChangeScreen(lobbyScreen);
+            screenManager.ChangeScreen(gameScreen);
 
         }
 
 
         public void InitSocketManager(ISocketManager socketManager)
         {
+/*
             Socket = socketManager.Create("http://192.168.1.3:3000/");
             Socket.OnConnect = () =>
             {
@@ -80,6 +81,7 @@ namespace BingoBlockParty.Client
             });
 
             Socket.Connect();
+*/
         }
 
         public class Boo
@@ -130,6 +132,96 @@ namespace BingoBlockParty.Client
             renderer.CreateImage("lobby.wideBackground", "images/lobby/wideBackground.png");
 
 
+            renderer.CreateImage("icons.lock", "images/icons/lock.png");
+            renderer.CreateImage("icons.goldCoin", "images/icons/goldCoin.png");
+            renderer.CreateImage("icons.100", "images/icons/100.png");
+            renderer.CreateImage("icons.200", "images/icons/200.png");
+            renderer.CreateImage("icons.300", "images/icons/300.png");
+            renderer.CreateImage("icons.400", "images/icons/400.png");
+
+            renderer.CreateImage("leftBoard.bingoCard", "images/leftBoard/bingoCard.png");
+            renderer.CreateImage("leftBoard.chooseYourCards", "images/leftBoard/chooseYourCards.png");
+            renderer.CreateImage("leftBoard.darkBoard", "images/leftBoard/darkBoard.png");
+            renderer.CreateImage("leftBoard.greyPersonBox", "images/leftBoard/greyPersonBox.png");
+            renderer.CreateImage("leftBoard.leftBoard", "images/leftBoard/leftBoard.png");
+            renderer.CreateImage("leftBoard.lightBoard", "images/leftBoard/lightBoard.png");
+            renderer.CreateImage("leftBoard.numberCallArea", "images/leftBoard/numberCallArea.png");
+            renderer.CreateImage("leftBoard.purchaseBingCardOutline", "images/leftBoard/purchaseBingCardOutline.png");
+            renderer.CreateImage("leftBoard.purchaseBingCardOutlineSelected", "images/leftBoard/purchaseBingCardOutlineSelected.png");
+            renderer.CreateImage("leftBoard.purchaseBingoCard", "images/leftBoard/purchaseBingoCard.png");
+            renderer.CreateImage("leftBoard.purchaseCard", "images/leftBoard/purchaseCard.png");
+            renderer.CreateImage("leftBoard.purchaseConfirm", "images/leftBoard/purchaseConfirm.png");
+            renderer.CreateImage("leftBoard.selectAvatar", "images/leftBoard/selectAvatar.png");
+            renderer.CreateImage("leftBoard.smallGreyBox", "images/leftBoard/smallGreyBox.png");
+            renderer.CreateImage("leftBoard.smallOrangeButton", "images/leftBoard/smallOrangeButton.png");
+            renderer.CreateImage("leftBoard.wideGreyBox", "images/leftBoard/wideGreyBox.png");
+            renderer.CreateImage("leftBoard.previousCalledBalls", "images/leftBoard/previousCalledBalls.png");
+            renderer.CreateImage("leftBoard.wideOrangeButton", "images/leftBoard/wideOrangeButton.png");
+
+
+            renderer.CreateImage("leftBoard.numbers.white.1", "images/leftBoard/numbers/white/1.png");
+            renderer.CreateImage("leftBoard.numbers.white.2", "images/leftBoard/numbers/white/2.png");
+            renderer.CreateImage("leftBoard.numbers.white.3", "images/leftBoard/numbers/white/3.png");
+            renderer.CreateImage("leftBoard.numbers.white.4", "images/leftBoard/numbers/white/4.png");
+            renderer.CreateImage("leftBoard.numbers.white.5", "images/leftBoard/numbers/white/5.png");
+            renderer.CreateImage("leftBoard.numbers.white.6", "images/leftBoard/numbers/white/6.png");
+            renderer.CreateImage("leftBoard.numbers.white.7", "images/leftBoard/numbers/white/7.png");
+            renderer.CreateImage("leftBoard.numbers.white.8", "images/leftBoard/numbers/white/8.png");
+            renderer.CreateImage("leftBoard.numbers.white.9", "images/leftBoard/numbers/white/9.png");
+            renderer.CreateImage("leftBoard.numbers.white.10", "images/leftBoard/numbers/white/10.png");
+            renderer.CreateImage("leftBoard.numbers.white.11", "images/leftBoard/numbers/white/11.png");
+            renderer.CreateImage("leftBoard.numbers.white.12", "images/leftBoard/numbers/white/12.png");
+            renderer.CreateImage("leftBoard.numbers.white.13", "images/leftBoard/numbers/white/13.png");
+            renderer.CreateImage("leftBoard.numbers.white.14", "images/leftBoard/numbers/white/14.png");
+            renderer.CreateImage("leftBoard.numbers.white.15", "images/leftBoard/numbers/white/15.png");
+            renderer.CreateImage("leftBoard.numbers.white.16", "images/leftBoard/numbers/white/16.png");
+            renderer.CreateImage("leftBoard.numbers.white.17", "images/leftBoard/numbers/white/17.png");
+            renderer.CreateImage("leftBoard.numbers.white.18", "images/leftBoard/numbers/white/18.png");
+            renderer.CreateImage("leftBoard.numbers.white.19", "images/leftBoard/numbers/white/19.png");
+            renderer.CreateImage("leftBoard.numbers.white.20", "images/leftBoard/numbers/white/20.png");
+            renderer.CreateImage("leftBoard.numbers.white.21", "images/leftBoard/numbers/white/21.png");
+            renderer.CreateImage("leftBoard.numbers.white.22", "images/leftBoard/numbers/white/22.png");
+            renderer.CreateImage("leftBoard.numbers.white.23", "images/leftBoard/numbers/white/23.png");
+            renderer.CreateImage("leftBoard.numbers.white.24", "images/leftBoard/numbers/white/24.png");
+            renderer.CreateImage("leftBoard.numbers.white.25", "images/leftBoard/numbers/white/25.png");
+            renderer.CreateImage("leftBoard.numbers.white.26", "images/leftBoard/numbers/white/26.png");
+            renderer.CreateImage("leftBoard.numbers.white.27", "images/leftBoard/numbers/white/27.png");
+            renderer.CreateImage("leftBoard.numbers.white.28", "images/leftBoard/numbers/white/28.png");
+            renderer.CreateImage("leftBoard.numbers.white.29", "images/leftBoard/numbers/white/29.png");
+            renderer.CreateImage("leftBoard.numbers.white.30", "images/leftBoard/numbers/white/30.png");
+
+
+
+            renderer.CreateImage("leftBoard.numbers.colored.1", "images/leftBoard/numbers/colored/1.png");
+            renderer.CreateImage("leftBoard.numbers.colored.2", "images/leftBoard/numbers/colored/2.png");
+            renderer.CreateImage("leftBoard.numbers.colored.3", "images/leftBoard/numbers/colored/3.png");
+            renderer.CreateImage("leftBoard.numbers.colored.4", "images/leftBoard/numbers/colored/4.png");
+            renderer.CreateImage("leftBoard.numbers.colored.5", "images/leftBoard/numbers/colored/5.png");
+            renderer.CreateImage("leftBoard.numbers.colored.6", "images/leftBoard/numbers/colored/6.png");
+            renderer.CreateImage("leftBoard.numbers.colored.7", "images/leftBoard/numbers/colored/7.png");
+            renderer.CreateImage("leftBoard.numbers.colored.8", "images/leftBoard/numbers/colored/8.png");
+            renderer.CreateImage("leftBoard.numbers.colored.9", "images/leftBoard/numbers/colored/9.png");
+            renderer.CreateImage("leftBoard.numbers.colored.10", "images/leftBoard/numbers/colored/10.png");
+            renderer.CreateImage("leftBoard.numbers.colored.11", "images/leftBoard/numbers/colored/11.png");
+            renderer.CreateImage("leftBoard.numbers.colored.12", "images/leftBoard/numbers/colored/12.png");
+            renderer.CreateImage("leftBoard.numbers.colored.13", "images/leftBoard/numbers/colored/13.png");
+            renderer.CreateImage("leftBoard.numbers.colored.14", "images/leftBoard/numbers/colored/14.png");
+            renderer.CreateImage("leftBoard.numbers.colored.15", "images/leftBoard/numbers/colored/15.png");
+            renderer.CreateImage("leftBoard.numbers.colored.16", "images/leftBoard/numbers/colored/16.png");
+            renderer.CreateImage("leftBoard.numbers.colored.17", "images/leftBoard/numbers/colored/17.png");
+            renderer.CreateImage("leftBoard.numbers.colored.18", "images/leftBoard/numbers/colored/18.png");
+            renderer.CreateImage("leftBoard.numbers.colored.19", "images/leftBoard/numbers/colored/19.png");
+            renderer.CreateImage("leftBoard.numbers.colored.20", "images/leftBoard/numbers/colored/20.png");
+            renderer.CreateImage("leftBoard.numbers.colored.21", "images/leftBoard/numbers/colored/21.png");
+            renderer.CreateImage("leftBoard.numbers.colored.22", "images/leftBoard/numbers/colored/22.png");
+            renderer.CreateImage("leftBoard.numbers.colored.23", "images/leftBoard/numbers/colored/23.png");
+            renderer.CreateImage("leftBoard.numbers.colored.24", "images/leftBoard/numbers/colored/24.png");
+            renderer.CreateImage("leftBoard.numbers.colored.25", "images/leftBoard/numbers/colored/25.png");
+            renderer.CreateImage("leftBoard.numbers.colored.26", "images/leftBoard/numbers/colored/26.png");
+            renderer.CreateImage("leftBoard.numbers.colored.27", "images/leftBoard/numbers/colored/27.png");
+            renderer.CreateImage("leftBoard.numbers.colored.28", "images/leftBoard/numbers/colored/28.png");
+            renderer.CreateImage("leftBoard.numbers.colored.29", "images/leftBoard/numbers/colored/29.png");
+            renderer.CreateImage("leftBoard.numbers.colored.30", "images/leftBoard/numbers/colored/30.png");
 
 
             renderer.CreateImage("board", "images/gameBoards/board1.png");
@@ -188,6 +280,7 @@ namespace BingoBlockParty.Client
         public void LoadFonts(IRenderer renderer)
         {
             renderer.CreateFont("lobby.font", "spriteFont1");
+            renderer.CreateFont("Arial-18", "Arial-18");
         }
 
       

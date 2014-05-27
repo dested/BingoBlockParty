@@ -15,9 +15,15 @@ namespace Engine
         {
         }
 
-        public void PushClickRect(TouchRect touchRect)
+        public TouchRect PushClickRect(TouchRect touchRect)
         {
             touchRects.Add(touchRect);
+            return touchRect;
+        }
+
+        public void RemoveClickRect(TouchRect touchRect)
+        {
+            touchRects.Remove(touchRect);
         }
 
         public void ProcessTouchEvent(TouchType touchType, int x, int y)
@@ -25,14 +31,14 @@ namespace Engine
             switch (touchType)
             {
                 case TouchType.TouchUp:
-                    foreach (var clickRect in this.touchRects)
+                    foreach (var clickRect in this.touchRects.ToArray())
                     {
                         clickRect.EventToTrigger(touchType, clickRect, x - clickRect.X, y - clickRect.Y, clickRect.Collides(x, y));//ignore result for mouseup
                     }
                     break;
                 case TouchType.TouchDown:
                 case TouchType.TouchMove:
-                    foreach (var clickRect in this.touchRects)
+                    foreach (var clickRect in this.touchRects.ToArray())
                     {
                         if (!clickRect.Collides(x, y)) continue;
 
