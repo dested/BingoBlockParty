@@ -28,7 +28,7 @@ namespace Engine.Xna
 
             settingsStack.Add(new XnaContextSettings());
             shapeCache = new XnaShapeCache(renderer.graphicsDevice);
-            _rasterizerState = new RasterizerState() { ScissorTestEnable = true };
+//            _rasterizerState = new RasterizerState() { ScissorTestEnable = true };
 
         }
 
