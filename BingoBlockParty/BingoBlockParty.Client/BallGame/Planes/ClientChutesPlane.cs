@@ -36,6 +36,9 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public void Render()
         {
+            this.BackPlane.Begin();
+            this.FrontPlane.Begin();
+
             this.BackPlane.Clear();
             this.FrontPlane.Clear();
 
@@ -69,7 +72,10 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
             backContext.Restore();
             frontContext.Restore();
-            
+
+            this.BackPlane.End();
+            this.FrontPlane.End();
+
         }
 
       }

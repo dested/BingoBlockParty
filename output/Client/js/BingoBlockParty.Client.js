@@ -429,6 +429,11 @@
 		this.$_renderer = null;
 		this.$1$LayoutField = null;
 		this.$mainLayer = null;
+		this.$1$BarrierPositionField = null;
+		this.$1$WalkwayPositionField = null;
+		this.$1$BarrierField = null;
+		this.$1$RedWalkwayField = null;
+		this.$ticking = 0;
 		this.$1$TouchManagerField = null;
 		this.$_game = game;
 		this.$_width = width;
@@ -531,14 +536,14 @@
 			var gameScreen = screenManager.createScreen();
 			this.set_gameBoardLayout(gameScreen.createLayout(430, 557).makeActive().forceTick());
 			this.set_bingoBoardLayout(gameScreen.createLayout(332, 557));
-			this.set_infoAreaLayout(gameScreen.createLayout(259, 708));
-			this.set_peopleAreaLayout(gameScreen.createLayout(762, 212).setScreenOrientation(1).offset(0, -61));
+			this.set_infoAreaLayout(gameScreen.createLayout(259, 698));
+			this.set_peopleAreaLayout(gameScreen.createLayout(762, 202).setScreenOrientation(1).offset(0, -61));
 			this.get_gameBoardLayout().leftOf(this.get_infoAreaLayout()).rightOf(this.get_bingoBoardLayout());
 			this.get_peopleAreaLayout().below(this.get_bingoBoardLayout()).below(this.get_gameBoardLayout());
 			this.get_gameBoardLayout().set_layoutView(new $BingoBlockParty_Client_BallGame_ClientGameBoard(this, this.get_gameBoardLayout().get_width(), 1280, renderer, this.get_gameBoardLayout()));
 			this.get_bingoBoardLayout().set_layoutView(new $BingoBlockParty_Client_BingoGame_BingoLayout(this, 332, 557, renderer, this.get_bingoBoardLayout()));
-			this.get_infoAreaLayout().set_layoutView(new $BingoBlockParty_Client_InfoArea_InfoAreaLayout(this, 259, 708, renderer, this.get_infoAreaLayout()));
-			this.get_peopleAreaLayout().set_layoutView(new $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout(this, 762, 212, renderer, this.get_peopleAreaLayout()));
+			this.get_infoAreaLayout().set_layoutView(new $BingoBlockParty_Client_InfoArea_InfoAreaLayout(this, 259, 698, renderer, this.get_infoAreaLayout()));
+			this.get_peopleAreaLayout().set_layoutView(new $BingoBlockParty_Client_PeopleArea_PeopleAreaLayout(this, 762, 202, renderer, this.get_peopleAreaLayout()));
 			var lobbyScreen = screenManager.createScreen();
 			this.set_lobbyListLayout(lobbyScreen.createLayout(766, 584).makeActive());
 			this.get_lobbyListLayout().set_layoutView(new $BingoBlockParty_Client_LobbyArea_LobbyLayout(this, 766, 584, renderer, this.get_lobbyListLayout()));
@@ -687,6 +692,7 @@
 			renderer.createImage('leftBoard.numbers.colored.30', 'images/leftBoard/numbers/colored/30.png', null);
 			renderer.createImage('board', 'images/gameBoards/board1.png', null);
 			renderer.createImage('walkway.red', 'images/walkway/walkway-red.png', null);
+			renderer.createImage('walkway.barrier', 'images/walkway/walkwayBarrier.png', null);
 			renderer.createImage('peg.white', 'images/pegs/white_peg.png', new Engine.Point(13, 9));
 			renderer.createImage('peg.hit.white', 'images/pegs/white_peg_lit_overlay.png', null);
 			renderer.createImage('peg.blue', 'images/pegs/blue_peg.png', new Engine.Point(13, 9));
@@ -908,7 +914,7 @@
 			this.set_y(y);
 		},
 		translateContext: function(layer) {
-			layer.translate(-this.get_x(), -this.get_y());
+			layer.translate$1(-this.get_x(), -this.get_y());
 		},
 		$median: function(xs) {
 			xs.sort(function(a, b) {
@@ -979,97 +985,9 @@
 			var cannonLocation = this.get_gameBoard().get_gameModel().get_cannonLocation();
 			var cannonImage = this.get_cannonAsset();
 			context.save();
-			context.translate(cannonLocation.get_x() - ss.Int32.div(cannonImage.get_width(), 2), cannonLocation.get_y());
-			context.drawImage$3(cannonImage, 0, 0, this.get_gameBoard().get_gameModel().get_cannonAngle() * Math.PI / 180, ss.Int32.div(cannonImage.get_width(), 2), 0);
+			context.translate$1(cannonLocation.get_x() - ss.Int32.div(cannonImage.get_width(), 2), cannonLocation.get_y());
+			context.drawImage$7(cannonImage, 0, 0, this.get_gameBoard().get_gameModel().get_cannonAngle() * Math.PI / 180, ss.Int32.div(cannonImage.get_width(), 2), 0);
 			context.restore();
-			//
-			//                                if (this.GameBoard.GameModel.showPeople) {
-			//
-			//                                this.ticking += 2;
-			//
-			//                                
-			//
-			//                                context.Save();
-			//
-			//                                
-			//
-			//                                var person = assetLoader.getAsset('female.blonde.front');
-			//
-			//                                
-			//
-			//                                context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
-			//
-			//                                
-			//
-			//                                context.Translate(person.Width / 2, person.Height / 2);
-			//
-			//                                
-			//
-			//                                
-			//
-			//                                if (this.ticking % 20 < 10) {
-			//
-			//                                context.Rotate(.07);
-			//
-			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-			//
-			//                                } else {
-			//
-			//                                context.Rotate(-.07);
-			//
-			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-			//
-			//                                }
-			//
-			//                                
-			//
-			//                                context.Restore();
-			//
-			//                                
-			//
-			//                                
-			//
-			//                                context.Save();
-			//
-			//                                
-			//
-			//                                var person = assetLoader.getAsset('male.hat.front');
-			//
-			//                                
-			//
-			//                                context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
-			//
-			//                                
-			//
-			//                                context.Translate(person.Width / 2, person.Height / 2);
-			//
-			//                                
-			//
-			//                                
-			//
-			//                                if (this.ticking % 20 < 10) {
-			//
-			//                                context.Rotate(.07);
-			//
-			//                                context.scale(-1, 1);
-			//
-			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-			//
-			//                                } else {
-			//
-			//                                context.Rotate(-.07);
-			//
-			//                                context.scale(-1, 1);
-			//
-			//                                context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-			//
-			//                                }
-			//
-			//                                
-			//
-			//                                context.Restore();
-			//
-			//                                }
 		}
 	}, BingoBlockParty.Common.BallGame.Pieces.Cannon);
 	ss.initClass($BingoBlockParty_Client_BallGame_Pieces_ClientCannonBall, {
@@ -1088,10 +1006,10 @@
 			var cannonBall = $BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().getImage('cannonBall');
 			var cannonBallShine = $BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().getImage('cannonBallShine');
 			context.save();
-			context.translate(ss.Int32.trunc(x), ss.Int32.trunc(y));
-			context.translate(ss.Int32.div(-cannonBall.get_width(), 2), ss.Int32.div(-cannonBall.get_height(), 2));
-			context.drawImage$3(cannonBall, 0, 0, this.get_body().get_rotation(), ss.Int32.div(cannonBall.get_width(), 2), ss.Int32.div(cannonBall.get_height(), 2));
-			context.drawImage(cannonBallShine, 0, 0);
+			context.translate$1(ss.Int32.trunc(x), ss.Int32.trunc(y));
+			context.translate$1(ss.Int32.div(-cannonBall.get_width(), 2), ss.Int32.div(-cannonBall.get_height(), 2));
+			context.drawImage$7(cannonBall, 0, 0, this.get_body().get_rotation(), ss.Int32.div(cannonBall.get_width(), 2), ss.Int32.div(cannonBall.get_height(), 2));
+			context.drawImage$2(cannonBallShine, 0, 0);
 			context.restore();
 		}
 	}, BingoBlockParty.Common.BallGame.Pieces.CannonBall, [BingoBlockParty.Common.BallGame.ICollider]);
@@ -1167,17 +1085,17 @@
 			}
 			var chuteImage = (lit ? this.get_chuteAssetsLit() : this.get_chuteAssets())[this.get_chuteIndex()];
 			context.save();
-			context.translate(chuteLocation.get_x(), chuteLocation.get_y());
+			context.translate$1(chuteLocation.get_x(), chuteLocation.get_y());
 			if (lit) {
 				var offX = ss.Int32.div(this.get_chuteAssetsLit()[this.get_chuteIndex()].get_width() - this.get_chuteAssets()[this.get_chuteIndex()].get_width(), 2);
 				var offY = ss.Int32.div(this.get_chuteAssetsLit()[this.get_chuteIndex()].get_height() - this.get_chuteAssets()[this.get_chuteIndex()].get_height(), 2);
-				context.translate(-offX, -offY);
+				context.translate$1(-offX, -offY);
 			}
-			context.drawImage(chuteImage, 0, 0);
+			context.drawImage$2(chuteImage, 0, 0);
 			context.restore();
 			context.save();
-			context.translate(chuteLocation.get_x(), chuteLocation.get_y());
-			context.translate(ss.Int32.div(this.get_chuteAssets()[this.get_chuteIndex()].get_width(), 2), ss.Int32.div(this.get_chuteAssets()[this.get_chuteIndex()].get_height(), 2));
+			context.translate$1(chuteLocation.get_x(), chuteLocation.get_y());
+			context.translate$1(ss.Int32.div(this.get_chuteAssets()[this.get_chuteIndex()].get_width(), 2), ss.Int32.div(this.get_chuteAssets()[this.get_chuteIndex()].get_height(), 2));
 			var fontSize = 25;
 			//context.FillStyle = "white";
 			//context.Font = "bold " + fontSize + "px Arial";
@@ -1243,7 +1161,7 @@
 		render: function(context) {
 			this.set_tocking(this.get_tocking() + 1);
 			context.save();
-			context.translate(this.get_x(), this.get_y());
+			context.translate$1(this.get_x(), this.get_y());
 			var image;
 			var pegAssetName;
 			if (this.get_blinking()) {
@@ -1262,8 +1180,8 @@
 			}
 			pegAssetName += '.' + this.get_pegName();
 			image = $BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().getImage(pegAssetName);
-			context.translate(-image.get_center().get_x(), -image.get_center().get_y());
-			context.drawImage(image, 0, 0);
+			context.translate$1(-image.get_center().get_x(), -image.get_center().get_y());
+			context.drawImage$2(image, 0, 0);
 			context.restore();
 		},
 		renderText: function(context) {
@@ -1271,8 +1189,8 @@
 				this.set_ticking(this.get_ticking() - 1);
 				var posY = ss.Int32.div(this.get_ticking(), 4);
 				context.save();
-				context.translate(this.get_x(), this.get_y());
-				context.translate(0, -25 + posY);
+				context.translate$1(this.get_x(), this.get_y());
+				context.translate$1(0, -25 + posY);
 				var fontSize = 17;
 				//
 				//                context.FillStyle = "white";
@@ -1322,10 +1240,12 @@
 		},
 		render: function() {
 			var context = this.get_plane();
+			context.begin();
 			context.save();
 			this.get_gameBoard().get_viewManager().translateContext(context);
-			context.drawImage$2(this.get_gameBoard().get_renderer().getImage('board'), 0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight());
+			context.drawImage$6(this.get_gameBoard().get_renderer().getImage('board'), 0, 0, this.get_gameBoard().get_gameModel().get_boardWidth(), this.get_gameBoard().get_gameModel().get_boardHeight());
 			context.restore();
+			context.end();
 		}
 	}, null, [BingoBlockParty.Common.BallGame.Models.IPlane]);
 	ss.initClass($BingoBlockParty_Client_BallGame_Planes_ClientCannonBallPlane, {
@@ -1349,6 +1269,7 @@
 			}
 		},
 		render: function() {
+			this.get_plane().begin();
 			if (ss.isValue(this.get_cannonBall())) {
 				this.get_plane().clear();
 				var context = this.get_plane();
@@ -1359,6 +1280,7 @@
 				context.restore();
 				context.restore();
 			}
+			this.get_plane().end();
 		}
 	}, BingoBlockParty.Common.BallGame.Planes.CannonBallPlane, [BingoBlockParty.Common.BallGame.Models.IPlane]);
 	ss.initClass($BingoBlockParty_Client_BallGame_Planes_ClientCannonPlane, {
@@ -1376,6 +1298,7 @@
 			return new $BingoBlockParty_Client_BallGame_Pieces_ClientCannon(this.get_gameBoard(), cannonPlane);
 		},
 		render: function() {
+			this.get_plane().begin();
 			this.get_plane().clear();
 			var context = this.get_plane();
 			context.save();
@@ -1384,6 +1307,7 @@
 			$BingoBlockParty_Client_Utils_ClientSwitcher.client$3(this.get_cannon()).render(context);
 			context.restore();
 			context.restore();
+			this.get_plane().end();
 		}
 	}, BingoBlockParty.Common.BallGame.Planes.CannonPlane, [BingoBlockParty.Common.BallGame.Models.IPlane]);
 	ss.initClass($BingoBlockParty_Client_BallGame_Planes_ClientChutesPlane, {
@@ -1422,6 +1346,8 @@
 			this.set_bucketsAsset($BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().getImage('chuteBuckets'));
 		},
 		render: function() {
+			this.get_backPlane().begin();
+			this.get_frontPlane().begin();
 			this.get_backPlane().clear();
 			this.get_frontPlane().clear();
 			var backContext = this.get_backPlane();
@@ -1431,12 +1357,12 @@
 			$BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_viewManager().translateContext(backContext);
 			$BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_viewManager().translateContext(frontContext);
 			backContext.save();
-			backContext.translate(0, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bumpersAsset().get_height());
-			backContext.drawImage(this.get_bumpersAsset(), 0, 0);
+			backContext.translate$1(0, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bumpersAsset().get_height());
+			backContext.drawImage$2(this.get_bumpersAsset(), 0, 0);
 			backContext.restore();
 			backContext.save();
-			backContext.translate(18, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bucketsAsset().get_height());
-			backContext.drawImage(this.get_bucketsAsset(), 0, 0);
+			backContext.translate$1(18, this.get_gameBoard().get_gameModel().get_boardHeight() - this.get_bucketsAsset().get_height());
+			backContext.drawImage$2(this.get_bucketsAsset(), 0, 0);
 			backContext.restore();
 			var $t1 = this.get_chutes();
 			for (var $t2 = 0; $t2 < $t1.length; $t2++) {
@@ -1445,6 +1371,8 @@
 			}
 			backContext.restore();
 			frontContext.restore();
+			this.get_backPlane().end();
+			this.get_frontPlane().end();
 		}
 	}, BingoBlockParty.Common.BallGame.Planes.ChutesPlane, [BingoBlockParty.Common.BallGame.Models.IPlane]);
 	ss.initClass($BingoBlockParty_Client_BallGame_Planes_ClientOverlaysPlane, {
@@ -1515,21 +1443,23 @@
 		tick: function() {
 		},
 		render: function() {
+			this.get_plane().begin();
 			this.get_plane().clear();
 			var context = this.get_plane();
 			this.$renderJackpot(context);
 			this.$renderCoinBox(context);
 			this.$renderPullBox(context);
+			this.get_plane().end();
 		},
 		$renderJackpot: function(context) {
 			context.save();
-			context.translate(this.get_jackpotOverlayPosition().get_x(), this.get_jackpotOverlayPosition().get_y());
-			context.translate(ss.Int32.div(-this.get_jackpotOverlay().get_width(), 2), 0);
-			context.drawImage(this.get_jackpotOverlay(), 0, 0);
+			context.translate$1(this.get_jackpotOverlayPosition().get_x(), this.get_jackpotOverlayPosition().get_y());
+			context.translate$1(ss.Int32.div(-this.get_jackpotOverlay().get_width(), 2), 0);
+			context.drawImage$2(this.get_jackpotOverlay(), 0, 0);
 			context.restore();
 			context.save();
-			context.translate(this.get_jackpotOverlayPosition().get_x(), this.get_jackpotOverlayPosition().get_y());
-			context.translate(0, 46);
+			context.translate$1(this.get_jackpotOverlayPosition().get_x(), this.get_jackpotOverlayPosition().get_y());
+			context.translate$1(0, 46);
 			var fontSize = 15;
 			//
 			//                        context.FillStyle = "white";
@@ -1541,13 +1471,13 @@
 		},
 		$renderCoinBox: function(context) {
 			context.save();
-			context.translate(this.get_coinBoxOverlayPosition().get_x(), this.get_coinBoxOverlayPosition().get_y());
-			context.translate(ss.Int32.div(-this.get_coinBoxOverlay().get_width(), 2), 0);
-			context.drawImage(this.get_coinBoxOverlay(), 0, 0);
+			context.translate$1(this.get_coinBoxOverlayPosition().get_x(), this.get_coinBoxOverlayPosition().get_y());
+			context.translate$1(ss.Int32.div(-this.get_coinBoxOverlay().get_width(), 2), 0);
+			context.drawImage$2(this.get_coinBoxOverlay(), 0, 0);
 			context.restore();
 			context.save();
-			context.translate(this.get_coinBoxOverlayPosition().get_x(), this.get_coinBoxOverlayPosition().get_y());
-			context.translate(0, 33);
+			context.translate$1(this.get_coinBoxOverlayPosition().get_x(), this.get_coinBoxOverlayPosition().get_y());
+			context.translate$1(0, 33);
 			var fontSize = 15;
 			//
 			//                        context.FillStyle = "white";
@@ -1559,13 +1489,13 @@
 		},
 		$renderPullBox: function(context) {
 			context.save();
-			context.translate(this.get_pullBoxOverlayPosition().get_x(), this.get_pullBoxOverlayPosition().get_y());
-			context.translate(ss.Int32.div(-this.get_pullBoxOverlay().get_width(), 2), 0);
-			context.drawImage(this.get_pullBoxOverlay(), 0, 0);
+			context.translate$1(this.get_pullBoxOverlayPosition().get_x(), this.get_pullBoxOverlayPosition().get_y());
+			context.translate$1(ss.Int32.div(-this.get_pullBoxOverlay().get_width(), 2), 0);
+			context.drawImage$2(this.get_pullBoxOverlay(), 0, 0);
 			context.restore();
 			context.save();
-			context.translate(this.get_pullBoxOverlayPosition().get_x(), this.get_pullBoxOverlayPosition().get_y());
-			context.translate(0, 34);
+			context.translate$1(this.get_pullBoxOverlayPosition().get_x(), this.get_pullBoxOverlayPosition().get_y());
+			context.translate$1(0, 34);
 			var fontSize = 15;
 			//
 			//                        context.FillStyle = "white";
@@ -1591,6 +1521,7 @@
 			this.set_plane($BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_renderer().createLayer($BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_gameBoardLayout().get_width(), $BingoBlockParty_Client_Utils_ClientSwitcher.client$1(this.get_gameBoard().get_gameModel()).get_gameBoardLayout().get_height(), $BingoBlockParty_Client_Utils_ClientSwitcher.client(this.get_gameBoard()).get_layout()));
 		},
 		render: function() {
+			this.get_plane().begin();
 			this.get_plane().clear();
 			var context = this.get_plane();
 			context.save();
@@ -1606,6 +1537,7 @@
 				$BingoBlockParty_Client_Utils_ClientSwitcher.client$6(peg1).renderText(context);
 			}
 			context.restore();
+			this.get_plane().end();
 		}
 	}, BingoBlockParty.Common.BallGame.Planes.PegsPlane, [BingoBlockParty.Common.BallGame.Models.IPlane]);
 	ss.initClass($BingoBlockParty_Client_BingoGame_BingoCard, {
@@ -1984,6 +1916,7 @@
 			this.$1$TouchManagerField = value;
 		},
 		render: function(elapsedGameTime) {
+			this.$mainLayer.begin();
 			this.$mainLayer.save();
 			this.$renderBackground();
 			switch (this.get_currentBingoState()) {
@@ -2003,6 +1936,7 @@
 				}
 			}
 			this.$mainLayer.restore();
+			this.$mainLayer.end();
 		},
 		get_currentBingoState: function() {
 			return this.$1$CurrentBingoStateField;
@@ -2097,19 +2031,19 @@
 		},
 		$renderPurchaseCards: function() {
 			this.$mainLayer.save();
-			this.$mainLayer.translate(this.get_lightBoardPosition().get_x(), this.get_lightBoardPosition().get_y());
-			this.$mainLayer.drawImage(this.get_lightBoard(), 0, 0);
-			this.$mainLayer.drawImage(this.get_chooseYourCards(), this.get_chooseYourCardsPosition().get_x(), this.get_chooseYourCardsPosition().get_y());
+			this.$mainLayer.translate(this.get_lightBoardPosition());
+			this.$mainLayer.drawImage$2(this.get_lightBoard(), 0, 0);
+			this.$mainLayer.drawImage(this.get_chooseYourCards(), this.get_chooseYourCardsPosition());
 			this.$drawPurchaseBingoCard(100, 1, this.get_purchaseBingoCardPosition1());
 			this.$drawPurchaseBingoCard(200, 2, this.get_purchaseBingoCardPosition2());
 			this.$drawPurchaseBingoCard(300, 3, this.get_purchaseBingoCardPosition3());
 			this.$drawPurchaseBingoCard(400, 4, this.get_purchaseBingoCardPosition4());
 			this.$mainLayer.restore();
-			this.$mainLayer.drawImage(this.get_previousCalledBalls(), this.get_previousCalledBallsPosition().get_x(), this.get_previousCalledBallsPosition().get_y());
+			this.$mainLayer.drawImage(this.get_previousCalledBalls(), this.get_previousCalledBallsPosition());
 		},
 		$drawPurchaseBingoCard: function(amount, numOfCards, cardPosition) {
 			this.$mainLayer.save();
-			this.$mainLayer.translate(cardPosition.get_x(), cardPosition.get_y());
+			this.$mainLayer.translate$1(cardPosition.get_x(), cardPosition.get_y());
 			var purchaseOutline = this.get_purchaseBingoCardOutline();
 			switch (numOfCards) {
 				case 1: {
@@ -2137,29 +2071,29 @@
 					break;
 				}
 			}
-			this.$mainLayer.drawImage(purchaseOutline, 0, 0);
+			this.$mainLayer.drawImage$2(purchaseOutline, 0, 0);
 			this.$mainLayer.save();
 			switch (numOfCards) {
 				case 1: {
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase1BingoCardPosition().get_x(), this.get_purchase1BingoCardPosition().get_y(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase1BingoCardPosition(), true);
 					break;
 				}
 				case 2: {
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase2BingoCardPosition1().get_x(), this.get_purchase2BingoCardPosition1().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase2BingoCardPosition2().get_x(), this.get_purchase2BingoCardPosition2().get_y(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase2BingoCardPosition1(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase2BingoCardPosition2(), true);
 					break;
 				}
 				case 3: {
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition1().get_x(), this.get_purchase3BingoCardPosition1().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition2().get_x(), this.get_purchase3BingoCardPosition2().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition3().get_x(), this.get_purchase3BingoCardPosition3().get_y(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition1(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition2(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase3BingoCardPosition3(), true);
 					break;
 				}
 				case 4: {
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition1().get_x(), this.get_purchase4BingoCardPosition1().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition2().get_x(), this.get_purchase4BingoCardPosition2().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition3().get_x(), this.get_purchase4BingoCardPosition3().get_y(), true);
-					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition4().get_x(), this.get_purchase4BingoCardPosition4().get_y(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition1(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition2(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition3(), true);
+					this.$mainLayer.drawImage$1(this.get_purchaseBingoCard(), this.get_purchase4BingoCardPosition4(), true);
 					break;
 				}
 			}
@@ -2186,13 +2120,13 @@
 					throw new ss.Exception('Bad Amount');
 				}
 			}
-			this.$mainLayer.drawImage(amountImage, this.get_purchaseAmountPosition().get_x(), this.get_purchaseAmountPosition().get_y());
-			this.$mainLayer.drawImage$1(this.get_goldCoin(), this.get_purchaseCoinPosition().get_x(), this.get_purchaseCoinPosition().get_y(), true);
+			this.$mainLayer.drawImage(amountImage, this.get_purchaseAmountPosition());
+			this.$mainLayer.drawImage$1(this.get_goldCoin(), this.get_purchaseCoinPosition(), true);
 			this.$mainLayer.restore();
 		},
 		$renderBackground: function() {
-			this.$mainLayer.drawImage(this.get_leftBoard(), 0, 0);
-			this.$mainLayer.drawImage(this.get_numberCallArea(), this.get_numberCallAreaPosition().get_x(), this.get_numberCallAreaPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_leftBoard(), 0, 0);
+			this.$mainLayer.drawImage(this.get_numberCallArea(), this.get_numberCallAreaPosition());
 		},
 		$renderInGame: function() {
 			this.$drawBingoCard(this.get_bingoCard1(), this.get_bingoCardPosition1());
@@ -2202,29 +2136,29 @@
 			this.$drawPreviousNumbersCalled();
 		},
 		$drawPreviousNumbersCalled: function() {
-			this.$mainLayer.drawImage(this.get_previousCalledBalls(), this.get_previousCalledBallsPosition().get_x(), this.get_previousCalledBallsPosition().get_y());
+			this.$mainLayer.drawImage(this.get_previousCalledBalls(), this.get_previousCalledBallsPosition());
 			this.$mainLayer.save();
-			this.$mainLayer.translate(this.get_numberCallAreaPosition().get_x() + 30, this.get_numberCallAreaPosition().get_y() + 22);
+			this.$mainLayer.translate$1(this.get_numberCallAreaPosition().get_x() + 30, this.get_numberCallAreaPosition().get_y() + 22);
 			var paddingW = 45;
 			var paddingH = 29;
 			for (var index = 0; index < this.get_previousNumbersCalled().length; index++) {
 				var number = this.get_previousNumbersCalled()[index];
-				this.$mainLayer.drawImage(this.$_renderer.getImage('leftBoard.numbers.colored.' + number), index % 6 * paddingW, ss.Int32.div(index, 6) * paddingH);
+				this.$mainLayer.drawImage$2(this.$_renderer.getImage('leftBoard.numbers.colored.' + number), index % 6 * paddingW, ss.Int32.div(index, 6) * paddingH);
 			}
 			this.$mainLayer.restore();
 		},
 		$drawBingoCard: function(card, cardPosition) {
 			this.$mainLayer.save();
-			this.$mainLayer.translate(cardPosition.get_x(), cardPosition.get_y());
-			this.$mainLayer.drawImage(this.get_bingoCard(), 0, 0);
+			this.$mainLayer.translate$1(cardPosition.get_x(), cardPosition.get_y());
+			this.$mainLayer.drawImage$2(this.get_bingoCard(), 0, 0);
 			this.$mainLayer.save();
-			this.$mainLayer.translate(31, 28);
+			this.$mainLayer.translate$1(31, 28);
 			for (var x = 0; x < $BingoBlockParty_Client_BingoGame_BingoCard.numbersWide; x++) {
 				for (var y = 0; y < $BingoBlockParty_Client_BingoGame_BingoCard.numbersHigh; y++) {
 					var bingoCardNumber = card.getNumberAt(x, y);
 					var color = $BingoBlockParty_Client_BingoGame_BingoCardNumber.colorToColor(bingoCardNumber.get_color());
 					this.$mainLayer.drawRectangle(color, x * 33, y * 34, 30, 30);
-					this.$mainLayer.drawImage(this.$_renderer.getImage('leftBoard.numbers.white.' + bingoCardNumber.get_number()), x * 33 + 1, y * 34 + 8);
+					this.$mainLayer.drawImage$2(this.$_renderer.getImage('leftBoard.numbers.white.' + bingoCardNumber.get_number()), x * 33 + 1, y * 34 + 8);
 				}
 			}
 			this.$mainLayer.restore();
@@ -2300,9 +2234,11 @@
 			this.$1$TouchManagerField = value;
 		},
 		render: function(elapsedGameTime) {
+			this.$mainLayer.begin();
 			this.$mainLayer.save();
 			this.$mainLayer.drawRectangle(new Engine.Color(58, 58, 148, 255), 0, 0, this.$_width, this.$_height);
 			this.$mainLayer.restore();
+			this.$mainLayer.end();
 		},
 		destroy: function() {
 		},
@@ -2697,21 +2633,23 @@
 		tick: function(elapsedGameTime) {
 		},
 		render: function(elapsedGameTime) {
+			this.$mainLayer.begin();
 			this.$mainLayer.save();
 			this.$mainLayer.drawRectangle(new Engine.Color(0, 0, 0, 255), 0, 0, this.$_width, this.$_height);
-			this.$mainLayer.drawImage(this.get_lobbyOverlay(), this.get_lobbyOverlayPosition().get_x(), this.get_lobbyOverlayPosition().get_y());
-			this.$mainLayer.drawImage(this.get_profileOverlay(), this.get_profileOverlayPosition().get_x(), this.get_profileOverlayPosition().get_y());
-			this.$mainLayer.drawImage(this.get_goldCoinOverlay(), this.get_goldCoinOverlayPosition().get_x(), this.get_goldCoinOverlayPosition().get_y());
-			this.$mainLayer.drawImage(this.get_silverCoinOverlay(), this.get_silverCoinOverlayPosition().get_x(), this.get_silverCoinOverlayPosition().get_y());
-			this.$mainLayer.drawImage(this.get_lobbyBackground(), this.get_lobbyBackgroundPosition().get_x(), this.get_lobbyBackgroundPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_lobbyOverlay(), this.get_lobbyOverlayPosition().get_x(), this.get_lobbyOverlayPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_profileOverlay(), this.get_profileOverlayPosition().get_x(), this.get_profileOverlayPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_goldCoinOverlay(), this.get_goldCoinOverlayPosition().get_x(), this.get_goldCoinOverlayPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_silverCoinOverlay(), this.get_silverCoinOverlayPosition().get_x(), this.get_silverCoinOverlayPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_lobbyBackground(), this.get_lobbyBackgroundPosition().get_x(), this.get_lobbyBackgroundPosition().get_y());
 			this.$headerButtonGroup(this.$mainLayer, 0, this.get_selectedHeaderButton() === 0);
 			this.$headerButtonGroup(this.$mainLayer, 1, this.get_selectedHeaderButton() === 1);
 			this.$headerButtonGroup(this.$mainLayer, 2, this.get_selectedHeaderButton() === 2);
 			this.$createRoomButtonGroup(this.$mainLayer);
 			this.$rooms(this.$mainLayer, this.get_roomButtonSize().get_width(), this.get_roomButtonSize().get_height());
-			this.$mainLayer.drawImage(this.get_scrollBarOverlay(), this.get_scrollBarPosition().get_x(), this.get_scrollBarPosition().get_y());
-			this.$mainLayer.drawImage(this.get_scrollBarButtonOverlay(), this.get_scrollBarPosition().get_x() + 4, this.get_scrollBarPosition().get_y() + this.get_scrollBarButtonPosition());
+			this.$mainLayer.drawImage$2(this.get_scrollBarOverlay(), this.get_scrollBarPosition().get_x(), this.get_scrollBarPosition().get_y());
+			this.$mainLayer.drawImage$2(this.get_scrollBarButtonOverlay(), this.get_scrollBarPosition().get_x() + 4, this.get_scrollBarPosition().get_y() + this.get_scrollBarButtonPosition());
 			this.$mainLayer.restore();
+			this.$mainLayer.end();
 		},
 		get_$rooms: function() {
 			return this.$1$RoomsField;
@@ -2772,28 +2710,28 @@
 				}
 			}
 			layer.save();
-			layer.translate(buttonLoc.get_x(), buttonLoc.get_y());
+			layer.translate$1(buttonLoc.get_x(), buttonLoc.get_y());
 			if (selected) {
-				layer.drawImage(this.get_selectedOverlay(), 0, 0);
+				layer.drawImage$2(this.get_selectedOverlay(), 0, 0);
 			}
-			layer.drawImage$1(icon, this.get_buttonIconOffset().get_x(), this.get_buttonIconOffset().get_y(), true);
-			layer.drawImage$1(text, this.get_buttonTextOffset().get_x(), this.get_buttonTextOffset().get_y(), true);
+			layer.drawImage$4(icon, this.get_buttonIconOffset().get_x(), this.get_buttonIconOffset().get_y(), true);
+			layer.drawImage$4(text, this.get_buttonTextOffset().get_x(), this.get_buttonTextOffset().get_y(), true);
 			layer.restore();
 		},
 		$createRoomButtonGroup: function(layer) {
 			layer.save();
-			layer.translate(this.get_createRoomPosition().get_x(), this.get_createRoomPosition().get_y());
-			layer.drawImage(this.get_orangeButtonOverlay(), 0, 0);
-			layer.drawImage$1(this.get_plusOverlay(), this.get_createRoomIconOffset().get_x(), this.get_createRoomIconOffset().get_y(), true);
-			layer.drawImage$1(this.get_createRoomTextOverlay(), this.get_createRoomTextOffset().get_x(), this.get_createRoomTextOffset().get_y(), true);
+			layer.translate$1(this.get_createRoomPosition().get_x(), this.get_createRoomPosition().get_y());
+			layer.drawImage$2(this.get_orangeButtonOverlay(), 0, 0);
+			layer.drawImage$4(this.get_plusOverlay(), this.get_createRoomIconOffset().get_x(), this.get_createRoomIconOffset().get_y(), true);
+			layer.drawImage$4(this.get_createRoomTextOverlay(), this.get_createRoomTextOffset().get_x(), this.get_createRoomTextOffset().get_y(), true);
 			layer.restore();
 		},
 		$rooms: function(layer, buttonWidth, buttonHeight) {
 			layer.save();
-			layer.translate(this.get_roomsPosition().get_x(), this.get_roomsPosition().get_y());
+			layer.translate$1(this.get_roomsPosition().get_x(), this.get_roomsPosition().get_y());
 			for (var i = 0; i < this.get_numberOfRoomsVisible(); i++) {
 				layer.save();
-				layer.translate(0, buttonHeight * i);
+				layer.translate$1(0, buttonHeight * i);
 				layer.drawRectangle(((i % 2 === 0) ? this.get_roomButtonColor() : this.get_alternateRoomButtonColor()), 0, 0, buttonWidth, buttonHeight);
 				if (i + this.get_topRoomIndex() < this.get_$rooms().length) {
 					var currentRoom = this.get_$rooms()[i + this.get_topRoomIndex()];
@@ -2814,7 +2752,35 @@
 		init: function() {
 			this.$mainLayer = this.$_renderer.createLayer(this.$_width, this.$_height, this.get_layout());
 			this.$_renderer.addLayer(this.$mainLayer);
+			this.set_redWalkway(this.$_renderer.getImage('walkway.red'));
+			this.set_barrier(this.$_renderer.getImage('walkway.barrier'));
+			this.set_barrierPosition(new Engine.Point(-5, 0));
+			this.set_walkwayPosition(new Engine.Point(-5, this.get_barrier().get_height() - 2));
 			this.set_touchManager(new Engine.TouchManager());
+		},
+		get_barrierPosition: function() {
+			return this.$1$BarrierPositionField;
+		},
+		set_barrierPosition: function(value) {
+			this.$1$BarrierPositionField = value;
+		},
+		get_walkwayPosition: function() {
+			return this.$1$WalkwayPositionField;
+		},
+		set_walkwayPosition: function(value) {
+			this.$1$WalkwayPositionField = value;
+		},
+		get_barrier: function() {
+			return this.$1$BarrierField;
+		},
+		set_barrier: function(value) {
+			this.$1$BarrierField = value;
+		},
+		get_redWalkway: function() {
+			return this.$1$RedWalkwayField;
+		},
+		set_redWalkway: function(value) {
+			this.$1$RedWalkwayField = value;
 		},
 		tick: function(elapsedGameTime) {
 		},
@@ -2825,11 +2791,29 @@
 			this.$1$TouchManagerField = value;
 		},
 		render: function(elapsedGameTime) {
+			this.$mainLayer.begin();
 			this.$mainLayer.clear();
 			this.$mainLayer.save();
-			this.$mainLayer.drawRectangle(new Engine.Color(11, 19, 255, 255), 0, 61, this.$_width, this.$_height - 61);
-			this.$mainLayer.drawRectangle(new Engine.Color(11, 200, 255, 80), ss.Int32.div(this.$_width, 2), 0, ss.Int32.div(this.$_width, 2), 61);
+			this.$mainLayer.translate$1(0, 61);
+			this.$mainLayer.drawImage(this.get_barrier(), this.get_barrierPosition());
+			this.$mainLayer.drawImage(this.get_redWalkway(), this.get_walkwayPosition());
+			this.$ticking += 2;
+			this.$mainLayer.save();
+			var person = this.$_renderer.getImage('female.blonde.front');
+			this.$mainLayer.translate$1((-this.$ticking + this.$_width * 100) % this.$_width, 50);
+			var rotate;
+			rotate = ((this.$ticking % 30 < 15) ? 0.07 : -0.07);
+			this.$mainLayer.drawImage$5(person, ss.Int32.div(-person.get_width(), 2), ss.Int32.div(-person.get_height(), 2), rotate, person.get_center());
 			this.$mainLayer.restore();
+			this.$mainLayer.save();
+			person = this.$_renderer.getImage('male.hat.front');
+			this.$mainLayer.translate$1((this.$ticking + this.$_width * 100) % this.$_width, 100);
+			rotate = ((this.$ticking % 30 < 15) ? 0.07 : -0.07);
+			this.$mainLayer.setDrawingEffects(1);
+			this.$mainLayer.drawImage$5(person, ss.Int32.div(-person.get_width(), 2), ss.Int32.div(-person.get_height(), 2), rotate, person.get_center());
+			this.$mainLayer.restore();
+			this.$mainLayer.restore();
+			this.$mainLayer.end();
 		},
 		destroy: function() {
 		},

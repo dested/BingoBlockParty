@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Engine.Interfaces;
 
@@ -19,6 +21,9 @@ namespace Engine.Html5.Web
             this.height = height;
             Layout = layout;
             CanvasInformation = CanvasInformation.Create(width, height);
+            settingsStack = new List<WebContextSettings>();
+
+            settingsStack.Add(new WebContextSettings());
         }
 
 
@@ -32,16 +37,27 @@ namespace Engine.Html5.Web
             //not needed for web
         }
 
+        private List<WebContextSettings> settingsStack;
 
         public void Save()
         {
+            settingsStack.Add(settingsStack.Last().Clone());
             CanvasInformation.Context.Save();
         }
-
+        private WebContextSettings CurrentSettings()
+        {
+            return settingsStack.Last();
+        }
         public void Restore()
         {
+            settingsStack.RemoveAt(settingsStack.Count - 1);
             CanvasInformation.Context.Restore();
 
+        }
+
+        public void Translate(Point point)
+        {
+            Translate(point.X,point.Y);
         }
 
         public void Translate(int x, int y)
@@ -49,18 +65,46 @@ namespace Engine.Html5.Web
             CanvasInformation.Context.Translate(x, y);
         }
 
+        public void DrawImage(IImage image, Point point)
+        {
+            DrawImage(image,point.X,point.Y);
+        }
+
         public void DrawImage(IImage image, int x, int y)
         {
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x, y);
         }
 
+        public void DrawImage(IImage image, Point point, bool center)
+        {
+            DrawImage(image, point.X, point.Y,center);
+        }
+
         public void DrawImage(IImage image, int x, int y, bool center)
         {
+            switch (CurrentSettings().DrawingEffects)
+            {
+                case DrawingEffects.FlipHorizontally:
+                    CanvasInformation.Context.Scale(-1, 1);
+                    break;
+                case DrawingEffects.FlipVertically:
+                    CanvasInformation.Context.Scale(1, -1);
+                    break;
+            }
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x - image.Center.X, y - image.Center.Y);
         }
 
         public void DrawImage(IImage image, int x, int y, int width, int height)
         {
+            switch (CurrentSettings().DrawingEffects)
+            {
+                case DrawingEffects.FlipHorizontally:
+                    CanvasInformation.Context.Scale(-1, 1);
+                    break;
+                case DrawingEffects.FlipVertically:
+                    CanvasInformation.Context.Scale(1, -1);
+                    break;
+            }
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x, y, width, height);
 
         }
@@ -70,8 +114,27 @@ namespace Engine.Html5.Web
             Save();
             CanvasInformation.Context.Translate(centerX,centerY);
             CanvasInformation.Context.Rotate(angle);
+
+            switch (CurrentSettings().DrawingEffects)
+            {
+                case DrawingEffects.FlipHorizontally:
+                    CanvasInformation.Context.Scale(-1, 1);
+                    break;
+                case DrawingEffects.FlipVertically:
+                    CanvasInformation.Context.Scale(1, -1);
+                    break;
+            }
             CanvasInformation.Context.DrawImage(((WebImage)image).Image, x - centerX, y - centerY);
             Restore();
+        }
+
+        public void DrawImage(IImage image, int x, int y, double angle, Point center)
+        {
+            DrawImage(image, x, y, angle, center.X, center.Y);
+        }
+        public void DrawImage(IImage image, Point point, double angle, Point center)
+        {
+            DrawImage(image, point.X, point.Y, angle, center.X, center.Y);
         }
 
         public void DrawString(string fontName, string text, int x, int y)
@@ -106,5 +169,24 @@ namespace Engine.Html5.Web
             CanvasInformation.Context.FillRect(x,y,width,height);
             CanvasInformation.Context.Restore();
         }
+
+        public void SetDrawingEffects(DrawingEffects drawingEffects)
+        {
+            CurrentSettings().DrawingEffects = drawingEffects;
+        }
     }
+    public class WebContextSettings
+    {
+        public DrawingEffects DrawingEffects { get; set; }
+
+        public WebContextSettings Clone()
+        {
+            return new WebContextSettings()
+            {
+                DrawingEffects = this.DrawingEffects
+
+            };
+        }
+    }
+
 }

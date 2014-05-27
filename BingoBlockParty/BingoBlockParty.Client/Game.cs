@@ -39,8 +39,8 @@ namespace BingoBlockParty.Client
 
             GameBoardLayout = gameScreen.CreateLayout(430, 557).MakeActive().ForceTick();
             BingoBoardLayout = gameScreen.CreateLayout(332, 557);
-            InfoAreaLayout = gameScreen.CreateLayout(259, 708);
-            PeopleAreaLayout = gameScreen.CreateLayout(762, 212).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
+            InfoAreaLayout = gameScreen.CreateLayout(259, 698);
+            PeopleAreaLayout = gameScreen.CreateLayout(762, 202).SetScreenOrientation(ScreenOrientation.Horizontal).Offset(0, -61);
 
             GameBoardLayout.LeftOf(InfoAreaLayout).RightOf(BingoBoardLayout);
 
@@ -48,8 +48,8 @@ namespace BingoBlockParty.Client
 
             GameBoardLayout.LayoutView = new ClientGameBoard(this, GameBoardLayout.Width, 1280, renderer, GameBoardLayout);
             BingoBoardLayout.LayoutView = new BingoLayout(this, 332, 557, renderer, BingoBoardLayout);
-            InfoAreaLayout.LayoutView = new InfoAreaLayout(this, 259, 708, renderer, InfoAreaLayout);
-            PeopleAreaLayout.LayoutView = new PeopleAreaLayout(this, 762, 212, renderer, PeopleAreaLayout);
+            InfoAreaLayout.LayoutView = new InfoAreaLayout(this, 259, 698, renderer, InfoAreaLayout);
+            PeopleAreaLayout.LayoutView = new PeopleAreaLayout(this, 762, 202, renderer, PeopleAreaLayout);
 
 
 
@@ -227,6 +227,7 @@ namespace BingoBlockParty.Client
             renderer.CreateImage("board", "images/gameBoards/board1.png");
 
             renderer.CreateImage("walkway.red", "images/walkway/walkway-red.png");
+            renderer.CreateImage("walkway.barrier", "images/walkway/walkwayBarrier.png");
 
             renderer.CreateImage("peg.white", "images/pegs/white_peg.png", new Point(13, 9));
             renderer.CreateImage("peg.hit.white", "images/pegs/white_peg_lit_overlay.png");

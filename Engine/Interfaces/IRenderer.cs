@@ -8,9 +8,7 @@
         void CreateImage(string imageName, string imagePath, Point center = null);
         void CreateFont(string fontName, string fontPath);
 
-
-        void BeginRender();
-        void EndRender();
+         
 
     }
 }

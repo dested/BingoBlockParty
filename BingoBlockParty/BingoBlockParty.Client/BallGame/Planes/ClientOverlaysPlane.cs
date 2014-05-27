@@ -59,11 +59,13 @@ namespace BingoBlockParty.Client.BallGame.Planes
         }
         public void Render()
         {
+            Plane.Begin();
             Plane.Clear();
             var context = Plane;
             renderJackpot(context);
             renderCoinBox(context);
             renderPullBox(context);
+            Plane.End();
         }
 
         private void renderJackpot(ILayer context)

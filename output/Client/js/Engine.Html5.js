@@ -67,6 +67,62 @@
 	};
 	global.Engine.Html5.Web.CanvasInformation = $Engine_Html5_Web_CanvasInformation;
 	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Web.EnumerableExtensions
+	var $Engine_Html5_Web_EnumerableExtensions = function() {
+	};
+	$Engine_Html5_Web_EnumerableExtensions.__typeName = 'Engine.Html5.Web.EnumerableExtensions';
+	$Engine_Html5_Web_EnumerableExtensions.last = function(T) {
+		return function(items) {
+			var last = ss.getDefaultValue(T);
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					last = item;
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return last;
+		};
+	};
+	$Engine_Html5_Web_EnumerableExtensions.first = function(T) {
+		return function(items) {
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					return item;
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return ss.getDefaultValue(T);
+		};
+	};
+	$Engine_Html5_Web_EnumerableExtensions.elementAt = function(T) {
+		return function(items, index) {
+			var i = 0;
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = $t1.current();
+					if (i === index) {
+						return item;
+					}
+					i++;
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			return ss.getDefaultValue(T);
+		};
+	};
+	global.Engine.Html5.Web.EnumerableExtensions = $Engine_Html5_Web_EnumerableExtensions;
+	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebClient
 	var $Engine_Html5_Web_WebClient = function() {
 		this.$1$ScreenManagerField = null;
@@ -86,6 +142,13 @@
 	};
 	$Engine_Html5_Web_WebClientSettings.__typeName = 'Engine.Html5.Web.WebClientSettings';
 	global.Engine.Html5.Web.WebClientSettings = $Engine_Html5_Web_WebClientSettings;
+	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Html5.Web.WebContextSettings
+	var $Engine_Html5_Web_WebContextSettings = function() {
+		this.$1$DrawingEffectsField = 0;
+	};
+	$Engine_Html5_Web_WebContextSettings.__typeName = 'Engine.Html5.Web.WebContextSettings';
+	global.Engine.Html5.Web.WebContextSettings = $Engine_Html5_Web_WebContextSettings;
 	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Html5.Web.WebImage
 	var $Engine_Html5_Web_WebImage = function(imagePath, center, ready) {
@@ -121,11 +184,14 @@
 		this.$height = 0;
 		this.$1$LayoutField = null;
 		this.canvasInformation = null;
+		this.$settingsStack = null;
 		this.$renderer = renderer;
 		this.$width = width;
 		this.$height = height;
 		this.set_layout(layout);
 		this.canvasInformation = $Engine_Html5_Web_CanvasInformation.create(width, height);
+		this.$settingsStack = [];
+		ss.add(this.$settingsStack, new $Engine_Html5_Web_WebContextSettings());
 	};
 	$Engine_Html5_Web_WebLayer.__typeName = 'Engine.Html5.Web.WebLayer';
 	global.Engine.Html5.Web.WebLayer = $Engine_Html5_Web_WebLayer;
@@ -325,6 +391,7 @@
 		}
 	}, null, [Engine.ISocketManager]);
 	ss.initClass($Engine_Html5_Web_CanvasInformation, {});
+	ss.initClass($Engine_Html5_Web_EnumerableExtensions, {});
 	ss.initClass($Engine_Html5_Web_WebClient, {
 		get_screenManager: function() {
 			return this.$1$ScreenManagerField;
@@ -401,6 +468,19 @@
 			this.$1$GetKeyboardInputField = value;
 		}
 	}, null, [Engine.Interfaces.IClientSettings]);
+	ss.initClass($Engine_Html5_Web_WebContextSettings, {
+		get_drawingEffects: function() {
+			return this.$1$DrawingEffectsField;
+		},
+		set_drawingEffects: function(value) {
+			this.$1$DrawingEffectsField = value;
+		},
+		clone: function() {
+			var $t1 = new $Engine_Html5_Web_WebContextSettings();
+			$t1.set_drawingEffects(this.get_drawingEffects());
+			return $t1;
+		}
+	});
 	ss.initClass($Engine_Html5_Web_WebImage, {
 		get_center: function() {
 			return this.$1$CenterField;
@@ -443,29 +523,79 @@
 			//not needed for web
 		},
 		save: function() {
+			ss.add(this.$settingsStack, $Engine_Html5_Web_EnumerableExtensions.last($Engine_Html5_Web_WebContextSettings).call(null, this.$settingsStack).clone());
 			this.canvasInformation.context.save();
 		},
+		$currentSettings: function() {
+			return $Engine_Html5_Web_EnumerableExtensions.last($Engine_Html5_Web_WebContextSettings).call(null, this.$settingsStack);
+		},
 		restore: function() {
+			ss.removeAt(this.$settingsStack, this.$settingsStack.length - 1);
 			this.canvasInformation.context.restore();
 		},
-		translate: function(x, y) {
+		translate: function(point) {
+			this.translate$1(point.get_x(), point.get_y());
+		},
+		translate$1: function(x, y) {
 			this.canvasInformation.context.translate(x, y);
 		},
-		drawImage: function(image, x, y) {
+		drawImage: function(image, point) {
+			this.drawImage$2(image, point.get_x(), point.get_y());
+		},
+		drawImage$2: function(image, x, y) {
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x, y);
 		},
-		drawImage$1: function(image, x, y, center) {
+		drawImage$1: function(image, point, center) {
+			this.drawImage$4(image, point.get_x(), point.get_y(), center);
+		},
+		drawImage$4: function(image, x, y, center) {
+			switch (this.$currentSettings().get_drawingEffects()) {
+				case 1: {
+					this.canvasInformation.context.scale(-1, 1);
+					break;
+				}
+				case 2: {
+					this.canvasInformation.context.scale(1, -1);
+					break;
+				}
+			}
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x - image.get_center().get_x(), y - image.get_center().get_y());
 		},
-		drawImage$2: function(image, x, y, width, height) {
+		drawImage$6: function(image, x, y, width, height) {
+			switch (this.$currentSettings().get_drawingEffects()) {
+				case 1: {
+					this.canvasInformation.context.scale(-1, 1);
+					break;
+				}
+				case 2: {
+					this.canvasInformation.context.scale(1, -1);
+					break;
+				}
+			}
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x, y, width, height);
 		},
-		drawImage$3: function(image, x, y, angle, centerX, centerY) {
+		drawImage$7: function(image, x, y, angle, centerX, centerY) {
 			this.save();
 			this.canvasInformation.context.translate(centerX, centerY);
 			this.canvasInformation.context.rotate(angle);
+			switch (this.$currentSettings().get_drawingEffects()) {
+				case 1: {
+					this.canvasInformation.context.scale(-1, 1);
+					break;
+				}
+				case 2: {
+					this.canvasInformation.context.scale(1, -1);
+					break;
+				}
+			}
 			this.canvasInformation.context.drawImage(ss.cast(image, $Engine_Html5_Web_WebImage).image, x - centerX, y - centerY);
 			this.restore();
+		},
+		drawImage$5: function(image, x, y, angle, center) {
+			this.drawImage$7(image, x, y, angle, center.get_x(), center.get_y());
+		},
+		drawImage$3: function(image, point, angle, center) {
+			this.drawImage$7(image, point.get_x(), point.get_y(), angle, center.get_x(), center.get_y());
 		},
 		drawString: function(fontName, text, x, y) {
 			this.canvasInformation.context.fillText(text, x, y);
@@ -487,6 +617,9 @@
 			this.canvasInformation.context.fillStyle = ss.formatString('rgba({0},{1},{2},{3})', color.get_r(), color.get_g(), color.get_b(), color.get_a() / 255);
 			this.canvasInformation.context.fillRect(x, y, width, height);
 			this.canvasInformation.context.restore();
+		},
+		setDrawingEffects: function(drawingEffects) {
+			this.$currentSettings().set_drawingEffects(drawingEffects);
 		}
 	}, null, [Engine.Interfaces.ILayer]);
 	ss.initClass($Engine_Html5_Web_WebLayout, {

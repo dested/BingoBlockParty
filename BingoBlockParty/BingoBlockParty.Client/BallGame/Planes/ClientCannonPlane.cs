@@ -32,6 +32,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public void Render()
         {
+            this.Plane.Begin();
             this.Plane.Clear();
             var context = this.Plane;
 
@@ -43,6 +44,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
             context.Restore();
 
             context.Restore();
+            this.Plane.End();
 
         }
 

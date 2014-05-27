@@ -166,6 +166,7 @@ namespace BingoBlockParty.Client.BingoGame
         public ITouchManager TouchManager { get; private set; }
         public void Render(TimeSpan elapsedGameTime)
         {
+            mainLayer.Begin();
             mainLayer.Save();
 
             renderBackground();
@@ -183,6 +184,7 @@ namespace BingoBlockParty.Client.BingoGame
                     throw new ArgumentOutOfRangeException();
             }
             mainLayer.Restore();
+            mainLayer.End();
         }
 
         public BingoLayoutState CurrentBingoState { get; set; }
@@ -271,9 +273,9 @@ namespace BingoBlockParty.Client.BingoGame
         private void renderPurchaseCards()
         {
             mainLayer.Save();
-            mainLayer.Translate(LightBoardPosition.X, LightBoardPosition.Y);
+            mainLayer.Translate(LightBoardPosition);
             mainLayer.DrawImage(LightBoard, 0, 0);
-            mainLayer.DrawImage(ChooseYourCards, ChooseYourCardsPosition.X, ChooseYourCardsPosition.Y);
+            mainLayer.DrawImage(ChooseYourCards, ChooseYourCardsPosition);
 
 
             drawPurchaseBingoCard(100, 1, PurchaseBingoCardPosition1);
@@ -283,7 +285,7 @@ namespace BingoBlockParty.Client.BingoGame
 
 
             mainLayer.Restore();
-            mainLayer.DrawImage(PreviousCalledBalls, PreviousCalledBallsPosition.X, PreviousCalledBallsPosition.Y);
+            mainLayer.DrawImage(PreviousCalledBalls, PreviousCalledBallsPosition);
         }
 
         private void drawPurchaseBingoCard(int amount, int numOfCards, Point cardPosition)
@@ -317,22 +319,22 @@ namespace BingoBlockParty.Client.BingoGame
             switch (numOfCards)
             {
                 case 1:
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase1BingoCardPosition.X, Purchase1BingoCardPosition.Y, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase1BingoCardPosition, true);
                     break;
                 case 2:
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase2BingoCardPosition1.X, Purchase2BingoCardPosition1.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase2BingoCardPosition2.X, Purchase2BingoCardPosition2.Y, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase2BingoCardPosition1, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase2BingoCardPosition2, true);
                     break;
                 case 3:
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition1.X, Purchase3BingoCardPosition1.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition2.X, Purchase3BingoCardPosition2.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition3.X, Purchase3BingoCardPosition3.Y, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition1, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition2, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase3BingoCardPosition3, true);
                     break;
                 case 4:
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition1.X, Purchase4BingoCardPosition1.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition2.X, Purchase4BingoCardPosition2.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition3.X, Purchase4BingoCardPosition3.Y, true);
-                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition4.X, Purchase4BingoCardPosition4.Y, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition1, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition2, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition3, true);
+                    mainLayer.DrawImage(PurchaseBingoCard, Purchase4BingoCardPosition4, true);
                     break;
             }
             mainLayer.Restore();
@@ -354,8 +356,8 @@ namespace BingoBlockParty.Client.BingoGame
                     break;
                 default: throw new Exception("Bad Amount");
             }
-            mainLayer.DrawImage(amountImage, PurchaseAmountPosition.X, PurchaseAmountPosition.Y);
-            mainLayer.DrawImage(GoldCoin, PurchaseCoinPosition.X, PurchaseCoinPosition.Y, true);
+            mainLayer.DrawImage(amountImage, PurchaseAmountPosition);
+            mainLayer.DrawImage(GoldCoin, PurchaseCoinPosition, true);
             mainLayer.Restore();
 
         }
@@ -363,7 +365,7 @@ namespace BingoBlockParty.Client.BingoGame
         private void renderBackground()
         {
             mainLayer.DrawImage(LeftBoard, 0, 0);
-            mainLayer.DrawImage(NumberCallArea, NumberCallAreaPosition.X, NumberCallAreaPosition.Y);
+            mainLayer.DrawImage(NumberCallArea, NumberCallAreaPosition);
         }
         private void renderInGame()
         {
@@ -378,7 +380,7 @@ namespace BingoBlockParty.Client.BingoGame
 
         private void drawPreviousNumbersCalled()
         {
-            mainLayer.DrawImage(PreviousCalledBalls, PreviousCalledBallsPosition.X, PreviousCalledBallsPosition.Y);
+            mainLayer.DrawImage(PreviousCalledBalls, PreviousCalledBallsPosition);
 
             mainLayer.Save();
 

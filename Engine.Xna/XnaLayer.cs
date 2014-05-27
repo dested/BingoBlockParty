@@ -23,14 +23,17 @@ namespace Engine.Xna
 
 
             currentSpriteBatch = new SpriteBatch(renderer.graphicsDevice);
-            
+
             settingsStack = new List<XnaContextSettings>();
 
             settingsStack.Add(new XnaContextSettings());
             shapeCache = new XnaShapeCache(renderer.graphicsDevice);
+            _rasterizerState = new RasterizerState() { ScissorTestEnable = true };
 
         }
 
+        private Microsoft.Xna.Framework.Rectangle currentScissorRect;
+        private RasterizerState _rasterizerState;
 
         public void Begin()
         {
@@ -50,7 +53,9 @@ namespace Engine.Xna
 
             //            Resolution.getTransformationMatrix()
 
-            currentSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, scaleMatrix);
+
+//            currentSpriteBatch.GraphicsDevice.ScissorRectangle = new Microsoft.Xna.Framework.Rectangle(settings.Left, settings.Top,width,height);
+            currentSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, _rasterizerState, null, scaleMatrix);
         }
         public void End()
         {
@@ -74,6 +79,11 @@ namespace Engine.Xna
             settingsStack.RemoveAt(settingsStack.Count - 1);
         }
 
+        public void Translate(Point point)
+        {
+            Translate(point.X, point.Y);
+        }
+
         public void Translate(int x, int y)
         {
             XnaContextSettings xnaContextSettings = CurrentSettings();
@@ -81,26 +91,41 @@ namespace Engine.Xna
             xnaContextSettings.Top += y;
         }
 
+        public void DrawImage(IImage image, Point point)
+        {
+            DrawImage(image, point.X, point.Y);
+        }
+
         public void DrawImage(IImage image, int x, int y)
         {
-
-            XnaContextSettings xnaContextSettings = CurrentSettings();
-            var xnaImage = (XnaImage)image;
-            currentSpriteBatch.Draw(xnaImage.Texture, new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
+            DrawImage(image, x, y, image.Width,image.Height);
         }
-        public void DrawImage(IImage image, int x, int y,bool center)
-        {
 
-            XnaContextSettings xnaContextSettings = CurrentSettings();
-            var xnaImage = (XnaImage)image;
-            currentSpriteBatch.Draw(xnaImage.Texture, new Vector2(xnaContextSettings.Left + x - xnaImage.Center.X, xnaContextSettings.Top + y - xnaImage.Center.Y), WHITE);
+        public void DrawImage(IImage image, Point point, bool center)
+        {
+            DrawImage(image, point.X, point.Y, center);
+        }
+
+        public void DrawImage(IImage image, int x, int y, bool center)
+        {
+            var _x = x ;
+            var _y = y ;
+
+            if (center)
+            {
+                _x -= image.Center.X;
+                _y -= image.Center.Y;
+            }
+
+            DrawImage(image, _x, _y,image.Width,image.Height);
         }
 
         public void DrawImage(IImage image, int x, int y, int width, int height)
         {
+            
             XnaContextSettings xnaContextSettings = CurrentSettings();
             var xnaImage = (XnaImage)image;
-            currentSpriteBatch.Draw(xnaImage.Texture, new Microsoft.Xna.Framework.Rectangle(xnaContextSettings.Left + x, xnaContextSettings.Top + y, width, height), WHITE);
+            currentSpriteBatch.Draw(xnaImage.Texture, new Microsoft.Xna.Framework.Rectangle(xnaContextSettings.Left + x, xnaContextSettings.Top + y, width, height), xnaImage.SourceRectangle, WHITE, 0, Vector2.Zero, DrawingEffectsToSpriteEffects(xnaContextSettings.DrawingEffects), 1);
         }
 
         public void DrawImage(IImage image, int x, int y, double angle, int centerX, int centerY)
@@ -110,11 +135,32 @@ namespace Engine.Xna
 
 
             Vector2 location = new Vector2(xnaContextSettings.Left + x + centerX, xnaContextSettings.Top + y + centerY);
-            Microsoft.Xna.Framework.Rectangle sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 0, image.Width, image.Height);
             Vector2 origin = new Vector2(centerX, centerY);
 
-            currentSpriteBatch.Draw(xnaImage.Texture, location, sourceRectangle, WHITE, (float)angle, origin, 1.0f, SpriteEffects.None, 1);
+            currentSpriteBatch.Draw(xnaImage.Texture, location, xnaImage.SourceRectangle, WHITE, (float)angle, origin, 1.0f, DrawingEffectsToSpriteEffects(xnaContextSettings.DrawingEffects), 1);
 
+        }
+
+        private static SpriteEffects DrawingEffectsToSpriteEffects(DrawingEffects drawingEffects)
+        {
+            return (SpriteEffects)drawingEffects;
+        }
+
+        public void SetDrawingEffects(DrawingEffects drawingEffects)
+        {
+
+            XnaContextSettings xnaContextSettings = CurrentSettings();
+            xnaContextSettings.DrawingEffects = drawingEffects;
+        }
+
+        public void DrawImage(IImage image, int x, int y, double angle, Point center)
+        {
+            DrawImage(image, x, y, angle, center.X, center.Y);
+        }
+
+        public void DrawImage(IImage image, Point point, double angle, Point center)
+        {
+            DrawImage(image, point.X, point.Y, angle, center.X, center.Y);
         }
 
         public void DrawString(string fontName, string text, int x, int y)
@@ -127,7 +173,7 @@ namespace Engine.Xna
                 WHITE, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 1);
         }
 
-        public void DrawString(string fontName, string text, int x, int y,Color color)
+        public void DrawString(string fontName, string text, int x, int y, Color color)
         {
             XnaContextSettings xnaContextSettings = CurrentSettings();
             var font = renderer.GetFont(fontName);
@@ -149,7 +195,7 @@ namespace Engine.Xna
         public void DrawRectangle(Color color, int x, int y, int width, int height)
         {
             XnaContextSettings xnaContextSettings = CurrentSettings();
-            currentSpriteBatch.Draw(shapeCache.GetShape(color,width,height), new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
+            currentSpriteBatch.Draw(shapeCache.GetShape(color, width, height), new Vector2(xnaContextSettings.Left + x, xnaContextSettings.Top + y), WHITE);
         }
 
     }
@@ -167,7 +213,7 @@ namespace Engine.Xna
 
         public Texture2D GetShape(Color color, int width, int height)
         {
-            string m = getKey(color,width,height);
+            string m = getKey(color, width, height);
             Texture2D texture;
             if (caches.TryGetValue(m, out texture))
             {
@@ -191,6 +237,6 @@ namespace Engine.Xna
         {
 
             return string.Format("{0}-{1}-{2}-{3}-{4}-{5}", color.R, color.G, color.B, color.A, width, height);
-        } 
+        }
     }
 }

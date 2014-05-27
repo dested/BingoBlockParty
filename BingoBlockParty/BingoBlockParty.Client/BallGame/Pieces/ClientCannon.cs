@@ -109,52 +109,6 @@ namespace BingoBlockParty.Client.BallGame.Pieces
             context.Restore();
 
 
-            /*
-                                if (this.GameBoard.GameModel.showPeople) {
-                                    this.ticking += 2;
-
-                                    context.Save();
-
-                                    var person = assetLoader.getAsset('female.blonde.front');
-
-                                    context.Translate((-this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 100);
-
-                                    context.Translate(person.Width / 2, person.Height / 2);
-
-
-                                    if (this.ticking % 20 < 10) {
-                                        context.Rotate(.07);
-                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                                    } else {
-                                        context.Rotate(-.07);
-                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                                    }
-
-                                    context.Restore();
-
-
-                                    context.Save();
-
-                                    var person = assetLoader.getAsset('male.hat.front');
-
-                                    context.Translate((this.ticking + (this.GameBoard.GameModel.canvasWidth * 100)) % this.GameBoard.GameModel.canvasWidth, 200);
-
-                                    context.Translate(person.Width / 2, person.Height / 2);
-
-
-                                    if (this.ticking % 20 < 10) {
-                                        context.Rotate(.07);
-                                        context.scale(-1, 1);
-                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                                    } else {
-                                        context.Rotate(-.07);
-                                        context.scale(-1, 1);
-                                        context.DrawImage(person.image, -person.Width / 2, -person.Height / 2)
-                                    }
-
-                                    context.Restore();
-                                }
-            */
 
         }
     }

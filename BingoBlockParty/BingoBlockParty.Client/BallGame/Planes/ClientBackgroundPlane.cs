@@ -32,12 +32,13 @@ namespace BingoBlockParty.Client.BallGame.Planes
         public void Render()
         {
             var context = this.Plane;
-
+            context.Begin();
             context.Save();
             this.GameBoard.ViewManager.TranslateContext(context);
             context.DrawImage(GameBoard.Renderer.GetImage("board"), 0, 0, this.GameBoard.GameModel.BoardWidth, this.GameBoard.GameModel.BoardHeight);
 
             context.Restore();
+            context.End();
         }
     }
 

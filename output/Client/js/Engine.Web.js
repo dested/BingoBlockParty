@@ -180,6 +180,12 @@
 	$Engine_Interfaces_Direction.__typeName = 'Engine.Interfaces.Direction';
 	global.Engine.Interfaces.Direction = $Engine_Interfaces_Direction;
 	////////////////////////////////////////////////////////////////////////////////
+	// Engine.Interfaces.DrawingEffects
+	var $Engine_Interfaces_DrawingEffects = function() {
+	};
+	$Engine_Interfaces_DrawingEffects.__typeName = 'Engine.Interfaces.DrawingEffects';
+	global.Engine.Interfaces.DrawingEffects = $Engine_Interfaces_DrawingEffects;
+	////////////////////////////////////////////////////////////////////////////////
 	// Engine.Interfaces.IClient
 	var $Engine_Interfaces_IClient = function() {
 	};
@@ -504,17 +510,19 @@
 	$Engine_TouchRect.$ctor1.prototype = $Engine_TouchRect.prototype;
 	ss.initEnum($Engine_TouchType, { touchUp: 0, touchDown: 1, touchMove: 2 });
 	ss.initEnum($Engine_Interfaces_Direction, { left: 0, right: 1, up: 2, down: 3 });
+	ss.initEnum($Engine_Interfaces_DrawingEffects, { none: 0, flipHorizontally: 1, flipVertically: 2 });
 	ss.initInterface($Engine_Interfaces_IClient, { get_game: null, set_game: null, get_screenManager: null, set_screenManager: null, get_socketManager: null, set_socketManager: null, get_clientSettings: null, set_clientSettings: null, loadImages: null, init: null, draw: null, touchEvent: null, tick: null, timeout: null, showKeyboard: null });
 	ss.initInterface($Engine_Interfaces_IClientSettings, { get_oneLayoutAtATime: null, set_oneLayoutAtATime: null, get_getKeyboardInput: null, set_getKeyboardInput: null });
 	ss.initInterface($Engine_Interfaces_IGame, { get_client: null, initScreens: null, initSocketManager: null, loadAssets: null, beforeTick: null, afterTick: null, beforeDraw: null, afterDraw: null, loadFonts: null });
-	ss.initInterface($Engine_Interfaces_IImage, { get_center: null, set_center: null, get_width: null, set_width: null, get_height: null, set_height: null });
-	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, drawImage: null, drawImage$1: null, drawImage$2: null, drawImage$3: null, drawString: null, drawString$1: null, clear: null, measureString: null, drawRectangle: null });
+	ss.initInterface($Engine_Interfaces_IImage, { get_center: null, get_width: null, get_height: null });
+	ss.initInterface($Engine_Interfaces_ILayer, { get_layout: null, set_layout: null, save: null, restore: null, translate: null, translate$1: null, drawImage: null, drawImage$2: null, drawImage$1: null, drawImage$4: null, drawImage$6: null, drawImage$7: null, drawImage$5: null, drawImage$3: null, drawString: null, drawString$1: null, clear: null, measureString: null, drawRectangle: null, setDrawingEffects: null, begin: null, end: null });
 	ss.initInterface($Engine_Interfaces_ILayout, { get_uiManager: null, set_uiManager: null, get_layoutView: null, set_layoutView: null, get_screen: null, set_screen: null, get_layoutPosition: null, set_layoutPosition: null, get_width: null, set_width: null, get_height: null, set_height: null, get_active: null, set_active: null, get_alwaysTick: null, set_alwaysTick: null, get_screenOrientation: null, set_screenOrientation: null, offset: null, leftOf: null, rightOf: null, above: null, below: null, makeActive: null, forceTick: null, setScreenOrientation: null, processTouchEvent: null });
 	ss.initInterface($Engine_Interfaces_ILayoutView, { initLayoutView: null, tickLayoutView: null, get_touchManager: null, get_layout: null, set_layout: null, render: null, destroy: null });
-	ss.initInterface($Engine_Interfaces_IRenderer, { createLayer: null, addLayer: null, getImage: null, createImage: null, createFont: null, beginRender: null, endRender: null });
+	ss.initInterface($Engine_Interfaces_IRenderer, { createLayer: null, addLayer: null, getImage: null, createImage: null, createFont: null });
 	ss.initInterface($Engine_Interfaces_IScreen, { createLayout: null, get_layouts: null, get_oneLayoutAtATime: null, set_oneLayoutAtATime: null, get_screenManager: null, set_screenManager: null, init: null, draw: null, touchEvent: null, tick: null, getLayoutSize: null, changeLayout: null, changeLayout$1: null, destroy: null });
 	ss.initInterface($Engine_Interfaces_IScreenManager, { get_client: null, set_client: null, get_currentScreen: null, set_currentScreen: null, createScreen: null, get_screens: null, draw: null, touchEvent: null, tick: null, getScreenSize: null, changeScreen: null, timeout: null, init: null });
 	ss.initInterface($Engine_Interfaces_IScreenView, { get_layoutView: null, set_layoutView: null, get_width: null, set_width: null, get_height: null, set_height: null });
 	ss.initInterface($Engine_Interfaces_IUIManager, { get_layout: null, set_layout: null, processTouchEvent: null, createTextBox: null, get_textBoxes: null, set_textBoxes: null, clearFocus: null });
 	ss.initInterface($Engine_Interfaces_IUITextBox, { focus: null, get_uiManager: null, set_uiManager: null, get_rectangle: null, set_rectangle: null, get_layoutView: null, set_layoutView: null, get_onTextChange: null, set_onTextChange: null, get_focused: null, set_focused: null, blur: null });
+	ss.setMetadata($Engine_Interfaces_DrawingEffects, { enumFlags: true });
 })();

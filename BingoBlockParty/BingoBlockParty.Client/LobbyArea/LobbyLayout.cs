@@ -242,6 +242,7 @@ namespace BingoBlockParty.Client.LobbyArea
         }
         public void Render(TimeSpan elapsedGameTime)
         {
+            mainLayer.Begin();
 
 
             mainLayer.Save();
@@ -266,6 +267,7 @@ namespace BingoBlockParty.Client.LobbyArea
             mainLayer.DrawImage(ScrollBarButtonOverlay, ScrollBarPosition.X + 4, ScrollBarPosition.Y + (ScrollBarButtonPosition));
 
             mainLayer.Restore();
+            mainLayer.End();
         }
 
         private List<LobbyRoom> Rooms { get; set; }

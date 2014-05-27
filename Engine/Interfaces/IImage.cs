@@ -2,8 +2,8 @@
 {
     public interface IImage
     {
-        Point Center { get; set; }
-        int Width { get; set; }
-        int Height { get; set; }
+        Point Center { get;  }
+        int Width { get;  }
+        int Height { get;  }
     }
 }

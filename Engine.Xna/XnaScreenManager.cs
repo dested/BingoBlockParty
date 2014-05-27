@@ -46,7 +46,6 @@ namespace Engine.Xna
             Renderer.graphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
             Renderer.BeginRender();
             CurrentScreen.Draw(elapsedGameTime);
-        
             Renderer.EndRender();
 
         }

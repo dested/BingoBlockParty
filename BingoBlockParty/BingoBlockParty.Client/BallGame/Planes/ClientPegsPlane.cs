@@ -34,6 +34,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
 
         public   void Render()
         {
+            Plane.Begin();
             Plane.Clear();
             var context = Plane;
             context.Save();
@@ -48,6 +49,7 @@ namespace BingoBlockParty.Client.BallGame.Planes
                 
             }
             context.Restore();
+            Plane.End();
         }
     }
 }

@@ -92,18 +92,11 @@ namespace Engine.Xna
         }
 
         public void BeginRender()
-        {
-            foreach (var xnaLayer in layers)
-            {
-                xnaLayer.Begin();
-            }
+        { 
         }
         public void EndRender()
         {
-            foreach (var xnaLayer in layers)
-            {
-                xnaLayer.End();
-            }
+            
         }
 
     }

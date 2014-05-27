@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CanvasInformation.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Network\SocketError.cs" />
     <Compile Include="Network\WebSocket.cs" />
     <Compile Include="Network\WebSocketManager.cs" />

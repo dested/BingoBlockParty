@@ -38,9 +38,11 @@ namespace BingoBlockParty.Client.InfoArea
         public ITouchManager TouchManager { get; private set; }
         public void Render(TimeSpan elapsedGameTime)
         {
+            mainLayer.Begin();
             mainLayer.Save();
             mainLayer.DrawRectangle(new Color(58, 58, 148), 0, 0, _width, _height);
             mainLayer.Restore();
+            mainLayer.End();
 
         }
 
