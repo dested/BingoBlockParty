@@ -8,13 +8,14 @@ var insert = require('gulp-insert');
 var watch = require('gulp-watch');
 var spritesmith = require('gulp.spritesmith');
 
-var codePaths = ['BingoBlockParty/BingoBlockParty.Client/ProjectFiles/BingoBlockParty.Client.Web/bin/Debug/**/*.js',
-    'BingoBlockParty/BingoBlockParty.Common/ProjectFiles/BingoBlockParty.Common.Web/bin/Debug/**/*.js',
-    'Engine.Html5/bin/Debug/**/*.js',
-    'Client/Client.Web/bin/Debug/**/*.js',
-    'Engine/ProjectFiles/Engine.Web/bin/Debug/**/*.js'
+var codePaths = ['Source/BingoBlockParty/BingoBlockParty.Client/ProjectFiles/BingoBlockParty.Client.Web/bin/Debug/**/*.js',
+    'Source/BingoBlockParty/BingoBlockParty.Common/ProjectFiles/BingoBlockParty.Common.Web/bin/Debug/**/*.js',
+    'Source/Engine.Html5/bin/Debug/**/*.js',
+    'Source/Client/Client.Web/bin/Debug/**/*.js',
+    'Source/Engine/ProjectFiles/Engine.Web/bin/Debug/**/*.js'
 ];
-var libPaths = ['packages/Saltarelle.Runtime.2.3.1/mscorlib.js', 'BingoBlockParty/Libraries/JBox2d/ProjectFiles/JBox2d.Web/bin/Debug/**/*.js'];
+var libPaths = ['Source/packages/Saltarelle.Runtime.2.3.1/mscorlib.js', 
+'Source/BingoBlockParty/Libraries/JBox2d/ProjectFiles/JBox2d.Web/bin/Debug/**/*.js'];
 
 var assetPaths = ['Content/assets/png/**/*.*'];
 
