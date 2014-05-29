@@ -73,7 +73,6 @@ namespace Engine.Xna
             {
                 foreach (var xnaLayout in XnaLayouts)
                 {
-
                     xnaLayout.LayoutView.Render(elapsedGameTime);
                 }
             }
@@ -127,6 +126,35 @@ namespace Engine.Xna
             }
 
 
+        }
+
+        public bool HasLayout(Direction direction)
+        {
+            if (OneLayoutAtATime)
+            {
+                switch (direction)
+                {
+                    case Direction.Left:
+                        if (CurrentLayout.LayoutPosition.Left != null)
+                            return true;
+                        break;
+                    case Direction.Right:
+                        if (CurrentLayout.LayoutPosition.Right != null)
+                            return true;
+                        break;
+                    case Direction.Up:
+                        if (CurrentLayout.LayoutPosition.Top != null)
+                            return true;
+                        break;
+                    case Direction.Down:
+                        if (CurrentLayout.LayoutPosition.Bottom != null)
+                            return true;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("direction");
+                }
+            }
+            return false;
         }
 
         public void ChangeLayout(Direction direction)

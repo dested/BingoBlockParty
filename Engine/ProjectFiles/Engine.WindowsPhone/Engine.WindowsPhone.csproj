@@ -8,8 +8,8 @@
     <ProjectGuid>{8d1cf882-28e3-40f0-a6c7-9c6089d101ae}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engine.WindowsPhone</RootNamespace>
-    <AssemblyName>Engine.WindowsPhone</AssemblyName>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile49</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

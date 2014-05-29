@@ -1,32 +1,30 @@
-﻿using System.Threading.Tasks;
-using Engine;
+﻿using Engine;
 using Engine.Interfaces;
 using Engine.Xna;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-using Color = Microsoft.Xna.Framework.Color;
 
-namespace Client.WindowsPhone
+namespace Client.WindowsStore
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        GraphicsDeviceManager graphics;
         private IClient client;
-        private IRenderer renderer; 
+        private IRenderer renderer;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            TouchPanel.EnableMouseGestures = true;
-            TouchPanel.EnabledGestures = GestureType.Flick;
+
+            IsMouseVisible = true;
+            TouchPanel.EnableMouseTouchPoint = true;
         }
 
         /// <summary>
@@ -51,14 +49,19 @@ namespace Client.WindowsPhone
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             client = new XnaClient();
+
             renderer = new XnaRenderer(GraphicsDevice, Content, graphics, client);
             client.LoadImages(renderer);
 
-
-            client.Init(renderer,new XnaClientSettings(){OneLayoutAtATime=true,GetKeyboardInput = (callback) =>
+            client.Init(renderer, new XnaClientSettings()
             {
-                callback("");
-            }});
+                GetKeyboardInput = (callback) =>
+                {
+                    callback("");
+                },
+                OneLayoutAtATime = false
+            });
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,39 +74,73 @@ namespace Client.WindowsPhone
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override async void Update(GameTime gameTime)
+        private int mouseX;
+        private int mouseY;
+        private bool mouseIsDown;
+        private int currentIndex = 0;
+        protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                currentIndex = currentIndex == 0 ? 1 : 0;
+                var screen = client.ScreenManager.Screens.ElementAt(currentIndex);
+                client.ScreenManager.ChangeScreen(screen);
+            }
+
+
             var layoutManager = client.ScreenManager.CurrentScreen;
 
-            var dragGesture = client.DragDragGestureManager.GetGeture();
-            if (dragGesture != null)
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                if (layoutManager.HasLayout(dragGesture.Direction))
-                {
-                    if (dragGesture.Distance > DragGestureManager.TriggerDistance)
+                layoutManager.ChangeLayout(Direction.Left);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                layoutManager.ChangeLayout(Direction.Right);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                layoutManager.ChangeLayout(Direction.Up);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                layoutManager.ChangeLayout(Direction.Down);
+            }
+
+            MouseState mouseState = Mouse.GetState();
+            if (mouseX != mouseState.X || mouseY != mouseState.Y)
+            {
+                mouseX = mouseState.X;
+                mouseY = mouseState.Y;
+                client.TouchEvent(TouchType.TouchMove, (int)mouseState.X, (int)mouseState.Y);
+            }
+
+
+
+            switch (mouseState.LeftButton)
+            {
+                case ButtonState.Pressed:
+                    client.TouchEvent(TouchType.TouchDown, (int)mouseState.X, (int)mouseState.Y);
+                    mouseIsDown = true;
+                    break;
+                case ButtonState.Released:
+                    if (mouseIsDown)
                     {
-                        layoutManager.ChangeLayout(dragGesture.Direction);
-                        client.DragDragGestureManager.ClearDataPointsTillUp();
+                        client.TouchEvent(TouchType.TouchUp, (int)mouseState.X, (int)mouseState.Y);
+                        mouseIsDown = false;
                     }
-                }
+                    break;
             }
 
             TouchCollection touchCollection = TouchPanel.GetState();
-               if (touchCollection.Count == 2)
-            {
-                client.DragDragGestureManager.AddDataPoint(TouchType.TouchMove, (int)touchCollection[0].Position.X, (int)touchCollection[0].Position.Y);
-            }
-            else
-            {
-                client.DragDragGestureManager.ClearDataPoints();
-
             foreach (var touch in touchCollection)
             {
                 switch (touch.State)
@@ -115,11 +152,9 @@ namespace Client.WindowsPhone
                         client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                     case TouchLocationState.Released:
-                        client.DragDragGestureManager.TouchUp();
                         client.TouchEvent(TouchType.TouchUp, (int)touch.Position.X, (int)touch.Position.Y);
                         break;
                 }
-            }
             }
 
             client.Tick(gameTime.TotalGameTime);
@@ -133,7 +168,7 @@ namespace Client.WindowsPhone
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
 
             client.Draw(gameTime.TotalGameTime);
 

@@ -30,7 +30,7 @@ namespace Engine.Xna
         public void CreateImage(string imageName, string imagePath, Point center = null)
         {
             var assetName = imagePath;
-#if WINDOWS_PHONE || WINDOWS
+#if WINDOWS_PHONE || WINDOWS || WINDOWS_STORE
             assetName = assetName.Replace(".png", "");
 #endif
             var texture2D = content.Load<Texture2D>(assetName);

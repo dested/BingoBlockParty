@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Channels;
 using System.Threading.Tasks;
 using Android.App;
@@ -17,6 +18,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Point = Engine.Point;
 
 namespace Client.Android
 {
@@ -30,14 +32,14 @@ namespace Client.Android
         private IClient client;
         private IRenderer renderer;
 
+
+
         public BingoGameClient()
         {
             graphics = new GraphicsDeviceManager(this);
             //            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
             graphics.SupportedOrientations = DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
-            TouchPanel.EnableMouseGestures = true;
-            TouchPanel.EnabledGestures = GestureType.Flick;
 
             //             Resolution.SetVirtualResolution(430 * 2, 557 * 2);
             //             Resolution.SetResolution(430 , 557 , false);
@@ -77,7 +79,7 @@ namespace Client.Android
             bool opened = false;
             client.Init(renderer, new XnaClientSettings()
             {
-                GetKeyboardInput =   (callback) =>
+                GetKeyboardInput = (callback) =>
                 {
                     if (opened) return;
                     opened = true;
@@ -87,21 +89,20 @@ namespace Client.Android
                         opened = false;
                         callback(endShowKeyboardInput);
                     }, null);
-                    
-                    
                 },
                 OneLayoutAtATime = true
             });
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
 
         }
-          
+
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override async void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -113,54 +114,46 @@ namespace Client.Android
             var layoutManager = client.ScreenManager.CurrentScreen;
 
 
-            while (TouchPanel.IsGestureAvailable)
+            var dragGesture = client.DragDragGestureManager.GetGeture();
+            if (dragGesture != null)
             {
-                var gest = TouchPanel.ReadGesture();
-                switch (gest.GestureType)
+                if (layoutManager.HasLayout(dragGesture.Direction))
                 {
-                    case GestureType.Flick:
-                        const int tolerance = 4000;
-                        if (gest.Delta.X > tolerance)
-                        {
-                            
-                            layoutManager.ChangeLayout(Direction.Left);
-                        }
-                        if (gest.Delta.X < -tolerance)
-                        {
-                            layoutManager.ChangeLayout(Direction.Right);
-                        }
-                        if (gest.Delta.Y > tolerance)
-                        {
-                            layoutManager.ChangeLayout(Direction.Up);
-                        }
-                        if (gest.Delta.Y < -tolerance)
-                        {
-                            layoutManager.ChangeLayout(Direction.Down);
-
-                        }
-                        break;
+                    if (dragGesture.Distance > DragGestureManager.TriggerDistance)
+                    {
+                        layoutManager.ChangeLayout(dragGesture.Direction);
+                        client.DragDragGestureManager.ClearDataPointsTillUp();
+                    }
                 }
             }
 
-
             TouchCollection touchCollection = TouchPanel.GetState();
 
-
-            for (int index = 0; index < touchCollection.Count; index++)
+            if (touchCollection.Count == 2)
             {
-                var touch = touchCollection[index];
+                client.DragDragGestureManager.AddDataPoint(TouchType.TouchMove, (int)touchCollection[0].Position.X, (int)touchCollection[0].Position.Y);
+            }
+            else
+            {
+                client.DragDragGestureManager.ClearDataPoints();
 
-                switch (touch.State)
+                for (int index = 0; index < touchCollection.Count; index++)
                 {
-                    case TouchLocationState.Moved:
-                        client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
-                        break;
-                    case TouchLocationState.Pressed:
-                        client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
-                        break;
-                    case TouchLocationState.Released:
-                        client.TouchEvent(TouchType.TouchUp, (int)touch.Position.X, (int)touch.Position.Y);
-                        break;
+                    var touch = touchCollection[index];
+
+                    switch (touch.State)
+                    {
+                        case TouchLocationState.Moved:
+                            client.TouchEvent(TouchType.TouchMove, (int)touch.Position.X, (int)touch.Position.Y);
+                            break;
+                        case TouchLocationState.Pressed:
+                            client.TouchEvent(TouchType.TouchDown, (int)touch.Position.X, (int)touch.Position.Y);
+                            break;
+                        case TouchLocationState.Released:
+                            client.DragDragGestureManager.TouchUp();
+                            client.TouchEvent(TouchType.TouchUp, (int)touch.Position.X, (int)touch.Position.Y);
+                            break;
+                    }
                 }
             }
 
@@ -168,7 +161,7 @@ namespace Client.Android
 
             base.Update(gameTime);
         }
-         
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

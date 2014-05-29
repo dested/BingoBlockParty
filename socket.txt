@@ -1,0 +1,54 @@
+auth.request.login
+  token
+
+auth.response.login
+  token
+
+lobby.request.gameTypes
+lobby.request.joinGameType
+
+lobby.response.gameTypes
+lobby.response.joinGameType
+  gameToken
+
+store.request.purchasables
+store.request.purchase?
+
+user.request.friends
+user.request.profile
+
+game.request.gameInfo
+  gameToken
+    
+game.response.gameInfo
+  users
+  board
+  information
+
+game.send.chatMessage
+
+game.request.purchaseCards
+game.response.purchaseCards
+  numbers
+
+game.send.gameState
+  
+
+game.post.moveTurret
+  turretAngle - timestamp[]
+game.post.shootTurret
+  turretAngle  
+
+game.send.turretShooting
+  turretAngle - timestamp
+
+game.send.turrentMoving
+  turretAngle - timestamp[]
+
+
+game.request.optToThrow
+
+game.post.chatMessage
+
+game.post.bingo
+

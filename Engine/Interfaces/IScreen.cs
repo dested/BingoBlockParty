@@ -15,6 +15,7 @@ namespace Engine.Interfaces
         void TouchEvent(TouchType touchType, int x, int y);
         void Tick(TimeSpan elapsedGameTime);
         Size GetLayoutSize();
+        bool HasLayout(Direction direction);
         void ChangeLayout(Direction direction);
         void ChangeLayout(ILayout layout);
 

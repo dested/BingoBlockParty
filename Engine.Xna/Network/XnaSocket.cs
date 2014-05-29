@@ -1,5 +1,5 @@
 using System;
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || WINDOWS_STORE
 using SocketIOClient;
 #else
 using SocketEngine.SocketIO;
